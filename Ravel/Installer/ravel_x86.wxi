@@ -1,0 +1,17 @@
+<Include>
+  <Directory Id='ProgramFilesFolder'>
+    <Directory Id='Ravel' Name='Ravel'>
+      <Directory Id='INSTALLDIR'>
+        <Component Id='RavelFiles' DiskId='1' Guid='*'>
+          <File Id='Ravel_win32XLL' Name='Ravel_Win32.xll'
+                Source='../Release/Ravel_Win32.xll' KeyPath='yes'/>
+        </Component>
+        <?include ravel_xlsm.wxi?>
+        <?include ravelDoc.wxi?>
+      </Directory>
+    </Directory>
+  </Directory>
+  <Merge Id='VCRedist' 
+         SourceFile='c:/Program Files (x86)/Common Files/Merge Modules/Microsoft_VC140_CRT_x86.msm'
+         DiskId='1' Language='0'/>
+</Include>

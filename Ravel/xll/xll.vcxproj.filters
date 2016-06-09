@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="maml">
+      <UniqueIdentifier>{99b72d61-2588-4546-969b-7f104431aac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility">
+      <UniqueIdentifier>{71b82bd8-46ee-4e58-8708-286fad42df0f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="addin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="args.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="auto.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="excel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="handle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="insert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="limits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="locus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="loper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="macrofun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="on.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="oper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="paste.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="range.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="register.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="traits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XLCALL.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xloper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="maml\document.h">
+      <Filter>maml</Filter>
+    </ClInclude>
+    <ClInclude Include="maml\entities.h">
+      <Filter>maml</Filter>
+    </ClInclude>
+    <ClInclude Include="maml\xml.h">
+      <Filter>maml</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\cred.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\ensure.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\env.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\file.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\hash.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\log.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\message.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\registry.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\srng.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\strings.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\timer.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\uuid.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\winhttp.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="auto.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="error.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="paste.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="range.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XLCALL.CPP">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="maml\document.cpp">
+      <Filter>maml</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

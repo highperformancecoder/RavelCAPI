@@ -1,0 +1,6 @@
+<!-- refers to ravel.xlsm Visual Basic code common to all platforms -->
+<Include>
+  <Component Id='Ravelxlsm' DiskId='1' Guid='*'> 
+    <File Id='Ravel_xlsm' Name='ravel.xlsm' Source='../Release/ravel.xlsm' KeyPath='yes'/>
+  </Component>
+</Include>

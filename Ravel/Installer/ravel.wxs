@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+  <Product Name='Ravel $(sys.BUILDARCH)' Id='*' UpgradeCode='df7de23e-4dd9-4e34-a74b-eaa3906d08fc'
+    Language='1033' Codepage='1252' Version='1.0.22' Manufacturer='High Performance Coders'>
+    <Package Id='*' Keywords='Installer' Description="Ravel Excel Addin Installer"
+      Comments='Ravel is copyright High Performance Coders' Manufacturer='High Performance Coders'
+      InstallerVersion='405' Languages='1033' Compressed='yes' SummaryCodepage='1252' 
+             Platform='$(sys.BUILDARCH)'/>
+    <Upgrade Id='df7de23e-4dd9-4e34-a74b-eaa3906d08fc'>
+      <UpgradeVersion OnlyDetect='no' Property='PREVIOUSFOUND'
+         Minimum='0.0.0' IncludeMinimum='yes'
+         Maximum='2.0.0' IncludeMaximum='no' />
+    </Upgrade>
+    <InstallExecuteSequence>
+      <RemoveExistingProducts Before='InstallInitialize'/>
+    </InstallExecuteSequence>
+    <Media Id='1' Cabinet='ravel.cab' EmbedCab='yes'/>
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <?include ravel_$(sys.BUILDARCH).wxi?>
+    </Directory>
+    <Feature Id='Complete' Level='1'>
+      <ComponentRef Id='RavelFiles' />
+      <ComponentRef Id='Ravelxlsm' />
+      <ComponentRef Id='RavelDoc' />
+    </Feature>
+    <Feature Id='VCRedist' Title='Visual C++ 12.0 runtime' Display='hidden' Level='1'>
+      <MergeRef Id='VCRedist'/>
+    </Feature>
+    <!--UI>
+      <UIRef Id="WixUI_InstallDir"/>
+    </UI-->
+    <!-- code to prompt for displaying the documentation -->
+    <UI>
+      <UIRef Id='WixUI_InstallDir'/>
+      <Publish Dialog='ExitDialog' Control='Finish' Event='DoAction'
+               Value='OpenDocumentation'>WIXUI_EXITDIALOGOPTIONALCHECKBOX=1 and NOT Installed</Publish> 
+    </UI>
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
+    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" 
+              Value="Ravel is now installed. Please read the documentation to learn how to include Ravel in your copy of Excel."/>
+
+    <Property Id='WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT' 
+              Value='Open installation documentation'/>
+    <Property Id='WixShellExecTarget' Value='[#index.html]'/>
+    <CustomAction Id='OpenDocumentation' BinaryKey='WixCA' DllEntry='WixShellExec' Impersonate='yes'/>
+  </Product>
+</Wix>

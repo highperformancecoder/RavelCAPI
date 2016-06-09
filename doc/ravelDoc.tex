@@ -1,0 +1,259 @@
+\documentclass{article}
+\usepackage{html,graphics}
+\title{Ravel User Guide}
+
+% prevent having to place annoying mboxes
+%begin{latexonly}
+\renewcommand{\htmladdimg}{\mbox{}}
+%end{latexonly}
+
+\begin{document}
+\maketitle
+\section{Installing Ravel}
+
+\begin{itemize} 
+
+\item You will need to choose either the 32 bit or the 64 bit version
+of the Ravel Addin installer, as appropriate for your version of
+Excel. You can install both versions on your system, but the installer
+will not allow you to install both in the same directory. Double click
+on the .msi file, and follow the instructions.
+
+\item Next you will need to enable the Addin in Excel. 
+\begin{itemize}
+\item Within Excel,select "Excel Options", found within the Office
+home button. 
+\item Select "Manage: Excel Add-ins", and press "Go...".
+\item Select "Browse", and browse to where Ravel is installed (by
+default \verb+C:\Program Files\Ravel+).
+\item Select the 32 bit (Ravel\_Win32.xll) or 64 bit (Ravel\_x64.xll)
+as appropriate for you version of Excel. If you select the wrong
+version, you will receive a message about it not being a valid Add-in.
+\item Make sure the Ravel Add-in is enabled (ticked)
+\item If the wrong version of Ravel is loaded, eg due to an ealier
+Ravel install into a different place, the only way to correct
+the situation permanently is to move or delete the incorrect XLL file.
+\end{itemize}
+
+\item Finally, you should create a "Quick Access" menu item for
+creating a Ravel control of the active spreadsheet. To do this, select
+the "Customize Quick Access Toolbar" menu, and select "More
+commands...". Then choose the "newRavel" macro. This macro is also
+available under the Add-Ins menu of the main toolbar.
+
+\end{itemize}
+
+\section{Getting started}
+
+When getting started with Ravel, it is good to start with a
+spreadsheet that is already formatted in a multidimensional way. The
+following tables shows two 3D examples, \htmladdnormallink{one where all dimension labels are
+stored in columns}{RavelEx1.xlsx}, and \htmladdnormallink{the other where one of the dimensions is spread
+across the remaining columns}{RavelEx2.xlsx}:
+
+\begin{tabular}{cc}
+\begin{tabular}{|l|l|l|r|}
+\hline
+Year& Country& Gender& Sales\\\hline
+1990& Australia& Male& 10400 \\
+1990& Australia& Female & 12060\\
+1990& UK & Male & 23012\\
+1990& UK & Female& 22030\\
+1991 & Australia & Male &12021\\
+\multicolumn{4}{|c|}{$\cdots$}\\
+\hline
+\end{tabular} 
+&
+\begin{tabular}{|l|l|r|r|}
+\hline
+Gender & &Male& Female\\\hline
+Year& Country& &\\\hline
+1990& Australia& 10400 & 12060\\
+1990& UK & 23012 & 22030\\
+1991 & Australia & 12021 & 12900\\
+\multicolumn{4}{|c|}{$\cdots$}\\
+\hline
+\end{tabular}
+\\
+\end{tabular}
+In this case, the axes of the data set are labelled ``Year'',
+``Country'' and ``Gender''.
+
+These represent the two basic types of multidimensional spreadsheets
+that Ravel will recognise automatically. However, Ravel provides tools
+for handling more complex arrangements of multidimensional data, with
+a modicum of user input, something we'll touch on later.
+
+Load up one of the example dataset, and press the ``newRavel'' macro
+button. A new workbook is created with two sheets, an input sheet
+which is pretty much a copy of your original spreadsheet, and an
+output sheet, which contains the ravelled result. As well as this, a
+popup window is created, which allows you to manipulate the data. With
+the above spreadsheet examples, the Ravel window looks like
+
+\begin{center}
+\htmladdimg{RavelEx.png}
+\end{center}
+
+Now click on the axis marked ``Country'' and drag it over the
+``Gender'' axis. The axes switch positions, and the output spreadsheet
+automatically updates its values to be country by year instead of
+gender by year. You have just performed a rotation of the 3D datacube,
+so that you are looking along the gender axis now. Similarly, notcie
+the small spot, which was originally labelled ``Australia'', and is
+now labelled ``Male''. This refers to the 2D slice of the datacube
+that you are now viewing. Drag this spot to where it now says
+``Female''. You have just changed the slice of the datacube to be
+looking at female data. Are you interested in aggregating sales over
+gender? Simply double click on the gender axis, and now the sales data
+is aggregated over both genders. Double click again, and the axis
+expands to allow you to examine the individual data items again.
+
+Congratulations, you have now performed all the basic operations of
+{\em OnLine Analytics Processing} (OLAP), namely {\em pivot} (or
+rotation), {\em slice}, {\em roll-up} (aggregation, or reduction) and
+{\em drill down} (reversing the aggregation operation). Ravel also
+allows some forms of {\em dicing} by means the the {\em filter}
+concept.
+
+\section{Handling more difficult source spreadsheets}\label{difficult}
+
+
+Consider what could happen if the first spreadsheet example had the
+year axis in the 3rd column, instead of the first. It is very clear to
+the human operator of the spreadsheet that Year is meant to be a third
+axis of the datacube, as years and sales are not two items of the same
+thing, but Ravel will instead assume that Year and Sales are separate
+slices of some unnamed third dimension, because both columns contain
+numerical data. You can force Ravel to have the correct interpretation
+by pressing the "context button" (usually the right mouse button) on
+the Year column, and selecting "Make column a Ravel axis".
+
+More precisely speaking, "Make column a Ravel axis" indicates the
+right-most column of the slice labels. Everything to the right of that
+are data columns. Similarly, one can specify the rows which contain
+slice label data, of which there may be more than one. For example
+
+The text in the columns is coloured in blue to indicate the boundaries between
+metadata (dimension names and slice labels, or coordinates), and the
+actual data.
+
+
+\begin{tabular}{|l|l|r|r|r|r|r|r|r|r|}
+\hline
+Year & & 1990 & & & & 1991 & & & \\\hline
+Quarter& & Q1 & Q2 & Q3 & Q4 & Q1 & Q2 & Q3 & Q4 \\\hline
+Country& Gender& &&&&&&&\\\hline
+Australia& Male& 612 & 3060 & 2012 & 535 & 1036 & 833 & 2045 & 4013\\
+Australia& Female & 734 & 1296 & 456 & 3456 & 220 & 2102 & 21 & 623\\
+UK & Male & \multicolumn8{|c|}{$\cdots$}\\
+UK & Female& \multicolumn8{|c|}{$\cdots$}\\
+\multicolumn{4}{|c|}{$\cdots$}\\
+\hline
+\end{tabular} 
+
+This example is available as \htmladdnormallink{RavelEx3.xlsx}{RavelEx3.xlsx}. When newRavel is run, a
+separate axis is created for every quarter! If you open the input
+sheet ``Sheet 1'', you will immediately see the problem --- all text
+is colour blue, indicating that the automatic algorithm failed to
+determine where the metadata stopped and the data started. By
+selecting the context menu on column B and selecting ``Make column a
+Ravel axis'', and then also selecting ``Make row a Ravel row on row 3,
+you will see the meta data coloured blue, and the data black, and four
+axes showing in the Ravel window (``Year'', ``Quarter'', ``Gender''
+and ``Country'').
+
+Ravel will normally treat rows with a single non-vacant cell as a
+comment. However, you can also manually indicate that rows and columns are
+comments using the ``Ignore row/col (treat as comment)'' context menu item.
+
+\section{Merging/Splitting rows or columns}
+
+In the example given in \S\ref{difficult}, you might want to merge the
+quarter and year axes into a single axis (called quarter,
+perhaps). Ravel provides the ability to merge multiple consecutive
+rows or columns into a single axis descriptor. With RavelEx3.xlsx,
+select the top two rows, and then select ``Merge'' from the row
+context menu. The input spreadsheet will change to look like this:
+\begin{tabular}{|l|l|r|r|r|r|r|r|r|r|}
+\hline
+Quarter& & 1990Q1 & 1990Q2 & 1990Q3 & 1990Q4 & 1990Q1 & 1990Q2 & 1990Q3 & 1990Q4 \\\hline
+Country& Gender& &&&&&&&\\\hline
+Australia& Male& 612 & 3060 & 2012 & 535 & 1036 & 833 & 2045 & 4013\\
+Australia& Female & 734 & 1296 & 456 & 3456 & 220 & 2102 & 21 & 623\\
+UK & Male & \multicolumn8{|c|}{$\cdots$}\\
+UK & Female& \multicolumn8{|c|}{$\cdots$}\\
+\multicolumn{4}{|c|}{$\cdots$}\\
+\hline
+\end{tabular} 
+and the dataset has been transformed into a 3-dimension dataset. The
+inverse operation can be achieved by selecting the row labelled
+``Quarter'', and selecting ``Split'' from the context menu.
+
+\section{Reductions}
+
+In \S\ref{getting started}, you have already experienced summing up
+data along an axis. In fact a range of {\em reduction} operations are
+possible, including {\em sum}, {\em product} (multiplying), {\em
+average} (summing then dividing by the number of slice labels along
+that axis), {\em standard deviation}, and the {\em maximum} and {\em
+minimum} elements.
+
+You can select which reduction operation is applied to the rolled-up
+axes from the ``Reduction" menu. You can also apply an individual
+reduction operation to a single rolled-up axis without affecting any other axes
+by means of the context menu attached to the reduction symbol attached to the
+rolled-up axis.
+
+\section{Filtering}
+
+Filtering allows you to {\em dice} by selecting a range of the
+datacube to in the output sheet. If you filter the {\em x} or {\em y} axes,
+then a pair of calipers is drawn on the axis, allowing you to specify
+the range of data you wish to consider.
+
+If you filter by value, then a histogram control opens up on the right
+of the Ravel control window. You may then drag the maximum and minimum
+to control the maximum and minimum thresholds of data to be included
+in the output sheet. This can be used to rapidly locate where
+particular data values occur within the datacube.
+
+\section{Sorting}
+
+The {\em Sort} menu allows you to sort the data, either by the
+slice labels of the {\em x} or {\em y} axes, or by the values of a particular
+row or column. Rows and columns may be sorted independently of each
+other.
+
+When sorting by slice label, it is possible to specify whether
+lexicographic sorting or numeric sorting is used. To understand the
+difference, consider that the following sequence of numbers is
+lexicographically sorted, not numerically sorted.
+
+1 100 1000 11 200 2000
+
+\section{Charts}
+
+The chart menu is a convenience option for placing a chart on the
+output sheet. By default, a surface chart is created, showing the
+entire slice of data shown in the output sheet, unless that consists
+of a single row or column.
+
+You may further modify the chart properties using Excel's inbuilt
+context menu.
+
+\section{Persistence}
+
+If you save the newly created Ravel workbook, when you open it up, the
+Ravel will be in the same state as you left it.
+
+Note that if you close the Ravel control window, the Ravel workbook is
+also destroyed, unless you have made some edits to the input data sheet.
+
+\section{Examples}
+
+\htmladdnormallink{RavelEx1.xlsx}{RavelEx1.xlsx}\\
+\htmladdnormallink{RavelEx2.xlsx}{RavelEx2.xlsx}\\
+\htmladdnormallink{RavelEx3.xlsx}{RavelEx3.xlsx}
+
+\end{document}
