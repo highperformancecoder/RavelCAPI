@@ -7,6 +7,8 @@
 
   Pimpl pattern deployed to prevent leakage of platform specific details
 */
+#ifndef CAIROSHIM_H
+#define CAIROSHIM_H
 #include <string>
 #include <memory>
 
@@ -18,6 +20,8 @@ namespace ravel
   class CairoShim
   {
     CairoShimImpl<G>* impl; 
+    CairoShim(const CairoShim&)=delete;
+    void operator=(const CairoShim&)=delete;
   public:
     CairoShim(G);
     ~CairoShim();
@@ -60,3 +64,4 @@ namespace ravel
   };
 
 }
+#endif

@@ -7,6 +7,7 @@
 #include <string>
 #include <algorithm>
 #include "cda.h"
+#include <set>
 
 namespace ravel
 {
