@@ -8,6 +8,7 @@
 #include <algorithm>
 #include "cda.h"
 #include <set>
+#include <math.h>
 
 namespace ravel
 {

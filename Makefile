@@ -10,11 +10,14 @@ include $(ECOLAB_HOME)/include/Makefile
 ACTIONS+=xml_pack xml_unpack random_init
 FLAGS+=-std=c++11 #-Wno-error=offsetof
 
-VPATH+=src
+VPATH+=src src/shims src/tcl
+FLAGS+=-I. -Isrc -Isrc/tcl
 
 # object files making up libravel
-OBJS=src/ravel.o src/dataCube.o src/ravelCairo.o src/cairoShimCairo.o src/filterCairo.o \
-	 src/splitMerge.o src/sortedVector.o
+#OBJS=src/ravel.o src/dataCube.o src/ravelCairo.o src/shims/cairoShimCairo.o \
+#	src/filterCairo.o src/splitMerge.o src/sortedVector.o
+OBJS=ravel.o dataCube.o ravelCairo.o cairoShimCairo.o \
+	filterCairo.o splitMerge.o sortedVector.o
 LIBS+=libravel.a
 LIBS:=-L$(HOME)/usr/lib64 $(LIBS)
 MODELS=ravelTest
@@ -71,6 +74,8 @@ endif
 clean:
 	$(BASIC_CLEAN)
 	cd src; $(BASIC_CLEAN)
+	cd src/shims; $(BASIC_CLEAN)
+	cd src/tcl; $(BASIC_CLEAN)
 	cd test; $(BASIC_CLEAN)
 	rm -f $(MODELS) *.cd
 	rm -rf *.app

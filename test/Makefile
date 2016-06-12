@@ -11,9 +11,9 @@ include $(ECOLAB_HOME)/include/Makefile
 
 ACTIONS+=xml_pack xml_unpack random_init
 UNITTESTOBJS=main.o ravelCairo.o filterCairo.o sortedVectorTest.o splitMergeTest.o
-FLAGS+=-std=c++11 -I../src -I.. -g -UNDEBUG
+FLAGS+=-std=c++11 -I../src -I.. -I../src/tcl -g -UNDEBUG
 LIBS+=-L.. -lravel -lUnitTest++ -lboost_regex -lcairo
-VPATH+=src
+VPATH+=src src/tcl src/shims
 
 EXES=unittests testSerialisation 
 

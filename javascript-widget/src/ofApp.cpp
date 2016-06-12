@@ -6,7 +6,7 @@ void ofApp::setup()
 {
   ravel.setG(this); // redundant for now, maybe needed later
   ravel.rescale(200);
-  ravel.x=ravel.y=400;
+  ravel.x=ravel.y=100;
   ravel.addHandle("Year",{"1980","1990"});
   ravel.addHandle("Gender",{"male","female"});
   ofSetCircleResolution(50);

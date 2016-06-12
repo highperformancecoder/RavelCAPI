@@ -7,6 +7,7 @@
 #include <ecolab_epilogue.h>
 #endif
 #include <algorithm>
+#include <sstream>
 using namespace ravel;
 using namespace std;
 

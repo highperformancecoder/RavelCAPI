@@ -2,6 +2,7 @@
 #define RAVELCAIROIMPL_H
 #include "ravelCairo.h"
 #include "cairoShim.h"
+#include <math.h>
 #include <assert.h>
 #ifdef CLASSDESC
 #include <classdesc_epilogue.h>
@@ -68,7 +69,7 @@ namespace ravel
     template <class G>
     void drawRotatorMark(G& gc,double x,double y, double dir)
     {
-      dir/=abs(dir); //ensure dir = +/-1
+      dir/=fabs(dir); //ensure dir = +/-1
       gc.save();
       gc.setLineWidth(0.5);
       gc.rotate(atan2(y,x));

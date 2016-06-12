@@ -30,7 +30,7 @@ double Handle::opX() const
   double r=sqrt(sqr(x())+sqr(y()));
   // from 0 .. 135 degrees, we need to offset the x coordinate to
   // prevent a clash with the handle label
-  if (y()<=0 && (x()>0 || abs(x())<abs(y())))
+  if (y()<=0 && (x()>0 || fabs(x())<fabs(y())))
     return 1.2*x()-0.5*r;
   else
     return 1.2*x();
@@ -39,7 +39,7 @@ double Handle::opX() const
 double Handle::opY() const
 {
   double r=sqrt(sqr(x())+sqr(y()));
-  if (y()>0 && abs(x()) < abs(y()))
+  if (y()>0 && fabs(x()) < fabs(y()))
     return 1.2*y() + 0.5*r;
   else
     return 1.2*y();
@@ -48,7 +48,7 @@ double Handle::opY() const
 AnchorPoint Handle::labelAnchor() const
 {
   double off=0.03*sqrt(sqr(x())+sqr(y()));
-  if ((y()>0 && abs(x()) < abs(y())) || (!collapsed() && x() > abs(y())))
+  if ((y()>0 && fabs(x()) < fabs(y())) || (!collapsed() && x() > fabs(y())))
     // in bottom quadrant, or near x axis anchor at south east
     return AnchorPoint{x()-off,y()-off,AnchorPoint::se};
   else 

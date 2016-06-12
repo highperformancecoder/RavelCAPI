@@ -5,6 +5,9 @@
 #ifdef ECOLAB_LIB
 #include <ecolab_epilogue.h>
 #endif
+#include <algorithm>
+#include <set>
+#include <stdlib.h>
 
 using namespace std;
 
