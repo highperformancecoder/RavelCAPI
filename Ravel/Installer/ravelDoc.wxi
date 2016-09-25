@@ -1,0 +1,38 @@
+<Include>
+ <Directory Id='DocsDir' Name='RavelDoc'>
+  <Component Id='RavelDoc' DiskId='1' Guid='516bc6f9-7943-47d0-9d9d-782518bfbc65'>
+   <File Id='index.html' Name='index.html' Source='../../doc/ravelDoc/index.html' KeyPath='yes'/>
+   <File Id='fid1' Name='crossref.png' Source='../../doc/ravelDoc/crossref.png' KeyPath='no'/>
+   <File Id='fid2' Name='images.aux' Source='../../doc/ravelDoc/images.aux' KeyPath='no'/>
+   <File Id='fid3' Name='images.log' Source='../../doc/ravelDoc/images.log' KeyPath='no'/>
+   <File Id='fid4' Name='images.pl' Source='../../doc/ravelDoc/images.pl' KeyPath='no'/>
+   <File Id='fid5' Name='images.tex' Source='../../doc/ravelDoc/images.tex' KeyPath='no'/>
+   <File Id='fid6' Name='img1.png' Source='../../doc/ravelDoc/img1.png' KeyPath='no'/>
+   <File Id='fid7' Name='internals.pl' Source='../../doc/ravelDoc/internals.pl' KeyPath='no'/>
+   <File Id='fid8' Name='labels.pl' Source='../../doc/ravelDoc/labels.pl' KeyPath='no'/>
+   <File Id='fid9' Name='next_g.png' Source='../../doc/ravelDoc/next_g.png' KeyPath='no'/>
+   <File Id='fid10' Name='next.png' Source='../../doc/ravelDoc/next.png' KeyPath='no'/>
+   <File Id='fid11' Name='node10.html' Source='../../doc/ravelDoc/node10.html' KeyPath='no'/>
+   <File Id='fid12' Name='node1.html' Source='../../doc/ravelDoc/node1.html' KeyPath='no'/>
+   <File Id='fid13' Name='node2.html' Source='../../doc/ravelDoc/node2.html' KeyPath='no'/>
+   <File Id='fid14' Name='node3.html' Source='../../doc/ravelDoc/node3.html' KeyPath='no'/>
+   <File Id='fid15' Name='node4.html' Source='../../doc/ravelDoc/node4.html' KeyPath='no'/>
+   <File Id='fid16' Name='node5.html' Source='../../doc/ravelDoc/node5.html' KeyPath='no'/>
+   <File Id='fid17' Name='node6.html' Source='../../doc/ravelDoc/node6.html' KeyPath='no'/>
+   <File Id='fid18' Name='node7.html' Source='../../doc/ravelDoc/node7.html' KeyPath='no'/>
+   <File Id='fid19' Name='node8.html' Source='../../doc/ravelDoc/node8.html' KeyPath='no'/>
+   <File Id='fid20' Name='node9.html' Source='../../doc/ravelDoc/node9.html' KeyPath='no'/>
+   <File Id='fid21' Name='prev_g.png' Source='../../doc/ravelDoc/prev_g.png' KeyPath='no'/>
+   <File Id='fid22' Name='prev.png' Source='../../doc/ravelDoc/prev.png' KeyPath='no'/>
+   <File Id='fid23' Name='ravelDoc.css' Source='../../doc/ravelDoc/ravelDoc.css' KeyPath='no'/>
+   <File Id='fid24' Name='ravelDoc.html' Source='../../doc/ravelDoc/ravelDoc.html' KeyPath='no'/>
+   <File Id='fid25' Name='RavelEx1.xlsx' Source='../../doc/ravelDoc/RavelEx1.xlsx' KeyPath='no'/>
+   <File Id='fid26' Name='RavelEx2.xlsx' Source='../../doc/ravelDoc/RavelEx2.xlsx' KeyPath='no'/>
+   <File Id='fid27' Name='RavelEx3.xlsx' Source='../../doc/ravelDoc/RavelEx3.xlsx' KeyPath='no'/>
+   <File Id='fid28' Name='RavelEx.png' Source='../../doc/ravelDoc/RavelEx.png' KeyPath='no'/>
+   <File Id='fid29' Name='up_g.png' Source='../../doc/ravelDoc/up_g.png' KeyPath='no'/>
+   <File Id='fid30' Name='up.png' Source='../../doc/ravelDoc/up.png' KeyPath='no'/>
+   <File Id='fid31' Name='WARNINGS' Source='../../doc/ravelDoc/WARNINGS' KeyPath='no'/>
+  </Component>
+ </Directory>
+</Include>

@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Handling more difficult source spreadsheets</TITLE>
+<META NAME="description" CONTENT="Handling more difficult source spreadsheets">
+<META NAME="keywords" CONTENT="ravelDoc">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ravelDoc.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="ravelDoc.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html47"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html45"
+  HREF="ravelDoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html39"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html48"
+  HREF="node4.html">Merging/Splitting rows or columns</A>
+<B> Up:</B> <A NAME="tex2html46"
+  HREF="ravelDoc.html">Ravel User Guide</A>
+<B> Previous:</B> <A NAME="tex2html40"
+  HREF="node2.html">Getting started</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00030000000000000000"></A><A NAME="difficult"></A>
+<BR>
+Handling more difficult source spreadsheets
+</H1>
+
+<P>
+Consider what could happen if the first spreadsheet example had the
+year axis in the 3rd column, instead of the first. It is very clear to
+the human operator of the spreadsheet that Year is meant to be a third
+axis of the datacube, as years and sales are not two items of the same
+thing, but Ravel will instead assume that Year and Sales are separate
+slices of some unnamed third dimension, because both columns contain
+numerical data. You can force Ravel to have the correct interpretation
+by pressing the "context button" (usually the right mouse button) on
+the Year column, and selecting "Make column a Ravel axis".
+
+<P>
+More precisely speaking, "Make column a Ravel axis" indicates the
+right-most column of the slice labels. Everything to the right of that
+are data columns. Similarly, one can specify the rows which contain
+slice label data, of which there may be more than one. For example
+
+<P>
+The text in the columns is coloured in blue to indicate the boundaries between
+metadata (dimension names and slice labels, or coordinates), and the
+actual data.
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Year</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="RIGHT">1990</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">1991</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Quarter</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="RIGHT">Q1</TD>
+<TD ALIGN="RIGHT">Q2</TD>
+<TD ALIGN="RIGHT">Q3</TD>
+<TD ALIGN="RIGHT">Q4</TD>
+<TD ALIGN="RIGHT">Q1</TD>
+<TD ALIGN="RIGHT">Q2</TD>
+<TD ALIGN="RIGHT">Q3</TD>
+<TD ALIGN="RIGHT">Q4</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Country</TD>
+<TD ALIGN="LEFT">Gender</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Australia</TD>
+<TD ALIGN="LEFT">Male</TD>
+<TD ALIGN="RIGHT">612</TD>
+<TD ALIGN="RIGHT">3060</TD>
+<TD ALIGN="RIGHT">2012</TD>
+<TD ALIGN="RIGHT">535</TD>
+<TD ALIGN="RIGHT">1036</TD>
+<TD ALIGN="RIGHT">833</TD>
+<TD ALIGN="RIGHT">2045</TD>
+<TD ALIGN="RIGHT">4013</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Australia</TD>
+<TD ALIGN="LEFT">Female</TD>
+<TD ALIGN="RIGHT">734</TD>
+<TD ALIGN="RIGHT">1296</TD>
+<TD ALIGN="RIGHT">456</TD>
+<TD ALIGN="RIGHT">3456</TD>
+<TD ALIGN="RIGHT">220</TD>
+<TD ALIGN="RIGHT">2102</TD>
+<TD ALIGN="RIGHT">21</TD>
+<TD ALIGN="RIGHT">623</TD>
+</TR>
+<TR><TD ALIGN="LEFT">UK</TD>
+<TD ALIGN="LEFT">Male</TD>
+<TD ALIGN="CENTER" COLSPAN=8><SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$\cdots$"></SPAN></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT">UK</TD>
+<TD ALIGN="LEFT">Female</TD>
+<TD ALIGN="CENTER" COLSPAN=8><SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$\cdots$"></SPAN></SPAN></TD>
+</TR>
+<TR><TD ALIGN="CENTER" COLSPAN=4><SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$\cdots$"></SPAN></SPAN></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+</TR>
+</TABLE> 
+
+<P>
+This example is available as <A NAME="tex2html3"
+  HREF="RavelEx3.xlsx">RavelEx3.xlsx</A>. When newRavel is run, a
+separate axis is created for every quarter! If you open the input
+sheet ``Sheet 1'', you will immediately see the problem -- all text
+is colour blue, indicating that the automatic algorithm failed to
+determine where the metadata stopped and the data started. By
+selecting the context menu on column B and selecting ``Make column a
+Ravel axis'', and then also selecting ``Make row a Ravel row on row 3,
+you will see the meta data coloured blue, and the data black, and four
+axes showing in the Ravel window (``Year'', ``Quarter'', ``Gender''
+and ``Country'').
+
+<P>
+Ravel will normally treat rows with a single non-vacant cell as a
+comment. However, you can also manually indicate that rows and columns are
+comments using the ``Ignore row/col (treat as comment)'' context menu item.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html47"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html45"
+  HREF="ravelDoc.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html39"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html48"
+  HREF="node4.html">Merging/Splitting rows or columns</A>
+<B> Up:</B> <A NAME="tex2html46"
+  HREF="ravelDoc.html">Ravel User Guide</A>
+<B> Previous:</B> <A NAME="tex2html40"
+  HREF="node2.html">Getting started</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>
