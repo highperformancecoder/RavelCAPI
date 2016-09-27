@@ -14,8 +14,6 @@ VPATH+=src src/shims src/tcl
 FLAGS+=-I. -Isrc -Isrc/tcl
 
 # object files making up libravel
-#OBJS=src/ravel.o src/dataCube.o src/ravelCairo.o src/shims/cairoShimCairo.o \
-#	src/filterCairo.o src/splitMerge.o src/sortedVector.o
 OBJS=ravel.o dataCube.o ravelCairo.o cairoShimCairo.o \
 	filterCairo.o splitMerge.o sortedVector.o
 LIBS+=libravel.a
