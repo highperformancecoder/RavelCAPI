@@ -18,4 +18,3 @@ function drawLine(x,y) {
     document.getElementById("ravel").appendChild(handle);
 };
 
-drawLine(150,150);

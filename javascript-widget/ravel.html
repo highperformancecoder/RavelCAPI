@@ -9,6 +9,22 @@
   </g>
 </svg>
 
-<script async type="text/javascript" src="ravel.js"></script>
+<script type="text/javascript" src="jsravel.js"></script>
+<script type="text/javascript" src="ravel.js"></script>
+<script type="text/javascript">
+  var ravel=new Module.Ravel();
+  ravel.rescale(100);
+  var yearData=new Module.VectorString();
+  yearData.push_back("1980");
+  yearData.push_back("1990");
+  ravel.addHandle("Year",yearData);
+  var genderData=new Module.VectorString();
+  genderData.push_back("male");
+  genderData.push_back("female");
+  ravel.addHandle("Gender",genderData);
+  drawLine(ravel.handleX(0),ravel.handleY(0));
+  drawLine(ravel.handleX(1),ravel.handleY(1));
+  //  ravel.delete();
+</script>
 </body>
 </html> 
