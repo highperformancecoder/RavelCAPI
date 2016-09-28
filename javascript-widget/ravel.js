@@ -1,29 +1,28 @@
 function sqr(x) {return x*x;};
 
-function JSRavel(svgFrame) {
-    this.svgFrame=svgFrame;
-    var ravel=new Module.Ravel();
-    this.ravel=ravel;
-    ravel.rescale(100);
-    for (var i in ravel)
-        this[i]=ravel[i];
+var JSRavel = Module.Ravel.extend("Ravel", {
+    __construct: function(svgFrame) {
+        this.svgFrame=svgFrame;
+        this.__parent.__construct.call(this);
 
-    var yearData=new Module.VectorString();
-    yearData.push_back("1980");
-    yearData.push_back("1990");
-    ravel.addHandle("Year",yearData);
-    var genderData=new Module.VectorString();
-    genderData.push_back("male");
-    genderData.push_back("female");
-    ravel.addHandle("Gender",genderData);
-};
+        this.rescale(100);
 
-JSRavel.prototype.draw = function () {
-        this.drawLine(this.ravel.handleX(0),this.ravel.handleY(0));
-        this.drawLine(this.ravel.handleX(1),this.ravel.handleY(1));
-    }
+        var yearData=new Module.VectorString();
+        yearData.push_back("1980");
+        yearData.push_back("1990");
+        this.addHandle("Year",yearData);
+        var genderData=new Module.VectorString();
+        genderData.push_back("male");
+        genderData.push_back("female");
+        this.addHandle("Gender",genderData);
+    },
+
+    draw: function () {
+        this.drawLine(this.handleX(0),this.handleY(0));
+        this.drawLine(this.handleX(1),this.handleY(1));
+    },
     
-JSRavel.prototype.drawLine = function(x,y) {
+    drawLine: function(x,y) {
         var f=20.0;
         var r=Math.sqrt(x*x+y*y);
         var angle=0.5*Math.asin(1/f);
@@ -39,13 +38,14 @@ JSRavel.prototype.drawLine = function(x,y) {
         handle.appendChild(handlePath);
         handle.setAttribute("transform","rotate("+180*Math.atan2(y,x)/Math.PI+")");
         document.getElementById(this.svgFrame).appendChild(handle);
-    };
+    }
+});
 
 
 var ravel=new JSRavel("ravel");
 
 var ravel1=new JSRavel("ravel1");
-ravel1.ravel.moveHandleTo(0,75,75);
+ravel1.moveHandleTo(0,75,75);
 
 ravel.draw();
 ravel1.draw();

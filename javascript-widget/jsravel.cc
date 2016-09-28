@@ -4,9 +4,16 @@
 using namespace ravel;
 using namespace emscripten;
 
+namespace {
+  struct RavelWrapper: public wrapper<Ravel> {
+    EMSCRIPTEN_WRAPPER(RavelWrapper);
+  };
+}
+
 EMSCRIPTEN_BINDINGS(Ravel) {
   class_<Ravel>("Ravel")
     .constructor<>()
+    .allow_subclass<RavelWrapper>("RavelWrapper")
     .function("addHandle",&Ravel::addHandle)
     .function("moveHandleTo",&Ravel::moveHandleTo)
     .function("rescale",&Ravel::rescale)
