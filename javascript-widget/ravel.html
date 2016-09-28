@@ -1,18 +1,23 @@
  <html>
     <meta charset="utf-8">
-<body>
+<body onunload="onunload()">
 
 <h1>Ravel!</h1>
 
-<svg width="200" height="200" id="svgCanvas">
-  <g transform="translate(100,100)" id="ravel">
+<div><!-- svg element needs to be contained so that we can ask where --
+       -- it is on the screen -->
+<svg width="200" height="200">
+  <g transform="translate(100,100) scale(-1,1)" id="ravel">
   </g>
 </svg>
+</div>
 
-<svg width="200" height="200" id="svgCanvas">
-  <g transform="translate(100,100)" id="ravel1">
+<div>
+<svg width="200" height="200">
+  <g transform="translate(100,100) scale(-1,1)" id="ravel1">
   </g>
 </svg>
+</div>
 
 <script type="text/javascript" src="jsravel.js"></script>
 <script type="text/javascript" src="ravel.js"></script>

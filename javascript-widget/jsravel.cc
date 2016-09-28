@@ -14,6 +14,8 @@ EMSCRIPTEN_BINDINGS(Ravel) {
   class_<Ravel>("Ravel")
     .constructor<>()
     .allow_subclass<RavelWrapper>("RavelWrapper")
+    .property("x",&Ravel::x)
+    .property("y",&Ravel::y)
     .function("addHandle",&Ravel::addHandle)
     .function("moveHandleTo",&Ravel::moveHandleTo)
     .function("rescale",&Ravel::rescale)
