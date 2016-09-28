@@ -8,6 +8,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
   class_<Ravel>("Ravel")
     .constructor<>()
     .function("addHandle",&Ravel::addHandle)
+    .function("moveHandleTo",&Ravel::moveHandleTo)
     .function("rescale",&Ravel::rescale)
     .function("onMouseMotion",&Ravel::onMouseMotion)
     .function("onMouseDown",&Ravel::onMouseDown)
