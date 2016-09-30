@@ -40,6 +40,29 @@ var JSRavel = Module.Ravel.extend("Ravel", {
         };
     },
 
+    theta: 0.05, //radians
+    rotator: function(r,colour) {
+        var dx=r*Math.sin(this.theta), dy=r*(Math.cos(this.theta)-1);
+        var rotatorArrowShaft="M"+-dx+","+dy+"A"+r+","+r+" 0 0 0 "+dx+","+dy;
+        var rotatorArrowHead="M0,0L-1,-1v2Z";
+
+        var rotatorShaft=document.createElementNS("http://www.w3.org/2000/svg",'path');
+        rotatorShaft.setAttribute("d", rotatorArrowShaft);
+        rotatorShaft.setAttribute("stroke", colour);
+        rotatorShaft.setAttribute("stroke-width",2);
+        rotatorShaft.setAttribute("fill", "none");
+        rotatorShaft.setAttribute("transform","translate(0,"+r+")");
+        
+        var rotatorHead=document.createElementNS("http://www.w3.org/2000/svg",'path');
+        rotatorHead.setAttribute("d", rotatorArrowHead);
+        rotatorHead.setAttribute("transform","rotate("+-this.theta*180/Math.PI+") translate(0,"+r+") scale(5,5)");
+        rotatorHead.setAttribute("fill", colour);
+        var rotator=document.createElementNS("http://www.w3.org/2000/svg",'g');
+        rotator.appendChild(rotatorHead);
+        rotator.appendChild(rotatorShaft);
+        return rotator;
+    },
+    
     draw: function () {
         for (var i=0; i<2; i++)
         {
@@ -47,10 +70,10 @@ var JSRavel = Module.Ravel.extend("Ravel", {
             if (typeof this.handle[i]=="undefined")
             {
                 var h=this.handle[i]=new Object();
-                h.handlePath=document.createElementNS("http://www.w3.org/2000/svg",'path');
-                h.handlePath.setAttribute("fill",palette[i%palette.length]);
+                var handlePath=document.createElementNS("http://www.w3.org/2000/svg",'path');
+                handlePath.setAttribute("fill",palette[i%palette.length]);
                 h.handle=document.createElementNS("http://www.w3.org/2000/svg",'g');
-                h.handle.appendChild(h.handlePath);
+                h.handle.appendChild(handlePath);
                 document.getElementById(this.svgFrame).appendChild(h.handle);
                 var f=20.0;
                 var r=0.9*Math.sqrt(x*x+y*y);
@@ -62,7 +85,19 @@ var JSRavel = Module.Ravel.extend("Ravel", {
                     " L"+-2*x1+","+r+" h"+x1; //arrow
                 handlePathInfo+=" A"+f*r+" "+f*r+" 0 0 0 0 0";
                 handlePathInfo+="Z";
-                h.handlePath.setAttribute("d",handlePathInfo);
+                handlePath.setAttribute("d",handlePathInfo);
+
+                var rotator1=this.rotator(1.05*r, palette[i%palette.length]);
+                rotator1.setAttribute("transform","rotate("+-2*this.theta*180/Math.PI+")");
+                var rotator2=this.rotator(1.05*r, palette[i%palette.length]);
+                rotator2.setAttribute("transform","scale(-1,1) rotate("+-2*this.theta*180/Math.PI+")");
+                
+                
+                // group rotator arrows to allow opacity to be applied to the group
+                h.rotator=document.createElementNS("http://www.w3.org/2000/svg",'g');
+                h.handle.appendChild(h.rotator);
+                h.rotator.appendChild(rotator1);
+                h.rotator.appendChild(rotator2);
             }
             this.handle[i].handle.setAttribute
             ("transform",
