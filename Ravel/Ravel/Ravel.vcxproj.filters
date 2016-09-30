@@ -49,28 +49,28 @@
     <ClCompile Include="ravelControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\dataCube.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\ravel.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ravelCairo.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\cairoShimGDI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ravelPlugin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\filterCairo.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\sortedVector.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\splitMerge.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shims\cairoShimGDI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shims\dataCube.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shims\filterCairo.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\shims\ravelCairo.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

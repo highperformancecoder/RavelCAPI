@@ -163,8 +163,7 @@ xcopy /Y /R /I /C /S $(SolutionDir)\..\doc\ravelDoc $(TargetDir)\ravelDoc</Comma
       <AdditionalIncludeDirectories>$(SolutionDir)\..\src;c:\cairo;c:\classdesc\include;c:\boost\include\boost-1_60;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <AdditionalOptions> /J</AdditionalOptions>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
+      <DebugInformationFormat>None</DebugInformationFormat>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;EXCEL12;CLASSDESC;_CRT_SECURE_NO_WARNINGS;NDEBUG;USE_GDI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -199,8 +198,7 @@ xcopy /Y /R /I /C /S $(SolutionDir)\..\doc\ravelDoc $(TargetDir)\ravelDoc</Comma
       <AdditionalIncludeDirectories>$(SolutionDir)\..\src;c:\cairo;c:\classdesc\include;c:\boost\include\boost-1_60;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <AdditionalOptions> /J</AdditionalOptions>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
+      <DebugInformationFormat>None</DebugInformationFormat>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;EXCEL12;CLASSDESC;_CRT_SECURE_NO_WARNINGS;NDEBUG;USE_GDI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -241,11 +239,11 @@ xcopy /Y /R /I /C /S $(SolutionDir)\..\doc\ravelDoc $(TargetDir)\ravelDoc</Comma
     <ClInclude Include="xlExtras.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\cairoShimGDI.cpp" />
-    <ClCompile Include="..\..\src\dataCube.cc" />
-    <ClCompile Include="..\..\src\filterCairo.cc" />
     <ClCompile Include="..\..\src\ravel.cc" />
-    <ClCompile Include="..\..\src\ravelCairo.cc" />
+    <ClCompile Include="..\..\src\shims\cairoShimGDI.cpp" />
+    <ClCompile Include="..\..\src\shims\dataCube.cc" />
+    <ClCompile Include="..\..\src\shims\filterCairo.cc" />
+    <ClCompile Include="..\..\src\shims\ravelCairo.cc" />
     <ClCompile Include="..\..\src\sortedVector.cc" />
     <ClCompile Include="..\..\src\splitMerge.cc" />
     <ClCompile Include="ravelControl.cpp" />

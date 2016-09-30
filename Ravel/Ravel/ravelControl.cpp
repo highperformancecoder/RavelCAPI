@@ -9,6 +9,7 @@
 #include <CommCtrl.h>
 #include <Shlwapi.h>
 #include <shellapi.h>
+#include <gdiplus.h>
 #include <map>
 #include <sstream>
 // generation of assignment operators
@@ -17,6 +18,7 @@
 using namespace std;
 using namespace xll;
 using namespace ravel;
+using namespace Gdiplus;
 using classdesc::xml_pack_t;
 using classdesc::xml_unpack_t;
 
@@ -342,11 +344,11 @@ void RavelCtl::setup()
 {
   if (!hwnd)
     {
-      RECT targetClientArea = { 0, 0, 0, 0 };
-      targetClientArea.bottom = int(2 * radius() / 0.9);
-      targetClientArea.right = /*opSelectorWidth + chartSelectorWidth + filterWidgetWidth +*/ targetClientArea.bottom;
-      DWORD tlStyle = WS_POPUP | WS_OVERLAPPEDWINDOW | WS_VISIBLE | WS_CLIPCHILDREN | BS_FLAT;
-      AdjustWindowRect(&targetClientArea, tlStyle, true/*menu*/);
+	  RECT targetClientArea = { 0, 0, 0, 0 };
+	  targetClientArea.bottom = int(2 * radius() / 0.9);
+	  targetClientArea.right = /*opSelectorWidth + chartSelectorWidth + filterWidgetWidth +*/ targetClientArea.bottom;
+	  DWORD tlStyle = WS_POPUP | WS_OVERLAPPEDWINDOW | WS_VISIBLE | WS_CLIPCHILDREN | BS_FLAT;
+	  AdjustWindowRect(&targetClientArea, tlStyle, true/*menu*/);
 	  // window handles are only 32 bits for interoperability with 32 bit windows.
 #pragma warning(push)
 #pragma warning(disable:4312)
@@ -355,44 +357,44 @@ void RavelCtl::setup()
       HWND toplevel = CreateWindow(_T("Button"), utf_to_utf<TCHAR>(title).c_str(), tlStyle, 100, 100, 
                                    abs(targetClientArea.right-targetClientArea.left), 
                                    abs(targetClientArea.top-targetClientArea.bottom), excel, 0, 0, 0);
-      if (toplevel)
+	  if (toplevel)
         {
 
           // reduction menu
           AppendMenu(menubar,MF_POPUP|MF_STRING,(UINT_PTR)(HMENU)reductionMenu,_T("Reduction"));
 
-          reductionMenu.insertMenuItems(reductionMenuItems);
-          radioCheckMenu(reductionMenu,0);
-          
+		  reductionMenu.insertMenuItems(reductionMenuItems);
+		  radioCheckMenu(reductionMenu,0);
+
           AppendMenu(menubar,MF_POPUP|MF_STRING,(UINT_PTR)(HMENU)filterMenu,
                      _T("Filter"));
-          filterMenu.insertMenuItems(filterMenuItems);
+		  filterMenu.insertMenuItems(filterMenuItems);
 
           AppendMenu(menubar,MF_POPUP|MF_STRING,(UINT_PTR)(HMENU)sortMenu,
                      _T("Sort"));
-          AppendMenu(sortMenu,MF_POPUP|MF_STRING,(UINT_PTR)(HMENU)xsortMenu,
+		  AppendMenu(sortMenu,MF_POPUP|MF_STRING,(UINT_PTR)(HMENU)xsortMenu,
                      _T("x axis"));
           xsortMenu.insertMenuItems(axisSortMenuItems);
-          radioCheckMenu(xsortMenu,0);
-          AppendMenu(sortMenu,MF_POPUP|MF_STRING,(UINT_PTR)(HMENU)ysortMenu,
+		  radioCheckMenu(xsortMenu,0);
+		  AppendMenu(sortMenu,MF_POPUP|MF_STRING,(UINT_PTR)(HMENU)ysortMenu,
                      _T("y axis"));
-          ysortMenu.insertMenuItems(axisSortMenuItems);
-          radioCheckMenu(ysortMenu,0);
+		  ysortMenu.insertMenuItems(axisSortMenuItems);
+		  radioCheckMenu(ysortMenu,0);
 
-          // sort by value
+		  // sort by value
           sortMenu.insertMenuItems(sortMenuItems);
- 
+
           AppendMenu(menubar,MF_POPUP|MF_STRING,(UINT_PTR)(HMENU)chartMenu,
                      _T("Chart"));
-          chartMenu.insertMenuItems(chartMenuItems);
-          radioCheckMenu(chartMenu,0);
+		  chartMenu.insertMenuItems(chartMenuItems);
+		  radioCheckMenu(chartMenu,0);
 
           // can't quite place this flush right, but should be last menu
           helpMenu.insertMenuItems(helpMenuItems);
-          AppendMenu(menubar, MF_POPUP | MF_STRING, (UINT_PTR)(HMENU)helpMenu,
+		  AppendMenu(menubar, MF_POPUP | MF_STRING, (UINT_PTR)(HMENU)helpMenu,
                      _T("Help"));
 		  
-          SetMenu(toplevel, menubar);
+		  SetMenu(toplevel, menubar);
 
           RECT rect;
           GetClientRect(toplevel, &rect);
@@ -401,25 +403,24 @@ void RavelCtl::setup()
 
           // create Ravel window
           hwnd= CreateWindow(_T("Button"), _T(""), WS_CHILD | SS_ETCHEDFRAME | WS_VISIBLE, 0, 0, rect.right - rect.left, rect.bottom - rect.top, toplevel, 0, 0, 0);
-          SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)this);
-          SetWindowLongPtr(hwnd, GWLP_WNDPROC, (LONG_PTR)windowProc);
+		  SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)this);
+		  SetWindowLongPtr(hwnd, GWLP_WNDPROC, (LONG_PTR)windowProc);
 
           // create filter widget window
           HWND filter=CreateWindow(_T("Button"), _T(""), WS_CHILD | SS_ETCHEDFRAME, rect.right-filterWidgetWidth, 10, filterWidgetWidth, rect.bottom - rect.top-20, toplevel, 0, 0, 0);
-          SetWindowLongPtr(filter, GWLP_USERDATA, (LONG_PTR)this);
-          SetWindowLongPtr(filter, GWLP_WNDPROC, (LONG_PTR)filterWidgetProc);
-          FilterCairo<HDC>::width=filterWidgetWidth;
-          FilterCairo<HDC>::height=rect.bottom - rect.top-20;
+		  SetWindowLongPtr(filter, GWLP_USERDATA, (LONG_PTR)this);
+		  SetWindowLongPtr(filter, GWLP_WNDPROC, (LONG_PTR)filterWidgetProc);
+		  FilterCairo<HDC>::width=filterWidgetWidth;
+		  FilterCairo<HDC>::height=rect.bottom - rect.top-20;
 
-          GetClientRect(hwnd, &rect);
-          x = 0.5*(rect.right - rect.left);
+		  GetClientRect(hwnd, &rect);
+		  x = 0.5*(rect.right - rect.left);
           y = 0.5*(rect.bottom - rect.top);
-          rescale(0.9*min(x, y));
+		  rescale(0.9*min(x, y));
 
-
+		  SetWindowLongPtr(toplevel, GWLP_USERDATA, (LONG_PTR)new TopLvlWndData{ 0/*opSelector*/, hwnd,filter,0/*chartSelector*/ });
           SetWindowLongPtr(toplevel, GWLP_WNDPROC, (LONG_PTR)topLvlWndProc);
-          SetWindowLongPtr(toplevel, GWLP_USERDATA, (LONG_PTR)new TopLvlWndData{0/*opSelector*/, hwnd,filter,0/*chartSelector*/} );
-        }
+	  }
     }
 }
 
@@ -432,9 +433,12 @@ namespace
     HWND hwnd;
     HDC dc;
     HFONT font;
-
+    ULONG_PTR gdiToken;
+    
     SetupDC(XCairo&g, HWND hwnd): hwnd(hwnd)
     {
+      GdiplusStartupInput gdiplusStartupInput;
+      GdiplusStartup(&gdiToken,&gdiplusStartupInput,nullptr);
       dc=BeginPaint(hwnd, &ps);
       // set a suitable font
       HFONT font = CreateFont
@@ -456,6 +460,7 @@ namespace
     {
       DeleteObject(font);
       EndPaint(hwnd, &ps);
+      GdiplusShutdown(gdiToken);
     }
   };
 
@@ -540,8 +545,8 @@ RavelCtl& RavelCtl::create()
       // check if a hidden "ravelCheckpoint" exists in the current workbook
       try {
         // throws if the named workbook doesn't exist
-        sheetId(checkpointName());
-        r->restoreCheckpoint();
+	sheetId(checkpointName());
+	r->restoreCheckpoint();
 
         // workbook may have changed since last saved
         
@@ -550,52 +555,53 @@ RavelCtl& RavelCtl::create()
         try
           {
             sheetId(r->sourceSheet);
-            sheetId(r->destSheet);
-          }
+	    sheetId(r->destSheet);
+	  }
         catch (std::runtime_error)
           {
-            throw RavelError("Ravel checkpoint found, but source/destination sheets missing");
+	    throw RavelError("Ravel checkpoint found, but source/destination sheets missing");
           }
-		CallXL(xlcWorkbookActivate, workbookNm + r->sourceSheet);
-		CallXL(xlcWorkbookSelect, workbookNm + r->sourceSheet);
-		r->loadData();
+	CallXL(xlcWorkbookActivate, workbookNm + r->sourceSheet);
+	CallXL(xlcWorkbookSelect, workbookNm + r->sourceSheet);
+	r->loadData();
       }
-	  catch (RavelError) { throw; }
+      catch (RavelError) { throw; }
       catch (std::runtime_error)
         {
           // make a copy of the source workbook, to work from, as ravel
           // needs to colorise the text this temporary workbook will be
           // deleted when te ravel is closed, unless the user has edited
           // the data
-          CallXL(xlcWorkbookCopy, sheetName);
-          CallXL(xlfWindowTitle, "Ravel: " + sheetName);
-          
+	  CallXL(xlcWorkbookCopy, sheetName);
+	  CallXL(xlfWindowTitle, "Ravel: " + sheetName);
+
           workbookNm=workbookName(r->sourceSheet);
-          // create the destination worksheet
+	  // create the destination worksheet
           CallXL(xlcWorkbookInsert, 1);
-          // note Excel places a 31 character limit on sheet names
+	  // note Excel places a 31 character limit on sheet names
           r->destSheet=("Ravel - "+sheetName).substr(0,31);
-          CallXL(xlcWorkbookName, CallXL(xlSheetNm, CallXL(xlSheetId)), 
+	  CallXL(xlcWorkbookName, CallXL(xlSheetNm, CallXL(xlSheetId)),
                  workbookNm+r->destSheet);
 
           // create the hidden checkpoint sheet
           CallXL(xlcWorkbookInsert, 1);
-          CallXL(xlcWorkbookName, CallXL(xlSheetNm, CallXL(xlSheetId)), 
+	  CallXL(xlcWorkbookName, CallXL(xlSheetNm, CallXL(xlSheetId)),
                  workbookNm+checkpointName());
-          CallXL(xlcWorkbookHide,workbookNm+checkpointName(),true/* very hidden*/);
-          r->initSpec();
-          r->initRavel(*r);
-          r->rescale(180);
-          r->updateExcel=true;
-        }
+	  CallXL(xlcWorkbookHide,workbookNm+checkpointName(),true/* very hidden*/);
+	  r->initSpec();
+	  r->initRavel(*r);
+	  r->rescale(180);
+	  r->updateExcel=true;
+	}
       sourceRavels[sheetId(workbookNm+r->sourceSheet)] = 
         destRavels[sheetId(workbookNm+r->destSheet)] = r;
       CallXL(xlcOnEntry, workbookNm+r->sourceSheet, "markRavelDirty");
       CallXL(xlcWorkbookActivate, workbookNm+r->sourceSheet);
       CallXL(xlcWorkbookSelect, workbookNm+r->sourceSheet);
       r->setup();
+
       return *r; //ownership is handled in WindowProc
-  }
+    }
 }
 
 void RavelCtl::getSpreadsheetSize()

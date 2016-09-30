@@ -23,13 +23,14 @@ MACRO(newRavel)
 #pragma XLLEXPORT
   try
     {
-      RavelCtl& r = RavelCtl::create();
+	  RavelCtl& r = RavelCtl::create();
 
       // selection operations can only be performed on active sheet
       // when macro entered, so we need to call back to excel to
       // colour the sourcesheet
-      CallXL(xlcWorkbookActivate, r.sourceSheet);
-      CallXL(xlcWorkbookSelect, r.sourceSheet);
+	  CallXL(xlcWorkbookActivate, r.sourceSheet);
+	  CallXL(xlcWorkbookSelect, r.sourceSheet);
+
       r.notifyExcel();
     }
   catch (const std::exception& ex)
