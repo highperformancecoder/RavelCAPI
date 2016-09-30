@@ -91,13 +91,19 @@ var JSRavel = Module.Ravel.extend("Ravel", {
                 rotator1.setAttribute("transform","rotate("+-2*this.theta*180/Math.PI+")");
                 var rotator2=this.rotator(1.05*r, palette[i%palette.length]);
                 rotator2.setAttribute("transform","scale(-1,1) rotate("+-2*this.theta*180/Math.PI+")");
-                
+
+                var collapsor=document.createElementNS("http://www.w3.org/2000/svg",'path');
+                collapsor.setAttribute("d","M0,0l0,-5h1l-1,-1l-1,1h1Z");
+                collapsor.setAttribute("transform","translate(0,"+1.05*r+") scale(1.5,1.5)");
+                collapsor.setAttribute("stroke","white");
+                collapsor.setAttribute("fill","white");
                 
                 // group rotator arrows to allow opacity to be applied to the group
                 h.rotator=document.createElementNS("http://www.w3.org/2000/svg",'g');
                 h.handle.appendChild(h.rotator);
                 h.rotator.appendChild(rotator1);
                 h.rotator.appendChild(rotator2);
+                h.rotator.appendChild(collapsor);
             }
             this.handle[i].handle.setAttribute
             ("transform",
