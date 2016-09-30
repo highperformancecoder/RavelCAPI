@@ -9,7 +9,7 @@ var JSRavel = Module.Ravel.extend("Ravel", {
         this.handle=new Array;
         this.__parent.__construct.call(this);
 
-        this.rescale(100);
+        this.rescale(140);
 
         var yearData=new Module.VectorString();
         yearData.push_back("1980");
@@ -43,6 +43,7 @@ var JSRavel = Module.Ravel.extend("Ravel", {
     draw: function () {
         for (var i=0; i<2; i++)
         {
+            var x=this.handleX(i), y=this.handleY(i);
             if (typeof this.handle[i]=="undefined")
             {
                 var h=this.handle[i]=new Object();
@@ -51,23 +52,23 @@ var JSRavel = Module.Ravel.extend("Ravel", {
                 h.handle=document.createElementNS("http://www.w3.org/2000/svg",'g');
                 h.handle.appendChild(h.handlePath);
                 document.getElementById(this.svgFrame).appendChild(h.handle);
+                var f=20.0;
+                var r=0.9*Math.sqrt(x*x+y*y);
+                var angle=0.5*Math.asin(1/f);
+                var x1=r*Math.tan(angle);
+                var handlePathInfo="M0,0 A"+f*r+" "+f*r+" 0 0 0 "+x1+" "+r;
+                //handlePathInfo+=" h"+-2*x1;
+                handlePathInfo+=" h"+x1+" L0,"+1.1*r+
+                    " L"+-2*x1+","+r+" h"+x1; //arrow
+                handlePathInfo+=" A"+f*r+" "+f*r+" 0 0 0 0 0";
+                handlePathInfo+="Z";
+                h.handlePath.setAttribute("d",handlePathInfo);
             }
-            this.drawLine(this.handle[i],this.handleX(i),this.handleY(i));
+            this.handle[i].handle.setAttribute
+            ("transform",
+             "rotate("+180*Math.atan2(x,y)/Math.PI+")");
         }
     },
-    
-    drawLine: function(handle,x,y) {
-        var f=20.0;
-        var r=Math.sqrt(x*x+y*y);
-        var angle=0.5*Math.asin(1/f);
-        var x1=r*Math.tan(angle);
-        var handlePathInfo="M0,0 A"+f*r+" "+f*r+" 0 0 0 "+x1+" "+r;
-        handlePathInfo+=" h"+-2*x1;
-        handlePathInfo+=" A"+f*r+" "+f*r+" 0 0 0 0,0";
-        handlePathInfo+="Z";
-        handle.handlePath.setAttribute("d",handlePathInfo);
-        handle.handle.setAttribute("transform","rotate("+180*Math.atan2(x,y)/Math.PI+")");
-    }
 });
 
 var ravel=new JSRavel("ravel");
