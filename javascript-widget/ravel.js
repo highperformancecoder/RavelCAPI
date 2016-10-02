@@ -62,6 +62,10 @@ var JSRavel = Module.Ravel.extend("Ravel", {
         rotator.appendChild(rotatorShaft);
         return rotator;
     },
+
+    toggleRotator: function(handleIdx,opacity) {
+        this.handle[handleIdx].rotator.setAttribute("opacity",opacity);
+    },
     
     draw: function () {
         for (var i=0; i<2; i++)
@@ -75,6 +79,7 @@ var JSRavel = Module.Ravel.extend("Ravel", {
                 h.handle=document.createElementNS("http://www.w3.org/2000/svg",'g');
                 h.handle.appendChild(handlePath);
                 document.getElementById(this.svgFrame).appendChild(h.handle);
+
                 var f=20.0;
                 var r=0.9*Math.sqrt(x*x+y*y);
                 var angle=0.5*Math.asin(1/f);
@@ -87,6 +92,7 @@ var JSRavel = Module.Ravel.extend("Ravel", {
                 handlePathInfo+="Z";
                 handlePath.setAttribute("d",handlePathInfo);
 
+                // rotator arrows
                 var rotator1=this.rotator(1.05*r, palette[i%palette.length]);
                 rotator1.setAttribute("transform","rotate("+-2*this.theta*180/Math.PI+")");
                 var rotator2=this.rotator(1.05*r, palette[i%palette.length]);
@@ -99,11 +105,19 @@ var JSRavel = Module.Ravel.extend("Ravel", {
                 collapsor.setAttribute("fill","white");
                 
                 // group rotator arrows to allow opacity to be applied to the group
-                h.rotator=document.createElementNS("http://www.w3.org/2000/svg",'g');
-                h.handle.appendChild(h.rotator);
-                h.rotator.appendChild(rotator1);
-                h.rotator.appendChild(rotator2);
-                h.rotator.appendChild(collapsor);
+                var rotator=document.createElementNS("http://www.w3.org/2000/svg",'g');
+                h.handle.appendChild(rotator);
+                rotator.appendChild(rotator1);
+                rotator.appendChild(rotator2);
+                rotator.appendChild(collapsor);
+                rotator.setAttribute("opacity",0);
+                // handle toggling rotator display when entering/leaving the handle
+                // nb note a function returning function call to avoid
+                // hoisting problems, as per Crocker's suggestion on
+                // page 39 of "Javascript: the good parts"
+                h.handle.onmouseenter=function(r) {return function() {r.setAttribute("opacity",1);}}(rotator);
+                h.handle.onmouseleave=function(r) {return function() {r.setAttribute("opacity",0);}}(rotator);
+                
             }
             this.handle[i].handle.setAttribute
             ("transform",
