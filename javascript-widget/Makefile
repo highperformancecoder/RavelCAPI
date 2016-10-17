@@ -5,10 +5,10 @@ RAVELOBJS=$(RAVELSRC:%.cc=%.bc)
 $(warning $(RAVELOBJS))
 
 jsravel.js: jsravel.bc $(RAVELOBJS)
-	em++ $(CFLAGS) $^ -o $@
+	em++ $(CFLAGS) -O1 $^ -o $@
 
 .cc.bc:
-	em++ $(CFLAGS) -c $< -o $@
+	em++ $(CFLAGS) -O1 -c $< -o $@
 
 clean:
-	rm jsravel.js *.bc
+	rm jsravel.js *.bc *.mem
