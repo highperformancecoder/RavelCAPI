@@ -1,9 +1,9 @@
 <?php
 echo "<pre>";
 #var_dump($_SERVER);
-#include "credentials.php";
-$username="ravel";
-$password="ravel";
+
+require "./credentials.php";
+#var_dump($GLOBALS);
 
 $mysqli = new mysqli("localhost", $username, $password, "BIS");
 
@@ -12,28 +12,119 @@ if ($mysqli->connect_errno) {
 }
 #echo $mysqli->host_info . "\n";
 
+# data/<table>
+# data/<table>/<axisname>
 function doAxes($pathInfo)
 {
   global $mysqli;
   $retval=array();
   switch (count($pathInfo))
   {
-      case 2: # get column names
-        $result=$mysqli->query("show columns from ".$_GET["table"]);
+      case 3: # get column names
+        $result=$mysqli->query("show columns from ".$pathInfo[2]);
         while($row = mysqli_fetch_array($result))
         {
           if ($row['Field'] != "id" && $row['Field'] != "value")
             array_push($retval,$row['Field']);
         }
         break;
-      case 3: # get labels
-        $result=$mysqli->query("select distinct `".$pathInfo[2]."` from ".$_GET["table"]);
+      case 4: # get labels
+        $result=$mysqli->query("select distinct `".$pathInfo[3]."` from ".$pathInfo[2]);
         while($row = mysqli_fetch_array($result))
           array_push($retval,$row[0]);
         break;
 }
   
   echo json_encode($retval);
+}
+
+function addWhere(&$where,$clause)
+{
+  if ($where!="")
+    $where.=" and ";
+  $where.=$clause;  
+}
+
+function doData($table)
+{
+   global $mysqli;
+   $where="";
+   $cols="";
+   $reducedcols=array();
+   $reductions=array();
+   foreach ($_GET as $axis => $expr)
+   {
+     if ($expr=="")
+       {
+         if ($cols!="") $cols.=",";
+         $cols.="`".$axis."`";
+       }
+     else if (preg_match("/slice\((.*)\)/",$expr,$args))
+       addWhere($where,$axis."=".$args[0]);
+     else if (preg_match("/reduce\((.*)\)/",$expr,$args))
+     {
+       array_push($reducedcols,$axis);
+       switch ($args[1])
+         {
+           case 'sum':
+             $reductions[$axis]="sum(value)";
+             break;
+           case 'prod':
+             $reductions[$axis]="exp(sum(log(value)))";
+             break;
+           case 'avg':
+             $reductions[$axis]="avg(value)";
+             break;
+          }
+     }
+     else if (preg_match("/filterValue\((.*),(.*)\)/",$expr,$args)) {}
+     else if (preg_match("/filter\((.*),(.*)\)/",$expr,$args))
+       {
+         # a more complicated example where we want all values in the
+         # range axis label1 to label2, in database order.
+         addWhere($where,$axis." in (");
+         # need to grab the axis labels
+         $result=$mysqli->query("select distinct `".$axis."` from ".$table);
+         $flag=false;
+         while($row = mysqli_fetch_array($result))
+           {
+             if ($flag)
+               $where.=',';
+             if ($row[0]==$args[0])
+               $flag=true;
+             if ($flag)
+               $where.="'".$row[0]."'";
+             if ($row[0]==$args[1])
+               $flag=false;
+           }
+         $where.=")";
+       }
+      
+   }
+
+   var_dump($reductions);
+   var_dump($reducedcols);
+   echo $cols;
+
+   # now build up the query statement, reduction by reduction
+   $query="select * from $table where $where";
+   while ($r=array_pop($reducedcols))
+   {
+     # append all remaining reduced cols to column vector
+     $c=$cols;
+     foreach ($reducedcols as $i) $c.=",`".$i."`";
+     $query="select $reductions[$r] as value,$c from (".$query.") groupby $c"; 
+   }
+   
+   $query="select value from (".$query.")";
+   echo $query;
+   $result=$mysqli->query($query);
+   $retval=array();
+   while($row = mysqli_fetch_array($result))
+   {
+     array_push($retval,(float)$row[0]);
+   }
+   echo json_encode($retval);
 }
 
 $pathInfo=explode("/",$_SERVER["PATH_INFO"]);
@@ -43,10 +134,11 @@ if (count($pathInfo)>1)
   switch($pathInfo[1])
   {
     case "data":
+      doData($pathInfo[2]);
       break;
     case "axes":
       doAxes($pathInfo);
-     break;
+      break;
   }
 }
 ?>
