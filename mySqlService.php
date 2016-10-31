@@ -60,7 +60,7 @@ function doData($table)
          $cols.="`".$axis."`";
        }
      else if (preg_match("/slice\((.*)\)/",$expr,$args))
-       addWhere($where,$axis."=".$args[0]);
+       addWhere($where,$axis."=".$args[1]);
      else if (preg_match("/reduce\((.*)\)/",$expr,$args))
      {
        array_push($reducedcols,$axis);
@@ -70,7 +70,9 @@ function doData($table)
              $reductions[$axis]="sum(value)";
              break;
            case 'prod':
-             $reductions[$axis]="exp(sum(log(value)))";
+ # SQL doesn't have a product function, so we must fake it using
+ # prod(x)=exp(sum(log(x))), taking into account zero and negative values
+             $reductions[$axis]="if (value, if(sum(value<0)%2, -1, 1) * exp(sum(log(abs(value)))), 0)";
              break;
            case 'avg':
              $reductions[$axis]="avg(value)";
@@ -102,9 +104,9 @@ function doData($table)
       
    }
 
-   var_dump($reductions);
-   var_dump($reducedcols);
-   echo $cols;
+#   var_dump($reductions);
+#   var_dump($reducedcols);
+#   echo $cols;
 
    # now build up the query statement, reduction by reduction
    $query="select * from $table where $where";
@@ -112,12 +114,12 @@ function doData($table)
    {
      # append all remaining reduced cols to column vector
      $c=$cols;
-     foreach ($reducedcols as $i) $c.=",`".$i."`";
-     $query="select $reductions[$r] as value,$c from (".$query.") groupby $c"; 
+     foreach ($reducedcols as $i) $c.=",$i";
+     $query="select $reductions[$r] as value,$c from ($query) as t$r group by $c"; 
    }
    
-   $query="select value from (".$query.")";
-   echo $query;
+   $query="select value from (".$query.") as tmp";
+   echo $query."\n";
    $result=$mysqli->query($query);
    $retval=array();
    while($row = mysqli_fetch_array($result))
