@@ -13,14 +13,14 @@ var JSRavel = Module.Ravel.extend("Ravel", {
 
         this.rescale(140);
 
-        var yearData=new Module.VectorString();
-        yearData.push_back("1980");
-        yearData.push_back("1990");
-        this.addHandle("Year",yearData);
-        var genderData=new Module.VectorString();
-        genderData.push_back("male");
-        genderData.push_back("female");
-        this.addHandle("Gender",genderData);
+//        var yearData=new Module.VectorString();
+//        yearData.push_back("1980");
+//        yearData.push_back("1990");
+//        this.addHandle("Year",yearData);
+//        var genderData=new Module.VectorString();
+//        genderData.push_back("male");
+//        genderData.push_back("female");
+//        this.addHandle("Gender",genderData);
 
         // bind mouse actions
         var ravelframe=document.getElementById(svgFrame);
@@ -70,7 +70,7 @@ var JSRavel = Module.Ravel.extend("Ravel", {
     },
     
     draw: function () {
-        for (var i=0; i<2; i++)
+        for (var i=0; i<this.numHandles(); i++)
         {
             var x=this.handleX(i), y=this.handleY(i);
             if (typeof this.handle[i]=="undefined")
@@ -119,18 +119,34 @@ var JSRavel = Module.Ravel.extend("Ravel", {
                 // page 39 of "Javascript: the good parts"
                 h.handle.onmouseenter=function(r) {return function() {r.setAttribute("opacity",1);}}(rotator);
                 h.handle.onmouseleave=function(r) {return function() {r.setAttribute("opacity",0);}}(rotator);
-                
+
+                // handle description
+                h.description=document.createElementNS("http://www.w3.org/2000/svg",'text');
+                h.description.innerHTML=this.handles(i).description;
+                h.description.setAttribute("fill",palette[i%palette.length]);
+                h.description.setAttribute("transform","scale(-1,1)");
+                document.getElementById(this.svgFrame).appendChild(h.description);
+             //   h.handle.appendChild(description);
             }
             this.handle[i].handle.setAttribute
             ("transform",
              "rotate("+180*Math.atan2(x,y)/Math.PI+")");
+            this.handle[i].description.setAttribute("x",this.handles(i).labelAnchor().x);
+            this.handle[i].description.setAttribute("y",this.handles(i).labelAnchor().y);
+            switch (this.handles(i).labelAnchor().anchor)
+            {
+                case Module.Anchor.nw: case Module.Anchor.sw:
+                this.handle[i].description.setAttribute("text-anchor","start");
+                break;
+                case Module.Anchor.ne: case Module.Anchor.se:
+                this.handle[i].description.setAttribute("text-anchor","end");
+                break;
+            }
         }
     },
 });
 
 var xhttp = new XMLHttpRequest();
-
-        
 
 // populate table selector
 xhttp.onreadystatechange = function() {
@@ -151,14 +167,40 @@ xhttp.onreadystatechange = function() {
 xhttp.open("GET","/mySqlService.php/axes");
 xhttp.send();
 
-function setTable(name) {
-    alert(name);
-    table=name;
-}
-
 var ravel=new JSRavel("ravel");
 
-ravel.draw();
+//ravel.draw();
+
+function setTable(name) {
+    table=name;
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var axes = eval(this.responseText);
+            for (var i=0; i<axes.length; ++i)
+            {
+                var sliceLabelReq=new XMLHttpRequest();
+                sliceLabelReq.axis=axes[i];
+                sliceLabelReq.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var sliceLabels=new Module.VectorString();
+                        var sliceLabelData=eval(this.responseText);
+                        for (var i=0; i<sliceLabelData.length; ++i)
+                            sliceLabels.push_back(sliceLabelData[i]);
+                        ravel.addHandle(this.axis,sliceLabels);
+                        if (ravel.numHandles()>=2)
+                            ravel.draw();
+                    }
+                }
+                // request slicelabels
+                sliceLabelReq.open("GET","/mySqlService.php/axes/"+table+"/"+axes[i]);
+                sliceLabelReq.send();
+            }
+        }
+    }
+    // request axis names
+    xhttp.open("GET","/mySqlService.php/axes/"+table);
+    xhttp.send();
+}
 
 function onunload() {
     if (ravel) ravel.delete();

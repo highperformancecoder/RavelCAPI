@@ -166,6 +166,7 @@ namespace ravel
       using Super::value_type;
       using Super::const_iterator;
       using Super::iterator;
+      const Handle& at(size_t i) const {return Super::operator[](i);}
       size_t size() const {return Super::size();}
       void clear() {/* clear does nothing by design */}
       void resize(size_type) {/* clear does nothing by design */}

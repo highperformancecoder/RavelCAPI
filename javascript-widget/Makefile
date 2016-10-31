@@ -1,5 +1,6 @@
 .SUFFIXES: .cc .bc .js
 CFLAGS=-I. -I../src --std=c++11 --bind
+#-s ALLOW_MEMORY_GROWTH=1
 RAVELSRC=$(wildcard ../src/*.cc)
 RAVELOBJS=$(RAVELSRC:%.cc=%.bc)
 $(warning $(RAVELOBJS))
