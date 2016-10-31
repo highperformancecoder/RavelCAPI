@@ -68,6 +68,14 @@ var JSRavel = Module.Ravel.extend("Ravel", {
     toggleRotator: function(handleIdx,opacity) {
         this.handle[handleIdx].rotator.setAttribute("opacity",opacity);
     },
+
+    clearHandles: function() {
+        var svg=document.getElementById(this.svgFrame);
+        while (svg.hasChildNodes())
+            svg.removeChild(svg.firstChild);
+        this.clear();
+        this.handle=new Array;
+    },
     
     draw: function () {
         for (var i=0; i<this.numHandles(); i++)
@@ -173,6 +181,8 @@ var ravel=new JSRavel("ravel");
 
 function setTable(name) {
     table=name;
+    ravel.clearHandles();
+    
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var axes = eval(this.responseText);

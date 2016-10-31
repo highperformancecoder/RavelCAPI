@@ -157,6 +157,7 @@ namespace ravel
       CLASSDESC_ACCESS(Handles);
       void addHandle(const std::string& description, 
                      const std::vector<std::string>& sliceLabels);
+      void clearHandles() {Super::clear();}
     public:
       using Super::operator[];
       using Super::begin;
@@ -211,7 +212,7 @@ namespace ravel
                   const std::vector<std::string>& sliceLabels=
                   std::vector<std::string>());
     void clear() {
-      handles.clear();
+      handles.clearHandles();
       m_xHandleId=0; m_yHandleId=1;
     }
     /// move \a handle to \a x, \a y due to mouse motion

@@ -5,9 +5,6 @@ using namespace ravel;
 using namespace emscripten;
 
 namespace {
-//  struct HandleWrapper: public wrapper<Handle> {
-//    EMSCRIPTEN_WRAPPER(HandleWrapper);
-//  };
 
   struct RavelWrapper: public wrapper<Ravel> {
     EMSCRIPTEN_WRAPPER(RavelWrapper);
@@ -29,7 +26,6 @@ EMSCRIPTEN_BINDINGS(Ravel) {
   
   class_<Handle>("Handle")
     .constructor<>()
-    //    .allow_subclass<HandleWrapper>("HandleWrapper")
     .function("x",&Handle::x)
     .function("y",&Handle::y)
     .property("description",&Handle::description)
@@ -48,6 +44,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("handles",optional_override([](const Ravel& self, size_t i){return self.handles[i];}))
     .function("numHandles",optional_override([](const Ravel& self){return self.handles.size();}))
     .function("addHandle",&Ravel::addHandle)
+    .function("clear",&Ravel::clear)
     .function("moveHandleTo",&Ravel::moveHandleTo)
     .function("rescale",&Ravel::rescale)
     .function("onMouseMotion",&Ravel::onMouseMotion)
@@ -56,11 +53,6 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("handleX",&Ravel::handleX)
     .function("handleY",&Ravel::handleY);
 
-//  class_<Ravel::Handles>("RavelHandles")
-//    .constructor<>()
-//    .function("at",&Ravel::Handles::at)
-//    .function("size",&Ravel::Handles::size);
-    
   register_vector<std::string>("VectorString");
 }
 
