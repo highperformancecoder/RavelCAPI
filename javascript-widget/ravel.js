@@ -1,3 +1,5 @@
+var server="http://localhost"
+
 function sqr(x) {return x*x;};
 var palette=["black","red","green","blue","magenta","cyan","yellow"];
     
@@ -126,14 +128,34 @@ var JSRavel = Module.Ravel.extend("Ravel", {
     },
 });
 
+var xhttp = new XMLHttpRequest();
+
+        
+
+// populate table selector
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var response = eval(this.responseText);
+        var tableSelector=document.getElementById("tableSelector");
+        for (var i=0; i<response.length; ++i)
+        {
+            var option=document.createElement("option");
+            tableSelector.appendChild(option);
+            option.setAttribute("value",response[i]);
+            option.innerHTML=response[i];
+        }
+    }
+}
+
+xhttp.open("GET","/mySqlService.php/axes");
+xhttp.send();
+
 var ravel=new JSRavel("ravel");
-var ravel1=new JSRavel("ravel1");
-ravel1.moveHandleTo(0,75,75);
 
 ravel.draw();
-ravel1.draw();
 
 function onunload() {
     if (ravel) ravel.delete();
     if (ravel1) ravel1.delete();
 }
+

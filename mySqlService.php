@@ -1,25 +1,31 @@
 <?php
-echo "<pre>";
+#echo "<pre>";
 #var_dump($_SERVER);
 
 require "./credentials.php";
-#var_dump($GLOBALS);
 
 $mysqli = new mysqli("localhost", $username, $password, "BIS");
 
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
-#echo $mysqli->host_info . "\n";
 
-# data/<table>
-# data/<table>/<axisname>
+
+
+# axes/<table>
+# axes/<table>/<axisname>
 function doAxes($pathInfo)
 {
   global $mysqli;
   $retval=array();
   switch (count($pathInfo))
   {
+      case 2: # get table names
+        $result=$mysqli->query("show tables");
+        while($row = mysqli_fetch_array($result))
+        array_push($retval,$row[0]);
+        break;
+
       case 3: # get column names
         $result=$mysqli->query("show columns from ".$pathInfo[2]);
         while($row = mysqli_fetch_array($result))
@@ -104,10 +110,6 @@ function doData($table)
       
    }
 
-#   var_dump($reductions);
-#   var_dump($reducedcols);
-#   echo $cols;
-
    # now build up the query statement, reduction by reduction
    $query="select * from $table where $where";
    while ($r=array_pop($reducedcols))
@@ -130,7 +132,6 @@ function doData($table)
 }
 
 $pathInfo=explode("/",$_SERVER["PATH_INFO"]);
-#var_dump($pathInfo);
 if (count($pathInfo)>1)
 {
   switch($pathInfo[1])
