@@ -1,11 +1,13 @@
- <html>
+<html>
     <meta charset="utf-8">
 <body onunload="onunload()">
 
 <h1>Ravel!</h1>
 
-Database: <select name="table" id="tableSelector">
+<form>
+Database: <select onchange="setTable(this.value)" id="tableSelector">
 </select>
+</form>
 
 <div><!-- svg element needs to be contained so that we can ask where --
        -- it is on the screen -->

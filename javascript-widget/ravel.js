@@ -1,4 +1,4 @@
-var server="http://localhost"
+var table=""; // selected table
 
 function sqr(x) {return x*x;};
 var palette=["black","red","green","blue","magenta","cyan","yellow"];
@@ -136,6 +136,7 @@ var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         var response = eval(this.responseText);
+        response.unshift("-"); // a dummy table name to indicate unselected
         var tableSelector=document.getElementById("tableSelector");
         for (var i=0; i<response.length; ++i)
         {
@@ -150,12 +151,16 @@ xhttp.onreadystatechange = function() {
 xhttp.open("GET","/mySqlService.php/axes");
 xhttp.send();
 
+function setTable(name) {
+    alert(name);
+    table=name;
+}
+
 var ravel=new JSRavel("ravel");
 
 ravel.draw();
 
 function onunload() {
     if (ravel) ravel.delete();
-    if (ravel1) ravel1.delete();
 }
 
