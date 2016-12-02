@@ -2,7 +2,18 @@ var table=""; // selected table
 
 function sqr(x) {return x*x;};
 var palette=["black","red","green","blue","magenta","cyan","yellow"];
-    
+
+/*
+  HTMLCanvas is an array of HTML canvas contexts. Add a new context using the method newCanvas */
+var HTMLcanvas = [];
+HTMLcanvas.newCanvas = function(id) {
+    var canvas = document.getElementById(id);
+    if (canvas.getContext) {
+        HTMLcanvas.push(canvas.getContext('2d'));
+    }
+}
+
+
 
 var JSRavel = Module.Ravel.extend("Ravel", {
     // container of references to SVG objects
