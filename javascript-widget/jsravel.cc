@@ -1,6 +1,5 @@
 #include "ravelCairo.h"
 #include "ravelCairoImpl.h"
-//#include "HTMLCanvas.h"
 #include <string>
 #include <emscripten/bind.h>
 
@@ -16,16 +15,10 @@ namespace ravel
 
 namespace {
 
-  typedef val* HTMLCanvas; //TODO remove later
-  
   struct JRavelCairo: public RavelCairo<val*>
   {
     unique_ptr<val> canvasContext;
     void setCanvas(const val& x) { canvasContext.reset(new val(x)); setG(canvasContext.get());}
-    void render() {
-      canvasContext->call<void>("clearRect",-radius(),-radius(),2*radius(),2*radius());
-      RavelCairo<val*>::render();
-    }
   };
   
   struct RavelCairoWrapper: public wrapper<JRavelCairo> {
@@ -57,7 +50,9 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("sliceX",&Handle::sliceX)
     .function("sliceY",&Handle::sliceY)
     .function("sliceLabel",&Handle::sliceLabel)
-    .function("labelAnchor",&Handle::labelAnchor);
+    .function("labelAnchor",&Handle::labelAnchor)
+    .function("toggleCollapsed",&Handle::toggleCollapsed)
+    ;
   
   class_<Ravel>("Ravel")
     .constructor<>()
@@ -72,23 +67,23 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("onMouseMotion",&Ravel::onMouseMotion)
     .function("onMouseDown",&Ravel::onMouseDown)
     .function("onMouseUp",&Ravel::onMouseUp)
+    .function("handleIfMouseOver",&Ravel::handleIfMouseOver)
     .function("handleX",&Ravel::handleX)
     .function("handleY",&Ravel::handleY);
 
-  class_<RavelCairo<HTMLCanvas>,base<Ravel>>("RavelCairoHTMLCanvas")
-    .function("onMouseDown",&RavelCairo<HTMLCanvas>::onMouseDown)
-    .function("onMouseOver",&RavelCairo<HTMLCanvas>::onMouseOver)
-    .function("handleIfMouseOverAxisLabel",&RavelCairo<HTMLCanvas>::handleIfMouseOverAxisLabel)
-    .function("handleIfMouseOverOpLabel",&RavelCairo<HTMLCanvas>::handleIfMouseOverOpLabel)
+  class_<RavelCairo<val*>,base<Ravel>>("RavelCairoval*")
+    .function("onMouseDown",&RavelCairo<val*>::onMouseDown)
+    .function("onMouseOver",&RavelCairo<val*>::onMouseOver)
+    .function("handleIfMouseOverAxisLabel",&RavelCairo<val*>::handleIfMouseOverAxisLabel)
+    .function("handleIfMouseOverOpLabel",&RavelCairo<val*>::handleIfMouseOverOpLabel)
     .function("handleIfMouseOverCaliperLabel",
-              &RavelCairo<HTMLCanvas>::handleIfMouseOverCaliperLabel)
-    .function("render",&RavelCairo<HTMLCanvas>::render)
+              &RavelCairo<val*>::handleIfMouseOverCaliperLabel)
+    .function("render",&RavelCairo<val*>::render)
     ;
 
-    class_<JRavelCairo,base<RavelCairo<val*>>>("JRavelCairo")
+    class_<JRavelCairo,base<RavelCairo<val*>>>("RavelCairo")
       .allow_subclass<RavelCairoWrapper>("RavelCairoWrapper")
       .function("setCanvas",&JRavelCairo::setCanvas)
-      .function("render",&JRavelCairo::render)
       .constructor<>()
       ;
     

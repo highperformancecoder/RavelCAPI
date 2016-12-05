@@ -5,8 +5,7 @@ using namespace std;
 
 namespace ravel
 {
-  typedef val* HTMLCanvas;
-  template <> class CairoShimImpl<HTMLCanvas>
+  template <> class CairoShimImpl<val*>
   {
     bool pathOpen=false;
   public:
@@ -16,62 +15,64 @@ namespace ravel
     CairoShimImpl(val* canvas): canvas(*canvas) {}
   };
 
-  template <> CairoShim<HTMLCanvas>::CairoShim(HTMLCanvas canvas): 
-    impl(new CairoShimImpl<HTMLCanvas>(canvas)) {}
-  template <> CairoShim<HTMLCanvas>::~CairoShim()
+  template <> CairoShim<val*>::CairoShim(val* canvas): 
+    impl(new CairoShimImpl<val*>(canvas)) {}
+  template <> CairoShim<val*>::~CairoShim()
   {delete impl;}
 
-  template <> void CairoShim<HTMLCanvas>::moveTo(double x, double y) 
+  template <> void CairoShim<val*>::moveTo(double x, double y) 
   {
     impl->canvas.call<void>("moveTo",x,y);
     impl->currX=x; impl->currY=y;
   }
   
-  template <> void CairoShim<HTMLCanvas>::lineTo(double x, double y)
+  template <> void CairoShim<val*>::lineTo(double x, double y)
   {
     impl->canvas.call<void>("lineTo",x,y);
     impl->currX=x; impl->currY=y;
   }
 
-  template <> void CairoShim<HTMLCanvas>::relMoveTo(double x, double y)
+  template <> void CairoShim<val*>::relMoveTo(double x, double y)
   {
-    impl->canvas.call<void>("moveTo",x+impl->currX, y+impl->currY);
+    x+=impl->currX; y+=impl->currY;
+    impl->canvas.call<void>("moveTo",x, y);
     impl->currX=x; impl->currY=y;
   }
 
-  template <> void CairoShim<HTMLCanvas>::relLineTo(double x, double y)
+  template <> void CairoShim<val*>::relLineTo(double x, double y)
   {
-    impl->canvas.call<void>("lineTo",x+impl->currX, y+impl->currY);
+    x+=impl->currX; y+=impl->currY;
+    impl->canvas.call<void>("lineTo",x, y);
     impl->currX=x; impl->currY=y;
   }
 
-  template <> void CairoShim<HTMLCanvas>::arc
+  template <> void CairoShim<val*>::arc
   (double x, double y, double radius, double start, double end)
   {
     impl->canvas.call<void>("arc",x,y,radius,start,end,false);
   }
 
     // paths
-  template <> void CairoShim<HTMLCanvas>::newPath()
+  template <> void CairoShim<val*>::newPath()
   {impl->canvas.call<void>("beginPath");}
 
-  template <> void CairoShim<HTMLCanvas>::closePath()
+  template <> void CairoShim<val*>::closePath()
   {impl->canvas.call<void>("closePath");}
 
-  template <> void CairoShim<HTMLCanvas>::fill()
+  template <> void CairoShim<val*>::fill()
   {impl->canvas.call<void>("fill");}
 
-  template <> void CairoShim<HTMLCanvas>::stroke()
+  template <> void CairoShim<val*>::stroke()
   {impl->canvas.call<void>("stroke");}
   
-  template <> void CairoShim<HTMLCanvas>::strokePreserve()
+  template <> void CairoShim<val*>::strokePreserve()
   {}
 
-  template <> void CairoShim<HTMLCanvas>::setLineWidth(double w)
+  template <> void CairoShim<val*>::setLineWidth(double w)
   {}
 
   // sources
-  template <> void CairoShim<HTMLCanvas>::setSourceRGB
+  template <> void CairoShim<val*>::setSourceRGB
   (double r, double g, double b)
   {
     char rgbSpec[50];
@@ -80,12 +81,12 @@ namespace ravel
   }
 
   // text. Argument is in UTF8 encoding
-  template <> void CairoShim<HTMLCanvas>::showText(const std::string& text)
+  template <> void CairoShim<val*>::showText(const std::string& text)
   {
     impl->canvas.call<void>("fillText",text,impl->currX,impl->currY);
   }
 
-  template <> void CairoShim<HTMLCanvas>::setTextExtents(const std::string& text)
+  template <> void CairoShim<val*>::setTextExtents(const std::string& text)
   {
     val textExtents=impl->canvas.call<val>("measureText",text);
     val document(val::global("document"));
@@ -93,31 +94,31 @@ namespace ravel
     impl->textHeight=10; // height not available in current browsers
   }
 
-  template <> double CairoShim<HTMLCanvas>::textWidth() const
+  template <> double CairoShim<val*>::textWidth() const
   {return impl->textWidth;}
 
-  template <> double CairoShim<HTMLCanvas>::textHeight() const
+  template <> double CairoShim<val*>::textHeight() const
   {return impl->textHeight;}
 
   // matrix transformation
-  template <> void CairoShim<HTMLCanvas>::identityMatrix()
+  template <> void CairoShim<val*>::identityMatrix()
   {impl->canvas.call<void>("resetTransform");}
   
-  template <> void CairoShim<HTMLCanvas>::translate(double x, double y)
+  template <> void CairoShim<val*>::translate(double x, double y)
   {impl->canvas.call<void>("translate",x,y);}
 
-  template <> void CairoShim<HTMLCanvas>::scale(double sx, double sy)
+  template <> void CairoShim<val*>::scale(double sx, double sy)
   {impl->canvas.call<void>("scale",sx,sy);}
 
 
-  template <> void CairoShim<HTMLCanvas>::rotate(double angle)
+  template <> void CairoShim<val*>::rotate(double angle)
   {impl->canvas.call<void>("rotate",angle);}
 
     // context manipulation
-  template <> void CairoShim<HTMLCanvas>::save()
+  template <> void CairoShim<val*>::save()
   {impl->canvas.call<void>("save");}
 
-  template <> void CairoShim<HTMLCanvas>::restore()
+  template <> void CairoShim<val*>::restore()
   {impl->canvas.call<void>("restore");}
 
 

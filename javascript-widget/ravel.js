@@ -3,81 +3,50 @@ var table=""; // selected table
 function sqr(x) {return x*x;};
 var palette=["black","red","green","blue","magenta","cyan","yellow"];
 
-/*
-  HTMLCanvas is an array of HTML canvas contexts. Add a new context
-  using the method newCanvas. Returns index of new context.
-*/
-var HTMLcanvas = [];
-HTMLcanvas.newCanvas = function(id) {
-    alert("id="+id);
-    var canvas = document.getElementById(id);
-    if (canvas.getContext) {
-        HTMLcanvas.push(canvas.getContext('2d'));
+var newRavel = function(canvasId) {
+    var ravel = new Module.RavelCairo;
+    var canvasElem=document.getElementById(canvasId);
+    var canvas = canvasElem.getContext('2d');
+    var radius = 0.5*Math.min(canvasElem.width,canvasElem.height);
+    ravel.setCanvas(canvas);
+    ravel.rescale(0.8*radius);
+    ravel.x=0; ravel.y=0;
+    canvas.translate(0.5*canvasElem.width, 0.5*canvasElem.height);
+    ravel.redraw = function() {
+        canvas.clearRect(-0.5*canvasElem.width, -0.5*canvasElem.height,
+                         canvasElem.width, canvasElem.height);
+        ravel.render();
     }
-    return HTMLcanvas.length-1;
+   
+    // bind mouse actions
+    var offx=canvasElem.parentElement.offsetLeft+100;
+    var offy=canvasElem.parentElement.offsetTop+100;
+    ravel.x=0; ravel.y=0;
+    canvasElem.onmousedown=function(event) {
+        ravel.onMouseDown(event.clientX-offx, event.clientY-offy);
+    };
+    canvasElem.onmouseup=function(event) {
+        ravel.onMouseUp(event.clientX-offx, event.clientY-offy);
+        ravel.redraw();
+    };
+    canvasElem.onmousemove=function(event) {
+        if (ravel.onMouseOver(event.clientX-offx, event.clientY-offy))
+            ravel.redraw();
+        if (event.button==0 && ravel.onMouseMotion(event.clientX-offx, event.clientY-offy))
+            ravel.redraw();
+    };
+    canvasElem.ondblclick=function(event) {
+        var h=ravel.handleIfMouseOver(event.clientX-offx, event.clientY-offy, -1);
+        alert(h);
+        if (h>=0)
+        {
+            ravel.handles(h).toggleCollapsed();
+            ravel.redraw();
+        }
+    }
+    
+    return ravel;
 }
-
-
-
-var JSRavel = Module.JRavelCairo.extend("JRavelCairo", {
-    // container of references to SVG objects
-    __construct: function(svgFrame) {
-        this.svgFrame=svgFrame;
-        this.handle=new Array;
-        this.__parent.__construct.call();
-        for (var i in this)
-            document.writeln(i);
-
-        var canvas = document.getElementById(svgFrame);
-        alert(svgFrame);
-        this.setCanvas(canvas.getContext('2d'));
-        this.rescale(140);
-        alert(svgFrame);
-
-         // bind mouse actions
-        var ravelframe=document.getElementById(svgFrame);
-        var elem=ravelframe.parentElement;
-        var offx=elem.parentElement.offsetLeft+100;
-        var offy=elem.parentElement.offsetTop+100;
-        this.x=0; this.y=0;
-        alert(svgFrame);
-        var ravel=this;
-       elem.onmousedown=function(event) {
-            ravel.onMouseDown(event.clientX-offx, event.clientY-offy);
-        };
-        elem.onmouseup=function(event) {
-            ravel.onMouseUp(event.clientX-offx, event.clientY-offy);
-            ravel.render();
-        };
-        elem.onmousemove=function(event) {
-            if (ravel.onMouseMotion(event.clientX-offx, event.clientY-offy))
-                ravel.render();
-        };
-    },
-});
-
-//var JSRavel = function(svgFrame) {
-//    var ravel = new Module.JRavelCairo(svgFrame);
-//    this.ravel=ravel; //TODO necessary?
-//    ravel.rescale(140);
-//             // bind mouse actions
-//    var ravelframe=document.getElementById(svgFrame);
-//    var elem=ravelframe.parentElement;
-//    var offx=elem.parentElement.offsetLeft+100;
-//    var offy=elem.parentElement.offsetTop+100;
-//    ravel.x=0; ravel.y=0;
-//    elem.onmousedown=function(event) {
-//        ravel.onMouseDown(event.clientX-offx, event.clientY-offy);
-//    };
-//    elem.onmouseup=function(event) {
-//        ravel.onMouseUp(event.clientX-offx, event.clientY-offy);
-//        ravel.render();
-//    };
-//    elem.onmousemove=function(event) {
-//        if (ravel.onMouseMotion(event.clientX-offx, event.clientY-offy))
-//            ravel.render();
-//    };
-//}
 
 var xhttp = new XMLHttpRequest();
 
@@ -100,13 +69,7 @@ xhttp.onreadystatechange = function() {
 xhttp.open("GET","/mySqlService.php/axes");
 xhttp.send();
 
-//var ravel=new JSRavel("ravel");
-var ravel=new Module.JRavelCairo;
-var canvas = document.getElementById("ravel").getContext('2d');
-ravel.setCanvas(canvas);
-ravel.rescale(140);
-ravel.x=0; ravel.y=0;
-canvas.translate(150,150);
+var ravel=newRavel("ravel");
 
 //var tm=canvas.getContext('2d').measureText("hello");
 //for (var i in tm) document.writeln(i);
@@ -130,7 +93,7 @@ function setTable(name) {
                             sliceLabels.push_back(sliceLabelData[i]);
                         ravel.addHandle(this.axis,sliceLabels);
                         if (ravel.numHandles()>=2)
-                            ravel.render();
+                            ravel.redraw();
                     }
                 }
                 // request slicelabels
