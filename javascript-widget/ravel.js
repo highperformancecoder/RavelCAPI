@@ -33,7 +33,6 @@ var newRavel = function(canvasId) {
     };
     canvasElem.ondblclick=function(event) {
         var h=ravel.handleIfMouseOver(event.clientX, event.clientY, -1);
-        alert(h);
         if (h>=0)
         {
             ravel.handles(h).toggleCollapsed();
