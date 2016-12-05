@@ -78,6 +78,7 @@ namespace ravel
     char rgbSpec[50];
     snprintf(rgbSpec,sizeof(rgbSpec),"rgb(%d,%d,%d)",int(255*r),int(255*g),int(255*b));
     impl->canvas.set("fillStyle",rgbSpec);
+    impl->canvas.set("strokeStyle",rgbSpec);
   }
 
   // text. Argument is in UTF8 encoding
