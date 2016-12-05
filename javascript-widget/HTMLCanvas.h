@@ -2,16 +2,16 @@
 #define HTMLCANVAS
 #include <string>
 #include <emscripten/emscripten.h>
+#include <emscripten/val.h>
 
 namespace ravel
 {
   struct HTMLCanvas
   {
-    int id;
-    HTMLCanvas(const std::string& canvasId) {
-      emscripten_run_script(("HTMLcanvas.newCanvas('"+canvasId+"')").c_str());
-      id=EM_ASM_INT_V({return HTMLcanvas.length})-1;
-   }
+    int id=-1;
+    HTMLCanvas(void* p=nullptr) {}
+    HTMLCanvas(int id): id(id) {}
+    operator bool() const {return id>=0;}
   };
 }
 
