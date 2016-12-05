@@ -60,13 +60,13 @@ namespace ravel
   {impl->canvas.call<void>("closePath");}
 
   template <> void CairoShim<val*>::fill()
-  {impl->canvas.call<void>("fill");}
+  {impl->canvas.call<void>("fill");newPath();}
 
   template <> void CairoShim<val*>::stroke()
-  {impl->canvas.call<void>("stroke");}
+  {impl->canvas.call<void>("stroke");newPath();}
   
   template <> void CairoShim<val*>::strokePreserve()
-  {}
+  {impl->canvas.call<void>("stroke");}
 
   template <> void CairoShim<val*>::setLineWidth(double w)
   {}

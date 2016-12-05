@@ -1,8 +1,5 @@
 var table=""; // selected table
 
-function sqr(x) {return x*x;};
-var palette=["black","red","green","blue","magenta","cyan","yellow"];
-
 var newRavel = function(canvasId) {
     var ravel = new Module.RavelCairo;
     var canvasElem=document.getElementById(canvasId);
@@ -19,24 +16,23 @@ var newRavel = function(canvasId) {
     }
    
     // bind mouse actions
-    var offx=canvasElem.parentElement.offsetLeft+100;
-    var offy=canvasElem.parentElement.offsetTop+100;
-    ravel.x=0; ravel.y=0;
+    ravel.x=0.5*canvasElem.width+canvasElem.parentElement.offsetLeft;
+    ravel.y=0.5*canvasElem.height+canvasElem.parentElement.offsetTop;
     canvasElem.onmousedown=function(event) {
-        ravel.onMouseDown(event.clientX-offx, event.clientY-offy);
+        ravel.onMouseDown(event.clientX, event.clientY);
     };
     canvasElem.onmouseup=function(event) {
-        ravel.onMouseUp(event.clientX-offx, event.clientY-offy);
+        ravel.onMouseUp(event.clientX, event.clientY);
         ravel.redraw();
     };
     canvasElem.onmousemove=function(event) {
-        if (ravel.onMouseOver(event.clientX-offx, event.clientY-offy))
+        if (ravel.onMouseOver(event.clientX, event.clientY))
             ravel.redraw();
-        if (event.button==0 && ravel.onMouseMotion(event.clientX-offx, event.clientY-offy))
+        if (event.button==0 && ravel.onMouseMotion(event.clientX, event.clientY))
             ravel.redraw();
     };
     canvasElem.ondblclick=function(event) {
-        var h=ravel.handleIfMouseOver(event.clientX-offx, event.clientY-offy, -1);
+        var h=ravel.handleIfMouseOver(event.clientX, event.clientY, -1);
         alert(h);
         if (h>=0)
         {
@@ -76,7 +72,7 @@ var ravel=newRavel("ravel");
 
 function setTable(name) {
     table=name;
-    //ravel.clearHandles();
+    ravel.clear();
     
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
