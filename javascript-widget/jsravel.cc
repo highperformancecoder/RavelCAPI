@@ -51,6 +51,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("sliceY",&Handle::sliceY)
     .function("sliceLabel",&Handle::sliceLabel)
     .function("labelAnchor",&Handle::labelAnchor)
+    .function("collapsed",&Handle::collapsed)
     .function("toggleCollapsed",&Handle::toggleCollapsed)
     ;
   
@@ -69,8 +70,11 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("onMouseUp",&Ravel::onMouseUp)
     .function("handleIfMouseOver",&Ravel::handleIfMouseOver)
     .function("handleX",&Ravel::handleX)
-    .function("handleY",&Ravel::handleY);
-
+    .function("handleY",&Ravel::handleY)
+    .function("xHandleId",&Ravel::xHandleId)
+    .function("yHandleId",&Ravel::yHandleId)
+    ;
+  
   class_<RavelCairo<val*>,base<Ravel>>("RavelCairoval*")
     .function("onMouseDown",&RavelCairo<val*>::onMouseDown)
     .function("onMouseOver",&RavelCairo<val*>::onMouseOver)

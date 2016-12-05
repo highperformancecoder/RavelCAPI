@@ -13,6 +13,7 @@ var newRavel = function(canvasId) {
         canvas.clearRect(-0.5*canvasElem.width, -0.5*canvasElem.height,
                          canvasElem.width, canvasElem.height);
         ravel.render();
+        ravel.onRedraw();
     }
    
     // bind mouse actions
@@ -43,6 +44,24 @@ var newRavel = function(canvasId) {
     return ravel;
 }
 
+var buildDbQuery=function(db,ravel) {
+    var r="/data/"+table+"?";
+    for (var i=0; i<ravel.numHandles(); ++i)
+    {
+        if (i>0) r+="&";
+        var h=ravel.handles(i);
+        r+=h.description+"=";
+        if (i!=ravel.xHandleId() && i!=ravel.yHandleId())
+        {
+            if (h.collapsed())
+                r+="reduce("+reductionOp+")";
+            else
+                r+="slice("+h.sliceLabel()+")";
+        }
+    }
+    alert(r);
+}
+
 var xhttp = new XMLHttpRequest();
 
 // populate table selector
@@ -66,13 +85,21 @@ xhttp.send();
 
 var ravel=newRavel("ravel");
 
-//var tm=canvas.getContext('2d').measureText("hello");
-//for (var i in tm) document.writeln(i);
-
 function setTable(name) {
     table=name;
     ravel.clear();
     
+    ravel.onRedraw=function() {
+        var dataReq=new XMLHttpRequest;
+        dataReq.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                processData(ravel,eval(this.responseText));
+            }
+        }
+        dataReq.open("GET",buildDbQuery(table,ravel));
+        dataReq.send();
+    }
+
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var axes = eval(this.responseText);
@@ -87,8 +114,10 @@ function setTable(name) {
                         for (var i=0; i<sliceLabelData.length; ++i)
                             sliceLabels.push_back(sliceLabelData[i]);
                         ravel.addHandle(this.axis,sliceLabels);
-                        if (ravel.numHandles()>=2)
+                        if (ravel.numHandles()==axes.length)
+                        {
                             ravel.redraw();
+                        }
                     }
                 }
                 // request slicelabels

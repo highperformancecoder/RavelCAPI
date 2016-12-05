@@ -1,0 +1,3 @@
+[submodule "javascript-widget/SlickGrid"]
+	path = javascript-widget/SlickGrid
+	url = git@github.com:6pac/SlickGrid.git
