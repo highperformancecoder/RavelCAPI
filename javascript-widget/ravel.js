@@ -13,18 +13,19 @@ var newRavel = function(canvasId) {
         canvas.clearRect(-0.5*canvasElem.width, -0.5*canvasElem.height,
                          canvasElem.width, canvasElem.height);
         ravel.render();
-        ravel.onRedraw();
     }
    
     // bind mouse actions
-    ravel.x=0.5*canvasElem.width+canvasElem.parentElement.offsetLeft;
-    ravel.y=0.5*canvasElem.height+canvasElem.parentElement.offsetTop;
+    var tableBlock=document.getElementById("tableBlock");
+    ravel.x=0.5*canvasElem.width+tableBlock.offsetLeft;
+    ravel.y=0.5*canvasElem.height+tableBlock.offsetTop;
     canvasElem.onmousedown=function(event) {
         ravel.onMouseDown(event.clientX, event.clientY);
     };
     canvasElem.onmouseup=function(event) {
         ravel.onMouseUp(event.clientX, event.clientY);
         ravel.redraw();
+        ravel.onRedraw();
     };
     canvasElem.onmousemove=function(event) {
         if (ravel.onMouseOver(event.clientX, event.clientY))
@@ -38,6 +39,7 @@ var newRavel = function(canvasId) {
         {
             ravel.handles(h).toggleCollapsed();
             ravel.redraw();
+            ravel.onRedraw();
         }
     }
     
@@ -45,7 +47,7 @@ var newRavel = function(canvasId) {
 }
 
 var buildDbQuery=function(db,ravel) {
-    var r="/data/"+table+"?";
+    var r="/mySqlService.php/data/"+table+"?";
     for (var i=0; i<ravel.numHandles(); ++i)
     {
         if (i>0) r+="&";
@@ -59,7 +61,7 @@ var buildDbQuery=function(db,ravel) {
                 r+="slice("+h.sliceLabel()+")";
         }
     }
-    alert(r);
+    return r;
 }
 
 var xhttp = new XMLHttpRequest();
@@ -91,12 +93,15 @@ function setTable(name) {
     
     ravel.onRedraw=function() {
         var dataReq=new XMLHttpRequest;
+        var dbQuery=buildDbQuery(table,ravel);
+        if (dbQuery==ravel.dbQuery) return; //cache optimisation
+        ravel.dbQuery=dbQuery;
         dataReq.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 processData(ravel,eval(this.responseText));
             }
         }
-        dataReq.open("GET",buildDbQuery(table,ravel));
+        dataReq.open("GET",dbQuery);
         dataReq.send();
     }
 

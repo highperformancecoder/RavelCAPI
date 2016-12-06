@@ -59,6 +59,7 @@ namespace ravel
     std::string reductionDescription() const;   
     /// labels of individual slices along this dimension
     SortedVector sliceLabels;
+    size_t numSliceLabels() const {return sliceLabels.size();}
     /// current slice, filter bounds
     size_t sliceIndex, sliceMin=0, sliceMax=std::numeric_limits<size_t>::max();
 

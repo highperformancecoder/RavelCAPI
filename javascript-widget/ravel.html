@@ -1,25 +1,36 @@
 <html>
-    <meta charset="utf-8">
-<body onunload="onunload()">
+  <meta charset="utf-8">
+  <head>
+  <link rel="stylesheet" href="SlickGrid/slick.grid.css" type="text/css"/>
+  <link rel="stylesheet" href="SlickGrid/css/smoothness/jquery-ui-1.11.3.custom.css" type="text/css"/>
+  <link rel="stylesheet" href="SlickGrid/examples.css" type="text/css"/>
+  </head>
+  <body onunload="onunload()">
 
-<h1>Ravel!</h1>
+    <h1>Ravel!</h1>
 
-Database: <select onchange="setTable(this.value)" id="tableSelector">
-</select>
+    Database: <select onchange="setTable(this.value)" id="tableSelector">
+    </select>
 
-<div>
-<canvas width="500" height="500" id="ravel">
-</canvas>
-</div>
-
-<script type="text/javascript" src="jsravel.js"></script>
-<script type="text/javascript" src="ravel.js"></script>
-<script type="text/javascript" src="ravel-slickGrid.js"></script>
-
-
-<script src="SlickGrid/lib/jquery-1.11.2.min.js"></script>
-<script src="SlickGrid/lib/jquery.event.drag-2.3.0.js"></script>
-<script src="SlickGrid/slick.core.js"></script>
-<script src="SlickGrid/slick.grid.js"></script>
-</body>
+    <table id="tableBlock">
+      <tr>
+        <td valign="top" width="50%">
+            <canvas width="500" height="500" id="ravel"></canvas>
+       </td>
+        <td>
+          <div id="myGrid" style="width:600px;height:500px;"></div>
+        </td>
+      </tr>
+    </table>
+    
+    <script type="text/javascript" src="jsravel.js"></script>
+    <script type="text/javascript" src="ravel-slickGrid.js"></script>
+    <script type="text/javascript" src="ravel.js"></script>
+    
+    
+    <script src="SlickGrid/lib/jquery-1.11.2.min.js"></script>
+    <script src="SlickGrid/lib/jquery.event.drag-2.3.0.js"></script>
+    <script src="SlickGrid/slick.core.js"></script>
+    <script src="SlickGrid/slick.grid.js"></script>
+  </body>
 </html> 

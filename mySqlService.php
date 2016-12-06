@@ -66,7 +66,7 @@ function doData($table)
          $cols.="`".$axis."`";
        }
      else if (preg_match("/slice\((.*)\)/",$expr,$args))
-       addWhere($where,$axis."=".$args[1]);
+       addWhere($where,$axis."='".$args[1]."'");
      else if (preg_match("/reduce\((.*)\)/",$expr,$args))
      {
        array_push($reducedcols,$axis);
@@ -121,7 +121,7 @@ function doData($table)
    }
    
    $query="select value from (".$query.") as tmp";
-   echo $query."\n";
+   #echo $query."\n";
    $result=$mysqli->query($query);
    $retval=array();
    while($row = mysqli_fetch_array($result))
