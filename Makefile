@@ -15,7 +15,7 @@ FLAGS+=-I. -Isrc -Isrc/tcl
 
 # object files making up libravel
 OBJS=ravel.o dataCube.o ravelCairo.o cairoShimCairo.o \
-	filterCairo.o splitMerge.o sortedVector.o
+	filterCairo.o splitMerge.o sortedVector.o rawData.o
 LIBS+=libravel.a
 LIBS:=-L$(HOME)/usr/lib64 $(LIBS)
 MODELS=ravelTest
@@ -85,8 +85,10 @@ win-dist: ravelTest
 	cp $(HOME)/usr/ecolab/include/*.tcl library
 	cp -rf $(HOME)/usr/ecolab/include/Xecolab library
 
-sure: all
+tests: all
 	cd test; $(MAKE)
+
+sure: tests
 	sh runTests.sh
 
 Ravel/Installer/ravelDoc.wxi: doc doc/ravelDoc.tex 
