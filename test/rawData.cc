@@ -16,7 +16,7 @@ struct RawDataIdxFixture: public RawDataIdx
                                   }) {}
 };
 
-SUITE(RawData)
+SUITE(RawDataT)
 {
   TEST_FIXTURE(RawDataIdxFixture,basic)
     {

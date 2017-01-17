@@ -49,7 +49,7 @@ size_t RawDataIdx::idx(const Key& key) const
       auto k=indices[j->second].idx.find(i.second);
       if (k==indices[j->second].idx.end())
         throw InvalidKey();
-      idx+=indices[j->second].stride*k->second;
+      idx+=k->second;
     }
   return idx;
 }
