@@ -1,5 +1,6 @@
 #include <rawData.h>
 #include <UnitTest++/UnitTest++.h>
+#include <math.h>
 using namespace ravel;
 using namespace std;
 
@@ -25,5 +26,22 @@ SUITE(RawDataT)
       CHECK_EQUAL(0,idx({{"foo","f1"},{"bar","b1"},{"fbar","fb0"}}));
       CHECK_EQUAL(6+3+1,idx({{"foo","f2"},{"bar","b2"},{"fbar","fb1"}}));
       CHECK_EQUAL(3,stride("bar"));
+    }
+
+  
+  TEST_FIXTURE(RawDataIdxFixture,rawDataConstructor)
+    {
+        RawData rd(*this);
+        rd[{{"foo","f1"},{"bar","b1"},{"fbar","fb0"}}]=1;
+        rd[{{"foo","f2"},{"bar","b2"},{"fbar","fb1"}}]=2;
+        CHECK_EQUAL(1,rd[0]);
+        CHECK_EQUAL(2,rd[6+3+1]);
+
+        RawData hs=rd.hyperSlice({"foo","fbar"},{{"bar","b2"}});
+        CHECK_EQUAL(2,hs.rank());
+        CHECK_EQUAL(6,hs.size());
+        
+        CHECK_EQUAL(2,(hs[{{"foo","f2"},{"fbar","fb1"}}]));
+        CHECK(isnan(hs[0]));
     }
 }

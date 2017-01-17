@@ -26,7 +26,7 @@ RawDataIdx::RawDataIdx(const RawDataIdx& x, const std::vector<std::string>& axes
     {
       auto k=x.indicesByName.find(i);
       if (k==x.indicesByName.end()) throw InvalidKey();
-      auto& idx=indices[k->second];
+      auto& idx=x.indices[k->second];
 
       indicesByName[i]=indices.size();
       indices.emplace_back();

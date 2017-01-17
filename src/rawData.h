@@ -11,6 +11,7 @@
 #include <vector>
 #include <exception>
 #include <assert.h>
+#include <math.h>
 
 namespace ravel
 {
@@ -108,8 +109,9 @@ namespace ravel
     double operator[](size_t i) const {return data[i];}
 
     RawData() {}
-    RawData(const RawDataIdx& x): RawDataIdx(x) {}
-    RawData(const RawDataIdx& x, const std::vector<std::string>& a): RawDataIdx(x,a) {}
+    RawData(const RawDataIdx& x): RawDataIdx(x) {data.resize(size(),nan(""));}
+    RawData(const RawDataIdx& x, const std::vector<std::string>& a): 
+      RawDataIdx(x,a) {data.resize(size(),nan(""));}
     RawData(RawDataIdx&& x): RawDataIdx(x) {}
 
     RawData hyperSlice(const std::vector<std::string>& axes, const Key& fixedLabels) {
