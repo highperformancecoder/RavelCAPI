@@ -30,11 +30,6 @@ namespace ravel
     {
       std::map<std::string,size_t> idx;
       size_t stride;
-      std::vector<std::string> axes() const {
-        std::vector<std::string> r;
-        for (auto& i: idx) r.push_back(i.first);
-        return r;
-      }
     };
 
     std::map<std::string, size_t> indicesByName;
