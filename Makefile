@@ -10,6 +10,11 @@ include $(ECOLAB_HOME)/include/Makefile
 ACTIONS+=xml_pack xml_unpack random_init
 FLAGS+=-std=c++11 #-Wno-error=offsetof
 
+# override EcoLab's classdesc rule to get enums handled correctly
+.h.cd:
+	$(CLASSDESC) -nodef -onbase -typeName -I $(CDINCLUDE) -I $(ECOLAB_HOME)/include -i $< $(ACTIONS) >$@
+
+
 VPATH+=src src/shims src/tcl
 FLAGS+=-I. -Isrc -Isrc/tcl
 
