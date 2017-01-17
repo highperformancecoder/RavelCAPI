@@ -10,6 +10,14 @@
   void unpack(classdesc::pack_t&,const classdesc::string&,cairo_t*) {}
 //}
 //using classdesc::pack; using classdesc::unpack;
+
+namespace classdesc
+{
+  template <> struct tn<cairo_t> {
+    static const char* name() {return "cairo";}
+  };
+}
+
 namespace classdesc_access
 {
   template <> struct access_pack<boost::any>:
