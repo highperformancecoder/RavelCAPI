@@ -62,20 +62,3 @@ const RawDataIdx::Idx& RawDataIdx::index(const string& axis) const
   return indices[i->second];
 }
 
-
-//HyperSlice::HyperSlice(const RawDataIdx& idx,const vector<string>& axes, const Key& fixedLabels): offset(0)
-//{
-//  offset=idx.idx(fixedLabels);
-//    
-//  vector<pair<string,vector<string>>> labels;
-//  for (auto& axis: axes)
-//    {
-//      auto i=indices.find(axis);
-//      if (i==indices.end()) throw InvalidKey();
-//      auto k=labels.emplace(axis, vector<string>());
-//      for (auto& j: i->second.idx)
-//        k->second.push_back(j->first);
-//      sizeAndStrides.emplace_back(i->second.idx.size(), i->second.stride);
-//    }
-//  r.idx=RawDataIdx(labels);
-//}

@@ -77,27 +77,6 @@ namespace ravel
 
   };
 
-//  /// hyperslice descriptor
-//  struct HyperSlice
-//  {
-//    RawDataIdx idx; ///< idx descriptor of hyperslice
-//    size_t offset;
-//    /// indexing into contiguous data
-//    std::vector<RawDataIdx::SizeStride> sizeAndStrides; 
-//
-//    /** @param idx raw data descriptor this refers to
-//        @param axes - axes referred to in the hyperslice
-//        @param fixedLabels - labels defining slice on axes not in hyperslice
-//        constraints: 
-//            this.idx.rank() == axes.size, 
-//            idx.rank()==axes.size()+fixedLabels.size()
-//            sizeAndStrides.size()==this.idx.rank
-//    */
-//    HyperSlice(const RawDataIdx& idx, const std::vector<std::string>& axes, 
-//               const Key& fixedLabels);
-//  };
-
-
   class RawData: public RawDataIdx
   {
     std::vector<double> data;
