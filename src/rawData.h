@@ -100,7 +100,12 @@ namespace ravel
 
     RawData hyperSlice(const std::vector<std::string>& axes, const Key& fixedLabels) {
       std::vector<SizeStride> sizeAndStrides;
-      for (auto& axis: axes) sizeAndStrides.push_back(sizeStride(axis));
+
+//      // need to push strides in reverse order, as apply pops from the back
+//      for (auto axis=axes.rbegin(); axis!=axes.rend(); ++axis) 
+//        sizeAndStrides.push_back(sizeStride(*axis));
+      for (auto& axis: axes)
+        sizeAndStrides.push_back(sizeStride(axis));
 
       RawData r(*this,axes);
       // assign sliced data to new slice

@@ -626,9 +626,11 @@ void DataCube::populateArray(ravel::Ravel& ravel)
 //    }
   for (size_t i=0; i<xHandle.sliceLabels.size(); ++i)
     for (size_t j=0; j<yHandle.sliceLabels.size(); ++j)
-      if (!std::isnan(rawData[i+j*rawData.stride(0)]))
-          setDataElement(i,j,rawData[i+j*rawData.stride(0)]);
-
+      {
+        double v=slice[i+j*slice.stride(1)];
+        if (!std::isnan(v))
+          setDataElement(i,j,v);
+      }
 
   // populate the histogram
 //  for (unsigned& x: histogram) x=0;

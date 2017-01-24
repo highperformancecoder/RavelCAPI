@@ -68,6 +68,8 @@ assert "\"\$data(1,0)\"==\"a\"" "d(1,0) sl0"
 assert "\"\$data(2,0)\"==\"b\"" "d(2,0) sl0"
 
 # now data
+puts "data(1,2)=\$data(1,2) data(2,1)=\$data(2,1)"
+
 assert "\$data(1,1)==1" "d(1,1) sl0"
 assert "\$data(1,2)==2" "d(1,2) sl0"
 assert "\$data(2,1)==3" "d(2,1) sl0"
