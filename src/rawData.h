@@ -6,6 +6,8 @@
 #ifndef RAWDATA_H
 #define RAWDATA_H
 
+#include <classdesc_access.h>
+
 #include <string>
 #include <map>
 #include <vector>
@@ -26,17 +28,20 @@ namespace ravel
 
   class RawDataIdx
   {
+  public:
     struct Idx
     {
       std::map<std::string,size_t> idx;
       size_t stride;
     };
+  private:
 
     std::map<std::string, size_t> indicesByName;
     std::vector<Idx> indices;
     size_t m_size;
 
     const Idx& index(const std::string& axis) const;
+    CLASSDESC_ACCESS(RawDataIdx);
 
   public:
     RawDataIdx() {}
@@ -77,6 +82,7 @@ namespace ravel
   class RawData: public RawDataIdx
   {
     std::vector<double> data;
+    CLASSDESC_ACCESS(RawData);
 
   public:
     double& operator[](const Key& key) {return data[idx(key)];}
