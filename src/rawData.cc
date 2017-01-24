@@ -1,4 +1,10 @@
 #include "rawData.h"
+#ifdef CLASSDESC
+#include <classdesc_epilogue.h>
+#endif
+#ifdef ECOLAB_LIB
+#include <ecolab_epilogue.h>
+#endif
 
 using namespace ravel;
 using namespace std;

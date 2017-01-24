@@ -1,6 +1,14 @@
 #include <rawData.h>
 #include <UnitTest++/UnitTest++.h>
 #include <math.h>
+#ifdef CLASSDESC
+#include <classdesc_epilogue.h>
+#endif
+#ifdef ECOLAB_LIB
+#include <ecolab_epilogue.h>
+#endif
+
+
 using namespace ravel;
 using namespace std;
 
@@ -42,6 +50,6 @@ SUITE(RawDataT)
         CHECK_EQUAL(6,hs.size());
         
         CHECK_EQUAL(2,(hs[{{"foo","f2"},{"fbar","fb1"}}]));
-        CHECK(isnan(hs[0]));
+        CHECK(std::isnan(hs[0]));
     }
 }

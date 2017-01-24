@@ -121,6 +121,7 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
 
   vector<set<UniqueString>> axisLabelSet(nColAxes);
   vector<vector<string>> colLabels;
+  map<Key,double> tmpData;
 
   vector<any> line;
   for (unsigned long row=0; !(line=tok.getLine()).empty(); ++row)
@@ -189,29 +190,31 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
       else
         {
           // parse data rows
-          vector<string> key(axisLabelSet.size());
+          Key key; //(axisLabelSet.size());
+          LabelsVector labels;
           for (unsigned col=0, dim=0; col<line.size(); ++col)
             {
               if (!spec.commentCols.count(col))
                 {
                   if (col<spec.nColAxes)
                     {
-                      key[dim]=str(line[col]);
-                      axisLabelSet[dim].insert(UniqueString(key[dim],row));
+                      key.emplace_back(dimNames[dim],str(line[col]));
+                      axisLabelSet[dim].insert(UniqueString(key.back().second,row));
                       dim++;
                     }
                   else // in data area
                     {
                       // build rest of keys from saved column labels
                       size_t i=nColAxes;
-                      assert(key.size()==nColAxes+colLabels.size());
+                      key.resize(nColAxes);
                       for (const vector<string>& cl:  colLabels)
-                        key[i++]=cl[col];
+                        key.emplace_back(dimNames[i++],cl[col]);
+                      assert(key.size()==nColAxes+colLabels.size());
                       
                       if (!str(line[col]).empty())
                         {
                           // key should unique identify a row of the CSV table
-                          if (rawData.count(key))
+                          if (tmpData.count(key))
                             {
                               string err="duplicate row detected:";
                               for (const any& t: line)
@@ -222,8 +225,8 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
                             {
                               m_maxCol=max(m_maxCol,size_t(col));
                               m_maxRow=row;
+                              tmpData[key]=*v;
                             }
-                          rawData[key]=line[col];
                         }
                     }
                 }
@@ -244,231 +247,239 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
       m_dimLabels.push_back(vector<string>(l.begin(), l.end()));
     }
 
+  LabelsVector labels;
+  assert(dimNames.size()==m_dimLabels.size());
+  for (size_t i=0; i<dimNames.size(); ++i)
+    labels.emplace_back(dimNames[i],m_dimLabels[i]);
+  rawData=RawData(labels);
+  for (auto& i: tmpData)
+    rawData[i.first]=i.second;
+
   m_sortBy.resize(m_dimLabels.size());
   leastRowAxis = spec.nColAxes - spec.commentCols.size();
 }
 
-namespace 
-{
-  class HyperSlice: public Op, public map<DataCube::Key, double>
-  {
-    typedef DataCube::Key Key;
-    double m_min=numeric_limits<double>::max(), m_max=-m_min;
-    bool minMaxValid=false;
-  public:
-    using map<DataCube::Key, double>::find;
-    /// minimum value in hyperslice
-    double minVal() {
-      computeMinMax();
-      return m_min;
-    }
-    /// maximum value in hyperslice
-    double maxVal() {
-      computeMinMax();
-      return m_max;
-    }
-
-    void computeMinMax() {
-      if (!minMaxValid) {
-        m_min=numeric_limits<double>::max(); m_max=-m_min;
-        for (auto i=begin(); i!=end(); ++i) {
-          m_min=::min(m_min, i->second);
-          m_max=::max(m_max, i->second);
-        }
-        minMaxValid=true;
-      }
-    }
-
-    /// value to initialise an element if it doesn't exist
-    double init=0;
-    double& operator[](const Key& k) {
-      auto i=find(k);
-      if (i==end())
-        return insert(make_pair(k,init)).first->second;
-      else
-        return i->second;
-    }
-
-    HyperSlice() {}
-    /// initialise with a slice defined by sliceKey
-    HyperSlice(const DataCube::RawData& rawData, 
-               const map<unsigned,string>& sliceKey);
-     
-    void reduceAlongDim(unsigned dim, ReductionOp op);
-    // conditionally call f((*(this)[key]) if key exists
-    template <class F>
-    void doIfKeyExists(const Key& key, F f) {
-      auto it=find(key);
-      if (it!=end()) f(it->second);
-    }
-
-    // creates a sorting permutation give the sort data
-    void setupSortByValue(vector<size_t>& perm, const string& key, 
-                          bool reverse, bool swapAxes, 
-                          const SortedVector& labels) const;
-
-  };
-
-  HyperSlice::HyperSlice(const DataCube::RawData& rawData, 
-                         const map<unsigned,string>& sliceKey)
-  {
-    for (auto i=rawData.begin(); i!=rawData.end(); ++i)
-      {
-        DataCube::Key key;
-        for (unsigned j=0; j<i->first.size(); ++j)
-          {
-            auto it=sliceKey.find(j);
-            if (it!=sliceKey.end())
-              {
-                if (it->second!=i->first[j])
-                  goto dontAddItem;
-              }
-            else
-              key.push_back(i->first[j]);
-          }
-        if (const double *d=any_cast<double>(&i->second))
-          {
-            (*this)[key]=*d;
-            m_min=::min(m_min,*d);
-            m_max=::max(m_max,*d);
-          }
-      dontAddItem: continue;
-      }
-    minMaxValid=true;
-  }
-
-  void HyperSlice::reduceAlongDim(unsigned dim, ReductionOp op)
-  {
-    HyperSlice r, sumx /* for stddev */, n;
-    switch (op)
-      {
-        // here for completeness, not needed as r.init=0 by default
-      case sum: case av: case stddev: r.init=0; break;
-      case prod: r.init=1; break;
-      case min: r.init=numeric_limits<double>::max(); break;
-      case max: r.init=-numeric_limits<double>::max(); break;
-      }
-
-    for (auto i=begin(); i!=end(); ++i)
-      {
-        DataCube::Key key=i->first;
-        assert(dim < key.size());
-        key.erase(key.begin()+dim);
-        switch (op)
-          {
-          case sum: 
-            r[key]+=i->second;
-            break;
-          case prod:
-            r[key]*=i->second;
-            break;
-          case min:
-            r[key]=std::min(r[key],i->second);
-            break;
-          case max:
-            r[key]=std::max(r[key],i->second);
-            break;
-
-          case stddev:
-            r[key]+= i->second * i->second;
-          case av:
-            sumx[key]+=i->second;
-            n[key]+=1;
-            break;
-          }
-      } 
-    // postprocess
-    switch (op)
-      {
-      case av:
-        for (auto i=sumx.begin(); i!=sumx.end(); ++i)
-          r[i->first]=i->second/n[i->first];
-        break;
-      case stddev:
-        for (auto i=sumx.begin(); i!=sumx.end(); ++i)
-          {
-            double N=n[i->first];
-            double av=sumx[i->first]/N;
-            double& x=r[i->first];
-            x/=N;
-            x-=av*av;
-            x=sqrt(std::max(0.0,x)); // deal with roundoff error
-          }
-        break;
-      default:
-        break;
-      }
-
-    swap(r);
-    minMaxValid=false;
-  }
-
-  void HyperSlice::setupSortByValue
-  (vector<size_t>& perm, const string& key, bool reverse, 
-   bool swapAxes, const SortedVector& labels) const
-  {
-    assert(perm.size()==labels.size());
-    sort(perm.begin(), perm.end(), [&](unsigned i, unsigned j) {
-        Key keyi={key,labels[i]}, keyj={key,labels[j]};
-        if (swapAxes) {::swap(keyi[0],keyi[1]); ::swap(keyj[0],keyj[1]);} 
-        auto iti=find(keyi);
-	auto itj = find(keyj);
-	if (iti != end())
-          {
-            if (itj!=end())
-              return reverse? itj->second<iti->second: iti->second<itj->second;
-            return true; //non existing labels bigger than anything
-          }
-        return false;
-      });
-  }
-
-  void setupSortByPerm(DataCube::SortBy sortBy, 
-                       bool swapAxes, const HyperSlice& slice,
-                       SortedVector& labels, const string& key)
-  {
-    if (sortBy.type==DataCube::SortBy::byValue)
-      {
-        vector<size_t> perm(labels.size());
-        for (unsigned i=0; i<perm.size(); ++i) perm[i]=i;
-        // original label order needed for slice.setupSortByValue
-        labels.order(SortedVector::none); 
-        slice.setupSortByValue(perm,key,sortBy.reverse,swapAxes,labels);
-        labels.customPermutation(perm);
-      }
-
-  }
-
-  struct SliceIdx: public map<unsigned,string>
-  {
-    SliceIdx(const Ravel& ravel) {
-      for (unsigned h=0; h<ravel.handles.size(); ++h)
-        if (h!=ravel.xHandleId() && h!=ravel.yHandleId() &&
-            !ravel.handles[h].collapsed())
-          (*this)[h]=ravel.handles[h].sliceLabel();
-    }
-  };
-
-  // A Hyperslice that has been preprocessed by a Ravel
-  struct HyperSliceR: private SliceIdx, public HyperSlice
-  {    
-    using HyperSlice::begin;
-    using HyperSlice::end;
-    using HyperSlice::size;
-    HyperSliceR(const DataCube::RawData& rawData, const Ravel& ravel):
-      // note: initialisation order alert
-      SliceIdx(ravel), HyperSlice(rawData, *this) {
-      for (unsigned h = 0, dim = 0; h < ravel.handles.size(); ++h)
-        {
-          if (!SliceIdx::count(h)) dim++; // only collapsed or x/y handles are included in slice
-          if (ravel.handles[h].collapsed()) //every collapse undoes the previous dim increment
-            reduceAlongDim(--dim, ravel.handles[h].reductionOp);
-        }
-    }
-    size_t count(const DataCube::Key& k) const {return HyperSlice::count(k);}
-  };
-
-}
+//namespace 
+//{
+//  class HyperSlice: public Op, public map<DataCube::Key, double>
+//  {
+//    typedef DataCube::Key Key;
+//    double m_min=numeric_limits<double>::max(), m_max=-m_min;
+//    bool minMaxValid=false;
+//  public:
+//    using map<DataCube::Key, double>::find;
+//    /// minimum value in hyperslice
+//    double minVal() {
+//      computeMinMax();
+//      return m_min;
+//    }
+//    /// maximum value in hyperslice
+//    double maxVal() {
+//      computeMinMax();
+//      return m_max;
+//    }
+//
+//    void computeMinMax() {
+//      if (!minMaxValid) {
+//        m_min=numeric_limits<double>::max(); m_max=-m_min;
+//        for (auto i=begin(); i!=end(); ++i) {
+//          m_min=::min(m_min, i->second);
+//          m_max=::max(m_max, i->second);
+//        }
+//        minMaxValid=true;
+//      }
+//    }
+//
+//    /// value to initialise an element if it doesn't exist
+//    double init=0;
+//    double& operator[](const Key& k) {
+//      auto i=find(k);
+//      if (i==end())
+//        return insert(make_pair(k,init)).first->second;
+//      else
+//        return i->second;
+//    }
+//
+//    HyperSlice() {}
+//    /// initialise with a slice defined by sliceKey
+//    HyperSlice(const DataCube::RawData& rawData, 
+//               const map<unsigned,string>& sliceKey);
+//     
+//    void reduceAlongDim(unsigned dim, ReductionOp op);
+//    // conditionally call f((*(this)[key]) if key exists
+//    template <class F>
+//    void doIfKeyExists(const Key& key, F f) {
+//      auto it=find(key);
+//      if (it!=end()) f(it->second);
+//    }
+//
+//    // creates a sorting permutation give the sort data
+//    void setupSortByValue(vector<size_t>& perm, const string& key, 
+//                          bool reverse, bool swapAxes, 
+//                          const SortedVector& labels) const;
+//
+//  };
+//
+//  HyperSlice::HyperSlice(const DataCube::RawData& rawData, 
+//                         const map<unsigned,string>& sliceKey)
+//  {
+//    for (auto i=rawData.begin(); i!=rawData.end(); ++i)
+//      {
+//        DataCube::Key key;
+//        for (unsigned j=0; j<i->first.size(); ++j)
+//          {
+//            auto it=sliceKey.find(j);
+//            if (it!=sliceKey.end())
+//              {
+//                if (it->second!=i->first[j])
+//                  goto dontAddItem;
+//              }
+//            else
+//              key.push_back(i->first[j]);
+//          }
+//        if (const double *d=any_cast<double>(&i->second))
+//          {
+//            (*this)[key]=*d;
+//            m_min=::min(m_min,*d);
+//            m_max=::max(m_max,*d);
+//          }
+//      dontAddItem: continue;
+//      }
+//    minMaxValid=true;
+//  }
+//
+//  void HyperSlice::reduceAlongDim(unsigned dim, ReductionOp op)
+//  {
+//    HyperSlice r, sumx /* for stddev */, n;
+//    switch (op)
+//      {
+//        // here for completeness, not needed as r.init=0 by default
+//      case sum: case av: case stddev: r.init=0; break;
+//      case prod: r.init=1; break;
+//      case min: r.init=numeric_limits<double>::max(); break;
+//      case max: r.init=-numeric_limits<double>::max(); break;
+//      }
+//
+//    for (auto i=begin(); i!=end(); ++i)
+//      {
+//        DataCube::Key key=i->first;
+//        assert(dim < key.size());
+//        key.erase(key.begin()+dim);
+//        switch (op)
+//          {
+//          case sum: 
+//            r[key]+=i->second;
+//            break;
+//          case prod:
+//            r[key]*=i->second;
+//            break;
+//          case min:
+//            r[key]=std::min(r[key],i->second);
+//            break;
+//          case max:
+//            r[key]=std::max(r[key],i->second);
+//            break;
+//
+//          case stddev:
+//            r[key]+= i->second * i->second;
+//          case av:
+//            sumx[key]+=i->second;
+//            n[key]+=1;
+//            break;
+//          }
+//      } 
+//    // postprocess
+//    switch (op)
+//      {
+//      case av:
+//        for (auto i=sumx.begin(); i!=sumx.end(); ++i)
+//          r[i->first]=i->second/n[i->first];
+//        break;
+//      case stddev:
+//        for (auto i=sumx.begin(); i!=sumx.end(); ++i)
+//          {
+//            double N=n[i->first];
+//            double av=sumx[i->first]/N;
+//            double& x=r[i->first];
+//            x/=N;
+//            x-=av*av;
+//            x=sqrt(std::max(0.0,x)); // deal with roundoff error
+//          }
+//        break;
+//      default:
+//        break;
+//      }
+//
+//    swap(r);
+//    minMaxValid=false;
+//  }
+//
+//  void HyperSlice::setupSortByValue
+//  (vector<size_t>& perm, const string& key, bool reverse, 
+//   bool swapAxes, const SortedVector& labels) const
+//  {
+//    assert(perm.size()==labels.size());
+//    sort(perm.begin(), perm.end(), [&](unsigned i, unsigned j) {
+//        Key keyi={key,labels[i]}, keyj={key,labels[j]};
+//        if (swapAxes) {::swap(keyi[0],keyi[1]); ::swap(keyj[0],keyj[1]);} 
+//        auto iti=find(keyi);
+//	auto itj = find(keyj);
+//	if (iti != end())
+//          {
+//            if (itj!=end())
+//              return reverse? itj->second<iti->second: iti->second<itj->second;
+//            return true; //non existing labels bigger than anything
+//          }
+//        return false;
+//      });
+//  }
+//
+//  void setupSortByPerm(DataCube::SortBy sortBy, 
+//                       bool swapAxes, const HyperSlice& slice,
+//                       SortedVector& labels, const string& key)
+//  {
+//    if (sortBy.type==DataCube::SortBy::byValue)
+//      {
+//        vector<size_t> perm(labels.size());
+//        for (unsigned i=0; i<perm.size(); ++i) perm[i]=i;
+//        // original label order needed for slice.setupSortByValue
+//        labels.order(SortedVector::none); 
+//        slice.setupSortByValue(perm,key,sortBy.reverse,swapAxes,labels);
+//        labels.customPermutation(perm);
+//      }
+//
+//  }
+//
+//  struct SliceIdx: public map<unsigned,string>
+//  {
+//    SliceIdx(const Ravel& ravel) {
+//      for (unsigned h=0; h<ravel.handles.size(); ++h)
+//        if (h!=ravel.xHandleId() && h!=ravel.yHandleId() &&
+//            !ravel.handles[h].collapsed())
+//          (*this)[h]=ravel.handles[h].sliceLabel();
+//    }
+//  };
+//
+//  // A Hyperslice that has been preprocessed by a Ravel
+//  struct HyperSliceR: private SliceIdx, public HyperSlice
+//  {    
+//    using HyperSlice::begin;
+//    using HyperSlice::end;
+//    using HyperSlice::size;
+//    HyperSliceR(const DataCube::RawData& rawData, const Ravel& ravel):
+//      // note: initialisation order alert
+//      SliceIdx(ravel), HyperSlice(rawData, *this) {
+//      for (unsigned h = 0, dim = 0; h < ravel.handles.size(); ++h)
+//        {
+//          if (!SliceIdx::count(h)) dim++; // only collapsed or x/y handles are included in slice
+//          if (ravel.handles[h].collapsed()) //every collapse undoes the previous dim increment
+//            reduceAlongDim(--dim, ravel.handles[h].reductionOp);
+//        }
+//    }
+//    size_t count(const DataCube::Key& k) const {return HyperSlice::count(k);}
+//  };
+//
+//}
 
 
 void DataCube::populateArray(ravel::Ravel& ravel)
@@ -480,141 +491,154 @@ void DataCube::populateArray(ravel::Ravel& ravel)
   m_minVal=numeric_limits<double>::max(); 
   m_maxVal=-m_minVal;
 
-  HyperSliceR slice(rawData, ravel);
+  //HyperSliceR slice(rawData, ravel);
+
+  vector<string> axes{xHandle.description, yHandle.description};
+  Key sliceLabels;
+  for (auto& h: ravel.handles)
+    if (&h!=&xHandle && &h!=&yHandle)
+      sliceLabels.emplace_back(h.description, h.sliceLabel());
+  RawData slice=rawData.hyperSlice(axes, sliceLabels);
+  // TODO reduction operations
 
   assert(m_sortBy[xh].rowCol<yHandle.sliceLabels.size() && 
          m_sortBy[yh].rowCol<xHandle.sliceLabels.size());
 
-  if (!xHandle.collapsed())
-    setupSortByPerm(m_sortBy[xh],yh>xh, slice, 
-                    xHandle.sliceLabels, 
-                    yHandle.sliceLabels[m_sortBy[xh].rowCol]);
-  if (!yHandle.collapsed())
-    setupSortByPerm(m_sortBy[yh],xh>yh, slice, 
-                    yHandle.sliceLabels, 
-                    xHandle.sliceLabels[m_sortBy[yh].rowCol]);
+//  if (!xHandle.collapsed())
+//    setupSortByPerm(m_sortBy[xh],yh>xh, slice, 
+//                    xHandle.sliceLabels, 
+//                    yHandle.sliceLabels[m_sortBy[xh].rowCol]);
+//  if (!yHandle.collapsed())
+//    setupSortByPerm(m_sortBy[yh],xh>yh, slice, 
+//                    yHandle.sliceLabels, 
+//                    xHandle.sliceLabels[m_sortBy[yh].rowCol]);
 
   // determine empty rows/columns
   xHandle.mask.clear(); yHandle.mask.clear();
-  if (filterOn || xHandle.displayFilterCaliper ||yHandle.displayFilterCaliper )
-    {
-      if (xHandle.collapsed()) 
-	{
-	  if (!yHandle.collapsed())
-	    for (unsigned j=0; j<yHandle.sliceLabels.size(); ++j)
-	      {
-		Key key{yHandle.sliceLabels[j]};
-		slice.doIfKeyExists(key, [&](double x) {
-		    m_minVal=min(m_minVal, x);
-		    m_maxVal=max(m_maxVal, x);
-		    if (((filterOn && filterMin<=x && filterMax>=x) || !filterOn) &&
-                        ((yHandle.displayFilterCaliper && j>=yHandle.sliceMin && j<=yHandle.sliceMax) ||
-                         !yHandle.displayFilterCaliper) && 
-                        (filterOn||yHandle.displayFilterCaliper))
-                      {
-                        yHandle.mask.insert(j);
-                      }
-		  });
-	      }
-	}
-      else if (yHandle.collapsed())
-	for (unsigned i=0; i<xHandle.sliceLabels.size(); ++i)
-	  {
-	    Key key{xHandle.sliceLabels[i]};
-	    slice.doIfKeyExists(key, [&](double x) {
-		m_minVal=min(m_minVal, x);
-		m_maxVal=max(m_maxVal, x);
-                if (((filterOn && filterMin<=x && filterMax>=x) || !filterOn) &&
-                    ((xHandle.displayFilterCaliper && i>=xHandle.sliceMin && i<=xHandle.sliceMax) ||
-                     !xHandle.displayFilterCaliper) && 
-                    (filterOn||xHandle.displayFilterCaliper))
-                  {
-                    xHandle.mask.insert(i);
-                  }
-	      });
-	  }
-      else
-	for (unsigned i=0; i<xHandle.sliceLabels.size(); ++i)
-	  for (unsigned j=0; j<yHandle.sliceLabels.size(); ++j)
-	    {
-	      Key key{xHandle.sliceLabels[i], yHandle.sliceLabels[j]};
-	      if (xh>yh) swap(key[0],key[1]);
-	      slice.doIfKeyExists(key, [&](double x) {
-		  m_minVal=min(m_minVal, x);
-		  m_maxVal=max(m_maxVal, x);
-                  if (((filterOn && filterMin<=x && filterMax>=x) || !filterOn) &&
-                      ((xHandle.displayFilterCaliper && i>=xHandle.sliceMin && i<=xHandle.sliceMax) ||
-                       !xHandle.displayFilterCaliper) && 
-                      ((yHandle.displayFilterCaliper && j>=yHandle.sliceMin && j<=yHandle.sliceMax) ||
-                       !yHandle.displayFilterCaliper))
-                    // note filterOn||xHandle.displayFilterCaliper||yHandle.displayFilterCaliper is true here
-                    {
-                      xHandle.mask.insert(i);
-                      yHandle.mask.insert(j);
-                    }
-		});
-	    }	    
-    }  
-  else
-    {
-      for (unsigned i=0; i<xHandle.sliceLabels.size(); ++i) xHandle.mask.insert(i);
-      for (unsigned i=0; i<yHandle.sliceLabels.size(); ++i) yHandle.mask.insert(i);
-    }
+//  if (filterOn || xHandle.displayFilterCaliper ||yHandle.displayFilterCaliper )
+//    {
+//      if (xHandle.collapsed()) 
+//	{
+//	  if (!yHandle.collapsed())
+//	    for (unsigned j=0; j<yHandle.sliceLabels.size(); ++j)
+//	      {
+//		Key key{yHandle.sliceLabels[j]};
+//		slice.doIfKeyExists(key, [&](double x) {
+//		    m_minVal=min(m_minVal, x);
+//		    m_maxVal=max(m_maxVal, x);
+//		    if (((filterOn && filterMin<=x && filterMax>=x) || !filterOn) &&
+//                        ((yHandle.displayFilterCaliper && j>=yHandle.sliceMin && j<=yHandle.sliceMax) ||
+//                         !yHandle.displayFilterCaliper) && 
+//                        (filterOn||yHandle.displayFilterCaliper))
+//                      {
+//                        yHandle.mask.insert(j);
+//                      }
+//		  });
+//	      }
+//	}
+//      else if (yHandle.collapsed())
+//	for (unsigned i=0; i<xHandle.sliceLabels.size(); ++i)
+//	  {
+//	    Key key{xHandle.sliceLabels[i]};
+//	    slice.doIfKeyExists(key, [&](double x) {
+//		m_minVal=min(m_minVal, x);
+//		m_maxVal=max(m_maxVal, x);
+//                if (((filterOn && filterMin<=x && filterMax>=x) || !filterOn) &&
+//                    ((xHandle.displayFilterCaliper && i>=xHandle.sliceMin && i<=xHandle.sliceMax) ||
+//                     !xHandle.displayFilterCaliper) && 
+//                    (filterOn||xHandle.displayFilterCaliper))
+//                  {
+//                    xHandle.mask.insert(i);
+//                  }
+//	      });
+//	  }
+//      else
+//	for (unsigned i=0; i<xHandle.sliceLabels.size(); ++i)
+//	  for (unsigned j=0; j<yHandle.sliceLabels.size(); ++j)
+//	    {
+//	      Key key{xHandle.sliceLabels[i], yHandle.sliceLabels[j]};
+//	      if (xh>yh) swap(key[0],key[1]);
+//	      slice.doIfKeyExists(key, [&](double x) {
+//		  m_minVal=min(m_minVal, x);
+//		  m_maxVal=max(m_maxVal, x);
+//                  if (((filterOn && filterMin<=x && filterMax>=x) || !filterOn) &&
+//                      ((xHandle.displayFilterCaliper && i>=xHandle.sliceMin && i<=xHandle.sliceMax) ||
+//                       !xHandle.displayFilterCaliper) && 
+//                      ((yHandle.displayFilterCaliper && j>=yHandle.sliceMin && j<=yHandle.sliceMax) ||
+//                       !yHandle.displayFilterCaliper))
+//                    // note filterOn||xHandle.displayFilterCaliper||yHandle.displayFilterCaliper is true here
+//                    {
+//                      xHandle.mask.insert(i);
+//                      yHandle.mask.insert(j);
+//                    }
+//		});
+//	    }	    
+//    }  
+//  else
+//    {
+//      for (unsigned i=0; i<xHandle.sliceLabels.size(); ++i) xHandle.mask.insert(i);
+//      for (unsigned i=0; i<yHandle.sliceLabels.size(); ++i) yHandle.mask.insert(i);
+//    }
+//
+//  if (xHandle.collapsed()) 
+//    if (yHandle.collapsed())
+//      setDataElement(0,0,slice.begin()->second);
+//    else
+//      {
+//	for (unsigned j=0,j1=0; j<yHandle.sliceLabels.size(); ++j)
+//	  if (yHandle.mask.count(j))
+//	    {
+//	      Key key{yHandle.sliceLabels[j]};
+//	      slice.doIfKeyExists(key, [=](double x) {
+//		  filterDataElement(0,j1,x);});
+//	      j1++;
+//	    }
+//      }
+//  else if (yHandle.collapsed())
+//    {
+//      for (unsigned i=0, i1=0; i<xHandle.sliceLabels.size(); ++i)
+//	if (xHandle.mask.count(i))
+//	  {
+//	    Key key{xHandle.sliceLabels[i]};
+//	    slice.doIfKeyExists(key, [=](double x)
+//				{filterDataElement(i1,0,x);});
+//	    i1++;
+//	  }
+//    }
+//  else
+//    {
+//      unsigned i=0; unsigned i1=0;
+//      for (; i < xHandle.sliceLabels.size(); ++i)
+//	if (xHandle.mask.count(i))
+//	  {
+//	    unsigned j = 0; unsigned j1 = 0;
+//	    for (; j<yHandle.sliceLabels.size(); ++j)
+//	      if (yHandle.mask.count(j))
+//		{
+//		  Key key{xHandle.sliceLabels[i], yHandle.sliceLabels[j]};
+//		  if (xh>yh) swap(key[0],key[1]);
+//		  slice.doIfKeyExists(key, [&](double x) {
+//		      filterDataElement(i1, j1, x); });
+//		  j1++;
+//		}
+//	    i1++;
+//	  }
+//    }
+  for (size_t i=0; i<xHandle.sliceLabels.size(); ++i)
+    for (size_t j=0; j<yHandle.sliceLabels.size(); ++j)
+      if (!std::isnan(rawData[i+j*rawData.stride(0)]))
+          setDataElement(i,j,rawData[i+j*rawData.stride(0)]);
 
-  if (xHandle.collapsed()) 
-    if (yHandle.collapsed())
-      setDataElement(0,0,slice.begin()->second);
-    else
-      {
-	for (unsigned j=0,j1=0; j<yHandle.sliceLabels.size(); ++j)
-	  if (yHandle.mask.count(j))
-	    {
-	      Key key{yHandle.sliceLabels[j]};
-	      slice.doIfKeyExists(key, [=](double x) {
-		  filterDataElement(0,j1,x);});
-	      j1++;
-	    }
-      }
-  else if (yHandle.collapsed())
-    {
-      for (unsigned i=0, i1=0; i<xHandle.sliceLabels.size(); ++i)
-	if (xHandle.mask.count(i))
-	  {
-	    Key key{xHandle.sliceLabels[i]};
-	    slice.doIfKeyExists(key, [=](double x)
-				{filterDataElement(i1,0,x);});
-	    i1++;
-	  }
-    }
-  else
-    {
-      unsigned i=0; unsigned i1=0;
-      for (; i < xHandle.sliceLabels.size(); ++i)
-	if (xHandle.mask.count(i))
-	  {
-	    unsigned j = 0; unsigned j1 = 0;
-	    for (; j<yHandle.sliceLabels.size(); ++j)
-	      if (yHandle.mask.count(j))
-		{
-		  Key key{xHandle.sliceLabels[i], yHandle.sliceLabels[j]};
-		  if (xh>yh) swap(key[0],key[1]);
-		  slice.doIfKeyExists(key, [&](double x) {
-		      filterDataElement(i1, j1, x); });
-		  j1++;
-		}
-	    i1++;
-	  }
-    }
 
   // populate the histogram
-  for (unsigned& x: histogram) x=0;
-  for (auto it=slice.begin(); it!=slice.end(); ++it)
-    {
-      size_t idx=size_t((histogram.size()*(it->second-slice.minVal()))/
-                        (slice.maxVal()-slice.minVal()));
-      if (idx>=histogram.size()) idx=histogram.size()-1;
-      histogram[idx]++;
-    }
+//  for (unsigned& x: histogram) x=0;
+//  for (auto it=slice.begin(); it!=slice.end(); ++it)
+//    {
+//      size_t idx=size_t((histogram.size()*(it->second-slice.minVal()))/
+//                        (slice.maxVal()-slice.minVal()));
+//      if (idx>=histogram.size()) idx=histogram.size()-1;
+//      histogram[idx]++;
+//    }
 }
 
 // returns first position of v such that all elements in that or later

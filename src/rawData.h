@@ -43,6 +43,8 @@ namespace ravel
     RawDataIdx(const LabelsVector& labels);
     RawDataIdx(const RawDataIdx& x, const std::vector<std::string>& axes);
 
+    void clear() {indicesByName.clear(); indices.clear(); m_size=0;}
+
     /// returns number of elements in this slice
     size_t size() const {return m_size;}
     /// returns rank of slice (number of axes)
@@ -86,7 +88,9 @@ namespace ravel
     RawData(const RawDataIdx& x): RawDataIdx(x) {data.resize(size(),nan(""));}
     RawData(const RawDataIdx& x, const std::vector<std::string>& a): 
       RawDataIdx(x,a) {data.resize(size(),nan(""));}
-    RawData(RawDataIdx&& x): RawDataIdx(x) {}
+    RawData(RawDataIdx&& x): RawDataIdx(x) {data.resize(size(),nan(""));}
+
+    void clear() {RawDataIdx::clear(); data.clear();}
 
     RawData hyperSlice(const std::vector<std::string>& axes, const Key& fixedLabels) {
       std::vector<SizeStride> sizeAndStrides;
@@ -121,4 +125,7 @@ namespace ravel
 
 }
 
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
+#include "rawData.cd"
+#endif
 #endif

@@ -2,6 +2,7 @@
 #define DATACUBE_H
 
 #include "cda.h"
+#include "rawData.h"
 
 #include <string>
 #include <vector>
@@ -100,17 +101,16 @@ namespace ravel
 
     CLASSDESC_ACCESS(DataCube);
   public:
-    typedef std::vector<std::string> Key;
-    struct KeyHash 
-    {
-      size_t operator()(const Key& k) const {
-        size_t h{ 0 };
-        std::hash<std::string> hash;
-        for (const std::string& s : k) h ^= hash(s);
-        return h;
-      }
-    };
-    typedef std::unordered_map<Key, boost::any, KeyHash> RawData;
+//    typedef std::vector<std::string> Key;
+//    struct KeyHash 
+//    {
+//      size_t operator()(const Key& k) const {
+//        size_t h{ 0 };
+//        std::hash<std::string> hash;
+//        for (const std::string& s : k) h ^= hash(s);
+//        return h;
+//      }
+//    };
 
     // dimension names starting with column titles, followed by the
     // row axes, which are not inferred from the input data
@@ -182,22 +182,6 @@ namespace ravel
 }
 
 #if defined(CLASSDESC) || defined(ECOLAB_LIB)
-// disable xml serialisation of RawData
-#include <classdesc.h>
-namespace classdesc
-{
-  class random_init_t;
-  class xml_pack_t;
-  class xml_unpack_t;
-
-  inline void random_init(random_init_t&,const string&,ravel::DataCube::RawData&) {}
-  inline void xml_pack(xml_pack_t&,const string&,ravel::DataCube::RawData&) {}
-  inline void xml_unpack(xml_unpack_t&,const string&,ravel::DataCube::RawData&) {}
-}
-
-using classdesc::random_init;
-using classdesc::xml_pack;
-using classdesc::xml_unpack;
 
 #ifdef __GNUC__
 #pragma GCC diagnostic push

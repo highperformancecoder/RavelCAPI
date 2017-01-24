@@ -13,7 +13,8 @@ FLAGS+=-std=c++11 #-Wno-error=offsetof
 # override EcoLab's classdesc rule to get enums handled correctly
 .h.cd:
 	$(CLASSDESC) -nodef -onbase -typeName -I $(CDINCLUDE) -I $(ECOLAB_HOME)/include -i $< $(ACTIONS) >$@
-
+	$(CLASSDESC) -nodef -onbase -typeName -I $(CDINCLUDE) -I $(ECOLAB_HOME)/include -i $< \
+	  -respect_private  $(RPACTIONS) >>$@
 
 VPATH+=src src/shims src/tcl
 FLAGS+=-I. -Isrc -Isrc/tcl
