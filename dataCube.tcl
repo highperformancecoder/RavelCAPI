@@ -19,8 +19,6 @@ dc.ravel.rescale 150
 dc.ravel.x 50
 dc.ravel.y 50
 
-#set rr [.tl.ravel create ravel 110 120 -ravelName dc.ravel -tag ravel]
-
 # forces a redraw of the ravel
 proc redraw {} {
     global t dataCube
@@ -31,13 +29,8 @@ proc redraw {} {
     dc.render
     update
 #    setSpreadsheetDimensions
-#    uplevel #0 {.tl.ravel itemconfigure $rr -ravelName dc.ravel}
 }
 
-
-#.tl.ravel bind $rr <ButtonPress-1> "dc.ravel.onMouseDown %x %y"
-#.tl.ravel bind $rr <ButtonRelease-1> "dc.ravel.onMouseUp %x %y; redraw"
-#.tl.ravel bind $rr <B1-Motion> "dc.ravel.onMouseMotion %x %y; redraw"
 
 .user1 configure -command "redraw .tl.ravel ravel"
 
@@ -67,7 +60,6 @@ pack .tl.ravel.spreadsheet.sy -side right -fill y
 pack .tl.ravel.spreadsheet.table -fill both 
 pack .tl.ravel.spreadsheet.sx -fill x
 
-#.tl.ravel create window [expr [dc.ravel.x]+2] [expr [dc.ravel.y]+2] -window .tl.ravel.spreadsheet -anchor nw 
 .tl.ravel create window  0 50 -window .tl.ravel.spreadsheet -anchor nw 
 
 button .tl.ravel.open -command openFile -text "Open"
