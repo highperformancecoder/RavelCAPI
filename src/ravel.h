@@ -59,6 +59,7 @@ namespace ravel
     std::string reductionDescription() const;   
     /// labels of individual slices along this dimension
     SortedVector sliceLabels;
+    size_t numSliceLabels() const {return sliceLabels.size();}
     /// current slice, filter bounds
     size_t sliceIndex, sliceMin=0, sliceMax=std::numeric_limits<size_t>::max();
 
@@ -157,6 +158,7 @@ namespace ravel
       CLASSDESC_ACCESS(Handles);
       void addHandle(const std::string& description, 
                      const std::vector<std::string>& sliceLabels);
+      void clearHandles() {Super::clear();}
     public:
       using Super::operator[];
       using Super::begin;
@@ -166,6 +168,7 @@ namespace ravel
       using Super::value_type;
       using Super::const_iterator;
       using Super::iterator;
+      const Handle& at(size_t i) const {return Super::operator[](i);}
       size_t size() const {return Super::size();}
       void clear() {/* clear does nothing by design */}
       void resize(size_type) {/* clear does nothing by design */}
@@ -210,7 +213,7 @@ namespace ravel
                   const std::vector<std::string>& sliceLabels=
                   std::vector<std::string>());
     void clear() {
-      handles.clear();
+      handles.clearHandles();
       m_xHandleId=0; m_yHandleId=1;
     }
     /// move \a handle to \a x, \a y due to mouse motion

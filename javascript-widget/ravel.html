@@ -1,25 +1,36 @@
- <html>
-    <meta charset="utf-8">
-<body onunload="onunload()">
+<html>
+  <meta charset="utf-8">
+  <head>
+  <link rel="stylesheet" href="SlickGrid/slick.grid.css" type="text/css"/>
+  <link rel="stylesheet" href="SlickGrid/css/smoothness/jquery-ui-1.11.3.custom.css" type="text/css"/>
+  <link rel="stylesheet" href="SlickGrid/examples.css" type="text/css"/>
+  </head>
+  <body onunload="onunload()">
 
-<h1>Ravel!</h1>
+    <h1>Ravel!</h1>
 
-<div><!-- svg element needs to be contained so that we can ask where --
-       -- it is on the screen -->
-<svg width="300" height="300">
-  <g transform="translate(150,150) scale(-1,1)" id="ravel">
-  </g>
-</svg>
-</div>
+    Database: <select onchange="setTable(this.value)" id="tableSelector">
+    </select>
 
-<div>
-<svg width="300" height="300">
-  <g transform="translate(150,150) scale(-1,1)" id="ravel1">
-  </g>
-</svg>
-</div>
-
-<script type="text/javascript" src="jsravel.js"></script>
-<script type="text/javascript" src="ravel.js"></script>
-</body>
+    <table id="tableBlock">
+      <tr>
+        <td valign="top" width="50%">
+            <canvas width="500" height="500" id="ravel"></canvas>
+       </td>
+        <td>
+          <div id="myGrid" style="width:600px;height:500px;"></div>
+        </td>
+      </tr>
+    </table>
+    
+    <script type="text/javascript" src="jsravel.js"></script>
+    <script type="text/javascript" src="ravel-slickGrid.js"></script>
+    <script type="text/javascript" src="ravel.js"></script>
+    
+    
+    <script src="SlickGrid/lib/jquery-1.11.2.min.js"></script>
+    <script src="SlickGrid/lib/jquery.event.drag-2.3.0.js"></script>
+    <script src="SlickGrid/slick.core.js"></script>
+    <script src="SlickGrid/slick.grid.js"></script>
+  </body>
 </html> 
