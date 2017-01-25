@@ -497,8 +497,33 @@ void DataCube::populateArray(ravel::Ravel& ravel)
   Key sliceLabels;
   for (auto& h: ravel.handles)
     if (&h!=&xHandle && &h!=&yHandle)
-      sliceLabels.emplace_back(h.description, h.sliceLabel());
-  RawData slice=rawData.hyperSlice(axes, sliceLabels);
+      if (h.collapsed())
+        axes.push_back(h.description);
+      else
+        sliceLabels.emplace_back(h.description, h.sliceLabel());
+  RawDataIdx slice=rawData.slice(axes, sliceLabels);
+
+  RawData sliceData;
+  if (slice.rank()>2)
+    // perform reductions
+    {
+      bool firstReduction=true;
+      for (auto& h: ravel.handles)
+        if (&h!=&xHandle && &h!=&yHandle && h.collapsed())
+          if (firstReduction)
+            {
+              // avoid copying data first time around
+              sliceData=move
+                (rawData.reduceAlong(slice.dim(h.description),slice,h.reductionOp));
+              firstReduction=false;
+            }
+          else
+            sliceData=move(sliceData.reduceAlong(sliceData.dim(h.description), sliceData,
+                                                 h.reductionOp));
+    }
+  else
+    sliceData=move(RawData(rawData,slice));
+  
   // TODO reduction operations
 
   assert(m_sortBy[xh].rowCol<yHandle.sliceLabels.size() && 
@@ -624,13 +649,38 @@ void DataCube::populateArray(ravel::Ravel& ravel)
 //	    i1++;
 //	  }
 //    }
-  for (size_t i=0; i<xHandle.sliceLabels.size(); ++i)
-    for (size_t j=0; j<yHandle.sliceLabels.size(); ++j)
-      {
-        double v=slice[i+j*slice.stride(1)];
-        if (!std::isnan(v))
-          setDataElement(i,j,v);
-      }
+
+  if (xHandle.collapsed())
+    {
+      RawData rd=sliceData.reduceAlong(0,sliceData,xHandle.reductionOp);
+      if (yHandle.collapsed())
+        setDataElement(0,0,rd.reduce(yHandle.reductionOp, 0, rd.stride(0), rd.size()));
+      else
+        for (size_t i=0; i<rd.dim(0); ++i)
+          {
+            double v=rd[i*rd.stride(0)];
+            if (!isnan(v))
+              setDataElement(0,i,v);
+          }
+    }
+  else if (yHandle.collapsed())
+    {
+      RawData rd=sliceData.reduceAlong(1,sliceData,yHandle.reductionOp);
+      for (size_t i=0; i<rd.dim(0); ++i)
+        {
+          double v=rd[i*rd.stride(0)];
+          if (!isnan(v))
+            setDataElement(i,0,v);
+        }
+    }
+  else
+    for (size_t i=0; i<sliceData.dim(0); ++i)
+      for (size_t j=0; j<sliceData.dim(1); ++j)
+        {
+          double v=sliceData[i*sliceData.stride(0) + j*sliceData.stride(1)];
+          if (!std::isnan(v))
+            setDataElement(i,j,v);
+        }
 
   // populate the histogram
 //  for (unsigned& x: histogram) x=0;

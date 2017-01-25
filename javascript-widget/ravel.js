@@ -122,6 +122,7 @@ function setTable(name) {
                         if (ravel.numHandles()==axes.length)
                         {
                             ravel.redraw();
+                            ravel.onRedraw();
                         }
                     }
                 }

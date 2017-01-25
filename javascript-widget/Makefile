@@ -26,3 +26,12 @@ endif
 
 clean:
 	-rm -f $(JSMODULES) *.bc *.mem *.d
+
+install:
+	ncftpput -F -m -S .tmp -f hpcoders.conf public_html/ravel ravel.js jsravel.js ravel.html
+	ncftpput -F -m -S .tmp -f hpcoders.conf public_html ../mySqlService.php
+
+install-slickgrid:
+	cd SlickGrid; ncftpput -F -m -S .tmp -f ../hpcoders.conf public_html/ravel/SlickGrid slick.core.* slick.grid.*
+	cd SlickGrid/lib; ncftpput -F -m -S .tmp -f ../../hpcoders.conf public_html/ravel/SlickGrid/lib jquery-1.11.2.min.js jquery.event.drag-2.3.0.js
+	cd SlickGrid; ncftpput -F -m -S .tmp -f ../hpcoders.conf -R public_html/ravel/SlickGrid css
