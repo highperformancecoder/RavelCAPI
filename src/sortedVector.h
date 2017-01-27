@@ -41,7 +41,8 @@ namespace ravel
       assert(isPermValid());
       return labels[indices[i]];
     }
-
+    size_t idx(size_t i) const {return indices[i];}
+    
     class iterator
     {
       const std::vector<std::string>& v;

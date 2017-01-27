@@ -434,21 +434,27 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
 //      });
 //  }
 //
-//  void setupSortByPerm(DataCube::SortBy sortBy, 
-//                       bool swapAxes, const HyperSlice& slice,
-//                       SortedVector& labels, const string& key)
-//  {
-//    if (sortBy.type==DataCube::SortBy::byValue)
-//      {
-//        vector<size_t> perm(labels.size());
-//        for (unsigned i=0; i<perm.size(); ++i) perm[i]=i;
-//        // original label order needed for slice.setupSortByValue
-//        labels.order(SortedVector::none); 
-//        slice.setupSortByValue(perm,key,sortBy.reverse,swapAxes,labels);
-//        labels.customPermutation(perm);
-//      }
-//
-//  }
+void setupSortByPerm(DataCube::SortBy sortBy, size_t axis, size_t otherAxis,
+                     const RawData& slice, SortedVector& labels)
+  {
+    if (sortBy.type==DataCube::SortBy::byValue)
+      {
+        vector<size_t> perm(labels.size());
+        for (unsigned i=0; i<perm.size(); ++i) perm[i]=i;
+        size_t offs=slice.offset() + sortBy.rowCol*slice.stride(otherAxis);
+        sort(perm.begin(), perm.end(), [&](size_t i, size_t j){
+            if (sortBy.reverse) swap(i,j);
+            return slice[offs + i*slice.stride(axis)] <
+              slice[offs + j*slice.stride(axis)];
+              });
+        // invert permutation
+        vector<size_t> perm1(perm.size());
+        for (unsigned i=0; i<perm.size(); ++i)
+          perm1[perm[i]]=i;
+        labels.customPermutation(perm1);
+      }
+
+  }
 //
 //  struct SliceIdx: public map<unsigned,string>
 //  {
@@ -529,14 +535,10 @@ void DataCube::populateArray(ravel::Ravel& ravel)
   assert(m_sortBy[xh].rowCol<yHandle.sliceLabels.size() && 
          m_sortBy[yh].rowCol<xHandle.sliceLabels.size());
 
-//  if (!xHandle.collapsed())
-//    setupSortByPerm(m_sortBy[xh],yh>xh, slice, 
-//                    xHandle.sliceLabels, 
-//                    yHandle.sliceLabels[m_sortBy[xh].rowCol]);
-//  if (!yHandle.collapsed())
-//    setupSortByPerm(m_sortBy[yh],xh>yh, slice, 
-//                    yHandle.sliceLabels, 
-//                    xHandle.sliceLabels[m_sortBy[yh].rowCol]);
+  if (!xHandle.collapsed())
+    setupSortByPerm(m_sortBy[xh],0,1,sliceData, xHandle.sliceLabels);
+  if (!yHandle.collapsed())
+    setupSortByPerm(m_sortBy[yh],1,0,sliceData, yHandle.sliceLabels);
 
   // determine empty rows/columns
   xHandle.mask.clear(); yHandle.mask.clear();
@@ -654,33 +656,58 @@ void DataCube::populateArray(ravel::Ravel& ravel)
     {
       RawData rd=sliceData.reduceAlong(0,sliceData,xHandle.reductionOp);
       if (yHandle.collapsed())
-        setDataElement(0,0,rd.reduce(yHandle.reductionOp, 0, rd.stride(0), rd.size()));
+        filterDataElement(0,0,rd.reduce(yHandle.reductionOp, 0, rd.stride(0), rd.size()));
       else
-        for (size_t i=0; i<rd.dim(0); ++i)
+        for (size_t i=0, i1=0; i<rd.dim(0); ++i)
           {
-            double v=rd[i*rd.stride(0)];
+            double v=rd[yHandle.sliceLabels.idx(i)*rd.stride(0)];
             if (!isnan(v))
-              setDataElement(0,i,v);
+              filterDataElement(0,i1++,v);
+            else
+              yHandle.mask.insert(i);
           }
     }
   else if (yHandle.collapsed())
     {
       RawData rd=sliceData.reduceAlong(1,sliceData,yHandle.reductionOp);
-      for (size_t i=0; i<rd.dim(0); ++i)
+      for (size_t i=0, i1=0; i<rd.dim(0); ++i)
         {
-          double v=rd[i*rd.stride(0)];
+          double v=rd[xHandle.sliceLabels.idx(i)*rd.stride(0)];
           if (!isnan(v))
-            setDataElement(i,0,v);
+            filterDataElement(i1++,0,v);
+          else
+            xHandle.mask.insert(i);
         }
     }
   else
-    for (size_t i=0; i<sliceData.dim(0); ++i)
-      for (size_t j=0; j<sliceData.dim(1); ++j)
-        {
-          double v=sliceData[i*sliceData.stride(0) + j*sliceData.stride(1)];
-          if (!std::isnan(v))
-            setDataElement(i,j,v);
-        }
+    {
+      // set up masks to eliminate empty rows/cols
+      set<size_t> validX, validY;
+      for (size_t i=0; i<sliceData.dim(0); ++i)
+        for (size_t j=0; j<sliceData.dim(1); ++j)
+          if (!isnan(sliceData[i*sliceData.stride(0) + j*sliceData.stride(1)]))
+            {validX.insert(i); validY.insert(j);}
+
+      for (size_t i=0; i<xHandle.sliceLabels.size(); ++i)
+        if (!validX.count(i)) xHandle.mask.insert(i);
+      for (size_t i=0; i<yHandle.sliceLabels.size(); ++i)
+        if (!validY.count(i)) yHandle.mask.insert(i);
+        
+      for (size_t i=0, i1=0; i<sliceData.dim(0); ++i)
+        if (validX.count(i))
+          {
+            for (size_t j=0, j1=0; j<sliceData.dim(1); ++j)
+              if (validY.count(j))
+                {
+                  double v=sliceData[xHandle.sliceLabels.idx(i)*sliceData.stride(0)
+                                     + yHandle.sliceLabels.idx(j)*sliceData.stride(1)];
+                  if (!isnan(v))
+                    filterDataElement(i1,j1,v);
+                  j1++;
+                }
+            i1++;
+          }
+    }
 
   // populate the histogram
 //  for (unsigned& x: histogram) x=0;
