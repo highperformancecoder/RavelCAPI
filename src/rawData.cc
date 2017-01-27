@@ -60,7 +60,7 @@ void RawDataIdx::normalise()
 
 size_t RawDataIdx::idx(const Key& key) const
 {
-  size_t idx=0;
+  size_t idx=m_offset;
   for (auto& i: key)
     {
       auto j=indicesByName.find(i.first);
