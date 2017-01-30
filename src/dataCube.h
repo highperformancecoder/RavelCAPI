@@ -181,6 +181,10 @@ namespace ravel
   };
 }
 
+#ifdef ECOLAB_LIB
+#include <TCL_obj_stl.h>
+#endif
+
 #if defined(CLASSDESC) || defined(ECOLAB_LIB)
 
 #ifdef __GNUC__

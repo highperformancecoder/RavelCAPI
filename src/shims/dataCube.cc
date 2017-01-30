@@ -122,7 +122,7 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
   vector<set<UniqueString>> axisLabelSet(nColAxes);
   vector<vector<string>> colLabels;
   map<Key,double> tmpData;
-
+  
   vector<any> line;
   for (unsigned long row=0; !(line=tok.getLine()).empty(); ++row)
     {
@@ -710,14 +710,21 @@ void DataCube::populateArray(ravel::Ravel& ravel)
     }
 
   // populate the histogram
-//  for (unsigned& x: histogram) x=0;
-//  for (auto it=slice.begin(); it!=slice.end(); ++it)
-//    {
-//      size_t idx=size_t((histogram.size()*(it->second-slice.minVal()))/
-//                        (slice.maxVal()-slice.minVal()));
-//      if (idx>=histogram.size()) idx=histogram.size()-1;
-//      histogram[idx]++;
-//    }
+  for (unsigned& x: histogram) x=0;
+  for (size_t i=0; i<sliceData.size(); ++i)
+    if (finite(sliceData[i]))
+      {
+        m_minVal=min(m_minVal,sliceData[i]);
+        m_maxVal=max(m_maxVal,sliceData[i]);
+      }
+  for (size_t i=0; i<sliceData.size(); ++i)
+    if (finite(sliceData[i]))
+    {
+      size_t idx=size_t((histogram.size()*(sliceData[i]-m_minVal))/
+                        (m_maxVal-m_minVal));
+      if (idx>=histogram.size()) idx=histogram.size()-1;
+      histogram[idx]++;
+    }
 }
 
 // returns first position of v such that all elements in that or later
