@@ -6,7 +6,9 @@
 #ifndef RAWDATA_H
 #define RAWDATA_H
 
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
 #include <classdesc_access.h>
+#endif
 #include "ravel.h" // for Op
 #include <string>
 #include <map>

@@ -101,17 +101,6 @@ namespace ravel
 
     CLASSDESC_ACCESS(DataCube);
   public:
-//    typedef std::vector<std::string> Key;
-//    struct KeyHash 
-//    {
-//      size_t operator()(const Key& k) const {
-//        size_t h{ 0 };
-//        std::hash<std::string> hash;
-//        for (const std::string& s : k) h ^= hash(s);
-//        return h;
-//      }
-//    };
-
     // dimension names starting with column titles, followed by the
     // row axes, which are not inferred from the input data
     std::vector<std::string> dimNames;  

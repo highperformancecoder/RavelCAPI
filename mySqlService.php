@@ -131,6 +131,65 @@ function doData($table)
    echo json_encode($retval);
 }
 
+function doAllData($table)
+{
+   global $mysqli;
+   # get column names
+   $result=$mysqli->query("show columns from ".$table);
+   $columns=array();
+   while($row = mysqli_fetch_array($result))
+   {
+     if ($row['Field'] != "id" && $row['Field'] != "value")
+       array_push($columns,$row['Field']);
+   }
+
+   # now prepare column ordering so as to serve data back to client in 
+   $offsets=array();
+   $stride=1;
+   $offs=0;
+   foreach ($columns as $col)
+   {
+      $result=$mysqli->query("select distinct `".$col."` from ".$table);
+      $count=0;
+      $colOffsets=array();
+      while($row = mysqli_fetch_array($result))
+      {
+        $colOffsets[$row[0]]=$offs;
+        $offs+=$stride;
+        $count++;
+      }
+      $stride*=$count;
+      array_push($offsets,$colOffsets);
+   }
+   #var_dump($offsets);
+
+   # now grab the data, ordered alphanumerically by the axis labels
+   $dbreq="select ".implode(",",$columns).",value from ".$table;
+   $result=$mysqli->query($dbreq);
+
+   # prepare return array with NANs to indicate missing data
+   $retval=array_fill(0,$stride,NAN);                     
+   while($row = mysqli_fetch_array($result,MYSQLI_NUM))
+   {
+     $idx=0;
+     for ($i=0; $i<count($row)-1; ++$i)
+        $idx+=$offsets[$i][$row[$i]];
+     $retval[$idx]=(float)$row[count($row)-1];
+   }
+   #var_dump($retval);
+   # json_encode doesn't handle NaNs properly
+   $json="[";
+   for ($i=0; $i<$stride; ++$i)
+   {
+     if ($i>0) $json.=",";
+     if (is_nan($retval[$i]))
+        $json.="NaN";
+     else
+        $json.=$retval[$i];
+   }
+   echo $json;
+}
+
 $pathInfo=explode("/",$_SERVER["PATH_INFO"]);
 if (count($pathInfo)>1)
 {
@@ -141,6 +200,9 @@ if (count($pathInfo)>1)
       break;
     case "axes":
       doAxes($pathInfo);
+      break;
+    case "allData":     
+      doAllData($pathInfo[2]);
       break;
   }
 }

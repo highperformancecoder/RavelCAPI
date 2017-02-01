@@ -296,10 +296,12 @@ void DataCube::populateArray(ravel::Ravel& ravel)
   Key sliceLabels;
   for (auto& h: ravel.handles)
     if (&h!=&xHandle && &h!=&yHandle)
-      if (h.collapsed())
-        axes.push_back(h.description);
-      else
-        sliceLabels.emplace_back(h.description, h.sliceLabel());
+      {
+        if (h.collapsed())
+          axes.push_back(h.description);
+        else
+          sliceLabels.emplace_back(h.description, h.sliceLabel());
+      }
   RawDataIdx slice=rawData.slice(axes, sliceLabels);
 
   RawData sliceData;
@@ -309,16 +311,18 @@ void DataCube::populateArray(ravel::Ravel& ravel)
       bool firstReduction=true;
       for (auto& h: ravel.handles)
         if (&h!=&xHandle && &h!=&yHandle && h.collapsed())
-          if (firstReduction)
-            {
-              // avoid copying data first time around
-              sliceData=move
-                (rawData.reduceAlong(slice.dim(h.description),slice,h.reductionOp));
-              firstReduction=false;
-            }
-          else
-            sliceData=move(sliceData.reduceAlong(sliceData.dim(h.description), sliceData,
-                                                 h.reductionOp));
+          {
+            if (firstReduction)
+              {
+                // avoid copying data first time around
+                sliceData=move
+                  (rawData.reduceAlong(slice.dim(h.description),slice,h.reductionOp));
+                firstReduction=false;
+              }
+            else
+              sliceData=move(sliceData.reduceAlong(sliceData.dim(h.description), sliceData,
+                                                   h.reductionOp));
+          }
     }
   else
     sliceData=move(RawData(rawData,slice));

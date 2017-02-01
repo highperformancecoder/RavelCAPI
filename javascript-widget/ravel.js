@@ -64,6 +64,18 @@ var buildDbQuery=function(db,ravel) {
     return r;
 }
 
+/// obtain the full database, regardless of ravel configuration
+var fullDbQuery=function(db,ravel) {
+    var r="/mySqlService.php/data/"+table+"?";
+    for (var i=0; i<ravel.numHandles(); ++i)
+    {
+        if (i>0) r+="&";
+        var h=ravel.handles(i);
+        r+=h.description+"=";
+    }
+    return r;
+}
+
 var xhttp = new XMLHttpRequest();
 
 // populate table selector
@@ -91,19 +103,7 @@ function setTable(name) {
     table=name;
     ravel.clear();
     
-    ravel.onRedraw=function() {
-        var dataReq=new XMLHttpRequest;
-        var dbQuery=buildDbQuery(table,ravel);
-        if (dbQuery==ravel.dbQuery) return; //cache optimisation
-        ravel.dbQuery=dbQuery;
-        dataReq.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                processData(ravel,eval(this.responseText));
-            }
-        }
-        dataReq.open("GET",dbQuery);
-        dataReq.send();
-    }
+    ravel.onRedraw=function() {processData(ravel);}
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -122,7 +122,17 @@ function setTable(name) {
                         if (ravel.numHandles()==axes.length)
                         {
                             ravel.redraw();
-                            ravel.onRedraw();
+                            ravel.dimension();
+                            var dataReq=new XMLHttpRequest;
+                            var dbQuery="/mySqlService.php/allData/"+table;
+                            dataReq.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    ravel.dc.loadData(this.responseText);
+                                    ravel.onRedraw();
+                                }
+                            }
+                            dataReq.open("GET",dbQuery);
+                            dataReq.send();
                         }
                     }
                 }

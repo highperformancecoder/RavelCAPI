@@ -1,5 +1,6 @@
 .SUFFIXES: .cc .bc .js .d
-CFLAGS=-I. -I../src --std=c++11 --bind
+CFLAGS=-I. -I../src --std=c++11 --bind -I$(HOME)/usr/emscripten/include 
+LIBS=-L$(HOME)/usr/emscripten/lib
 #-s ALLOW_MEMORY_GROWTH=1
 RAVELSRC=$(wildcard ../src/*.cc)
 RAVELOBJS=$(RAVELSRC:%.cc=%.bc)
