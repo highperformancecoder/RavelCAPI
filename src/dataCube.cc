@@ -283,14 +283,13 @@ void setupSortByPerm(DataCube::SortBy sortBy, size_t axis, size_t otherAxis,
 
 void DataCube::populateArray(ravel::Ravel& ravel)
 {
+
   xh=ravel.xHandleId(); yh=ravel.yHandleId();
   Handle& xHandle = ravel.handles[xh];
   Handle& yHandle = ravel.handles[yh];
 
   m_minVal=numeric_limits<double>::max(); 
   m_maxVal=-m_minVal;
-
-  //HyperSliceR slice(rawData, ravel);
 
   vector<string> axes{xHandle.description, yHandle.description};
   Key sliceLabels;
@@ -326,7 +325,7 @@ void DataCube::populateArray(ravel::Ravel& ravel)
     }
   else
     sliceData=move(RawData(rawData,slice));
-  
+
   // TODO reduction operations
 
   assert(m_sortBy[xh].rowCol<yHandle.sliceLabels.size() && 
@@ -380,7 +379,7 @@ void DataCube::populateArray(ravel::Ravel& ravel)
         if (!validX.count(i)) xHandle.mask.insert(i);
       for (size_t i=0; i<yHandle.sliceLabels.size(); ++i)
         if (!validY.count(i)) yHandle.mask.insert(i);
-        
+
       for (size_t i=0, i1=0; i<sliceData.dim(0); ++i)
         if (validX.count(i))
           {

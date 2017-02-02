@@ -4,7 +4,7 @@
 #include <string>
 #include <emscripten/emscripten.h>
 #include <emscripten/bind.h>
-
+#include <consoleLog.h>
 
 using namespace std;
 using namespace ravel;
@@ -13,10 +13,12 @@ using namespace emscripten;
 namespace ravel
 {
   template class RavelCairo<val*>;
+  ConsoleLog console;
+  ConsoleLogEndl endl;
 }
 
 namespace {
-
+using ravel::endl;
   struct JSDataCube: public DataCube
   {
     /// assign a Javascript function to this value
@@ -25,18 +27,14 @@ namespace {
     {dataCallback(col,row,v);}
     
     void loadData(const std::string& jsonData) {
-      //      emscripten_run_script(("alert("+jsonData+")").c_str());;
       if (jsonData.empty()) return;
       size_t i=0;
       const char* p=jsonData.c_str();
       if (p) p++; // skip leading '['
-      //EM_ASM_ARGS(alert($0),rawData.size());
       while (*p && i<rawData.size())
         {
           char* p1;
           double v=strtod(p,&p1);
-          if (!isnan(v))
-            EM_ASM_ARGS(alert('i='+$0+'v='+$1),i,v);
           rawData[i++] = p1>p? v: nan("");
           p=p1;
           while (*p && *p!=',') p++;
@@ -44,11 +42,13 @@ namespace {
         }
       // fill any tail with NaNs
       for (; i<rawData.size(); ++i) rawData[i++] = nan("");
+
     }
 
     // set the dimensions of this datacube
     void dimension(const LabelsVector& lv) {
       rawData=RawDataIdx(lv);
+      m_sortBy.resize(lv.size());
     }
   };
   
@@ -57,16 +57,22 @@ namespace {
     unique_ptr<val> canvasContext;
     void setCanvas(const val& x) { canvasContext.reset(new val(x)); setG(canvasContext.get());}
     JSDataCube dc;
+    void setDataCallback(val f) {dc.dataCallback=f;}
+
+    void loadData(const std::string& jsonData) {dc.loadData(jsonData);}
     void populateData() {dc.populateArray(*this);}
     /// dimension the datacube according to info in Ravel
-    void dimension() {
-      LabelsVector lv;
+    void dimension(const val& arg) {
+      map<string,vector<string>> labels;
       for (auto& h: handles)
-        {
-          vector<string> labels;
-          for (auto& j: h.sliceLabels) labels.push_back(j);
-          lv.emplace_back(h.description, labels);
-        }
+        labels[h.description]=vector<string>(h.sliceLabels.begin(),h.sliceLabels.end());
+
+      LabelsVector lv;
+      vector<string> axes;
+      for (size_t i=0; i<arg["length"].as<unsigned>(); ++i)
+        axes.push_back(arg[i].as<string>());
+      for (auto& axis: axes)
+          lv.emplace_back(axis, labels[axis]);
       dc.dimension(lv);
     }
   };
@@ -158,6 +164,8 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("setCanvas",&JRavelCairo::setCanvas)
     .function("populateData",&JRavelCairo::populateData)
     .function("dimension",&JRavelCairo::dimension)
+    .function("loadData",&JRavelCairo::loadData)
+    .function("setDataCallback",&JRavelCairo::setDataCallback)
     .constructor<>()
     ;
 

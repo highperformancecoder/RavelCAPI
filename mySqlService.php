@@ -146,12 +146,12 @@ function doAllData($table)
    # now prepare column ordering so as to serve data back to client in 
    $offsets=array();
    $stride=1;
-   $offs=0;
    foreach ($columns as $col)
    {
       $result=$mysqli->query("select distinct `".$col."` from ".$table);
       $count=0;
       $colOffsets=array();
+      $offs=0;
       while($row = mysqli_fetch_array($result))
       {
         $colOffsets[$row[0]]=$offs;

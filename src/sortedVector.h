@@ -22,7 +22,7 @@ namespace ravel
   {
   public:
     typedef std::string value_type;
-
+   
     SortedVector(size_t sz=0, const std::string& s=""): 
       labels(sz,s) {order(none);}
     SortedVector(const std::vector<std::string>& x): labels(x) {order(none);}
@@ -43,7 +43,7 @@ namespace ravel
     }
     size_t idx(size_t i) const {return indices[i];}
     
-    class iterator
+    class iterator: public std::iterator<std::bidirectional_iterator_tag, std::string>
     {
       const std::vector<std::string>& v;
       std::vector<size_t>::const_iterator i;

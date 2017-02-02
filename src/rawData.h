@@ -151,7 +151,11 @@ namespace ravel
       RawDataIdx(x,a) {data.resize(size(),nan(""));}
     RawData(RawDataIdx&& x): RawDataIdx(x) {data.resize(size(),nan(""));}
     ///@}
- 
+    RawData(const RawData& x)=default;
+    RawData(RawData&& x)=default;
+    RawData& operator=(const RawData& x)=default;
+    RawData& operator=(RawData&& x)=default;
+
     /// produces a concrete RawData given a slice through some other data
     RawData(const RawData& x, const RawDataIdx& slice);
     

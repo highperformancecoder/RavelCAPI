@@ -86,9 +86,12 @@ namespace ravel
         type(type), rowCol(rowCol), reverse(reverse) {}
     };
 
-  private:
+  protected:
+    RawData rawData;
     std::vector<std::vector<std::string> > m_dimLabels; // dxvy below
     std::vector<SortBy> m_sortBy;
+    
+  private:
     size_t xh, yh;  // x & y handle Id (from last populateArray)
 
     /// break point between axes that appeared as columns and those that
@@ -164,8 +167,15 @@ namespace ravel
     /// distributed bins, filled by previous call the populateArray
     std::vector<unsigned> histogram=std::vector<unsigned>(20);
 
-  protected:
-    RawData rawData;
+    /// number of finite data elements in raw data
+    size_t numFinite() const {
+      size_t count=0;
+      for (size_t i=0; i<rawData.size(); ++i) count+=finite(rawData[i]);
+      return count;
+    }
+
+    size_t size() const {return rawData.size();}
+    
 
   };
 }

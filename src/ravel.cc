@@ -10,14 +10,6 @@
 #define M_PI		3.14159265358979323846
 #endif
 
-#ifdef EMSCRIPTEN 
-#include <emscripten.h>
-#define LOG(...) emscripten_log(EM_LOG_CONSOLE,__VA_ARGS__)
-#else
-#define LOG(...)
-#endif
-
-
 using namespace ravel;
 using namespace std;
 
@@ -195,12 +187,10 @@ void Ravel::moveHandleTo(unsigned handle, double xx, double yy)
 
 void Ravel::snapHandle(unsigned handle)
 {
-  LOG("in snapHandle %d %d",handle,handles.size());
   if (handle<handles.size())
     {
       Handle& thisHandle=handles[handle];
       int target=handleIfMouseOver(thisHandle.x(),thisHandle.y(),handle);
-      LOG("target %d",target);
       if (target>-1)
         {
           thisHandle.swapHome(handles[target]);
@@ -316,17 +306,13 @@ void Ravel::onMouseDown(double xx, double yy)
 {
   lastHandle=handleIfMouseOver(xx-x,yy-y);
   elementMoving = sliceCtlHandle(lastHandle, xx-x,yy-y);
-  LOG("elementMoving=%d",elementMoving);
 }
 
 void Ravel::onMouseUp(double a_x, double a_y)
 {
   onMouseMotion(a_x,a_y);
   if (lastHandle!=-1 && elementMoving==handle)
-    {
-      LOG("snapHandle %d",lastHandle);
-      snapHandle(lastHandle);
-    }
+    snapHandle(lastHandle);
   lastHandle=-1;
 }
 

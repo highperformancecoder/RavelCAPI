@@ -122,12 +122,12 @@ function setTable(name) {
                         if (ravel.numHandles()==axes.length)
                         {
                             ravel.redraw();
-                            ravel.dimension();
+                            ravel.dimension(axes);
                             var dataReq=new XMLHttpRequest;
                             var dbQuery="/mySqlService.php/allData/"+table;
                             dataReq.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
-                                    ravel.dc.loadData(this.responseText);
+                                    ravel.loadData(this.responseText);
                                     ravel.onRedraw();
                                 }
                             }
