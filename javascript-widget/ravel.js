@@ -33,15 +33,15 @@ var newRavel = function(canvasId) {
         if (event.button==0 && ravel.onMouseMotion(event.clientX, event.clientY))
             ravel.redraw();
     };
-    canvasElem.ondblclick=function(event) {
-        var h=ravel.handleIfMouseOver(event.clientX, event.clientY, -1);
-        if (h>=0)
-        {
-            ravel.handles(h).toggleCollapsed();
-            ravel.redraw();
-            ravel.onRedraw();
-        }
-    }
+//    canvasElem.ondblclick=function(event) {
+//        var h=ravel.handleIfMouseOver(event.clientX, event.clientY, -1);
+//        if (h>=0)
+//        {
+//            ravel.handles(h).toggleCollapsed();
+//            ravel.redraw();
+//            ravel.onRedraw();
+//        }
+//    }
     
     return ravel;
 }

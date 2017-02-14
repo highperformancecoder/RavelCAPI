@@ -259,7 +259,7 @@ Ravel::ElementMoving Ravel::sliceCtlHandle(int handle, double a_x, double a_y) c
         {
           if (handle!=int(xHandleId()) && handle!=int(yHandleId()))
             {
-              if (dsq(a_x, a_y, h.sliceX(), h.sliceY()) < 25)
+              if (dsq(a_x, a_y, h.sliceX(), h.sliceY()) < 100)
                 return slicer;
             }
           else if (h.displayFilterCaliper)

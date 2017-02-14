@@ -28,21 +28,26 @@ using ravel::endl;
     
     void loadData(const std::string& jsonData) {
       if (jsonData.empty()) return;
-      size_t i=0;
       const char* p=jsonData.c_str();
+      // fill any nonexistent data with NaNs
+      for (size_t i=0; i<rawData.size(); ++i) rawData[i++] = nan("");
+
       if (p) p++; // skip leading '['
-      while (*p && i<rawData.size())
+      while (*p)
         {
           char* p1;
+          size_t i=strtold(p,&p1);
+          if (p1==p) break; //invalid data
+          p=p1;
+          while (*p && *p!=',') p++;
+          if (*p) p++; //skip comma
+          
           double v=strtod(p,&p1);
-          rawData[i++] = p1>p? v: nan("");
+          rawData[i] = (i<rawData.size() && p1>p)? v: nan("");
           p=p1;
           while (*p && *p!=',') p++;
           if (*p) p++; //skip comma
         }
-      // fill any tail with NaNs
-      for (; i<rawData.size(); ++i) rawData[i++] = nan("");
-
     }
 
     // set the dimensions of this datacube

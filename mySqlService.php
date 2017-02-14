@@ -168,26 +168,21 @@ function doAllData($table)
    $result=$mysqli->query($dbreq);
 
    # prepare return array with NANs to indicate missing data
-   $retval=array_fill(0,$stride,NAN);                     
+   $cnt=0;
    while($row = mysqli_fetch_array($result,MYSQLI_NUM))
    {
      $idx=0;
      for ($i=0; $i<count($row)-1; ++$i)
         $idx+=$offsets[$i][$row[$i]];
-     $retval[$idx]=(float)$row[count($row)-1];
+     if ($cnt++==0) {
+       print "[";
+     }
+     else {
+       print ",";
+     }
+     echo $idx,",",(float)$row[count($row)-1];
    }
-   #var_dump($retval);
-   # json_encode doesn't handle NaNs properly
-   $json="[";
-   for ($i=0; $i<$stride; ++$i)
-   {
-     if ($i>0) $json.=",";
-     if (is_nan($retval[$i]))
-        $json.="NaN";
-     else
-        $json.=$retval[$i];
-   }
-   echo $json;
+   print "]";
 }
 
 $pathInfo=explode("/",$_SERVER["PATH_INFO"]);
