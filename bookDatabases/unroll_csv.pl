@@ -7,7 +7,7 @@ chomp;
 $csv->parse($_);
 @colName=$csv->fields();
 
-$naxes=6;
+$naxes=8;
 
 
 while (<>)
@@ -20,8 +20,11 @@ while (<>)
     {
         if ($row[$i] ne '')
         {
-            for ($j=1; $j<$naxes-1; ++$j)
+            if ($row[3] ne "A:All sectors" || $row[4] ne "M:Market value" ||
+                $row[5] ne "USD:US Dollar" || $row[6] ne "A:Adjusted for breaks") {next;}
+            for ($j=1; $j<3; ++$j)
             {
+                $row[$j]=~s/^.*://;
                 print "\"$row[$j]\",";
             }
             print "\"$colName[$i]\",$row[$i]\n";
