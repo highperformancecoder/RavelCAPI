@@ -29,7 +29,7 @@ clean:
 	-rm -f $(JSMODULES) *.bc *.mem *.d
 
 install:
-	ncftpput -F -m -S .tmp -f hpcoders.conf public_html/ravel ravel.js jsravel.js ravel.html
+	ncftpput -F -m -S .tmp -f hpcoders.conf public_html/ravel *.js ravel.html
 	ncftpput -F -m -S .tmp -f hpcoders.conf public_html ../mySqlService.php
 
 install-slickgrid:
