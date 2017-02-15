@@ -75,13 +75,18 @@ namespace ravel
         
     // populates a TCL array variable according to current slice and
     // rollup parameters
+    // TODO handle ranks other than 2.
     void populateArray(ecolab::TCL_args array) {
+      if (ravel.handles.size()<2) return;
       array >> this->array;
       ecolab::tclcmd() << "array unset"<<this->array<<"\n";
       DataCube::populateArray(ravel);
       // add row & column labels
       TclArray tclArray(this->array);
-      int xh=ravel.xHandleId(), yh=ravel.yHandleId();
+      int xh=0, yh=1;
+      if (ravel.handleIds.size()>0) xh=ravel.handleIds[0];
+      if (ravel.handleIds.size()>1) yh=ravel.handleIds[1];
+      if (xh==yh) {xh=0; yh=1;}
       Handle xHandle=ravel.handles[xh];
       Handle yHandle=ravel.handles[yh];
       for (size_t i=0; i<xHandle.sliceLabels.size(); ++i)

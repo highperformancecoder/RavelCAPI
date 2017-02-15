@@ -134,16 +134,12 @@ namespace ravel
   public:
     enum ElementMoving {handle, slicer, filterMin, filterMax};
   protected:
-    size_t m_xHandleId, m_yHandleId;
     double m_radius;
     CLASSDESC_ACCESS(Ravel);
 
     /// id of handle for previous event. Used for tracking motion events
-    int lastHandle;
+    int lastHandle=-1;
     ElementMoving elementMoving;
-
-    /// distribute handles uniformly around the 1st to 3rd quadrants
-    void redistributeHandles();
 
   public:
 
@@ -196,26 +192,31 @@ namespace ravel
     void setSliceCoordinates(size_t handle, double xs, double ys)
     {handles[handle].setSliceCoordinates(handles[handle].sliceIndex,xs-x,ys-y);}
 
-    /// @{
-    /// indices of the handles representing x & y coordinates
-    size_t xHandleId() const {return m_xHandleId;}
-    size_t yHandleId() const {return m_yHandleId;}
-    /// @}
+    /// return number of output handles 
+    size_t rank() const {return handleIds.size();}
+    /// indices of the handles representing x, y, z etc coordinates
+    std::vector<size_t> handleIds{0,1};
+    
+    /// set output handles
+    //    void setOutputHandle(size_t); 
 
-    /// set x&y handles
-    void setXYHandles(size_t xHandle, size_t yHandle); 
+    /// returns true if the ith handle is an output handle
+    bool isOutputHandle(size_t i) const {
+      return std::find(handleIds.begin(), handleIds.end(), i)
+        !=handleIds.end();
+    }
 
-    Ravel(double radius=1): m_xHandleId(0), m_yHandleId(1), m_radius(radius), lastHandle(-1) {}
+    /// distribute handles uniformly around the 1st to 3rd quadrants
+    void redistributeHandles();
+    
+    Ravel(double radius=1): m_radius(radius) {}
 
     /// add a handle (and dimension it controls) to system
     /// @return handleId for newly added handle
     size_t addHandle(const std::string& description="", 
                   const std::vector<std::string>& sliceLabels=
                   std::vector<std::string>());
-    void clear() {
-      handles.clearHandles();
-      m_xHandleId=0; m_yHandleId=1;
-    }
+    void clear() {handles.clearHandles(); handleIds.clear();}
     /// move \a handle to \a x, \a y due to mouse motion
     void moveHandleTo(unsigned handle, double xx, double yy); 
     /// snap handle to final position on mouse up

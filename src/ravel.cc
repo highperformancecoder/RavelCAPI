@@ -132,10 +132,11 @@ void Ravel::redistributeHandles()
   double delta=1.5*M_PI/(handles.size()-1);
   double angle=0.5*M_PI+delta;
   for (unsigned i=0; i<handles.size(); ++i)
-    if (i==m_xHandleId)
+    if (handleIds.size()>0 && i==handleIds[0])
       handles[i].setHome(radius(),0);
-    else if (i==m_yHandleId)
+    else if (handleIds.size()>1 && i==handleIds[1])
       handles[i].setHome(0, radius());
+  // TODO handle higher rank (eg 3D) ravels
     else
       {
         handles[i].setHome(radius()*cos(angle), radius()*sin(angle));
@@ -144,17 +145,14 @@ void Ravel::redistributeHandles()
 }
 
 
-void Ravel::setXYHandles(size_t xHandle, size_t yHandle) 
-{
-  if (xHandle!=yHandle)
-    {
-      m_xHandleId=xHandle;
-      m_yHandleId=yHandle;
-      redistributeHandles();
-    }
-}
-
-
+//void Ravel::setOutputHandle(size_t dimension, size_t handle) 
+//{
+//  for (auto j: handleIds)
+//    if (handle==j) return; // handle already an output handle
+//  if (dimension>=handleIds.size()) handleIds.resize(dimension+1);
+//  handleIds[dimension]=handle;
+//  redistributeHandles();
+//}
 
 void Ravel::Handles::addHandle(const string& description, 
                      const vector<string>& sliceLabels)
@@ -195,18 +193,15 @@ void Ravel::snapHandle(unsigned handle)
         {
           thisHandle.swapHome(handles[target]);
           handles[target].snap();
-          if ((handle==xHandleId() || handle==yHandleId()) &&
-              (target==int(xHandleId()) || target==int(yHandleId())))
-            swap(m_xHandleId, m_yHandleId);
+          auto handleIt=find(handleIds.begin(), handleIds.end(), handle);
+          auto targetIt=find(handleIds.begin(), handleIds.end(), target);
+          if (handleIt!=handleIds.end() && targetIt!=handleIds.end())
+            swap(*handleIt, *targetIt);
           else
-            if (handle==xHandleId())
-              m_xHandleId=target;
-            else if (handle==yHandleId())
-              m_yHandleId=target;
-            else if (target==int(xHandleId()))
-              m_xHandleId=handle;
-            else if (target==int(yHandleId()))
-              m_yHandleId=handle;
+            if (handleIt!=handleIds.end())
+              *handleIt=target;
+            else if (targetIt!=handleIds.end())
+              *targetIt=handle;
         }
       thisHandle.snap();
     }
@@ -257,7 +252,7 @@ Ravel::ElementMoving Ravel::sliceCtlHandle(int handle, double a_x, double a_y) c
       const Handle& h=handles[handle];
       if (!h.collapsed())
         {
-          if (handle!=int(xHandleId()) && handle!=int(yHandleId()))
+          if (!isOutputHandle(handle))
             {
               if (dsq(a_x, a_y, h.sliceX(), h.sliceY()) < 100)
                 return slicer;
@@ -351,16 +346,15 @@ string Ravel::description() const
   string r;
   if (handles.size()>1)
     {
-      const Handle& xHandle=handles[xHandleId()], &yHandle=handles[yHandleId()];
-      if (xHandle.collapsed())
-        if (yHandle.collapsed())
-          r=yHandle.reductionDescription()+", "+xHandle.reductionDescription();
-        else
-          r=xHandle.reductionDescription()+" by "+yHandle.description;
-      else
-        r=yHandle.reductionDescription()+" by "+xHandle.description;
+      for (auto i: handleIds)
+        {
+          auto& h=handles[i];
+          if (!r.empty()) r+=" by ";
+          r+=h.collapsed()? h.reductionDescription(): h.description;
+        }
+      
       for (size_t i=0; i<handles.size(); ++i)
-        if (i!=yHandleId() && i!=xHandleId())
+        if (!isOutputHandle(i))
           {
             const Handle& h=handles[i];
             if (h.collapsed())

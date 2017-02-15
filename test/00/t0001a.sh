@@ -47,8 +47,7 @@ dc.nRowAxes 1
 dc.separator ","
 
 dc.loadFile input.csv
-assert {[dc.ravel.xHandleId]==2} ""
-assert {[dc.ravel.yHandleId]==0} ""
+assert {[dc.ravel.handleIds]=="2 0"} ""
 
 dc.ravel.handles.@elem 0
 dc.ravel.handles.@elem 1
@@ -136,8 +135,7 @@ dc.ravel.handles(1).reductionOp sum
 # swap x & y handles
 dc.ravel.handles(2).moveTo [dc.ravel.handles(0).x] [dc.ravel.handles(0).y] 1
 dc.ravel.snapHandle 2
-assert {[dc.ravel.xHandleId]==0} {}
-assert {[dc.ravel.yHandleId]==2} {}
+assert {[dc.ravel.handleIds]=="0 2"} {}
 dc.populateArray data
 assert "\$data(1,1)==3" "d(1,1) swapped"
 assert "\$data(2,1)==5" "d(2,1) swapped"

@@ -283,8 +283,9 @@ void setupSortByPerm(DataCube::SortBy sortBy, size_t axis, size_t otherAxis,
 
 void DataCube::populateArray(ravel::Ravel& ravel)
 {
-
-  xh=ravel.xHandleId(); yh=ravel.yHandleId();
+  // TODO: handle ranks other than 2.
+  if (ravel.handleIds.size()<2) return;
+  xh=ravel.handleIds[0]; yh=ravel.handleIds[1];
   Handle& xHandle = ravel.handles[xh];
   Handle& yHandle = ravel.handles[yh];
 
@@ -506,7 +507,8 @@ void DataCube::initRavel(ravel::Ravel& ravel) const
   // if some axes are read in as rows, then set the xHandle to the
   // first of these, otherwise take the second
   if (dimNames.size()>1)
-    ravel.setXYHandles( leastRowAxis<dimNames.size()? leastRowAxis: 1, 0);
+    ravel.handleIds=vector<size_t>{leastRowAxis<dimNames.size()? leastRowAxis: 1, 0};
+  ravel.redistributeHandles();
 }
 
 void DataCube::filterDataElement(size_t col, size_t row, double v)

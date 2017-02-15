@@ -51,27 +51,27 @@ assert {[ravel.radius]==100} ""
 
 # swap handles using mouse
 ravel.onMouseDown 50 0
-assert {[ravel.xHandleId]==0} ""
+assert {[lindex [ravel.handleIds] 0]==0} ""
 assert {[ravel.onMouseMotion 0 50]==1} ""
-assert {[ravel.xHandleId]==0} "mouse move"
+assert {[lindex [ravel.handleIds] 0]==0} "mouse move"
 ravel.onMouseUp 0 50
-assert {[ravel.xHandleId]==1} ""
+assert {[lindex [ravel.handleIds] 0]==1} ""
 
 # swap with third handle - exercises different code path
 ravel.onMouseDown 50 0
 ravel.onMouseUp -50 -50
-assert {[ravel.xHandleId]==2} ""
+assert {[lindex [ravel.handleIds] 0]==2} ""
 # and revert
 ravel.onMouseDown -50 -50
 ravel.onMouseUp 50 0
-assert {[ravel.xHandleId]==1} ""
+assert {[lindex [ravel.handleIds] 0]==1} ""
 ravel.onMouseDown 0 50
 ravel.onMouseUp -50 -50
-assert {[ravel.yHandleId]==2} ""
+assert {[lindex [ravel.handleIds] 1]==2} ""
 # and revert
 ravel.onMouseDown -50 -50
 ravel.onMouseUp 0 50
-assert {[ravel.yHandleId]==0} ""
+assert {[lindex [ravel.handleIds] 1]==0} ""
 
 # move slicer
 assert {[ravel.handles(2).sliceIndex]==0} ""

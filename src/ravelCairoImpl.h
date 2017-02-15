@@ -123,7 +123,7 @@ namespace ravel
         drawLine(gc, hx,hy);
 
         // draw indicators of sorting order, and filter calipers
-        if ((i==xHandleId() || i==yHandleId()) && !h.collapsed())
+        if (isOutputHandle(i) && !h.collapsed())
           {
             if (h.sliceLabels.order()!=HandleSort::none)
               {
@@ -190,7 +190,7 @@ namespace ravel
           }
 
         // slice control
-        if (!h.collapsed() && i!=xHandleId() && i!=yHandleId())
+        if (!h.collapsed() && !isOutputHandle(i))
           {
             gc.newPath();
             gc.arc(h.sliceX()/sf, h.sliceY()/sf, 4, 0, 2*pi);
@@ -301,7 +301,7 @@ namespace ravel
         AnchorPoint minap{hnd.minSliceX(),hnd.minSliceY(), AnchorPoint::sw},
           maxap{hnd.maxSliceX(),hnd.maxSliceY(), AnchorPoint::sw};
           // if its the x axis, we need to rotate (x,y) by 90 degrees
-          if (h==xHandleId())
+          if (h==handleIds[0])
             {
               std::swap(x,y);
               x*=-1;

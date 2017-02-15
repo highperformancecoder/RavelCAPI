@@ -40,7 +40,7 @@ Ravel r
 r.addHandle {} {}
 r.addHandle {} {}
 r.handles.@elem 0
-r.xHandleId 0
+r.handleIds {0 1}
 r.rescale 100
 assert {[r.radius]==100} {}
 assert {[r.handles(0).x]==100} {}
