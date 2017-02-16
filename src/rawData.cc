@@ -38,8 +38,8 @@ RawDataIdx::RawDataIdx(const RawDataIdx& x, const std::vector<std::string>& axes
       indices.emplace_back();
       auto& j=indices.back();
       j.stride=m_size;
-      for (auto& i: idx.idx)
-        j.idx[i.first]=(i.second/idx.stride)*m_size;
+      for (auto& ii: idx.idx)
+        j.idx[ii.first]=(ii.second/idx.stride)*m_size;
       m_size*=idx.idx.size();
     }
 }
