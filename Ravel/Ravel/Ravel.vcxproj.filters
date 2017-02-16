@@ -44,6 +44,9 @@
     <ClInclude Include="..\..\src\splitMerge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\rawData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ravelControl.cpp">
@@ -64,13 +67,16 @@
     <ClCompile Include="..\..\src\shims\cairoShimGDI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\shims\dataCube.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\shims\filterCairo.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\shims\ravelCairo.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\dataCube.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rawData.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

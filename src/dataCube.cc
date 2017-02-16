@@ -400,13 +400,13 @@ void DataCube::populateArray(ravel::Ravel& ravel)
   // populate the histogram
   for (unsigned& x: histogram) x=0;
   for (size_t i=0; i<sliceData.size(); ++i)
-    if (finite(sliceData[i]))
+    if (isfinite(sliceData[i]))
       {
         m_minVal=min(m_minVal,sliceData[i]);
         m_maxVal=max(m_maxVal,sliceData[i]);
       }
   for (size_t i=0; i<sliceData.size(); ++i)
-    if (finite(sliceData[i]))
+    if (isfinite(sliceData[i]))
     {
       size_t idx=size_t((histogram.size()*(sliceData[i]-m_minVal))/
                         (m_maxVal-m_minVal));

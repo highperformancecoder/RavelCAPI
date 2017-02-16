@@ -195,10 +195,10 @@ MACRO(selectRavelData)
       RavelCtl& r=*destRavels[id];
       if (!r.handles.empty())
         {
-          unsigned nsRows = r.handles[r.yHandleId()].collapsed() ? 2 :
-            (unsigned)r.handles[r.yHandleId()].sliceLabels.size() + 1;
-          unsigned nsCols = r.handles[r.xHandleId()].collapsed() ? 2 :
-            (unsigned)r.handles[r.xHandleId()].sliceLabels.size() + 1;
+          unsigned nsRows = r.handles[r.handleIds[1]].collapsed() ? 2 :
+            (unsigned)r.handles[r.handleIds[1]].sliceLabels.size() + 1;
+          unsigned nsCols = r.handles[r.handleIds[0]].collapsed() ? 2 :
+            (unsigned)r.handles[r.handleIds[0]].sliceLabels.size() + 1;
           CallXL(xlcSelect, OPERX(1, 0, nsRows, nsCols));
         }
       return 1;
@@ -255,17 +255,17 @@ int sortBy(ColRow colRow, int dir)
         {
           unsigned short cl=(unsigned short)CallXL(xlfGetCell, 3).val.num;
           if (cl==1)
-            r.handles[r.yHandleId()].sliceLabels.order(dir>0?SortedVector::forward:SortedVector::reverse);
+            r.handles[r.handleIds[1]].sliceLabels.order(dir>0?SortedVector::forward:SortedVector::reverse);
           else if (cl>1)
-            r.sortBy(r.yHandleId(), cl-2, dir);
+            r.sortBy(r.handleIds[1], cl-2, dir);
         }
       else
         {
           unsigned short rw = (unsigned short)CallXL(xlfGetCell, 2).val.num;
           if (rw==2)
-            r.handles[r.xHandleId()].sliceLabels.order(dir>0?SortedVector::forward:SortedVector::reverse);
+            r.handles[r.handleIds[0]].sliceLabels.order(dir>0?SortedVector::forward:SortedVector::reverse);
           else if (rw>2)
-            r.sortBy(r.xHandleId(), rw-3, dir);
+            r.sortBy(r.handleIds[0], rw-3, dir);
         }
       r.populateSheet();
       r.addChart();
@@ -306,8 +306,8 @@ MACRO(originalRowOrder)
   if (i!=destRavels.end())
     {
       RavelCtl& r=*i->second;
-      r.unsortAxis(r.yHandleId());
-      r.handles[r.yHandleId()].sliceLabels.order(SortedVector::none);
+      r.unsortAxis(r.handleIds[1]);
+      r.handles[r.handleIds[1]].sliceLabels.order(SortedVector::none);
       r.populateSheet();
       r.redraw(r.hwnd);
       r.addChart();
@@ -323,8 +323,8 @@ MACRO(originalColumnOrder)
   if (i!=destRavels.end())
     {
       RavelCtl& r=*i->second;
-      r.unsortAxis(r.xHandleId());
-      r.handles[r.xHandleId()].sliceLabels.order(SortedVector::none);
+      r.unsortAxis(r.handleIds[0]);
+      r.handles[r.handleIds[0]].sliceLabels.order(SortedVector::none);
       r.populateSheet();
       r.redraw(r.hwnd);
       r.addChart();

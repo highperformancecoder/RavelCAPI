@@ -232,6 +232,7 @@ xcopy /Y /R /I /C /S $(SolutionDir)\..\doc\ravelDoc $(TargetDir)\ravelDoc</Comma
     <ClInclude Include="..\..\src\ravel.h" />
     <ClInclude Include="..\..\src\ravelCairo.h" />
     <ClInclude Include="..\..\src\ravelError.h" />
+    <ClInclude Include="..\..\src\rawData.h" />
     <ClInclude Include="..\..\src\sortedVector.h" />
     <ClInclude Include="..\..\src\splitMerge.h" />
     <ClInclude Include="ravelControl.h" />
@@ -239,9 +240,10 @@ xcopy /Y /R /I /C /S $(SolutionDir)\..\doc\ravelDoc $(TargetDir)\ravelDoc</Comma
     <ClInclude Include="xlExtras.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\dataCube.cc" />
     <ClCompile Include="..\..\src\ravel.cc" />
+    <ClCompile Include="..\..\src\rawData.cc" />
     <ClCompile Include="..\..\src\shims\cairoShimGDI.cpp" />
-    <ClCompile Include="..\..\src\shims\dataCube.cc" />
     <ClCompile Include="..\..\src\shims\filterCairo.cc" />
     <ClCompile Include="..\..\src\shims\ravelCairo.cc" />
     <ClCompile Include="..\..\src\sortedVector.cc" />

@@ -170,7 +170,7 @@ namespace ravel
     /// number of finite data elements in raw data
     size_t numFinite() const {
       size_t count=0;
-      for (size_t i=0; i<rawData.size(); ++i) count+=finite(rawData[i]);
+      for (size_t i=0; i<rawData.size(); ++i) count+=isfinite(rawData[i]);
       return count;
     }
 
