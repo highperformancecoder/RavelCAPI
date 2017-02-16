@@ -1072,7 +1072,7 @@ INT_PTR CALLBACK RavelCtl::nameDlgProc(HWND hwnd, UINT msg, WPARAM wparam, LPARA
             TCHAR name[maxName];
             name[0]=_T('\0');
             GetDlgItemText(hwnd, 0, name, maxName);
-            r->handles[r->handle].description=utf_to_utf<char>(name);
+	    r->renameAxis(r->handle,utf_to_utf<char>(name),*r);
             r->notifyExcel(true);
           }
           // fall through
