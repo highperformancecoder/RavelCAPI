@@ -111,6 +111,13 @@ namespace ravel
     const std::vector<std::vector<std::string> >  dimLabels() const
     {return m_dimLabels;}
 
+    void renameAxis(size_t axis, const std::string& newDescription, Ravel& ravel)
+    {
+      if (axis>=ravel.handles.size()) throw std::runtime_error("invalid axis");
+      rawData.renameAxis(ravel.handles[axis].description, newDescription);
+      ravel.handles[axis].description = newDescription;
+    }
+    
     /// max row and max col on which non blank data exists
     size_t maxRow() const {return m_maxRow;}
     size_t maxCol() const {return m_maxCol;}

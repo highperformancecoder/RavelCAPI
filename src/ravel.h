@@ -55,6 +55,7 @@ namespace ravel
 
     /// descriptor of dimension represented by this handle
     std::string description;
+
     /// as above if uncollapsed, otherwise something like "sum of xxx" if collapsed
     std::string reductionDescription() const;   
     /// labels of individual slices along this dimension

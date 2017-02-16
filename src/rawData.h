@@ -21,6 +21,7 @@ namespace ravel
 {
   struct InvalidKey: public std::exception
   {
+    InvalidKey() {}
     const char* what() const noexcept {return "invalid key";}
   };
 
@@ -54,6 +55,16 @@ namespace ravel
     void normalise();
     
     void clear() {indicesByName.clear(); indices.clear(); m_size=0;}
+    void renameAxis(const std::string& oldName, const std::string& newName) {
+      if (newName==oldName) return;
+      if (indicesByName.count(newName))
+        throw std::runtime_error(newName+" already exists as an exis name");
+      auto i=indicesByName.find(oldName);
+      if (i==indicesByName.end())
+        throw std::runtime_error(oldName+" doesn exist as an exis name");
+      indicesByName.emplace(newName,i->second);
+      indicesByName.erase(i);
+    }
 
     /// returns number of elements in this slice
     size_t size() const {return m_size;}

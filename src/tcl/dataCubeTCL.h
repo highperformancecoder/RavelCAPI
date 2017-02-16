@@ -52,6 +52,7 @@ namespace ravel
     void resizeHistogram(unsigned numBins)
     {histogram.resize(numBins);}
 
+    void renameAxis(size_t axis, const std::string& name) {DataCube::renameAxis(axis,name,ravel);}
 
     void render() {
       if (fs.get()) {fs->clear(); FilterCairo<cairo_t*>::render(); fs->blit();}
