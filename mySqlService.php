@@ -30,7 +30,7 @@ function doAxes($pathInfo)
         $result=$mysqli->query("show columns from ".$pathInfo[2]);
         while($row = mysqli_fetch_array($result))
         {
-          if ($row['Field'] != "id" && $row['Field'] != "value")
+          if ($row['Field'] != "id" && $row['Field'] != "value$")
             array_push($retval,$row['Field']);
         }
         break;
@@ -73,15 +73,15 @@ function doData($table)
        switch ($args[1])
          {
            case 'sum':
-             $reductions[$axis]="sum(value)";
+             $reductions[$axis]="sum(value$)";
              break;
            case 'prod':
  # SQL doesn't have a product function, so we must fake it using
  # prod(x)=exp(sum(log(x))), taking into account zero and negative values
-             $reductions[$axis]="if (value, if(sum(value<0)%2, -1, 1) * exp(sum(log(abs(value)))), 0)";
+             $reductions[$axis]="if (value$, if(sum(value$<0)%2, -1, 1) * exp(sum(log(abs(value$)))), 0)";
              break;
            case 'avg':
-             $reductions[$axis]="avg(value)";
+             $reductions[$axis]="avg(value$)";
              break;
           }
      }
@@ -120,7 +120,7 @@ function doData($table)
      $query="select $reductions[$r] as value,$c from ($query) as t$r group by $c"; 
    }
    
-   $query="select value from (".$query.") as tmp";
+   $query="select value$ from (".$query.") as tmp";
    #echo $query."\n";
    $result=$mysqli->query($query);
    $retval=array();
@@ -139,7 +139,7 @@ function doAllData($table)
    $columns=array();
    while($row = mysqli_fetch_array($result))
    {
-     if ($row['Field'] != "id" && $row['Field'] != "value")
+     if ($row['Field'] != "id" && $row['Field'] != "value$")
        array_push($columns,$row['Field']);
    }
 
@@ -164,7 +164,7 @@ function doAllData($table)
    #var_dump($offsets);
 
    # now grab the data, ordered alphanumerically by the axis labels
-   $dbreq="select ".implode(",",$columns).",value from ".$table;
+   $dbreq="select ".implode(",",$columns).",value$ from ".$table;
    $result=$mysqli->query($dbreq);
 
    # prepare return array with NANs to indicate missing data
