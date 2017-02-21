@@ -3,12 +3,12 @@ var grid;
 function processData(ravel) {
     var gridData=[];
 
-    var xh=ravel.handles(ravel.handleIds[0]);
+    var xh=ravel.handles(ravel.handleIds(0));
     var columns=[{id: "ylabel", name: "", field: "ylabel"}];
     for (var i=0; i<xh.numSliceLabels(); ++i)
         columns.push({id: "c"+i, name: xh.sliceLabels(i), field: "c"+i});
     
-    var yh=ravel.handles(ravel.handleIds[1]);
+    var yh=ravel.handles(ravel.handleIds(1));
 
     var plotlyData=[{
         type: 'surface',
