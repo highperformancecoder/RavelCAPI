@@ -217,7 +217,7 @@ namespace ravel
     size_t addHandle(const std::string& description="", 
                   const std::vector<std::string>& sliceLabels=
                   std::vector<std::string>());
-    void clear() {handles.clearHandles(); handleIds.clear();}
+    void clear() {handles.clearHandles();}
     /// move \a handle to \a x, \a y due to mouse motion
     void moveHandleTo(unsigned handle, double xx, double yy); 
     /// snap handle to final position on mouse up

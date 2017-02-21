@@ -139,8 +139,13 @@ function setTable(name,ravel) {
                         ravel.addHandle(this.axis,sliceLabels);
                         if (ravel.numHandles()==axes.length)
                         {
-                            ravel.redraw();
                             ravel.dimension(axes);
+//                            alert(ravel.handles(ravel.numHandles()-1).x()+" "+
+//                                  ravel.handles(ravel.numHandles()-1).y());
+                            ravel.redraw();
+
+//                            alert(ravel.rank()+" "+ravel.handleIds(0)+" "+ravel.handleIds(1));
+                            
                             var dataReq=new XMLHttpRequest;
                             var dbQuery="/mySqlService.php/allData/"+ravel.table;
                             dataReq.onreadystatechange = function() {

@@ -79,6 +79,7 @@ using ravel::endl;
       for (auto& axis: axes)
           lv.emplace_back(axis, labels[axis]);
       dc.dimension(lv);
+      redistributeHandles();
     }
     void setRank(int r) {
       handleIds.resize(r);
@@ -131,10 +132,11 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .constructor<>()
     .property("x",&Ravel::x)
     .property("y",&Ravel::y)
-    .property("handleIds",&Ravel::handleIds)
+    .function("handleIds",optional_override([](const Ravel& self, size_t i){return self.handleIds[i];}))
     .function("handles",optional_override([](const Ravel& self, size_t i){return self.handles[i];}))
     .function("numHandles",optional_override([](const Ravel& self){return self.handles.size();}))
     .function("addHandle",&Ravel::addHandle)
+    .function("rank",&Ravel::rank)
     .function("clear",&Ravel::clear)
     .function("moveHandleTo",&Ravel::moveHandleTo)
     .function("rescale",&Ravel::rescale)
