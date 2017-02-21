@@ -30,7 +30,7 @@ function doAxes($pathInfo)
         $result=$mysqli->query("show columns from ".$pathInfo[2]);
         while($row = mysqli_fetch_array($result))
         {
-          if ($row['Field'] != "id" && $row['Field'] != "value$")
+          if ($row['Field'] != "id$" && $row['Field'] != "value$")
             array_push($retval,$row['Field']);
         }
         break;
@@ -139,7 +139,7 @@ function doAllData($table)
    $columns=array();
    while($row = mysqli_fetch_array($result))
    {
-     if ($row['Field'] != "id" && $row['Field'] != "value$")
+     if ($row['Field'] != "id$" && $row['Field'] != "value$")
        array_push($columns,$row['Field']);
    }
 
