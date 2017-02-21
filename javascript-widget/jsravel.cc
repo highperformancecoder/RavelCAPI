@@ -80,6 +80,11 @@ using ravel::endl;
           lv.emplace_back(axis, labels[axis]);
       dc.dimension(lv);
     }
+    void setRank(int r) {
+      handleIds.resize(r);
+      for (size_t i=0; i<r; ++i)
+        handleIds[i]=i;
+    }
   };
   
   struct RavelCairoWrapper: public wrapper<JRavelCairo> {
@@ -126,6 +131,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .constructor<>()
     .property("x",&Ravel::x)
     .property("y",&Ravel::y)
+    .property("handleIds",&Ravel::handleIds)
     .function("handles",optional_override([](const Ravel& self, size_t i){return self.handles[i];}))
     .function("numHandles",optional_override([](const Ravel& self){return self.handles.size();}))
     .function("addHandle",&Ravel::addHandle)
@@ -138,8 +144,6 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("handleIfMouseOver",&Ravel::handleIfMouseOver)
     .function("handleX",&Ravel::handleX)
     .function("handleY",&Ravel::handleY)
-    .function("xHandleId",&Ravel::xHandleId)
-    .function("yHandleId",&Ravel::yHandleId)
     ;
   
   class_<RavelCairo<val*>,base<Ravel>>("RavelCairoval*")
@@ -171,9 +175,11 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("dimension",&JRavelCairo::dimension)
     .function("loadData",&JRavelCairo::loadData)
     .function("setDataCallback",&JRavelCairo::setDataCallback)
+    .function("setRank",&JRavelCairo::setRank)
     .constructor<>()
     ;
 
+  register_vector<size_t>("VectorSizet");
   register_vector<string>("VectorString");
   
   register_vector<Labels>("LabelsVector");

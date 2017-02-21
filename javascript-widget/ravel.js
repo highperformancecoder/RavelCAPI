@@ -1,4 +1,13 @@
-var table=""; // selected table
+function findPos(obj) {
+    var curleft = curtop = 0;
+    if (obj.offsetParent) {
+        do {
+	    curleft += obj.offsetLeft;
+	    curtop += obj.offsetTop;
+        } while (obj = obj.offsetParent);
+    }
+    return [curleft,curtop];
+}
 
 var newRavel = function(canvasId) {
     var ravel = new Module.RavelCairo;
@@ -16,21 +25,31 @@ var newRavel = function(canvasId) {
     }
    
     // bind mouse actions
-    var tableBlock=document.getElementById("tableBlock");
-    ravel.x=0.5*canvasElem.width+tableBlock.offsetLeft;
-    ravel.y=0.5*canvasElem.height+tableBlock.offsetTop;
+    var offsets=findPos(canvasElem);
+    ravel.x=0.5*canvasElem.width+offsets[0];
+    ravel.y=0.5*canvasElem.height+offsets[1];
+    var x=function(event) {
+        return event.clientX+window.pageXOffset;
+    }
+    var y=function(event) {
+        return event.clientY+window.pageYOffset;
+    }
+//    var bbox=canvasElem.getBoundingClientRect();
+//    ravel.x=0.5*canvasElem.width+bbox.left;
+//    ravel.y=0.5*canvasElem.height+bbox.top;
     canvasElem.onmousedown=function(event) {
-        ravel.onMouseDown(event.clientX, event.clientY);
+        console.log(window.pageYOffset);
+        ravel.onMouseDown(x(event), y(event));
     };
     canvasElem.onmouseup=function(event) {
-        ravel.onMouseUp(event.clientX, event.clientY);
+        ravel.onMouseUp(x(event), y(event));
         ravel.redraw();
         ravel.onRedraw();
     };
     canvasElem.onmousemove=function(event) {
-        if (ravel.onMouseOver(event.clientX, event.clientY))
+        if (ravel.onMouseOver(x(event), y(event)))
             ravel.redraw();
-        if (event.button==0 && ravel.onMouseMotion(event.clientX, event.clientY))
+        if (event.button==0 && ravel.onMouseMotion(x(event), y(event)))
             ravel.redraw();
     };
 //    canvasElem.ondblclick=function(event) {
@@ -47,7 +66,7 @@ var newRavel = function(canvasId) {
 }
 
 var buildDbQuery=function(db,ravel) {
-    var r="/mySqlService.php/data/"+table+"?";
+    var r="/mySqlService.php/data/"+ravel.table+"?";
     for (var i=0; i<ravel.numHandles(); ++i)
     {
         if (i>0) r+="&";
@@ -66,7 +85,7 @@ var buildDbQuery=function(db,ravel) {
 
 /// obtain the full database, regardless of ravel configuration
 var fullDbQuery=function(db,ravel) {
-    var r="/mySqlService.php/data/"+table+"?";
+    var r="/mySqlService.php/data/"+ravel.table+"?";
     for (var i=0; i<ravel.numHandles(); ++i)
     {
         if (i>0) r+="&";
@@ -76,31 +95,33 @@ var fullDbQuery=function(db,ravel) {
     return r;
 }
 
-var xhttp = new XMLHttpRequest();
-
 // populate table selector
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        var response = eval(this.responseText);
-        response.unshift("-"); // a dummy table name to indicate unselected
-        var tableSelector=document.getElementById("tableSelector");
-        for (var i=0; i<response.length; ++i)
-        {
-            var option=document.createElement("option");
-            tableSelector.appendChild(option);
-            option.setAttribute("value",response[i]);
-            option.innerHTML=response[i];
+function populateTableSelector(selectorId)
+{
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var response = eval(this.responseText);
+            response.unshift("-"); // a dummy table name to indicate unselected
+            var tableSelector=document.getElementById(selectorId);
+            for (var i=0; i<response.length; ++i)
+            {
+                var option=document.createElement("option");
+                tableSelector.appendChild(option);
+                option.setAttribute("value",response[i]);
+                option.innerHTML=response[i];
+            }
         }
     }
+
+    xhttp.open("GET","/mySqlService.php/axes");
+    xhttp.send();
 }
 
-xhttp.open("GET","/mySqlService.php/axes");
-xhttp.send();
-
-var ravel=newRavel("ravel");
-
-function setTable(name) {
-    table=name;
+function setTable(name,ravel) {
+    var xhttp = new XMLHttpRequest();
+    ravel.table=name;
     ravel.clear();
     
     ravel.onRedraw=function() {processData(ravel);}
@@ -124,7 +145,7 @@ function setTable(name) {
                             ravel.redraw();
                             ravel.dimension(axes);
                             var dataReq=new XMLHttpRequest;
-                            var dbQuery="/mySqlService.php/allData/"+table;
+                            var dbQuery="/mySqlService.php/allData/"+ravel.table;
                             dataReq.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
                                     ravel.loadData(this.responseText);
@@ -137,17 +158,12 @@ function setTable(name) {
                     }
                 }
                 // request slicelabels
-                sliceLabelReq.open("GET","/mySqlService.php/axes/"+table+"/"+axes[i]);
+                sliceLabelReq.open("GET","/mySqlService.php/axes/"+ravel.table+"/"+axes[i]);
                 sliceLabelReq.send();
             }
         }
     }
     // request axis names
-    xhttp.open("GET","/mySqlService.php/axes/"+table);
+    xhttp.open("GET","/mySqlService.php/axes/"+ravel.table);
     xhttp.send();
 }
-
-function onunload() {
-    if (ravel) ravel.delete();
-}
-
