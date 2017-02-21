@@ -1,0 +1,295 @@
+#include "classdesc.h"
+
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+#include "pack_base.h"
+#include "unpack_base.h"
+#include "xml_pack_base.h"
+#include "xml_unpack_base.h"
+#include "random_init_base.h"
+#ifndef CLASSDESC_TYPENAME_ravel__DataCubeTCL__TclArray
+#define CLASSDESC_TYPENAME_ravel__DataCubeTCL__TclArray
+namespace classdesc {
+template <> inline std::string typeName<ravel::DataCubeTCL::TclArray >()
+  {return "ravel::DataCubeTCL::TclArray";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__DataCubeTCL
+#define CLASSDESC_TYPENAME_ravel__DataCubeTCL
+namespace classdesc {
+template <> inline std::string typeName<ravel::DataCubeTCL >()
+  {return "ravel::DataCubeTCL";}
+}
+#endif
+namespace classdesc_access {
+template <> struct access_pack<struct ::ravel::DataCubeTCL::TclArray > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCubeTCL::TclArray TclArray;
+::pack_onbase(targ,desc+"",classdesc::base_cast<ecolab::tclvar >::cast(arg));
+}
+};
+template <> struct access_pack<struct ::ravel::DataCubeTCL > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack_onbase(targ,desc+"",classdesc::base_cast<FilterCairo<cairo_t*> >::cast(arg));
+::pack_onbase(targ,desc+"",classdesc::base_cast<DataSpec >::cast(arg));
+::pack(targ,desc+".ravel",arg.ravel);
+::pack(targ,desc+".separator",arg.separator);
+::pack(targ,desc+".loadFile",arg,&ravel::DataCubeTCL::loadFile);
+::pack(targ,desc+".initSpec",arg,&ravel::DataCubeTCL::initSpec);
+::pack(targ,desc+".fs",arg.fs);
+::pack(targ,desc+".setFilterImage",arg,&ravel::DataCubeTCL::setFilterImage);
+::pack(targ,desc+".rs",arg.rs);
+::pack(targ,desc+".setRavelImage",arg,&ravel::DataCubeTCL::setRavelImage);
+::pack(targ,desc+".resizeHistogram",arg,&ravel::DataCubeTCL::resizeHistogram);
+::pack(targ,desc+".renameAxis",arg,&ravel::DataCubeTCL::renameAxis);
+::pack(targ,desc+".render",arg,&ravel::DataCubeTCL::render);
+::pack(targ,desc+".onMouse",arg,&ravel::DataCubeTCL::onMouse);
+::pack(targ,desc+".onMouseDown",arg,&ravel::DataCubeTCL::onMouseDown);
+::pack(targ,desc+".array",arg.array);
+::pack(targ,desc+".populateArray",arg,&ravel::DataCubeTCL::populateArray);
+::pack(targ,desc+".setDataElement",arg,&ravel::DataCubeTCL::setDataElement);
+}
+};
+template <> struct access_unpack<struct ::ravel::DataCubeTCL::TclArray > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCubeTCL::TclArray TclArray;
+::unpack_onbase(targ,desc+"",classdesc::base_cast<ecolab::tclvar >::cast(arg));
+}
+};
+template <> struct access_unpack<struct ::ravel::DataCubeTCL > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack_onbase(targ,desc+"",classdesc::base_cast<FilterCairo<cairo_t*> >::cast(arg));
+::unpack_onbase(targ,desc+"",classdesc::base_cast<DataSpec >::cast(arg));
+::unpack(targ,desc+".ravel",arg.ravel);
+::unpack(targ,desc+".separator",arg.separator);
+::unpack(targ,desc+".loadFile",arg,&ravel::DataCubeTCL::loadFile);
+::unpack(targ,desc+".initSpec",arg,&ravel::DataCubeTCL::initSpec);
+::unpack(targ,desc+".fs",arg.fs);
+::unpack(targ,desc+".setFilterImage",arg,&ravel::DataCubeTCL::setFilterImage);
+::unpack(targ,desc+".rs",arg.rs);
+::unpack(targ,desc+".setRavelImage",arg,&ravel::DataCubeTCL::setRavelImage);
+::unpack(targ,desc+".resizeHistogram",arg,&ravel::DataCubeTCL::resizeHistogram);
+::unpack(targ,desc+".renameAxis",arg,&ravel::DataCubeTCL::renameAxis);
+::unpack(targ,desc+".render",arg,&ravel::DataCubeTCL::render);
+::unpack(targ,desc+".onMouse",arg,&ravel::DataCubeTCL::onMouse);
+::unpack(targ,desc+".onMouseDown",arg,&ravel::DataCubeTCL::onMouseDown);
+::unpack(targ,desc+".array",arg.array);
+::unpack(targ,desc+".populateArray",arg,&ravel::DataCubeTCL::populateArray);
+::unpack(targ,desc+".setDataElement",arg,&ravel::DataCubeTCL::setDataElement);
+}
+};
+template <> struct access_xml_pack<struct ::ravel::DataCubeTCL::TclArray > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCubeTCL::TclArray TclArray;
+::xml_pack_onbase(targ,desc+"",classdesc::base_cast<ecolab::tclvar >::cast(arg));
+}
+};
+template <> struct access_xml_pack<struct ::ravel::DataCubeTCL > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack_onbase(targ,desc+"",classdesc::base_cast<FilterCairo<cairo_t*> >::cast(arg));
+::xml_pack_onbase(targ,desc+"",classdesc::base_cast<DataSpec >::cast(arg));
+::xml_pack(targ,desc+".ravel",arg.ravel);
+::xml_pack(targ,desc+".separator",arg.separator);
+::xml_pack(targ,desc+".loadFile",arg,&ravel::DataCubeTCL::loadFile);
+::xml_pack(targ,desc+".initSpec",arg,&ravel::DataCubeTCL::initSpec);
+::xml_pack(targ,desc+".fs",arg.fs);
+::xml_pack(targ,desc+".setFilterImage",arg,&ravel::DataCubeTCL::setFilterImage);
+::xml_pack(targ,desc+".rs",arg.rs);
+::xml_pack(targ,desc+".setRavelImage",arg,&ravel::DataCubeTCL::setRavelImage);
+::xml_pack(targ,desc+".resizeHistogram",arg,&ravel::DataCubeTCL::resizeHistogram);
+::xml_pack(targ,desc+".renameAxis",arg,&ravel::DataCubeTCL::renameAxis);
+::xml_pack(targ,desc+".render",arg,&ravel::DataCubeTCL::render);
+::xml_pack(targ,desc+".onMouse",arg,&ravel::DataCubeTCL::onMouse);
+::xml_pack(targ,desc+".onMouseDown",arg,&ravel::DataCubeTCL::onMouseDown);
+::xml_pack(targ,desc+".array",arg.array);
+::xml_pack(targ,desc+".populateArray",arg,&ravel::DataCubeTCL::populateArray);
+::xml_pack(targ,desc+".setDataElement",arg,&ravel::DataCubeTCL::setDataElement);
+}
+};
+template <> struct access_xml_unpack<struct ::ravel::DataCubeTCL::TclArray > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCubeTCL::TclArray TclArray;
+::xml_unpack_onbase(targ,desc+"",classdesc::base_cast<ecolab::tclvar >::cast(arg));
+}
+};
+template <> struct access_xml_unpack<struct ::ravel::DataCubeTCL > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack_onbase(targ,desc+"",classdesc::base_cast<FilterCairo<cairo_t*> >::cast(arg));
+::xml_unpack_onbase(targ,desc+"",classdesc::base_cast<DataSpec >::cast(arg));
+::xml_unpack(targ,desc+".ravel",arg.ravel);
+::xml_unpack(targ,desc+".separator",arg.separator);
+::xml_unpack(targ,desc+".loadFile",arg,&ravel::DataCubeTCL::loadFile);
+::xml_unpack(targ,desc+".initSpec",arg,&ravel::DataCubeTCL::initSpec);
+::xml_unpack(targ,desc+".fs",arg.fs);
+::xml_unpack(targ,desc+".setFilterImage",arg,&ravel::DataCubeTCL::setFilterImage);
+::xml_unpack(targ,desc+".rs",arg.rs);
+::xml_unpack(targ,desc+".setRavelImage",arg,&ravel::DataCubeTCL::setRavelImage);
+::xml_unpack(targ,desc+".resizeHistogram",arg,&ravel::DataCubeTCL::resizeHistogram);
+::xml_unpack(targ,desc+".renameAxis",arg,&ravel::DataCubeTCL::renameAxis);
+::xml_unpack(targ,desc+".render",arg,&ravel::DataCubeTCL::render);
+::xml_unpack(targ,desc+".onMouse",arg,&ravel::DataCubeTCL::onMouse);
+::xml_unpack(targ,desc+".onMouseDown",arg,&ravel::DataCubeTCL::onMouseDown);
+::xml_unpack(targ,desc+".array",arg.array);
+::xml_unpack(targ,desc+".populateArray",arg,&ravel::DataCubeTCL::populateArray);
+::xml_unpack(targ,desc+".setDataElement",arg,&ravel::DataCubeTCL::setDataElement);
+}
+};
+template <> struct access_random_init<struct ::ravel::DataCubeTCL::TclArray > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCubeTCL::TclArray TclArray;
+::random_init_onbase(targ,desc+"",classdesc::base_cast<ecolab::tclvar >::cast(arg));
+}
+};
+template <> struct access_random_init<struct ::ravel::DataCubeTCL > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::random_init_onbase(targ,desc+"",classdesc::base_cast<FilterCairo<cairo_t*> >::cast(arg));
+::random_init_onbase(targ,desc+"",classdesc::base_cast<DataSpec >::cast(arg));
+::random_init(targ,desc+".ravel",arg.ravel);
+::random_init(targ,desc+".separator",arg.separator);
+::random_init(targ,desc+".loadFile",arg,&ravel::DataCubeTCL::loadFile);
+::random_init(targ,desc+".initSpec",arg,&ravel::DataCubeTCL::initSpec);
+::random_init(targ,desc+".fs",arg.fs);
+::random_init(targ,desc+".setFilterImage",arg,&ravel::DataCubeTCL::setFilterImage);
+::random_init(targ,desc+".rs",arg.rs);
+::random_init(targ,desc+".setRavelImage",arg,&ravel::DataCubeTCL::setRavelImage);
+::random_init(targ,desc+".resizeHistogram",arg,&ravel::DataCubeTCL::resizeHistogram);
+::random_init(targ,desc+".renameAxis",arg,&ravel::DataCubeTCL::renameAxis);
+::random_init(targ,desc+".render",arg,&ravel::DataCubeTCL::render);
+::random_init(targ,desc+".onMouse",arg,&ravel::DataCubeTCL::onMouse);
+::random_init(targ,desc+".onMouseDown",arg,&ravel::DataCubeTCL::onMouseDown);
+::random_init(targ,desc+".array",arg.array);
+::random_init(targ,desc+".populateArray",arg,&ravel::DataCubeTCL::populateArray);
+::random_init(targ,desc+".setDataElement",arg,&ravel::DataCubeTCL::setDataElement);
+}
+};
+}
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
+#include "classdesc.h"
+
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+#include "TCL_obj_base.h"
+#include "isa_base.h"
+#ifndef CLASSDESC_TYPENAME_ravel__DataCubeTCL__TclArray
+#define CLASSDESC_TYPENAME_ravel__DataCubeTCL__TclArray
+namespace classdesc {
+template <> inline std::string typeName<ravel::DataCubeTCL::TclArray >()
+  {return "ravel::DataCubeTCL::TclArray";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__DataCubeTCL
+#define CLASSDESC_TYPENAME_ravel__DataCubeTCL
+namespace classdesc {
+template <> inline std::string typeName<ravel::DataCubeTCL >()
+  {return "ravel::DataCubeTCL";}
+}
+#endif
+namespace classdesc_access {
+template <> struct access_TCL_obj<struct ::ravel::DataCubeTCL::TclArray > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCubeTCL::TclArray TclArray;
+::TCL_obj_onbase(targ,desc+"",classdesc::base_cast<ecolab::tclvar >::cast(arg));
+}
+};
+template <> struct access_TCL_obj<struct ::ravel::DataCubeTCL > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj_onbase(targ,desc+"",classdesc::base_cast<FilterCairo<cairo_t*> >::cast(arg));
+::TCL_obj_onbase(targ,desc+"",classdesc::base_cast<DataSpec >::cast(arg));
+::TCL_obj(targ,desc+".ravel",arg.ravel);
+::TCL_obj(targ,desc+".separator",arg.separator);
+::TCL_obj(targ,desc+".loadFile",arg,&ravel::DataCubeTCL::loadFile);
+::TCL_obj(targ,desc+".initSpec",arg,&ravel::DataCubeTCL::initSpec);
+::TCL_obj(targ,desc+".fs",arg.fs);
+::TCL_obj(targ,desc+".setFilterImage",arg,&ravel::DataCubeTCL::setFilterImage);
+::TCL_obj(targ,desc+".rs",arg.rs);
+::TCL_obj(targ,desc+".setRavelImage",arg,&ravel::DataCubeTCL::setRavelImage);
+::TCL_obj(targ,desc+".resizeHistogram",arg,&ravel::DataCubeTCL::resizeHistogram);
+::TCL_obj(targ,desc+".renameAxis",arg,&ravel::DataCubeTCL::renameAxis);
+::TCL_obj(targ,desc+".render",arg,&ravel::DataCubeTCL::render);
+::TCL_obj(targ,desc+".onMouse",arg,&ravel::DataCubeTCL::onMouse);
+::TCL_obj(targ,desc+".onMouseDown",arg,&ravel::DataCubeTCL::onMouseDown);
+::TCL_obj(targ,desc+".array",arg.array);
+::TCL_obj(targ,desc+".populateArray",arg,&ravel::DataCubeTCL::populateArray);
+::TCL_obj(targ,desc+".setDataElement",arg,&ravel::DataCubeTCL::setDataElement);
+}
+};
+template <> struct access_isa<struct ::ravel::DataCubeTCL::TclArray > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCubeTCL::TclArray TclArray;
+::isa_onbase(targ,desc+"",classdesc::base_cast<ecolab::tclvar >::cast(arg));
+}
+};
+template <> struct access_isa<struct ::ravel::DataCubeTCL > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa_onbase(targ,desc+"",classdesc::base_cast<FilterCairo<cairo_t*> >::cast(arg));
+::isa_onbase(targ,desc+"",classdesc::base_cast<DataSpec >::cast(arg));
+::isa(targ,desc+".ravel",arg.ravel);
+::isa(targ,desc+".separator",arg.separator);
+::isa(targ,desc+".loadFile",arg,&ravel::DataCubeTCL::loadFile);
+::isa(targ,desc+".initSpec",arg,&ravel::DataCubeTCL::initSpec);
+::isa(targ,desc+".fs",arg.fs);
+::isa(targ,desc+".setFilterImage",arg,&ravel::DataCubeTCL::setFilterImage);
+::isa(targ,desc+".rs",arg.rs);
+::isa(targ,desc+".setRavelImage",arg,&ravel::DataCubeTCL::setRavelImage);
+::isa(targ,desc+".resizeHistogram",arg,&ravel::DataCubeTCL::resizeHistogram);
+::isa(targ,desc+".renameAxis",arg,&ravel::DataCubeTCL::renameAxis);
+::isa(targ,desc+".render",arg,&ravel::DataCubeTCL::render);
+::isa(targ,desc+".onMouse",arg,&ravel::DataCubeTCL::onMouse);
+::isa(targ,desc+".onMouseDown",arg,&ravel::DataCubeTCL::onMouseDown);
+::isa(targ,desc+".array",arg.array);
+::isa(targ,desc+".populateArray",arg,&ravel::DataCubeTCL::populateArray);
+::isa(targ,desc+".setDataElement",arg,&ravel::DataCubeTCL::setDataElement);
+}
+};
+}
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif

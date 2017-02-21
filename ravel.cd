@@ -1,0 +1,1155 @@
+#include "classdesc.h"
+
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+#include "pack_base.h"
+#include "unpack_base.h"
+#include "xml_pack_base.h"
+#include "xml_unpack_base.h"
+#include "random_init_base.h"
+#ifndef CLASSDESC_TYPENAME_ravel__Op__ReductionOp
+#define CLASSDESC_TYPENAME_ravel__Op__ReductionOp
+namespace classdesc {
+template <> inline std::string typeName<ravel::Op::ReductionOp >()
+  {return "ravel::Op::ReductionOp";}
+namespace   {
+template <> EnumKey enum_keysData<ravel::Op::ReductionOp>::keysData[]=
+ {
+  {"sum",int(ravel::Op::sum)},
+  {"prod",int(ravel::Op::prod)},
+  {"av",int(ravel::Op::av)},
+  {"stddev",int(ravel::Op::stddev)},
+  {"min",int(ravel::Op::min)},
+  {"max",int(ravel::Op::max)}
+ };
+template <> EnumKeys<ravel::Op::ReductionOp> enum_keysData<ravel::Op::ReductionOp>::keys(enum_keysData<ravel::Op::ReductionOp>::keysData,sizeof(enum_keysData<ravel::Op::ReductionOp>::keysData)/sizeof(enum_keysData<ravel::Op::ReductionOp>::keysData[0]));
+template <> int enumKey<ravel::Op::ReductionOp>(const std::string& x){return int(enum_keysData<ravel::Op::ReductionOp>::keys(x));}
+template <> std::string enumKey<ravel::Op::ReductionOp>(int x){return enum_keysData<ravel::Op::ReductionOp>::keys(x);}
+}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__Op
+#define CLASSDESC_TYPENAME_ravel__Op
+namespace classdesc {
+template <> inline std::string typeName<ravel::Op >()
+  {return "ravel::Op";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__AnchorPoint__Anchor
+#define CLASSDESC_TYPENAME_ravel__AnchorPoint__Anchor
+namespace classdesc {
+template <> inline std::string typeName<ravel::AnchorPoint::Anchor >()
+  {return "ravel::AnchorPoint::Anchor";}
+namespace   {
+template <> EnumKey enum_keysData<ravel::AnchorPoint::Anchor>::keysData[]=
+ {
+  {"ne",int(ravel::AnchorPoint::ne)},
+  {"nw",int(ravel::AnchorPoint::nw)},
+  {"se",int(ravel::AnchorPoint::se)},
+  {"sw",int(ravel::AnchorPoint::sw)}
+ };
+template <> EnumKeys<ravel::AnchorPoint::Anchor> enum_keysData<ravel::AnchorPoint::Anchor>::keys(enum_keysData<ravel::AnchorPoint::Anchor>::keysData,sizeof(enum_keysData<ravel::AnchorPoint::Anchor>::keysData)/sizeof(enum_keysData<ravel::AnchorPoint::Anchor>::keysData[0]));
+template <> int enumKey<ravel::AnchorPoint::Anchor>(const std::string& x){return int(enum_keysData<ravel::AnchorPoint::Anchor>::keys(x));}
+template <> std::string enumKey<ravel::AnchorPoint::Anchor>(int x){return enum_keysData<ravel::AnchorPoint::Anchor>::keys(x);}
+}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__AnchorPoint
+#define CLASSDESC_TYPENAME_ravel__AnchorPoint
+namespace classdesc {
+template <> inline std::string typeName<ravel::AnchorPoint >()
+  {return "ravel::AnchorPoint";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__Handle
+#define CLASSDESC_TYPENAME_ravel__Handle
+namespace classdesc {
+template <> inline std::string typeName<ravel::Handle >()
+  {return "ravel::Handle";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__Ravel__ElementMoving
+#define CLASSDESC_TYPENAME_ravel__Ravel__ElementMoving
+namespace classdesc {
+template <> inline std::string typeName<ravel::Ravel::ElementMoving >()
+  {return "ravel::Ravel::ElementMoving";}
+namespace   {
+template <> EnumKey enum_keysData<ravel::Ravel::ElementMoving>::keysData[]=
+ {
+  {"handle",int(ravel::Ravel::handle)},
+  {"slicer",int(ravel::Ravel::slicer)},
+  {"filterMin",int(ravel::Ravel::filterMin)},
+  {"filterMax",int(ravel::Ravel::filterMax)}
+ };
+template <> EnumKeys<ravel::Ravel::ElementMoving> enum_keysData<ravel::Ravel::ElementMoving>::keys(enum_keysData<ravel::Ravel::ElementMoving>::keysData,sizeof(enum_keysData<ravel::Ravel::ElementMoving>::keysData)/sizeof(enum_keysData<ravel::Ravel::ElementMoving>::keysData[0]));
+template <> int enumKey<ravel::Ravel::ElementMoving>(const std::string& x){return int(enum_keysData<ravel::Ravel::ElementMoving>::keys(x));}
+template <> std::string enumKey<ravel::Ravel::ElementMoving>(int x){return enum_keysData<ravel::Ravel::ElementMoving>::keys(x);}
+}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__Ravel__Handles
+#define CLASSDESC_TYPENAME_ravel__Ravel__Handles
+namespace classdesc {
+template <> inline std::string typeName<ravel::Ravel::Handles >()
+  {return "ravel::Ravel::Handles";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__Ravel
+#define CLASSDESC_TYPENAME_ravel__Ravel
+namespace classdesc {
+template <> inline std::string typeName<ravel::Ravel >()
+  {return "ravel::Ravel";}
+}
+#endif
+namespace classdesc_access {
+template <> struct access_pack<enum ::ravel::Op::ReductionOp > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_pack<struct ::ravel::Op > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_pack<enum ::ravel::AnchorPoint::Anchor > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_pack<struct ::ravel::AnchorPoint > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack(targ,desc+".x",arg.x);
+::pack(targ,desc+".y",arg.y);
+::pack(targ,desc+".anchor",arg.anchor);
+}
+};
+template <> struct access_pack<class ::ravel::Handle > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack(targ,desc+".m_x",arg.m_x);
+::pack(targ,desc+".m_y",arg.m_y);
+::pack(targ,desc+".home_x",arg.home_x);
+::pack(targ,desc+".home_y",arg.home_y);
+::pack(targ,desc+".m_collapsed",arg.m_collapsed);
+::pack(targ,desc+".setHome",arg,&ravel::Handle::setHome);
+::pack(targ,desc+".scaleHome",arg,&ravel::Handle::scaleHome);
+::pack(targ,desc+".swapHome",arg,&ravel::Handle::swapHome);
+::pack(targ,desc+".x",arg,&ravel::Handle::x);
+::pack(targ,desc+".y",arg,&ravel::Handle::y);
+::pack(targ,desc+".reductionOp",arg.reductionOp);
+::pack(targ,desc+".description",arg.description);
+::pack(targ,desc+".reductionDescription",arg,&ravel::Handle::reductionDescription);
+::pack(targ,desc+".sliceLabels",arg.sliceLabels);
+::pack(targ,desc+".numSliceLabels",arg,&ravel::Handle::numSliceLabels);
+::pack(targ,desc+".sliceIndex",arg.sliceIndex);
+::pack(targ,desc+".sliceMin",arg.sliceMin);
+::pack(targ,desc+".sliceMax",arg.sliceMax);
+::pack(targ,desc+".mask",arg.mask);
+::pack(targ,desc+".sliceCoordInterp",arg,&ravel::Handle::sliceCoordInterp);
+::pack(targ,desc+".sliceX",arg,&ravel::Handle::sliceX);
+::pack(targ,desc+".sliceY",arg,&ravel::Handle::sliceY);
+::pack(targ,desc+".displayFilterCaliper",arg.displayFilterCaliper);
+::pack(targ,desc+".caliperLength",classdesc::is_const_static(),arg.caliperLength);
+::pack(targ,desc+".minSliceX",arg,&ravel::Handle::minSliceX);
+::pack(targ,desc+".minSliceY",arg,&ravel::Handle::minSliceY);
+::pack(targ,desc+".maxSliceX",arg,&ravel::Handle::maxSliceX);
+::pack(targ,desc+".maxSliceY",arg,&ravel::Handle::maxSliceY);
+::pack(targ,desc+".opX",arg,&ravel::Handle::opX);
+::pack(targ,desc+".opY",arg,&ravel::Handle::opY);
+::pack(targ,desc+".labelAnchor",arg,&ravel::Handle::labelAnchor);
+::pack(targ,desc+".setSliceCoordinates",arg,&ravel::Handle::setSliceCoordinates);
+::pack(targ,desc+".sliceLabel",arg,&ravel::Handle::sliceLabel);
+::pack(targ,desc+".minSliceLabel",arg,&ravel::Handle::minSliceLabel);
+::pack(targ,desc+".maxSliceLabel",arg,&ravel::Handle::maxSliceLabel);
+::pack(targ,desc+".collapsed",arg,&ravel::Handle::collapsed);
+::pack(targ,desc+".moveTo",arg,&ravel::Handle::moveTo);
+::pack(targ,desc+".snap",arg,&ravel::Handle::snap);
+::pack(targ,desc+".toggleCollapsed",arg,&ravel::Handle::toggleCollapsed);
+}
+};
+template <> struct access_pack<enum ::ravel::Ravel::ElementMoving > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::pack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_pack<class ::ravel::Ravel::Handles > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::pack_onbase(targ,desc+"",classdesc::base_cast<std::vector<Handle> >::cast(arg));
+::pack(targ,desc+".addHandle",arg,&ravel::Ravel::Handles::addHandle);
+::pack(targ,desc+".clearHandles",arg,&ravel::Ravel::Handles::clearHandles);
+::pack(targ,desc+".at",arg,&ravel::Ravel::Handles::at);
+::pack(targ,desc+".size",arg,&ravel::Ravel::Handles::size);
+::pack(targ,desc+".clear",arg,&ravel::Ravel::Handles::clear);
+::pack(targ,desc+".resize",arg,&ravel::Ravel::Handles::resize);
+::pack(targ,desc+".push_back",arg,&ravel::Ravel::Handles::push_back);
+::pack(targ,desc+".emplace",arg,&ravel::Ravel::Handles::emplace);
+}
+};
+template <> struct access_pack<class ::ravel::Ravel > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack(targ,desc+".m_radius",arg.m_radius);
+::pack(targ,desc+".lastHandle",arg.lastHandle);
+::pack(targ,desc+".elementMoving",arg.elementMoving);
+::pack(targ,desc+".x",arg.x);
+::pack(targ,desc+".y",arg.y);
+::pack(targ,desc+".nextRedOp",arg.nextRedOp);
+::pack(targ,desc+".handles",arg.handles);
+::pack(targ,desc+".handleX",arg,&ravel::Ravel::handleX);
+::pack(targ,desc+".handleY",arg,&ravel::Ravel::handleY);
+::pack(targ,desc+".sliceX",arg,&ravel::Ravel::sliceX);
+::pack(targ,desc+".sliceY",arg,&ravel::Ravel::sliceY);
+::pack(targ,desc+".setSliceCoordinates",arg,&ravel::Ravel::setSliceCoordinates);
+::pack(targ,desc+".rank",arg,&ravel::Ravel::rank);
+::pack(targ,desc+".handleIds",arg.handleIds);
+::pack(targ,desc+".isOutputHandle",arg,&ravel::Ravel::isOutputHandle);
+::pack(targ,desc+".redistributeHandles",arg,&ravel::Ravel::redistributeHandles);
+::pack(targ,desc+".addHandle",arg,&ravel::Ravel::addHandle);
+::pack(targ,desc+".clear",arg,&ravel::Ravel::clear);
+::pack(targ,desc+".moveHandleTo",arg,&ravel::Ravel::moveHandleTo);
+::pack(targ,desc+".snapHandle",arg,&ravel::Ravel::snapHandle);
+::pack(targ,desc+".radius",arg,&ravel::Ravel::radius);
+::pack(targ,desc+".rescale",arg,&ravel::Ravel::rescale);
+::pack(targ,desc+".onMouseMotion",arg,&ravel::Ravel::onMouseMotion);
+::pack(targ,desc+".onMouseDown",arg,&ravel::Ravel::onMouseDown);
+::pack(targ,desc+".onMouseUp",arg,&ravel::Ravel::onMouseUp);
+::pack(targ,desc+".handleIfMouseOver",arg,&ravel::Ravel::handleIfMouseOver);
+::pack(targ,desc+".sliceCtlHandle",arg,&ravel::Ravel::sliceCtlHandle);
+::pack(targ,desc+".description",arg,&ravel::Ravel::description);
+}
+};
+template <> struct access_unpack<enum ::ravel::Op::ReductionOp > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_unpack<struct ::ravel::Op > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_unpack<enum ::ravel::AnchorPoint::Anchor > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_unpack<struct ::ravel::AnchorPoint > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack(targ,desc+".x",arg.x);
+::unpack(targ,desc+".y",arg.y);
+::unpack(targ,desc+".anchor",arg.anchor);
+}
+};
+template <> struct access_unpack<class ::ravel::Handle > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack(targ,desc+".m_x",arg.m_x);
+::unpack(targ,desc+".m_y",arg.m_y);
+::unpack(targ,desc+".home_x",arg.home_x);
+::unpack(targ,desc+".home_y",arg.home_y);
+::unpack(targ,desc+".m_collapsed",arg.m_collapsed);
+::unpack(targ,desc+".setHome",arg,&ravel::Handle::setHome);
+::unpack(targ,desc+".scaleHome",arg,&ravel::Handle::scaleHome);
+::unpack(targ,desc+".swapHome",arg,&ravel::Handle::swapHome);
+::unpack(targ,desc+".x",arg,&ravel::Handle::x);
+::unpack(targ,desc+".y",arg,&ravel::Handle::y);
+::unpack(targ,desc+".reductionOp",arg.reductionOp);
+::unpack(targ,desc+".description",arg.description);
+::unpack(targ,desc+".reductionDescription",arg,&ravel::Handle::reductionDescription);
+::unpack(targ,desc+".sliceLabels",arg.sliceLabels);
+::unpack(targ,desc+".numSliceLabels",arg,&ravel::Handle::numSliceLabels);
+::unpack(targ,desc+".sliceIndex",arg.sliceIndex);
+::unpack(targ,desc+".sliceMin",arg.sliceMin);
+::unpack(targ,desc+".sliceMax",arg.sliceMax);
+::unpack(targ,desc+".mask",arg.mask);
+::unpack(targ,desc+".sliceCoordInterp",arg,&ravel::Handle::sliceCoordInterp);
+::unpack(targ,desc+".sliceX",arg,&ravel::Handle::sliceX);
+::unpack(targ,desc+".sliceY",arg,&ravel::Handle::sliceY);
+::unpack(targ,desc+".displayFilterCaliper",arg.displayFilterCaliper);
+::unpack(targ,desc+".caliperLength",classdesc::is_const_static(),arg.caliperLength);
+::unpack(targ,desc+".minSliceX",arg,&ravel::Handle::minSliceX);
+::unpack(targ,desc+".minSliceY",arg,&ravel::Handle::minSliceY);
+::unpack(targ,desc+".maxSliceX",arg,&ravel::Handle::maxSliceX);
+::unpack(targ,desc+".maxSliceY",arg,&ravel::Handle::maxSliceY);
+::unpack(targ,desc+".opX",arg,&ravel::Handle::opX);
+::unpack(targ,desc+".opY",arg,&ravel::Handle::opY);
+::unpack(targ,desc+".labelAnchor",arg,&ravel::Handle::labelAnchor);
+::unpack(targ,desc+".setSliceCoordinates",arg,&ravel::Handle::setSliceCoordinates);
+::unpack(targ,desc+".sliceLabel",arg,&ravel::Handle::sliceLabel);
+::unpack(targ,desc+".minSliceLabel",arg,&ravel::Handle::minSliceLabel);
+::unpack(targ,desc+".maxSliceLabel",arg,&ravel::Handle::maxSliceLabel);
+::unpack(targ,desc+".collapsed",arg,&ravel::Handle::collapsed);
+::unpack(targ,desc+".moveTo",arg,&ravel::Handle::moveTo);
+::unpack(targ,desc+".snap",arg,&ravel::Handle::snap);
+::unpack(targ,desc+".toggleCollapsed",arg,&ravel::Handle::toggleCollapsed);
+}
+};
+template <> struct access_unpack<enum ::ravel::Ravel::ElementMoving > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::unpack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_unpack<class ::ravel::Ravel::Handles > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::unpack_onbase(targ,desc+"",classdesc::base_cast<std::vector<Handle> >::cast(arg));
+::unpack(targ,desc+".addHandle",arg,&ravel::Ravel::Handles::addHandle);
+::unpack(targ,desc+".clearHandles",arg,&ravel::Ravel::Handles::clearHandles);
+::unpack(targ,desc+".at",arg,&ravel::Ravel::Handles::at);
+::unpack(targ,desc+".size",arg,&ravel::Ravel::Handles::size);
+::unpack(targ,desc+".clear",arg,&ravel::Ravel::Handles::clear);
+::unpack(targ,desc+".resize",arg,&ravel::Ravel::Handles::resize);
+::unpack(targ,desc+".push_back",arg,&ravel::Ravel::Handles::push_back);
+::unpack(targ,desc+".emplace",arg,&ravel::Ravel::Handles::emplace);
+}
+};
+template <> struct access_unpack<class ::ravel::Ravel > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack(targ,desc+".m_radius",arg.m_radius);
+::unpack(targ,desc+".lastHandle",arg.lastHandle);
+::unpack(targ,desc+".elementMoving",arg.elementMoving);
+::unpack(targ,desc+".x",arg.x);
+::unpack(targ,desc+".y",arg.y);
+::unpack(targ,desc+".nextRedOp",arg.nextRedOp);
+::unpack(targ,desc+".handles",arg.handles);
+::unpack(targ,desc+".handleX",arg,&ravel::Ravel::handleX);
+::unpack(targ,desc+".handleY",arg,&ravel::Ravel::handleY);
+::unpack(targ,desc+".sliceX",arg,&ravel::Ravel::sliceX);
+::unpack(targ,desc+".sliceY",arg,&ravel::Ravel::sliceY);
+::unpack(targ,desc+".setSliceCoordinates",arg,&ravel::Ravel::setSliceCoordinates);
+::unpack(targ,desc+".rank",arg,&ravel::Ravel::rank);
+::unpack(targ,desc+".handleIds",arg.handleIds);
+::unpack(targ,desc+".isOutputHandle",arg,&ravel::Ravel::isOutputHandle);
+::unpack(targ,desc+".redistributeHandles",arg,&ravel::Ravel::redistributeHandles);
+::unpack(targ,desc+".addHandle",arg,&ravel::Ravel::addHandle);
+::unpack(targ,desc+".clear",arg,&ravel::Ravel::clear);
+::unpack(targ,desc+".moveHandleTo",arg,&ravel::Ravel::moveHandleTo);
+::unpack(targ,desc+".snapHandle",arg,&ravel::Ravel::snapHandle);
+::unpack(targ,desc+".radius",arg,&ravel::Ravel::radius);
+::unpack(targ,desc+".rescale",arg,&ravel::Ravel::rescale);
+::unpack(targ,desc+".onMouseMotion",arg,&ravel::Ravel::onMouseMotion);
+::unpack(targ,desc+".onMouseDown",arg,&ravel::Ravel::onMouseDown);
+::unpack(targ,desc+".onMouseUp",arg,&ravel::Ravel::onMouseUp);
+::unpack(targ,desc+".handleIfMouseOver",arg,&ravel::Ravel::handleIfMouseOver);
+::unpack(targ,desc+".sliceCtlHandle",arg,&ravel::Ravel::sliceCtlHandle);
+::unpack(targ,desc+".description",arg,&ravel::Ravel::description);
+}
+};
+template <> struct access_xml_pack<enum ::ravel::Op::ReductionOp > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_xml_pack<struct ::ravel::Op > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_xml_pack<enum ::ravel::AnchorPoint::Anchor > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_xml_pack<struct ::ravel::AnchorPoint > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack(targ,desc+".x",arg.x);
+::xml_pack(targ,desc+".y",arg.y);
+::xml_pack(targ,desc+".anchor",arg.anchor);
+}
+};
+template <> struct access_xml_pack<class ::ravel::Handle > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack(targ,desc+".m_x",arg.m_x);
+::xml_pack(targ,desc+".m_y",arg.m_y);
+::xml_pack(targ,desc+".home_x",arg.home_x);
+::xml_pack(targ,desc+".home_y",arg.home_y);
+::xml_pack(targ,desc+".m_collapsed",arg.m_collapsed);
+::xml_pack(targ,desc+".setHome",arg,&ravel::Handle::setHome);
+::xml_pack(targ,desc+".scaleHome",arg,&ravel::Handle::scaleHome);
+::xml_pack(targ,desc+".swapHome",arg,&ravel::Handle::swapHome);
+::xml_pack(targ,desc+".x",arg,&ravel::Handle::x);
+::xml_pack(targ,desc+".y",arg,&ravel::Handle::y);
+::xml_pack(targ,desc+".reductionOp",arg.reductionOp);
+::xml_pack(targ,desc+".description",arg.description);
+::xml_pack(targ,desc+".reductionDescription",arg,&ravel::Handle::reductionDescription);
+::xml_pack(targ,desc+".sliceLabels",arg.sliceLabels);
+::xml_pack(targ,desc+".numSliceLabels",arg,&ravel::Handle::numSliceLabels);
+::xml_pack(targ,desc+".sliceIndex",arg.sliceIndex);
+::xml_pack(targ,desc+".sliceMin",arg.sliceMin);
+::xml_pack(targ,desc+".sliceMax",arg.sliceMax);
+::xml_pack(targ,desc+".mask",arg.mask);
+::xml_pack(targ,desc+".sliceCoordInterp",arg,&ravel::Handle::sliceCoordInterp);
+::xml_pack(targ,desc+".sliceX",arg,&ravel::Handle::sliceX);
+::xml_pack(targ,desc+".sliceY",arg,&ravel::Handle::sliceY);
+::xml_pack(targ,desc+".displayFilterCaliper",arg.displayFilterCaliper);
+::xml_pack(targ,desc+".caliperLength",classdesc::is_const_static(),arg.caliperLength);
+::xml_pack(targ,desc+".minSliceX",arg,&ravel::Handle::minSliceX);
+::xml_pack(targ,desc+".minSliceY",arg,&ravel::Handle::minSliceY);
+::xml_pack(targ,desc+".maxSliceX",arg,&ravel::Handle::maxSliceX);
+::xml_pack(targ,desc+".maxSliceY",arg,&ravel::Handle::maxSliceY);
+::xml_pack(targ,desc+".opX",arg,&ravel::Handle::opX);
+::xml_pack(targ,desc+".opY",arg,&ravel::Handle::opY);
+::xml_pack(targ,desc+".labelAnchor",arg,&ravel::Handle::labelAnchor);
+::xml_pack(targ,desc+".setSliceCoordinates",arg,&ravel::Handle::setSliceCoordinates);
+::xml_pack(targ,desc+".sliceLabel",arg,&ravel::Handle::sliceLabel);
+::xml_pack(targ,desc+".minSliceLabel",arg,&ravel::Handle::minSliceLabel);
+::xml_pack(targ,desc+".maxSliceLabel",arg,&ravel::Handle::maxSliceLabel);
+::xml_pack(targ,desc+".collapsed",arg,&ravel::Handle::collapsed);
+::xml_pack(targ,desc+".moveTo",arg,&ravel::Handle::moveTo);
+::xml_pack(targ,desc+".snap",arg,&ravel::Handle::snap);
+::xml_pack(targ,desc+".toggleCollapsed",arg,&ravel::Handle::toggleCollapsed);
+}
+};
+template <> struct access_xml_pack<enum ::ravel::Ravel::ElementMoving > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::xml_pack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_xml_pack<class ::ravel::Ravel::Handles > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::xml_pack_onbase(targ,desc+"",classdesc::base_cast<std::vector<Handle> >::cast(arg));
+::xml_pack(targ,desc+".addHandle",arg,&ravel::Ravel::Handles::addHandle);
+::xml_pack(targ,desc+".clearHandles",arg,&ravel::Ravel::Handles::clearHandles);
+::xml_pack(targ,desc+".at",arg,&ravel::Ravel::Handles::at);
+::xml_pack(targ,desc+".size",arg,&ravel::Ravel::Handles::size);
+::xml_pack(targ,desc+".clear",arg,&ravel::Ravel::Handles::clear);
+::xml_pack(targ,desc+".resize",arg,&ravel::Ravel::Handles::resize);
+::xml_pack(targ,desc+".push_back",arg,&ravel::Ravel::Handles::push_back);
+::xml_pack(targ,desc+".emplace",arg,&ravel::Ravel::Handles::emplace);
+}
+};
+template <> struct access_xml_pack<class ::ravel::Ravel > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack(targ,desc+".m_radius",arg.m_radius);
+::xml_pack(targ,desc+".lastHandle",arg.lastHandle);
+::xml_pack(targ,desc+".elementMoving",arg.elementMoving);
+::xml_pack(targ,desc+".x",arg.x);
+::xml_pack(targ,desc+".y",arg.y);
+::xml_pack(targ,desc+".nextRedOp",arg.nextRedOp);
+::xml_pack(targ,desc+".handles",arg.handles);
+::xml_pack(targ,desc+".handleX",arg,&ravel::Ravel::handleX);
+::xml_pack(targ,desc+".handleY",arg,&ravel::Ravel::handleY);
+::xml_pack(targ,desc+".sliceX",arg,&ravel::Ravel::sliceX);
+::xml_pack(targ,desc+".sliceY",arg,&ravel::Ravel::sliceY);
+::xml_pack(targ,desc+".setSliceCoordinates",arg,&ravel::Ravel::setSliceCoordinates);
+::xml_pack(targ,desc+".rank",arg,&ravel::Ravel::rank);
+::xml_pack(targ,desc+".handleIds",arg.handleIds);
+::xml_pack(targ,desc+".isOutputHandle",arg,&ravel::Ravel::isOutputHandle);
+::xml_pack(targ,desc+".redistributeHandles",arg,&ravel::Ravel::redistributeHandles);
+::xml_pack(targ,desc+".addHandle",arg,&ravel::Ravel::addHandle);
+::xml_pack(targ,desc+".clear",arg,&ravel::Ravel::clear);
+::xml_pack(targ,desc+".moveHandleTo",arg,&ravel::Ravel::moveHandleTo);
+::xml_pack(targ,desc+".snapHandle",arg,&ravel::Ravel::snapHandle);
+::xml_pack(targ,desc+".radius",arg,&ravel::Ravel::radius);
+::xml_pack(targ,desc+".rescale",arg,&ravel::Ravel::rescale);
+::xml_pack(targ,desc+".onMouseMotion",arg,&ravel::Ravel::onMouseMotion);
+::xml_pack(targ,desc+".onMouseDown",arg,&ravel::Ravel::onMouseDown);
+::xml_pack(targ,desc+".onMouseUp",arg,&ravel::Ravel::onMouseUp);
+::xml_pack(targ,desc+".handleIfMouseOver",arg,&ravel::Ravel::handleIfMouseOver);
+::xml_pack(targ,desc+".sliceCtlHandle",arg,&ravel::Ravel::sliceCtlHandle);
+::xml_pack(targ,desc+".description",arg,&ravel::Ravel::description);
+}
+};
+template <> struct access_xml_unpack<enum ::ravel::Op::ReductionOp > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_xml_unpack<struct ::ravel::Op > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_xml_unpack<enum ::ravel::AnchorPoint::Anchor > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_xml_unpack<struct ::ravel::AnchorPoint > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack(targ,desc+".x",arg.x);
+::xml_unpack(targ,desc+".y",arg.y);
+::xml_unpack(targ,desc+".anchor",arg.anchor);
+}
+};
+template <> struct access_xml_unpack<class ::ravel::Handle > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack(targ,desc+".m_x",arg.m_x);
+::xml_unpack(targ,desc+".m_y",arg.m_y);
+::xml_unpack(targ,desc+".home_x",arg.home_x);
+::xml_unpack(targ,desc+".home_y",arg.home_y);
+::xml_unpack(targ,desc+".m_collapsed",arg.m_collapsed);
+::xml_unpack(targ,desc+".setHome",arg,&ravel::Handle::setHome);
+::xml_unpack(targ,desc+".scaleHome",arg,&ravel::Handle::scaleHome);
+::xml_unpack(targ,desc+".swapHome",arg,&ravel::Handle::swapHome);
+::xml_unpack(targ,desc+".x",arg,&ravel::Handle::x);
+::xml_unpack(targ,desc+".y",arg,&ravel::Handle::y);
+::xml_unpack(targ,desc+".reductionOp",arg.reductionOp);
+::xml_unpack(targ,desc+".description",arg.description);
+::xml_unpack(targ,desc+".reductionDescription",arg,&ravel::Handle::reductionDescription);
+::xml_unpack(targ,desc+".sliceLabels",arg.sliceLabels);
+::xml_unpack(targ,desc+".numSliceLabels",arg,&ravel::Handle::numSliceLabels);
+::xml_unpack(targ,desc+".sliceIndex",arg.sliceIndex);
+::xml_unpack(targ,desc+".sliceMin",arg.sliceMin);
+::xml_unpack(targ,desc+".sliceMax",arg.sliceMax);
+::xml_unpack(targ,desc+".mask",arg.mask);
+::xml_unpack(targ,desc+".sliceCoordInterp",arg,&ravel::Handle::sliceCoordInterp);
+::xml_unpack(targ,desc+".sliceX",arg,&ravel::Handle::sliceX);
+::xml_unpack(targ,desc+".sliceY",arg,&ravel::Handle::sliceY);
+::xml_unpack(targ,desc+".displayFilterCaliper",arg.displayFilterCaliper);
+::xml_unpack(targ,desc+".caliperLength",classdesc::is_const_static(),arg.caliperLength);
+::xml_unpack(targ,desc+".minSliceX",arg,&ravel::Handle::minSliceX);
+::xml_unpack(targ,desc+".minSliceY",arg,&ravel::Handle::minSliceY);
+::xml_unpack(targ,desc+".maxSliceX",arg,&ravel::Handle::maxSliceX);
+::xml_unpack(targ,desc+".maxSliceY",arg,&ravel::Handle::maxSliceY);
+::xml_unpack(targ,desc+".opX",arg,&ravel::Handle::opX);
+::xml_unpack(targ,desc+".opY",arg,&ravel::Handle::opY);
+::xml_unpack(targ,desc+".labelAnchor",arg,&ravel::Handle::labelAnchor);
+::xml_unpack(targ,desc+".setSliceCoordinates",arg,&ravel::Handle::setSliceCoordinates);
+::xml_unpack(targ,desc+".sliceLabel",arg,&ravel::Handle::sliceLabel);
+::xml_unpack(targ,desc+".minSliceLabel",arg,&ravel::Handle::minSliceLabel);
+::xml_unpack(targ,desc+".maxSliceLabel",arg,&ravel::Handle::maxSliceLabel);
+::xml_unpack(targ,desc+".collapsed",arg,&ravel::Handle::collapsed);
+::xml_unpack(targ,desc+".moveTo",arg,&ravel::Handle::moveTo);
+::xml_unpack(targ,desc+".snap",arg,&ravel::Handle::snap);
+::xml_unpack(targ,desc+".toggleCollapsed",arg,&ravel::Handle::toggleCollapsed);
+}
+};
+template <> struct access_xml_unpack<enum ::ravel::Ravel::ElementMoving > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::xml_unpack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_xml_unpack<class ::ravel::Ravel::Handles > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::xml_unpack_onbase(targ,desc+"",classdesc::base_cast<std::vector<Handle> >::cast(arg));
+::xml_unpack(targ,desc+".addHandle",arg,&ravel::Ravel::Handles::addHandle);
+::xml_unpack(targ,desc+".clearHandles",arg,&ravel::Ravel::Handles::clearHandles);
+::xml_unpack(targ,desc+".at",arg,&ravel::Ravel::Handles::at);
+::xml_unpack(targ,desc+".size",arg,&ravel::Ravel::Handles::size);
+::xml_unpack(targ,desc+".clear",arg,&ravel::Ravel::Handles::clear);
+::xml_unpack(targ,desc+".resize",arg,&ravel::Ravel::Handles::resize);
+::xml_unpack(targ,desc+".push_back",arg,&ravel::Ravel::Handles::push_back);
+::xml_unpack(targ,desc+".emplace",arg,&ravel::Ravel::Handles::emplace);
+}
+};
+template <> struct access_xml_unpack<class ::ravel::Ravel > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack(targ,desc+".m_radius",arg.m_radius);
+::xml_unpack(targ,desc+".lastHandle",arg.lastHandle);
+::xml_unpack(targ,desc+".elementMoving",arg.elementMoving);
+::xml_unpack(targ,desc+".x",arg.x);
+::xml_unpack(targ,desc+".y",arg.y);
+::xml_unpack(targ,desc+".nextRedOp",arg.nextRedOp);
+::xml_unpack(targ,desc+".handles",arg.handles);
+::xml_unpack(targ,desc+".handleX",arg,&ravel::Ravel::handleX);
+::xml_unpack(targ,desc+".handleY",arg,&ravel::Ravel::handleY);
+::xml_unpack(targ,desc+".sliceX",arg,&ravel::Ravel::sliceX);
+::xml_unpack(targ,desc+".sliceY",arg,&ravel::Ravel::sliceY);
+::xml_unpack(targ,desc+".setSliceCoordinates",arg,&ravel::Ravel::setSliceCoordinates);
+::xml_unpack(targ,desc+".rank",arg,&ravel::Ravel::rank);
+::xml_unpack(targ,desc+".handleIds",arg.handleIds);
+::xml_unpack(targ,desc+".isOutputHandle",arg,&ravel::Ravel::isOutputHandle);
+::xml_unpack(targ,desc+".redistributeHandles",arg,&ravel::Ravel::redistributeHandles);
+::xml_unpack(targ,desc+".addHandle",arg,&ravel::Ravel::addHandle);
+::xml_unpack(targ,desc+".clear",arg,&ravel::Ravel::clear);
+::xml_unpack(targ,desc+".moveHandleTo",arg,&ravel::Ravel::moveHandleTo);
+::xml_unpack(targ,desc+".snapHandle",arg,&ravel::Ravel::snapHandle);
+::xml_unpack(targ,desc+".radius",arg,&ravel::Ravel::radius);
+::xml_unpack(targ,desc+".rescale",arg,&ravel::Ravel::rescale);
+::xml_unpack(targ,desc+".onMouseMotion",arg,&ravel::Ravel::onMouseMotion);
+::xml_unpack(targ,desc+".onMouseDown",arg,&ravel::Ravel::onMouseDown);
+::xml_unpack(targ,desc+".onMouseUp",arg,&ravel::Ravel::onMouseUp);
+::xml_unpack(targ,desc+".handleIfMouseOver",arg,&ravel::Ravel::handleIfMouseOver);
+::xml_unpack(targ,desc+".sliceCtlHandle",arg,&ravel::Ravel::sliceCtlHandle);
+::xml_unpack(targ,desc+".description",arg,&ravel::Ravel::description);
+}
+};
+template <> struct access_random_init<enum ::ravel::Op::ReductionOp > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::random_init(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_random_init<struct ::ravel::Op > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_random_init<enum ::ravel::AnchorPoint::Anchor > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::random_init(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_random_init<struct ::ravel::AnchorPoint > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::random_init(targ,desc+".x",arg.x);
+::random_init(targ,desc+".y",arg.y);
+::random_init(targ,desc+".anchor",arg.anchor);
+}
+};
+template <> struct access_random_init<class ::ravel::Handle > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::random_init(targ,desc+".m_x",arg.m_x);
+::random_init(targ,desc+".m_y",arg.m_y);
+::random_init(targ,desc+".home_x",arg.home_x);
+::random_init(targ,desc+".home_y",arg.home_y);
+::random_init(targ,desc+".m_collapsed",arg.m_collapsed);
+::random_init(targ,desc+".setHome",arg,&ravel::Handle::setHome);
+::random_init(targ,desc+".scaleHome",arg,&ravel::Handle::scaleHome);
+::random_init(targ,desc+".swapHome",arg,&ravel::Handle::swapHome);
+::random_init(targ,desc+".x",arg,&ravel::Handle::x);
+::random_init(targ,desc+".y",arg,&ravel::Handle::y);
+::random_init(targ,desc+".reductionOp",arg.reductionOp);
+::random_init(targ,desc+".description",arg.description);
+::random_init(targ,desc+".reductionDescription",arg,&ravel::Handle::reductionDescription);
+::random_init(targ,desc+".sliceLabels",arg.sliceLabels);
+::random_init(targ,desc+".numSliceLabels",arg,&ravel::Handle::numSliceLabels);
+::random_init(targ,desc+".sliceIndex",arg.sliceIndex);
+::random_init(targ,desc+".sliceMin",arg.sliceMin);
+::random_init(targ,desc+".sliceMax",arg.sliceMax);
+::random_init(targ,desc+".mask",arg.mask);
+::random_init(targ,desc+".sliceCoordInterp",arg,&ravel::Handle::sliceCoordInterp);
+::random_init(targ,desc+".sliceX",arg,&ravel::Handle::sliceX);
+::random_init(targ,desc+".sliceY",arg,&ravel::Handle::sliceY);
+::random_init(targ,desc+".displayFilterCaliper",arg.displayFilterCaliper);
+::random_init(targ,desc+".caliperLength",classdesc::is_const_static(),arg.caliperLength);
+::random_init(targ,desc+".minSliceX",arg,&ravel::Handle::minSliceX);
+::random_init(targ,desc+".minSliceY",arg,&ravel::Handle::minSliceY);
+::random_init(targ,desc+".maxSliceX",arg,&ravel::Handle::maxSliceX);
+::random_init(targ,desc+".maxSliceY",arg,&ravel::Handle::maxSliceY);
+::random_init(targ,desc+".opX",arg,&ravel::Handle::opX);
+::random_init(targ,desc+".opY",arg,&ravel::Handle::opY);
+::random_init(targ,desc+".labelAnchor",arg,&ravel::Handle::labelAnchor);
+::random_init(targ,desc+".setSliceCoordinates",arg,&ravel::Handle::setSliceCoordinates);
+::random_init(targ,desc+".sliceLabel",arg,&ravel::Handle::sliceLabel);
+::random_init(targ,desc+".minSliceLabel",arg,&ravel::Handle::minSliceLabel);
+::random_init(targ,desc+".maxSliceLabel",arg,&ravel::Handle::maxSliceLabel);
+::random_init(targ,desc+".collapsed",arg,&ravel::Handle::collapsed);
+::random_init(targ,desc+".moveTo",arg,&ravel::Handle::moveTo);
+::random_init(targ,desc+".snap",arg,&ravel::Handle::snap);
+::random_init(targ,desc+".toggleCollapsed",arg,&ravel::Handle::toggleCollapsed);
+}
+};
+template <> struct access_random_init<enum ::ravel::Ravel::ElementMoving > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::random_init(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_random_init<class ::ravel::Ravel::Handles > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::random_init_onbase(targ,desc+"",classdesc::base_cast<std::vector<Handle> >::cast(arg));
+::random_init(targ,desc+".addHandle",arg,&ravel::Ravel::Handles::addHandle);
+::random_init(targ,desc+".clearHandles",arg,&ravel::Ravel::Handles::clearHandles);
+::random_init(targ,desc+".at",arg,&ravel::Ravel::Handles::at);
+::random_init(targ,desc+".size",arg,&ravel::Ravel::Handles::size);
+::random_init(targ,desc+".clear",arg,&ravel::Ravel::Handles::clear);
+::random_init(targ,desc+".resize",arg,&ravel::Ravel::Handles::resize);
+::random_init(targ,desc+".push_back",arg,&ravel::Ravel::Handles::push_back);
+::random_init(targ,desc+".emplace",arg,&ravel::Ravel::Handles::emplace);
+}
+};
+template <> struct access_random_init<class ::ravel::Ravel > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::random_init(targ,desc+".m_radius",arg.m_radius);
+::random_init(targ,desc+".lastHandle",arg.lastHandle);
+::random_init(targ,desc+".elementMoving",arg.elementMoving);
+::random_init(targ,desc+".x",arg.x);
+::random_init(targ,desc+".y",arg.y);
+::random_init(targ,desc+".nextRedOp",arg.nextRedOp);
+::random_init(targ,desc+".handles",arg.handles);
+::random_init(targ,desc+".handleX",arg,&ravel::Ravel::handleX);
+::random_init(targ,desc+".handleY",arg,&ravel::Ravel::handleY);
+::random_init(targ,desc+".sliceX",arg,&ravel::Ravel::sliceX);
+::random_init(targ,desc+".sliceY",arg,&ravel::Ravel::sliceY);
+::random_init(targ,desc+".setSliceCoordinates",arg,&ravel::Ravel::setSliceCoordinates);
+::random_init(targ,desc+".rank",arg,&ravel::Ravel::rank);
+::random_init(targ,desc+".handleIds",arg.handleIds);
+::random_init(targ,desc+".isOutputHandle",arg,&ravel::Ravel::isOutputHandle);
+::random_init(targ,desc+".redistributeHandles",arg,&ravel::Ravel::redistributeHandles);
+::random_init(targ,desc+".addHandle",arg,&ravel::Ravel::addHandle);
+::random_init(targ,desc+".clear",arg,&ravel::Ravel::clear);
+::random_init(targ,desc+".moveHandleTo",arg,&ravel::Ravel::moveHandleTo);
+::random_init(targ,desc+".snapHandle",arg,&ravel::Ravel::snapHandle);
+::random_init(targ,desc+".radius",arg,&ravel::Ravel::radius);
+::random_init(targ,desc+".rescale",arg,&ravel::Ravel::rescale);
+::random_init(targ,desc+".onMouseMotion",arg,&ravel::Ravel::onMouseMotion);
+::random_init(targ,desc+".onMouseDown",arg,&ravel::Ravel::onMouseDown);
+::random_init(targ,desc+".onMouseUp",arg,&ravel::Ravel::onMouseUp);
+::random_init(targ,desc+".handleIfMouseOver",arg,&ravel::Ravel::handleIfMouseOver);
+::random_init(targ,desc+".sliceCtlHandle",arg,&ravel::Ravel::sliceCtlHandle);
+::random_init(targ,desc+".description",arg,&ravel::Ravel::description);
+}
+};
+}
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
+#include "classdesc.h"
+
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+#include "TCL_obj_base.h"
+#include "isa_base.h"
+#ifndef CLASSDESC_TYPENAME_ravel__Op__ReductionOp
+#define CLASSDESC_TYPENAME_ravel__Op__ReductionOp
+namespace classdesc {
+template <> inline std::string typeName<ravel::Op::ReductionOp >()
+  {return "ravel::Op::ReductionOp";}
+namespace   {
+template <> EnumKey enum_keysData<ravel::Op::ReductionOp>::keysData[]=
+ {
+  {"sum",int(ravel::Op::sum)},
+  {"prod",int(ravel::Op::prod)},
+  {"av",int(ravel::Op::av)},
+  {"stddev",int(ravel::Op::stddev)},
+  {"min",int(ravel::Op::min)},
+  {"max",int(ravel::Op::max)}
+ };
+template <> EnumKeys<ravel::Op::ReductionOp> enum_keysData<ravel::Op::ReductionOp>::keys(enum_keysData<ravel::Op::ReductionOp>::keysData,sizeof(enum_keysData<ravel::Op::ReductionOp>::keysData)/sizeof(enum_keysData<ravel::Op::ReductionOp>::keysData[0]));
+template <> int enumKey<ravel::Op::ReductionOp>(const std::string& x){return int(enum_keysData<ravel::Op::ReductionOp>::keys(x));}
+template <> std::string enumKey<ravel::Op::ReductionOp>(int x){return enum_keysData<ravel::Op::ReductionOp>::keys(x);}
+}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__Op
+#define CLASSDESC_TYPENAME_ravel__Op
+namespace classdesc {
+template <> inline std::string typeName<ravel::Op >()
+  {return "ravel::Op";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__AnchorPoint__Anchor
+#define CLASSDESC_TYPENAME_ravel__AnchorPoint__Anchor
+namespace classdesc {
+template <> inline std::string typeName<ravel::AnchorPoint::Anchor >()
+  {return "ravel::AnchorPoint::Anchor";}
+namespace   {
+template <> EnumKey enum_keysData<ravel::AnchorPoint::Anchor>::keysData[]=
+ {
+  {"ne",int(ravel::AnchorPoint::ne)},
+  {"nw",int(ravel::AnchorPoint::nw)},
+  {"se",int(ravel::AnchorPoint::se)},
+  {"sw",int(ravel::AnchorPoint::sw)}
+ };
+template <> EnumKeys<ravel::AnchorPoint::Anchor> enum_keysData<ravel::AnchorPoint::Anchor>::keys(enum_keysData<ravel::AnchorPoint::Anchor>::keysData,sizeof(enum_keysData<ravel::AnchorPoint::Anchor>::keysData)/sizeof(enum_keysData<ravel::AnchorPoint::Anchor>::keysData[0]));
+template <> int enumKey<ravel::AnchorPoint::Anchor>(const std::string& x){return int(enum_keysData<ravel::AnchorPoint::Anchor>::keys(x));}
+template <> std::string enumKey<ravel::AnchorPoint::Anchor>(int x){return enum_keysData<ravel::AnchorPoint::Anchor>::keys(x);}
+}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__AnchorPoint
+#define CLASSDESC_TYPENAME_ravel__AnchorPoint
+namespace classdesc {
+template <> inline std::string typeName<ravel::AnchorPoint >()
+  {return "ravel::AnchorPoint";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__Handle
+#define CLASSDESC_TYPENAME_ravel__Handle
+namespace classdesc {
+template <> inline std::string typeName<ravel::Handle >()
+  {return "ravel::Handle";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__Ravel__ElementMoving
+#define CLASSDESC_TYPENAME_ravel__Ravel__ElementMoving
+namespace classdesc {
+template <> inline std::string typeName<ravel::Ravel::ElementMoving >()
+  {return "ravel::Ravel::ElementMoving";}
+namespace   {
+template <> EnumKey enum_keysData<ravel::Ravel::ElementMoving>::keysData[]=
+ {
+  {"handle",int(ravel::Ravel::handle)},
+  {"slicer",int(ravel::Ravel::slicer)},
+  {"filterMin",int(ravel::Ravel::filterMin)},
+  {"filterMax",int(ravel::Ravel::filterMax)}
+ };
+template <> EnumKeys<ravel::Ravel::ElementMoving> enum_keysData<ravel::Ravel::ElementMoving>::keys(enum_keysData<ravel::Ravel::ElementMoving>::keysData,sizeof(enum_keysData<ravel::Ravel::ElementMoving>::keysData)/sizeof(enum_keysData<ravel::Ravel::ElementMoving>::keysData[0]));
+template <> int enumKey<ravel::Ravel::ElementMoving>(const std::string& x){return int(enum_keysData<ravel::Ravel::ElementMoving>::keys(x));}
+template <> std::string enumKey<ravel::Ravel::ElementMoving>(int x){return enum_keysData<ravel::Ravel::ElementMoving>::keys(x);}
+}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__Ravel__Handles
+#define CLASSDESC_TYPENAME_ravel__Ravel__Handles
+namespace classdesc {
+template <> inline std::string typeName<ravel::Ravel::Handles >()
+  {return "ravel::Ravel::Handles";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__Ravel
+#define CLASSDESC_TYPENAME_ravel__Ravel
+namespace classdesc {
+template <> inline std::string typeName<ravel::Ravel >()
+  {return "ravel::Ravel";}
+}
+#endif
+namespace classdesc_access {
+template <> struct access_TCL_obj<enum ::ravel::Op::ReductionOp > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_TCL_obj<struct ::ravel::Op > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_TCL_obj<enum ::ravel::AnchorPoint::Anchor > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_TCL_obj<struct ::ravel::AnchorPoint > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj(targ,desc+".x",arg.x);
+::TCL_obj(targ,desc+".y",arg.y);
+::TCL_obj(targ,desc+".anchor",arg.anchor);
+}
+};
+template <> struct access_TCL_obj<class ::ravel::Handle > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj(targ,desc+".x",arg,&ravel::Handle::x);
+::TCL_obj(targ,desc+".y",arg,&ravel::Handle::y);
+::TCL_obj(targ,desc+".reductionOp",arg.reductionOp);
+::TCL_obj(targ,desc+".description",arg.description);
+::TCL_obj(targ,desc+".reductionDescription",arg,&ravel::Handle::reductionDescription);
+::TCL_obj(targ,desc+".sliceLabels",arg.sliceLabels);
+::TCL_obj(targ,desc+".numSliceLabels",arg,&ravel::Handle::numSliceLabels);
+::TCL_obj(targ,desc+".sliceIndex",arg.sliceIndex);
+::TCL_obj(targ,desc+".sliceMin",arg.sliceMin);
+::TCL_obj(targ,desc+".sliceMax",arg.sliceMax);
+::TCL_obj(targ,desc+".mask",arg.mask);
+::TCL_obj(targ,desc+".sliceCoordInterp",arg,&ravel::Handle::sliceCoordInterp);
+::TCL_obj(targ,desc+".sliceX",arg,&ravel::Handle::sliceX);
+::TCL_obj(targ,desc+".sliceY",arg,&ravel::Handle::sliceY);
+::TCL_obj(targ,desc+".displayFilterCaliper",arg.displayFilterCaliper);
+::TCL_obj(targ,desc+".caliperLength",classdesc::is_const_static(),arg.caliperLength);
+::TCL_obj(targ,desc+".minSliceX",arg,&ravel::Handle::minSliceX);
+::TCL_obj(targ,desc+".minSliceY",arg,&ravel::Handle::minSliceY);
+::TCL_obj(targ,desc+".maxSliceX",arg,&ravel::Handle::maxSliceX);
+::TCL_obj(targ,desc+".maxSliceY",arg,&ravel::Handle::maxSliceY);
+::TCL_obj(targ,desc+".opX",arg,&ravel::Handle::opX);
+::TCL_obj(targ,desc+".opY",arg,&ravel::Handle::opY);
+::TCL_obj(targ,desc+".labelAnchor",arg,&ravel::Handle::labelAnchor);
+::TCL_obj(targ,desc+".setSliceCoordinates",arg,&ravel::Handle::setSliceCoordinates);
+::TCL_obj(targ,desc+".sliceLabel",arg,&ravel::Handle::sliceLabel);
+::TCL_obj(targ,desc+".minSliceLabel",arg,&ravel::Handle::minSliceLabel);
+::TCL_obj(targ,desc+".maxSliceLabel",arg,&ravel::Handle::maxSliceLabel);
+::TCL_obj(targ,desc+".collapsed",arg,&ravel::Handle::collapsed);
+::TCL_obj(targ,desc+".moveTo",arg,&ravel::Handle::moveTo);
+::TCL_obj(targ,desc+".snap",arg,&ravel::Handle::snap);
+::TCL_obj(targ,desc+".toggleCollapsed",arg,&ravel::Handle::toggleCollapsed);
+}
+};
+template <> struct access_TCL_obj<enum ::ravel::Ravel::ElementMoving > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::TCL_obj(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_TCL_obj<class ::ravel::Ravel > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj(targ,desc+".x",arg.x);
+::TCL_obj(targ,desc+".y",arg.y);
+::TCL_obj(targ,desc+".nextRedOp",arg.nextRedOp);
+::TCL_obj(targ,desc+".handles",arg.handles);
+::TCL_obj(targ,desc+".handleX",arg,&ravel::Ravel::handleX);
+::TCL_obj(targ,desc+".handleY",arg,&ravel::Ravel::handleY);
+::TCL_obj(targ,desc+".sliceX",arg,&ravel::Ravel::sliceX);
+::TCL_obj(targ,desc+".sliceY",arg,&ravel::Ravel::sliceY);
+::TCL_obj(targ,desc+".setSliceCoordinates",arg,&ravel::Ravel::setSliceCoordinates);
+::TCL_obj(targ,desc+".rank",arg,&ravel::Ravel::rank);
+::TCL_obj(targ,desc+".handleIds",arg.handleIds);
+::TCL_obj(targ,desc+".isOutputHandle",arg,&ravel::Ravel::isOutputHandle);
+::TCL_obj(targ,desc+".redistributeHandles",arg,&ravel::Ravel::redistributeHandles);
+::TCL_obj(targ,desc+".addHandle",arg,&ravel::Ravel::addHandle);
+::TCL_obj(targ,desc+".clear",arg,&ravel::Ravel::clear);
+::TCL_obj(targ,desc+".moveHandleTo",arg,&ravel::Ravel::moveHandleTo);
+::TCL_obj(targ,desc+".snapHandle",arg,&ravel::Ravel::snapHandle);
+::TCL_obj(targ,desc+".radius",arg,&ravel::Ravel::radius);
+::TCL_obj(targ,desc+".rescale",arg,&ravel::Ravel::rescale);
+::TCL_obj(targ,desc+".onMouseMotion",arg,&ravel::Ravel::onMouseMotion);
+::TCL_obj(targ,desc+".onMouseDown",arg,&ravel::Ravel::onMouseDown);
+::TCL_obj(targ,desc+".onMouseUp",arg,&ravel::Ravel::onMouseUp);
+::TCL_obj(targ,desc+".handleIfMouseOver",arg,&ravel::Ravel::handleIfMouseOver);
+::TCL_obj(targ,desc+".sliceCtlHandle",arg,&ravel::Ravel::sliceCtlHandle);
+::TCL_obj(targ,desc+".description",arg,&ravel::Ravel::description);
+}
+};
+template <> struct access_isa<enum ::ravel::Op::ReductionOp > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_isa<struct ::ravel::Op > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_isa<enum ::ravel::AnchorPoint::Anchor > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_isa<struct ::ravel::AnchorPoint > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa(targ,desc+".x",arg.x);
+::isa(targ,desc+".y",arg.y);
+::isa(targ,desc+".anchor",arg.anchor);
+}
+};
+template <> struct access_isa<class ::ravel::Handle > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa(targ,desc+".x",arg,&ravel::Handle::x);
+::isa(targ,desc+".y",arg,&ravel::Handle::y);
+::isa(targ,desc+".reductionOp",arg.reductionOp);
+::isa(targ,desc+".description",arg.description);
+::isa(targ,desc+".reductionDescription",arg,&ravel::Handle::reductionDescription);
+::isa(targ,desc+".sliceLabels",arg.sliceLabels);
+::isa(targ,desc+".numSliceLabels",arg,&ravel::Handle::numSliceLabels);
+::isa(targ,desc+".sliceIndex",arg.sliceIndex);
+::isa(targ,desc+".sliceMin",arg.sliceMin);
+::isa(targ,desc+".sliceMax",arg.sliceMax);
+::isa(targ,desc+".mask",arg.mask);
+::isa(targ,desc+".sliceCoordInterp",arg,&ravel::Handle::sliceCoordInterp);
+::isa(targ,desc+".sliceX",arg,&ravel::Handle::sliceX);
+::isa(targ,desc+".sliceY",arg,&ravel::Handle::sliceY);
+::isa(targ,desc+".displayFilterCaliper",arg.displayFilterCaliper);
+::isa(targ,desc+".caliperLength",classdesc::is_const_static(),arg.caliperLength);
+::isa(targ,desc+".minSliceX",arg,&ravel::Handle::minSliceX);
+::isa(targ,desc+".minSliceY",arg,&ravel::Handle::minSliceY);
+::isa(targ,desc+".maxSliceX",arg,&ravel::Handle::maxSliceX);
+::isa(targ,desc+".maxSliceY",arg,&ravel::Handle::maxSliceY);
+::isa(targ,desc+".opX",arg,&ravel::Handle::opX);
+::isa(targ,desc+".opY",arg,&ravel::Handle::opY);
+::isa(targ,desc+".labelAnchor",arg,&ravel::Handle::labelAnchor);
+::isa(targ,desc+".setSliceCoordinates",arg,&ravel::Handle::setSliceCoordinates);
+::isa(targ,desc+".sliceLabel",arg,&ravel::Handle::sliceLabel);
+::isa(targ,desc+".minSliceLabel",arg,&ravel::Handle::minSliceLabel);
+::isa(targ,desc+".maxSliceLabel",arg,&ravel::Handle::maxSliceLabel);
+::isa(targ,desc+".collapsed",arg,&ravel::Handle::collapsed);
+::isa(targ,desc+".moveTo",arg,&ravel::Handle::moveTo);
+::isa(targ,desc+".snap",arg,&ravel::Handle::snap);
+::isa(targ,desc+".toggleCollapsed",arg,&ravel::Handle::toggleCollapsed);
+}
+};
+template <> struct access_isa<enum ::ravel::Ravel::ElementMoving > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::isa(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_isa<class ::ravel::Ravel::Handles > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  Ravel::Handles Handles;
+::isa(targ,desc+".at",arg,&ravel::Ravel::Handles::at);
+::isa(targ,desc+".size",arg,&ravel::Ravel::Handles::size);
+::isa(targ,desc+".clear",arg,&ravel::Ravel::Handles::clear);
+::isa(targ,desc+".resize",arg,&ravel::Ravel::Handles::resize);
+::isa(targ,desc+".push_back",arg,&ravel::Ravel::Handles::push_back);
+::isa(targ,desc+".emplace",arg,&ravel::Ravel::Handles::emplace);
+}
+};
+template <> struct access_isa<class ::ravel::Ravel > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa(targ,desc+".x",arg.x);
+::isa(targ,desc+".y",arg.y);
+::isa(targ,desc+".nextRedOp",arg.nextRedOp);
+::isa(targ,desc+".handles",arg.handles);
+::isa(targ,desc+".handleX",arg,&ravel::Ravel::handleX);
+::isa(targ,desc+".handleY",arg,&ravel::Ravel::handleY);
+::isa(targ,desc+".sliceX",arg,&ravel::Ravel::sliceX);
+::isa(targ,desc+".sliceY",arg,&ravel::Ravel::sliceY);
+::isa(targ,desc+".setSliceCoordinates",arg,&ravel::Ravel::setSliceCoordinates);
+::isa(targ,desc+".rank",arg,&ravel::Ravel::rank);
+::isa(targ,desc+".handleIds",arg.handleIds);
+::isa(targ,desc+".isOutputHandle",arg,&ravel::Ravel::isOutputHandle);
+::isa(targ,desc+".redistributeHandles",arg,&ravel::Ravel::redistributeHandles);
+::isa(targ,desc+".addHandle",arg,&ravel::Ravel::addHandle);
+::isa(targ,desc+".clear",arg,&ravel::Ravel::clear);
+::isa(targ,desc+".moveHandleTo",arg,&ravel::Ravel::moveHandleTo);
+::isa(targ,desc+".snapHandle",arg,&ravel::Ravel::snapHandle);
+::isa(targ,desc+".radius",arg,&ravel::Ravel::radius);
+::isa(targ,desc+".rescale",arg,&ravel::Ravel::rescale);
+::isa(targ,desc+".onMouseMotion",arg,&ravel::Ravel::onMouseMotion);
+::isa(targ,desc+".onMouseDown",arg,&ravel::Ravel::onMouseDown);
+::isa(targ,desc+".onMouseUp",arg,&ravel::Ravel::onMouseUp);
+::isa(targ,desc+".handleIfMouseOver",arg,&ravel::Ravel::handleIfMouseOver);
+::isa(targ,desc+".sliceCtlHandle",arg,&ravel::Ravel::sliceCtlHandle);
+::isa(targ,desc+".description",arg,&ravel::Ravel::description);
+}
+};
+}
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif

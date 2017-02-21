@@ -1,0 +1,729 @@
+#include "classdesc.h"
+
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+#include "pack_base.h"
+#include "unpack_base.h"
+#include "xml_pack_base.h"
+#include "xml_unpack_base.h"
+#include "random_init_base.h"
+#ifndef CLASSDESC_TYPENAME_ravel__DataSpec
+#define CLASSDESC_TYPENAME_ravel__DataSpec
+namespace classdesc {
+template <> inline std::string typeName<ravel::DataSpec >()
+  {return "ravel::DataSpec";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__Tokeniser
+#define CLASSDESC_TYPENAME_ravel__Tokeniser
+namespace classdesc {
+template <> inline std::string typeName<ravel::Tokeniser >()
+  {return "ravel::Tokeniser";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__CSVFTokeniser
+#define CLASSDESC_TYPENAME_ravel__CSVFTokeniser
+namespace classdesc {
+template <> inline std::string typeName<ravel::CSVFTokeniser >()
+  {return "ravel::CSVFTokeniser";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__DataCube__SortBy__Type
+#define CLASSDESC_TYPENAME_ravel__DataCube__SortBy__Type
+namespace classdesc {
+template <> inline std::string typeName<ravel::DataCube::SortBy::Type >()
+  {return "ravel::DataCube::SortBy::Type";}
+namespace   {
+template <> EnumKey enum_keysData<ravel::DataCube::SortBy::Type>::keysData[]=
+ {
+  {"none",int(ravel::DataCube::SortBy::none)},
+  {"byValue",int(ravel::DataCube::SortBy::byValue)}
+ };
+template <> EnumKeys<ravel::DataCube::SortBy::Type> enum_keysData<ravel::DataCube::SortBy::Type>::keys(enum_keysData<ravel::DataCube::SortBy::Type>::keysData,sizeof(enum_keysData<ravel::DataCube::SortBy::Type>::keysData)/sizeof(enum_keysData<ravel::DataCube::SortBy::Type>::keysData[0]));
+template <> int enumKey<ravel::DataCube::SortBy::Type>(const std::string& x){return int(enum_keysData<ravel::DataCube::SortBy::Type>::keys(x));}
+template <> std::string enumKey<ravel::DataCube::SortBy::Type>(int x){return enum_keysData<ravel::DataCube::SortBy::Type>::keys(x);}
+}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__DataCube__SortBy
+#define CLASSDESC_TYPENAME_ravel__DataCube__SortBy
+namespace classdesc {
+template <> inline std::string typeName<ravel::DataCube::SortBy >()
+  {return "ravel::DataCube::SortBy";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__DataCube
+#define CLASSDESC_TYPENAME_ravel__DataCube
+namespace classdesc {
+template <> inline std::string typeName<ravel::DataCube >()
+  {return "ravel::DataCube";}
+}
+#endif
+namespace classdesc_access {
+template <> struct access_pack<struct ::ravel::DataSpec > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack(targ,desc+".nRowAxes",arg.nRowAxes);
+::pack(targ,desc+".nColAxes",arg.nColAxes);
+::pack(targ,desc+".commentRows",arg.commentRows);
+::pack(targ,desc+".commentCols",arg.commentCols);
+}
+};
+template <> struct access_pack<struct ::ravel::Tokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack(targ,desc+".getLine",arg,&ravel::Tokeniser::getLine);
+}
+};
+template <> struct access_pack<struct ::ravel::CSVFTokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack_onbase(targ,desc+"",classdesc::base_cast<Tokeniser >::cast(arg));
+::pack(targ,desc+".input",arg.input);
+::pack(targ,desc+".separator",arg.separator);
+::pack(targ,desc+".getLine",arg,&ravel::CSVFTokeniser::getLine);
+}
+};
+template <> struct access_pack<enum ::ravel::DataCube::SortBy::Type > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_pack<struct ::ravel::DataCube::SortBy > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCube::SortBy SortBy;
+::pack(targ,desc+".type",arg.type);
+::pack(targ,desc+".rowCol",arg.rowCol);
+::pack(targ,desc+".reverse",arg.reverse);
+}
+};
+template <> struct access_pack<class ::ravel::DataCube > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack(targ,desc+".rawData",arg.rawData);
+::pack(targ,desc+".m_dimLabels",arg.m_dimLabels);
+::pack(targ,desc+".m_sortBy",arg.m_sortBy);
+::pack(targ,desc+".xh",arg.xh);
+::pack(targ,desc+".yh",arg.yh);
+::pack(targ,desc+".leastRowAxis",arg.leastRowAxis);
+::pack(targ,desc+".m_minVal",arg.m_minVal);
+::pack(targ,desc+".m_maxVal",arg.m_maxVal);
+::pack(targ,desc+".m_maxRow",arg.m_maxRow);
+::pack(targ,desc+".m_maxCol",arg.m_maxCol);
+::pack(targ,desc+".dimNames",arg.dimNames);
+::pack(targ,desc+".dimLabels",arg,&ravel::DataCube::dimLabels);
+::pack(targ,desc+".renameAxis",arg,&ravel::DataCube::renameAxis);
+::pack(targ,desc+".maxRow",arg,&ravel::DataCube::maxRow);
+::pack(targ,desc+".maxCol",arg,&ravel::DataCube::maxCol);
+::pack(targ,desc+".minVal",arg,&ravel::DataCube::minVal);
+::pack(targ,desc+".maxVal",arg,&ravel::DataCube::maxVal);
+::pack(targ,desc+".filterMin",arg.filterMin);
+::pack(targ,desc+".filterMax",arg.filterMax);
+::pack(targ,desc+".filterOn",arg.filterOn);
+::pack(targ,desc+".sortBy",arg,&ravel::DataCube::sortBy);
+::pack(targ,desc+".unsortAxis",arg,&ravel::DataCube::unsortAxis);
+::pack(targ,desc+".loadFile",arg,&ravel::DataCube::loadFile);
+::pack(targ,desc+".loadData",arg,&ravel::DataCube::loadData);
+::pack(targ,desc+".initDataSpec",arg,&ravel::DataCube::initDataSpec);
+::pack(targ,desc+".initRavel",arg,&ravel::DataCube::initRavel);
+::pack(targ,desc+".populateArray",arg,&ravel::DataCube::populateArray);
+::pack(targ,desc+".filterDataElement",arg,&ravel::DataCube::filterDataElement);
+::pack(targ,desc+".setDataElement",arg,&ravel::DataCube::setDataElement);
+::pack(targ,desc+".histogram",arg.histogram);
+::pack(targ,desc+".numFinite",arg,&ravel::DataCube::numFinite);
+::pack(targ,desc+".size",arg,&ravel::DataCube::size);
+}
+};
+template <> struct access_unpack<struct ::ravel::DataSpec > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack(targ,desc+".nRowAxes",arg.nRowAxes);
+::unpack(targ,desc+".nColAxes",arg.nColAxes);
+::unpack(targ,desc+".commentRows",arg.commentRows);
+::unpack(targ,desc+".commentCols",arg.commentCols);
+}
+};
+template <> struct access_unpack<struct ::ravel::Tokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack(targ,desc+".getLine",arg,&ravel::Tokeniser::getLine);
+}
+};
+template <> struct access_unpack<struct ::ravel::CSVFTokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack_onbase(targ,desc+"",classdesc::base_cast<Tokeniser >::cast(arg));
+::unpack(targ,desc+".input",arg.input);
+::unpack(targ,desc+".separator",arg.separator);
+::unpack(targ,desc+".getLine",arg,&ravel::CSVFTokeniser::getLine);
+}
+};
+template <> struct access_unpack<enum ::ravel::DataCube::SortBy::Type > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_unpack<struct ::ravel::DataCube::SortBy > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCube::SortBy SortBy;
+::unpack(targ,desc+".type",arg.type);
+::unpack(targ,desc+".rowCol",arg.rowCol);
+::unpack(targ,desc+".reverse",arg.reverse);
+}
+};
+template <> struct access_unpack<class ::ravel::DataCube > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack(targ,desc+".rawData",arg.rawData);
+::unpack(targ,desc+".m_dimLabels",arg.m_dimLabels);
+::unpack(targ,desc+".m_sortBy",arg.m_sortBy);
+::unpack(targ,desc+".xh",arg.xh);
+::unpack(targ,desc+".yh",arg.yh);
+::unpack(targ,desc+".leastRowAxis",arg.leastRowAxis);
+::unpack(targ,desc+".m_minVal",arg.m_minVal);
+::unpack(targ,desc+".m_maxVal",arg.m_maxVal);
+::unpack(targ,desc+".m_maxRow",arg.m_maxRow);
+::unpack(targ,desc+".m_maxCol",arg.m_maxCol);
+::unpack(targ,desc+".dimNames",arg.dimNames);
+::unpack(targ,desc+".dimLabels",arg,&ravel::DataCube::dimLabels);
+::unpack(targ,desc+".renameAxis",arg,&ravel::DataCube::renameAxis);
+::unpack(targ,desc+".maxRow",arg,&ravel::DataCube::maxRow);
+::unpack(targ,desc+".maxCol",arg,&ravel::DataCube::maxCol);
+::unpack(targ,desc+".minVal",arg,&ravel::DataCube::minVal);
+::unpack(targ,desc+".maxVal",arg,&ravel::DataCube::maxVal);
+::unpack(targ,desc+".filterMin",arg.filterMin);
+::unpack(targ,desc+".filterMax",arg.filterMax);
+::unpack(targ,desc+".filterOn",arg.filterOn);
+::unpack(targ,desc+".sortBy",arg,&ravel::DataCube::sortBy);
+::unpack(targ,desc+".unsortAxis",arg,&ravel::DataCube::unsortAxis);
+::unpack(targ,desc+".loadFile",arg,&ravel::DataCube::loadFile);
+::unpack(targ,desc+".loadData",arg,&ravel::DataCube::loadData);
+::unpack(targ,desc+".initDataSpec",arg,&ravel::DataCube::initDataSpec);
+::unpack(targ,desc+".initRavel",arg,&ravel::DataCube::initRavel);
+::unpack(targ,desc+".populateArray",arg,&ravel::DataCube::populateArray);
+::unpack(targ,desc+".filterDataElement",arg,&ravel::DataCube::filterDataElement);
+::unpack(targ,desc+".setDataElement",arg,&ravel::DataCube::setDataElement);
+::unpack(targ,desc+".histogram",arg.histogram);
+::unpack(targ,desc+".numFinite",arg,&ravel::DataCube::numFinite);
+::unpack(targ,desc+".size",arg,&ravel::DataCube::size);
+}
+};
+template <> struct access_xml_pack<struct ::ravel::DataSpec > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack(targ,desc+".nRowAxes",arg.nRowAxes);
+::xml_pack(targ,desc+".nColAxes",arg.nColAxes);
+::xml_pack(targ,desc+".commentRows",arg.commentRows);
+::xml_pack(targ,desc+".commentCols",arg.commentCols);
+}
+};
+template <> struct access_xml_pack<struct ::ravel::Tokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack(targ,desc+".getLine",arg,&ravel::Tokeniser::getLine);
+}
+};
+template <> struct access_xml_pack<struct ::ravel::CSVFTokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack_onbase(targ,desc+"",classdesc::base_cast<Tokeniser >::cast(arg));
+::xml_pack(targ,desc+".input",arg.input);
+::xml_pack(targ,desc+".separator",arg.separator);
+::xml_pack(targ,desc+".getLine",arg,&ravel::CSVFTokeniser::getLine);
+}
+};
+template <> struct access_xml_pack<enum ::ravel::DataCube::SortBy::Type > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_xml_pack<struct ::ravel::DataCube::SortBy > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCube::SortBy SortBy;
+::xml_pack(targ,desc+".type",arg.type);
+::xml_pack(targ,desc+".rowCol",arg.rowCol);
+::xml_pack(targ,desc+".reverse",arg.reverse);
+}
+};
+template <> struct access_xml_pack<class ::ravel::DataCube > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack(targ,desc+".rawData",arg.rawData);
+::xml_pack(targ,desc+".m_dimLabels",arg.m_dimLabels);
+::xml_pack(targ,desc+".m_sortBy",arg.m_sortBy);
+::xml_pack(targ,desc+".xh",arg.xh);
+::xml_pack(targ,desc+".yh",arg.yh);
+::xml_pack(targ,desc+".leastRowAxis",arg.leastRowAxis);
+::xml_pack(targ,desc+".m_minVal",arg.m_minVal);
+::xml_pack(targ,desc+".m_maxVal",arg.m_maxVal);
+::xml_pack(targ,desc+".m_maxRow",arg.m_maxRow);
+::xml_pack(targ,desc+".m_maxCol",arg.m_maxCol);
+::xml_pack(targ,desc+".dimNames",arg.dimNames);
+::xml_pack(targ,desc+".dimLabels",arg,&ravel::DataCube::dimLabels);
+::xml_pack(targ,desc+".renameAxis",arg,&ravel::DataCube::renameAxis);
+::xml_pack(targ,desc+".maxRow",arg,&ravel::DataCube::maxRow);
+::xml_pack(targ,desc+".maxCol",arg,&ravel::DataCube::maxCol);
+::xml_pack(targ,desc+".minVal",arg,&ravel::DataCube::minVal);
+::xml_pack(targ,desc+".maxVal",arg,&ravel::DataCube::maxVal);
+::xml_pack(targ,desc+".filterMin",arg.filterMin);
+::xml_pack(targ,desc+".filterMax",arg.filterMax);
+::xml_pack(targ,desc+".filterOn",arg.filterOn);
+::xml_pack(targ,desc+".sortBy",arg,&ravel::DataCube::sortBy);
+::xml_pack(targ,desc+".unsortAxis",arg,&ravel::DataCube::unsortAxis);
+::xml_pack(targ,desc+".loadFile",arg,&ravel::DataCube::loadFile);
+::xml_pack(targ,desc+".loadData",arg,&ravel::DataCube::loadData);
+::xml_pack(targ,desc+".initDataSpec",arg,&ravel::DataCube::initDataSpec);
+::xml_pack(targ,desc+".initRavel",arg,&ravel::DataCube::initRavel);
+::xml_pack(targ,desc+".populateArray",arg,&ravel::DataCube::populateArray);
+::xml_pack(targ,desc+".filterDataElement",arg,&ravel::DataCube::filterDataElement);
+::xml_pack(targ,desc+".setDataElement",arg,&ravel::DataCube::setDataElement);
+::xml_pack(targ,desc+".histogram",arg.histogram);
+::xml_pack(targ,desc+".numFinite",arg,&ravel::DataCube::numFinite);
+::xml_pack(targ,desc+".size",arg,&ravel::DataCube::size);
+}
+};
+template <> struct access_xml_unpack<struct ::ravel::DataSpec > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack(targ,desc+".nRowAxes",arg.nRowAxes);
+::xml_unpack(targ,desc+".nColAxes",arg.nColAxes);
+::xml_unpack(targ,desc+".commentRows",arg.commentRows);
+::xml_unpack(targ,desc+".commentCols",arg.commentCols);
+}
+};
+template <> struct access_xml_unpack<struct ::ravel::Tokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack(targ,desc+".getLine",arg,&ravel::Tokeniser::getLine);
+}
+};
+template <> struct access_xml_unpack<struct ::ravel::CSVFTokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack_onbase(targ,desc+"",classdesc::base_cast<Tokeniser >::cast(arg));
+::xml_unpack(targ,desc+".input",arg.input);
+::xml_unpack(targ,desc+".separator",arg.separator);
+::xml_unpack(targ,desc+".getLine",arg,&ravel::CSVFTokeniser::getLine);
+}
+};
+template <> struct access_xml_unpack<enum ::ravel::DataCube::SortBy::Type > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_xml_unpack<struct ::ravel::DataCube::SortBy > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCube::SortBy SortBy;
+::xml_unpack(targ,desc+".type",arg.type);
+::xml_unpack(targ,desc+".rowCol",arg.rowCol);
+::xml_unpack(targ,desc+".reverse",arg.reverse);
+}
+};
+template <> struct access_xml_unpack<class ::ravel::DataCube > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack(targ,desc+".rawData",arg.rawData);
+::xml_unpack(targ,desc+".m_dimLabels",arg.m_dimLabels);
+::xml_unpack(targ,desc+".m_sortBy",arg.m_sortBy);
+::xml_unpack(targ,desc+".xh",arg.xh);
+::xml_unpack(targ,desc+".yh",arg.yh);
+::xml_unpack(targ,desc+".leastRowAxis",arg.leastRowAxis);
+::xml_unpack(targ,desc+".m_minVal",arg.m_minVal);
+::xml_unpack(targ,desc+".m_maxVal",arg.m_maxVal);
+::xml_unpack(targ,desc+".m_maxRow",arg.m_maxRow);
+::xml_unpack(targ,desc+".m_maxCol",arg.m_maxCol);
+::xml_unpack(targ,desc+".dimNames",arg.dimNames);
+::xml_unpack(targ,desc+".dimLabels",arg,&ravel::DataCube::dimLabels);
+::xml_unpack(targ,desc+".renameAxis",arg,&ravel::DataCube::renameAxis);
+::xml_unpack(targ,desc+".maxRow",arg,&ravel::DataCube::maxRow);
+::xml_unpack(targ,desc+".maxCol",arg,&ravel::DataCube::maxCol);
+::xml_unpack(targ,desc+".minVal",arg,&ravel::DataCube::minVal);
+::xml_unpack(targ,desc+".maxVal",arg,&ravel::DataCube::maxVal);
+::xml_unpack(targ,desc+".filterMin",arg.filterMin);
+::xml_unpack(targ,desc+".filterMax",arg.filterMax);
+::xml_unpack(targ,desc+".filterOn",arg.filterOn);
+::xml_unpack(targ,desc+".sortBy",arg,&ravel::DataCube::sortBy);
+::xml_unpack(targ,desc+".unsortAxis",arg,&ravel::DataCube::unsortAxis);
+::xml_unpack(targ,desc+".loadFile",arg,&ravel::DataCube::loadFile);
+::xml_unpack(targ,desc+".loadData",arg,&ravel::DataCube::loadData);
+::xml_unpack(targ,desc+".initDataSpec",arg,&ravel::DataCube::initDataSpec);
+::xml_unpack(targ,desc+".initRavel",arg,&ravel::DataCube::initRavel);
+::xml_unpack(targ,desc+".populateArray",arg,&ravel::DataCube::populateArray);
+::xml_unpack(targ,desc+".filterDataElement",arg,&ravel::DataCube::filterDataElement);
+::xml_unpack(targ,desc+".setDataElement",arg,&ravel::DataCube::setDataElement);
+::xml_unpack(targ,desc+".histogram",arg.histogram);
+::xml_unpack(targ,desc+".numFinite",arg,&ravel::DataCube::numFinite);
+::xml_unpack(targ,desc+".size",arg,&ravel::DataCube::size);
+}
+};
+template <> struct access_random_init<struct ::ravel::DataSpec > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::random_init(targ,desc+".nRowAxes",arg.nRowAxes);
+::random_init(targ,desc+".nColAxes",arg.nColAxes);
+::random_init(targ,desc+".commentRows",arg.commentRows);
+::random_init(targ,desc+".commentCols",arg.commentCols);
+}
+};
+template <> struct access_random_init<struct ::ravel::Tokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::random_init(targ,desc+".getLine",arg,&ravel::Tokeniser::getLine);
+}
+};
+template <> struct access_random_init<struct ::ravel::CSVFTokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::random_init_onbase(targ,desc+"",classdesc::base_cast<Tokeniser >::cast(arg));
+::random_init(targ,desc+".input",arg.input);
+::random_init(targ,desc+".separator",arg.separator);
+::random_init(targ,desc+".getLine",arg,&ravel::CSVFTokeniser::getLine);
+}
+};
+template <> struct access_random_init<enum ::ravel::DataCube::SortBy::Type > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::random_init(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_random_init<struct ::ravel::DataCube::SortBy > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCube::SortBy SortBy;
+::random_init(targ,desc+".type",arg.type);
+::random_init(targ,desc+".rowCol",arg.rowCol);
+::random_init(targ,desc+".reverse",arg.reverse);
+}
+};
+template <> struct access_random_init<class ::ravel::DataCube > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::random_init(targ,desc+".rawData",arg.rawData);
+::random_init(targ,desc+".m_dimLabels",arg.m_dimLabels);
+::random_init(targ,desc+".m_sortBy",arg.m_sortBy);
+::random_init(targ,desc+".xh",arg.xh);
+::random_init(targ,desc+".yh",arg.yh);
+::random_init(targ,desc+".leastRowAxis",arg.leastRowAxis);
+::random_init(targ,desc+".m_minVal",arg.m_minVal);
+::random_init(targ,desc+".m_maxVal",arg.m_maxVal);
+::random_init(targ,desc+".m_maxRow",arg.m_maxRow);
+::random_init(targ,desc+".m_maxCol",arg.m_maxCol);
+::random_init(targ,desc+".dimNames",arg.dimNames);
+::random_init(targ,desc+".dimLabels",arg,&ravel::DataCube::dimLabels);
+::random_init(targ,desc+".renameAxis",arg,&ravel::DataCube::renameAxis);
+::random_init(targ,desc+".maxRow",arg,&ravel::DataCube::maxRow);
+::random_init(targ,desc+".maxCol",arg,&ravel::DataCube::maxCol);
+::random_init(targ,desc+".minVal",arg,&ravel::DataCube::minVal);
+::random_init(targ,desc+".maxVal",arg,&ravel::DataCube::maxVal);
+::random_init(targ,desc+".filterMin",arg.filterMin);
+::random_init(targ,desc+".filterMax",arg.filterMax);
+::random_init(targ,desc+".filterOn",arg.filterOn);
+::random_init(targ,desc+".sortBy",arg,&ravel::DataCube::sortBy);
+::random_init(targ,desc+".unsortAxis",arg,&ravel::DataCube::unsortAxis);
+::random_init(targ,desc+".loadFile",arg,&ravel::DataCube::loadFile);
+::random_init(targ,desc+".loadData",arg,&ravel::DataCube::loadData);
+::random_init(targ,desc+".initDataSpec",arg,&ravel::DataCube::initDataSpec);
+::random_init(targ,desc+".initRavel",arg,&ravel::DataCube::initRavel);
+::random_init(targ,desc+".populateArray",arg,&ravel::DataCube::populateArray);
+::random_init(targ,desc+".filterDataElement",arg,&ravel::DataCube::filterDataElement);
+::random_init(targ,desc+".setDataElement",arg,&ravel::DataCube::setDataElement);
+::random_init(targ,desc+".histogram",arg.histogram);
+::random_init(targ,desc+".numFinite",arg,&ravel::DataCube::numFinite);
+::random_init(targ,desc+".size",arg,&ravel::DataCube::size);
+}
+};
+}
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
+#include "classdesc.h"
+
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+#include "TCL_obj_base.h"
+#include "isa_base.h"
+#ifndef CLASSDESC_TYPENAME_ravel__DataSpec
+#define CLASSDESC_TYPENAME_ravel__DataSpec
+namespace classdesc {
+template <> inline std::string typeName<ravel::DataSpec >()
+  {return "ravel::DataSpec";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__Tokeniser
+#define CLASSDESC_TYPENAME_ravel__Tokeniser
+namespace classdesc {
+template <> inline std::string typeName<ravel::Tokeniser >()
+  {return "ravel::Tokeniser";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__CSVFTokeniser
+#define CLASSDESC_TYPENAME_ravel__CSVFTokeniser
+namespace classdesc {
+template <> inline std::string typeName<ravel::CSVFTokeniser >()
+  {return "ravel::CSVFTokeniser";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__DataCube__SortBy__Type
+#define CLASSDESC_TYPENAME_ravel__DataCube__SortBy__Type
+namespace classdesc {
+template <> inline std::string typeName<ravel::DataCube::SortBy::Type >()
+  {return "ravel::DataCube::SortBy::Type";}
+namespace   {
+template <> EnumKey enum_keysData<ravel::DataCube::SortBy::Type>::keysData[]=
+ {
+  {"none",int(ravel::DataCube::SortBy::none)},
+  {"byValue",int(ravel::DataCube::SortBy::byValue)}
+ };
+template <> EnumKeys<ravel::DataCube::SortBy::Type> enum_keysData<ravel::DataCube::SortBy::Type>::keys(enum_keysData<ravel::DataCube::SortBy::Type>::keysData,sizeof(enum_keysData<ravel::DataCube::SortBy::Type>::keysData)/sizeof(enum_keysData<ravel::DataCube::SortBy::Type>::keysData[0]));
+template <> int enumKey<ravel::DataCube::SortBy::Type>(const std::string& x){return int(enum_keysData<ravel::DataCube::SortBy::Type>::keys(x));}
+template <> std::string enumKey<ravel::DataCube::SortBy::Type>(int x){return enum_keysData<ravel::DataCube::SortBy::Type>::keys(x);}
+}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__DataCube__SortBy
+#define CLASSDESC_TYPENAME_ravel__DataCube__SortBy
+namespace classdesc {
+template <> inline std::string typeName<ravel::DataCube::SortBy >()
+  {return "ravel::DataCube::SortBy";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__DataCube
+#define CLASSDESC_TYPENAME_ravel__DataCube
+namespace classdesc {
+template <> inline std::string typeName<ravel::DataCube >()
+  {return "ravel::DataCube";}
+}
+#endif
+namespace classdesc_access {
+template <> struct access_TCL_obj<struct ::ravel::DataSpec > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj(targ,desc+".nRowAxes",arg.nRowAxes);
+::TCL_obj(targ,desc+".nColAxes",arg.nColAxes);
+::TCL_obj(targ,desc+".commentRows",arg.commentRows);
+::TCL_obj(targ,desc+".commentCols",arg.commentCols);
+}
+};
+template <> struct access_TCL_obj<struct ::ravel::Tokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj(targ,desc+".getLine",arg,&ravel::Tokeniser::getLine);
+}
+};
+template <> struct access_TCL_obj<struct ::ravel::CSVFTokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj_onbase(targ,desc+"",classdesc::base_cast<Tokeniser >::cast(arg));
+::TCL_obj(targ,desc+".input",arg.input);
+::TCL_obj(targ,desc+".separator",arg.separator);
+::TCL_obj(targ,desc+".getLine",arg,&ravel::CSVFTokeniser::getLine);
+}
+};
+template <> struct access_TCL_obj<enum ::ravel::DataCube::SortBy::Type > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_TCL_obj<struct ::ravel::DataCube::SortBy > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCube::SortBy SortBy;
+::TCL_obj(targ,desc+".type",arg.type);
+::TCL_obj(targ,desc+".rowCol",arg.rowCol);
+::TCL_obj(targ,desc+".reverse",arg.reverse);
+}
+};
+template <> struct access_TCL_obj<class ::ravel::DataCube > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj(targ,desc+".dimNames",arg.dimNames);
+::TCL_obj(targ,desc+".dimLabels",arg,&ravel::DataCube::dimLabels);
+::TCL_obj(targ,desc+".renameAxis",arg,&ravel::DataCube::renameAxis);
+::TCL_obj(targ,desc+".maxRow",arg,&ravel::DataCube::maxRow);
+::TCL_obj(targ,desc+".maxCol",arg,&ravel::DataCube::maxCol);
+::TCL_obj(targ,desc+".minVal",arg,&ravel::DataCube::minVal);
+::TCL_obj(targ,desc+".maxVal",arg,&ravel::DataCube::maxVal);
+::TCL_obj(targ,desc+".filterMin",arg.filterMin);
+::TCL_obj(targ,desc+".filterMax",arg.filterMax);
+::TCL_obj(targ,desc+".filterOn",arg.filterOn);
+::TCL_obj(targ,desc+".sortBy",arg,&ravel::DataCube::sortBy);
+::TCL_obj(targ,desc+".unsortAxis",arg,&ravel::DataCube::unsortAxis);
+::TCL_obj(targ,desc+".loadFile",arg,&ravel::DataCube::loadFile);
+::TCL_obj(targ,desc+".loadData",arg,&ravel::DataCube::loadData);
+::TCL_obj(targ,desc+".initDataSpec",arg,&ravel::DataCube::initDataSpec);
+::TCL_obj(targ,desc+".initRavel",arg,&ravel::DataCube::initRavel);
+::TCL_obj(targ,desc+".populateArray",arg,&ravel::DataCube::populateArray);
+::TCL_obj(targ,desc+".filterDataElement",arg,&ravel::DataCube::filterDataElement);
+::TCL_obj(targ,desc+".setDataElement",arg,&ravel::DataCube::setDataElement);
+::TCL_obj(targ,desc+".histogram",arg.histogram);
+::TCL_obj(targ,desc+".numFinite",arg,&ravel::DataCube::numFinite);
+::TCL_obj(targ,desc+".size",arg,&ravel::DataCube::size);
+}
+};
+template <> struct access_isa<struct ::ravel::DataSpec > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa(targ,desc+".nRowAxes",arg.nRowAxes);
+::isa(targ,desc+".nColAxes",arg.nColAxes);
+::isa(targ,desc+".commentRows",arg.commentRows);
+::isa(targ,desc+".commentCols",arg.commentCols);
+}
+};
+template <> struct access_isa<struct ::ravel::Tokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa(targ,desc+".getLine",arg,&ravel::Tokeniser::getLine);
+}
+};
+template <> struct access_isa<struct ::ravel::CSVFTokeniser > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa_onbase(targ,desc+"",classdesc::base_cast<Tokeniser >::cast(arg));
+::isa(targ,desc+".input",arg.input);
+::isa(targ,desc+".separator",arg.separator);
+::isa(targ,desc+".getLine",arg,&ravel::CSVFTokeniser::getLine);
+}
+};
+template <> struct access_isa<enum ::ravel::DataCube::SortBy::Type > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_isa<struct ::ravel::DataCube::SortBy > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  DataCube::SortBy SortBy;
+::isa(targ,desc+".type",arg.type);
+::isa(targ,desc+".rowCol",arg.rowCol);
+::isa(targ,desc+".reverse",arg.reverse);
+}
+};
+template <> struct access_isa<class ::ravel::DataCube > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa(targ,desc+".dimNames",arg.dimNames);
+::isa(targ,desc+".dimLabels",arg,&ravel::DataCube::dimLabels);
+::isa(targ,desc+".renameAxis",arg,&ravel::DataCube::renameAxis);
+::isa(targ,desc+".maxRow",arg,&ravel::DataCube::maxRow);
+::isa(targ,desc+".maxCol",arg,&ravel::DataCube::maxCol);
+::isa(targ,desc+".minVal",arg,&ravel::DataCube::minVal);
+::isa(targ,desc+".maxVal",arg,&ravel::DataCube::maxVal);
+::isa(targ,desc+".filterMin",arg.filterMin);
+::isa(targ,desc+".filterMax",arg.filterMax);
+::isa(targ,desc+".filterOn",arg.filterOn);
+::isa(targ,desc+".sortBy",arg,&ravel::DataCube::sortBy);
+::isa(targ,desc+".unsortAxis",arg,&ravel::DataCube::unsortAxis);
+::isa(targ,desc+".loadFile",arg,&ravel::DataCube::loadFile);
+::isa(targ,desc+".loadData",arg,&ravel::DataCube::loadData);
+::isa(targ,desc+".initDataSpec",arg,&ravel::DataCube::initDataSpec);
+::isa(targ,desc+".initRavel",arg,&ravel::DataCube::initRavel);
+::isa(targ,desc+".populateArray",arg,&ravel::DataCube::populateArray);
+::isa(targ,desc+".filterDataElement",arg,&ravel::DataCube::filterDataElement);
+::isa(targ,desc+".setDataElement",arg,&ravel::DataCube::setDataElement);
+::isa(targ,desc+".histogram",arg.histogram);
+::isa(targ,desc+".numFinite",arg,&ravel::DataCube::numFinite);
+::isa(targ,desc+".size",arg,&ravel::DataCube::size);
+}
+};
+}
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif

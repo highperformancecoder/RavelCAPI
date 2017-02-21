@@ -1,0 +1,341 @@
+#include "classdesc.h"
+
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+#include "pack_base.h"
+#include "unpack_base.h"
+#include "xml_pack_base.h"
+#include "xml_unpack_base.h"
+#include "random_init_base.h"
+#ifndef CLASSDESC_TYPENAME_ravel__RavelCairo_G_
+#define CLASSDESC_TYPENAME_ravel__RavelCairo_G_
+namespace classdesc {
+template < class G >  struct tn<ravel::RavelCairo<G> >
+{
+static std::string name()
+  {return "ravel::RavelCairo< "+typeName<G>()+" > ";}
+};
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_classdesc_access__access_xml_pack__ravel____RavelCairo___G____
+#define CLASSDESC_TYPENAME_classdesc_access__access_xml_pack__ravel____RavelCairo___G____
+namespace classdesc {
+template < class G >  struct tn<classdesc_access::access_xml_pack< ravel :: RavelCairo < G >>  >
+{
+static std::string name()
+  {return "classdesc_access::access_xml_pack< "+typeName<G>()+" > ";}
+};
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_classdesc_access__access_xml_unpack__ravel____RavelCairo___G____
+#define CLASSDESC_TYPENAME_classdesc_access__access_xml_unpack__ravel____RavelCairo___G____
+namespace classdesc {
+template < class G >  struct tn<classdesc_access::access_xml_unpack< ravel :: RavelCairo < G >>  >
+{
+static std::string name()
+  {return "classdesc_access::access_xml_unpack< "+typeName<G>()+" > ";}
+};
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_classdesc_access__access_random_init__ravel____RavelCairo___G____
+#define CLASSDESC_TYPENAME_classdesc_access__access_random_init__ravel____RavelCairo___G____
+namespace classdesc {
+template < class G >  struct tn<classdesc_access::access_random_init< ravel :: RavelCairo < G >>  >
+{
+static std::string name()
+  {return "classdesc_access::access_random_init< "+typeName<G>()+" > ";}
+};
+}
+#endif
+namespace classdesc_access {
+template < class G >  struct access_pack<class ::ravel::RavelCairo<G> > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack_onbase(targ,desc+"",classdesc::base_cast<Ravel >::cast(arg));
+::pack(targ,desc+".toolTipHandle",arg.toolTipHandle);
+::pack(targ,desc+".g",arg.g);
+::pack(targ,desc+".setG",arg,&ravel::RavelCairo<G>::setG);
+::pack(targ,desc+".onMouseDown",arg,&ravel::RavelCairo<G>::onMouseDown);
+::pack(targ,desc+".onMouseOver",arg,&ravel::RavelCairo<G>::onMouseOver);
+::pack(targ,desc+".handleIfMouseOverAxisLabel",arg,&ravel::RavelCairo<G>::handleIfMouseOverAxisLabel);
+::pack(targ,desc+".handleIfMouseOverOpLabel",arg,&ravel::RavelCairo<G>::handleIfMouseOverOpLabel);
+::pack(targ,desc+".handleIfMouseOverCaliperLabel",arg,&ravel::RavelCairo<G>::handleIfMouseOverCaliperLabel);
+::pack(targ,desc+".render",arg,&ravel::RavelCairo<G>::render);
+}
+};
+template < class G >  struct access_pack<struct ::classdesc_access::access_xml_pack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::pack_onbase(targ,desc+"",classdesc::base_cast<access_xml_pack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_pack<struct ::classdesc_access::access_xml_unpack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::pack_onbase(targ,desc+"",classdesc::base_cast<access_xml_unpack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_pack<struct ::classdesc_access::access_random_init< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::pack_onbase(targ,desc+"",classdesc::base_cast<access_random_init<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_unpack<class ::ravel::RavelCairo<G> > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack_onbase(targ,desc+"",classdesc::base_cast<Ravel >::cast(arg));
+::unpack(targ,desc+".toolTipHandle",arg.toolTipHandle);
+::unpack(targ,desc+".g",arg.g);
+::unpack(targ,desc+".setG",arg,&ravel::RavelCairo<G>::setG);
+::unpack(targ,desc+".onMouseDown",arg,&ravel::RavelCairo<G>::onMouseDown);
+::unpack(targ,desc+".onMouseOver",arg,&ravel::RavelCairo<G>::onMouseOver);
+::unpack(targ,desc+".handleIfMouseOverAxisLabel",arg,&ravel::RavelCairo<G>::handleIfMouseOverAxisLabel);
+::unpack(targ,desc+".handleIfMouseOverOpLabel",arg,&ravel::RavelCairo<G>::handleIfMouseOverOpLabel);
+::unpack(targ,desc+".handleIfMouseOverCaliperLabel",arg,&ravel::RavelCairo<G>::handleIfMouseOverCaliperLabel);
+::unpack(targ,desc+".render",arg,&ravel::RavelCairo<G>::render);
+}
+};
+template < class G >  struct access_unpack<struct ::classdesc_access::access_xml_pack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::unpack_onbase(targ,desc+"",classdesc::base_cast<access_xml_pack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_unpack<struct ::classdesc_access::access_xml_unpack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::unpack_onbase(targ,desc+"",classdesc::base_cast<access_xml_unpack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_unpack<struct ::classdesc_access::access_random_init< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::unpack_onbase(targ,desc+"",classdesc::base_cast<access_random_init<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_xml_pack<struct ::classdesc_access::access_xml_pack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::xml_pack_onbase(targ,desc+"",classdesc::base_cast<access_xml_pack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_xml_pack<struct ::classdesc_access::access_xml_unpack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::xml_pack_onbase(targ,desc+"",classdesc::base_cast<access_xml_unpack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_xml_pack<struct ::classdesc_access::access_random_init< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::xml_pack_onbase(targ,desc+"",classdesc::base_cast<access_random_init<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_xml_unpack<struct ::classdesc_access::access_xml_pack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::xml_unpack_onbase(targ,desc+"",classdesc::base_cast<access_xml_pack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_xml_unpack<struct ::classdesc_access::access_xml_unpack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::xml_unpack_onbase(targ,desc+"",classdesc::base_cast<access_xml_unpack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_xml_unpack<struct ::classdesc_access::access_random_init< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::xml_unpack_onbase(targ,desc+"",classdesc::base_cast<access_random_init<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_random_init<struct ::classdesc_access::access_xml_pack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::random_init_onbase(targ,desc+"",classdesc::base_cast<access_xml_pack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_random_init<struct ::classdesc_access::access_xml_unpack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::random_init_onbase(targ,desc+"",classdesc::base_cast<access_xml_unpack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_random_init<struct ::classdesc_access::access_random_init< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::random_init_onbase(targ,desc+"",classdesc::base_cast<access_random_init<ravel::Ravel> >::cast(arg));
+}
+};
+}
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
+#include "classdesc.h"
+
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+#include "TCL_obj_base.h"
+#include "isa_base.h"
+#ifndef CLASSDESC_TYPENAME_ravel__RavelCairo_G_
+#define CLASSDESC_TYPENAME_ravel__RavelCairo_G_
+namespace classdesc {
+template < class G >  struct tn<ravel::RavelCairo<G> >
+{
+static std::string name()
+  {return "ravel::RavelCairo< "+typeName<G>()+" > ";}
+};
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_classdesc_access__access_xml_pack__ravel____RavelCairo___G____
+#define CLASSDESC_TYPENAME_classdesc_access__access_xml_pack__ravel____RavelCairo___G____
+namespace classdesc {
+template < class G >  struct tn<classdesc_access::access_xml_pack< ravel :: RavelCairo < G >>  >
+{
+static std::string name()
+  {return "classdesc_access::access_xml_pack< "+typeName<G>()+" > ";}
+};
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_classdesc_access__access_xml_unpack__ravel____RavelCairo___G____
+#define CLASSDESC_TYPENAME_classdesc_access__access_xml_unpack__ravel____RavelCairo___G____
+namespace classdesc {
+template < class G >  struct tn<classdesc_access::access_xml_unpack< ravel :: RavelCairo < G >>  >
+{
+static std::string name()
+  {return "classdesc_access::access_xml_unpack< "+typeName<G>()+" > ";}
+};
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_classdesc_access__access_random_init__ravel____RavelCairo___G____
+#define CLASSDESC_TYPENAME_classdesc_access__access_random_init__ravel____RavelCairo___G____
+namespace classdesc {
+template < class G >  struct tn<classdesc_access::access_random_init< ravel :: RavelCairo < G >>  >
+{
+static std::string name()
+  {return "classdesc_access::access_random_init< "+typeName<G>()+" > ";}
+};
+}
+#endif
+namespace classdesc_access {
+template < class G >  struct access_TCL_obj<class ::ravel::RavelCairo<G> > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj_onbase(targ,desc+"",classdesc::base_cast<Ravel >::cast(arg));
+::TCL_obj(targ,desc+".setG",arg,&ravel::RavelCairo<G>::setG);
+::TCL_obj(targ,desc+".onMouseDown",arg,&ravel::RavelCairo<G>::onMouseDown);
+::TCL_obj(targ,desc+".onMouseOver",arg,&ravel::RavelCairo<G>::onMouseOver);
+::TCL_obj(targ,desc+".handleIfMouseOverAxisLabel",arg,&ravel::RavelCairo<G>::handleIfMouseOverAxisLabel);
+::TCL_obj(targ,desc+".handleIfMouseOverOpLabel",arg,&ravel::RavelCairo<G>::handleIfMouseOverOpLabel);
+::TCL_obj(targ,desc+".handleIfMouseOverCaliperLabel",arg,&ravel::RavelCairo<G>::handleIfMouseOverCaliperLabel);
+::TCL_obj(targ,desc+".render",arg,&ravel::RavelCairo<G>::render);
+}
+};
+template < class G >  struct access_TCL_obj<struct ::classdesc_access::access_xml_pack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::TCL_obj_onbase(targ,desc+"",classdesc::base_cast<access_xml_pack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_TCL_obj<struct ::classdesc_access::access_xml_unpack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::TCL_obj_onbase(targ,desc+"",classdesc::base_cast<access_xml_unpack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_TCL_obj<struct ::classdesc_access::access_random_init< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::TCL_obj_onbase(targ,desc+"",classdesc::base_cast<access_random_init<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_isa<class ::ravel::RavelCairo<G> > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa_onbase(targ,desc+"",classdesc::base_cast<Ravel >::cast(arg));
+::isa(targ,desc+".setG",arg,&ravel::RavelCairo<G>::setG);
+::isa(targ,desc+".onMouseDown",arg,&ravel::RavelCairo<G>::onMouseDown);
+::isa(targ,desc+".onMouseOver",arg,&ravel::RavelCairo<G>::onMouseOver);
+::isa(targ,desc+".handleIfMouseOverAxisLabel",arg,&ravel::RavelCairo<G>::handleIfMouseOverAxisLabel);
+::isa(targ,desc+".handleIfMouseOverOpLabel",arg,&ravel::RavelCairo<G>::handleIfMouseOverOpLabel);
+::isa(targ,desc+".handleIfMouseOverCaliperLabel",arg,&ravel::RavelCairo<G>::handleIfMouseOverCaliperLabel);
+::isa(targ,desc+".render",arg,&ravel::RavelCairo<G>::render);
+}
+};
+template < class G >  struct access_isa<struct ::classdesc_access::access_xml_pack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::isa_onbase(targ,desc+"",classdesc::base_cast<access_xml_pack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_isa<struct ::classdesc_access::access_xml_unpack< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::isa_onbase(targ,desc+"",classdesc::base_cast<access_xml_unpack<ravel::Ravel> >::cast(arg));
+}
+};
+template < class G >  struct access_isa<struct ::classdesc_access::access_random_init< ravel :: RavelCairo < G >>  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+::isa_onbase(targ,desc+"",classdesc::base_cast<access_random_init<ravel::Ravel> >::cast(arg));
+}
+};
+}
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif

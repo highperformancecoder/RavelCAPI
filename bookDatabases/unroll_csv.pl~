@@ -1,0 +1,15 @@
+# skip header
+for ($i=0; $i<4; ++i) {<>;}
+
+$naxes=5;
+
+@row=split/,/;
+
+for ($i=$naxes; $i<=$#row; ++$i)
+{
+    for ($j=0; $j<$naxes; ++$j)
+    {
+        print "$row[$j],";
+    }
+    print "$row[$i]\n";
+}

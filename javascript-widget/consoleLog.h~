@@ -1,0 +1,24 @@
+#ifndef CONSOLELOG_H
+#define CONSOLELOG_H
+
+#include <emscripten/emscripten.h>
+#include <sstream>
+
+namespace ravel
+{
+  void log(const std::string& x)
+  {
+    emscripten::emscripten_run_script(("console.log('"+x+"')").c_str());
+  }
+
+  // convenient iostream interface to the console log 
+  struct ConsoleLog: public std::ostringstream {} console;
+  struct ConsoleLogEndl {} endl;
+  ConsoleLog& operator<<(ConsoleLog& x, ConsoleLogEndl)
+  {log(x.str()); x.str(""); return x;}
+  template <class T>
+  ConsoleLog& operator<<(ConsoleLog& x, const T& y)
+  {static_cast<std::ostringstream&>(x)<<y; return x;}
+
+}
+#endif

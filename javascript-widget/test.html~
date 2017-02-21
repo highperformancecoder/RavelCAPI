@@ -1,0 +1,8 @@
+<html>
+  <body>
+    <canvas width=300 height=300 id="canvas">
+    </canvas>
+    <script>
+      
+  </body>
+</html>

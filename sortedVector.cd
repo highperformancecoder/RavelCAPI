@@ -1,0 +1,482 @@
+#include "classdesc.h"
+
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+#include "pack_base.h"
+#include "unpack_base.h"
+#include "xml_pack_base.h"
+#include "xml_unpack_base.h"
+#include "random_init_base.h"
+#ifndef CLASSDESC_TYPENAME_ravel__HandleSort__Order
+#define CLASSDESC_TYPENAME_ravel__HandleSort__Order
+namespace classdesc {
+template <> inline std::string typeName<ravel::HandleSort::Order >()
+  {return "ravel::HandleSort::Order";}
+namespace   {
+template <> EnumKey enum_keysData<ravel::HandleSort::Order>::keysData[]=
+ {
+  {"none",int(ravel::HandleSort::none)},
+  {"forward",int(ravel::HandleSort::forward)},
+  {"reverse",int(ravel::HandleSort::reverse)},
+  {"numForward",int(ravel::HandleSort::numForward)},
+  {"numReverse",int(ravel::HandleSort::numReverse)},
+  {"custom",int(ravel::HandleSort::custom)}
+ };
+template <> EnumKeys<ravel::HandleSort::Order> enum_keysData<ravel::HandleSort::Order>::keys(enum_keysData<ravel::HandleSort::Order>::keysData,sizeof(enum_keysData<ravel::HandleSort::Order>::keysData)/sizeof(enum_keysData<ravel::HandleSort::Order>::keysData[0]));
+template <> int enumKey<ravel::HandleSort::Order>(const std::string& x){return int(enum_keysData<ravel::HandleSort::Order>::keys(x));}
+template <> std::string enumKey<ravel::HandleSort::Order>(int x){return enum_keysData<ravel::HandleSort::Order>::keys(x);}
+}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__HandleSort
+#define CLASSDESC_TYPENAME_ravel__HandleSort
+namespace classdesc {
+template <> inline std::string typeName<ravel::HandleSort >()
+  {return "ravel::HandleSort";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__SortedVector__iterator
+#define CLASSDESC_TYPENAME_ravel__SortedVector__iterator
+namespace classdesc {
+template <> inline std::string typeName<ravel::SortedVector::iterator >()
+  {return "ravel::SortedVector::iterator";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__SortedVector
+#define CLASSDESC_TYPENAME_ravel__SortedVector
+namespace classdesc {
+template <> inline std::string typeName<ravel::SortedVector >()
+  {return "ravel::SortedVector";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_classdesc_access__access_random_init__ravel____SortedVector___
+#define CLASSDESC_TYPENAME_classdesc_access__access_random_init__ravel____SortedVector___
+namespace classdesc {
+template <> inline std::string typeName<classdesc_access::access_random_init< ravel :: SortedVector >  >()
+  {return "classdesc_access::access_random_init< ravel :: SortedVector > ";}
+}
+#endif
+namespace classdesc_access {
+template <> struct access_pack<enum ::ravel::HandleSort::Order > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_pack<struct ::ravel::HandleSort > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_pack<class ::ravel::SortedVector::iterator > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  SortedVector::value_type value_type;
+typedef  SortedVector::iterator iterator;
+typedef  SortedVector::const_iterator const_iterator;
+typedef  SortedVector::size_type size_type;
+::pack_onbase(targ,desc+"",classdesc::base_cast<std::iterator<std::bidirectional_iterator_tag,std::string> >::cast(arg));
+::pack(targ,desc+".v",arg.v);
+::pack(targ,desc+".i",arg.i);
+}
+};
+template <> struct access_pack<class ::ravel::SortedVector > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::pack_onbase(targ,desc+"",classdesc::base_cast<HandleSort >::cast(arg));
+::pack(targ,desc+".resize",arg,&ravel::SortedVector::resize);
+::pack(targ,desc+".clear",arg,&ravel::SortedVector::clear);
+::pack(targ,desc+".push_back",arg,&ravel::SortedVector::push_back);
+::pack(targ,desc+".idx",arg,&ravel::SortedVector::idx);
+::pack(targ,desc+".begin",arg,&ravel::SortedVector::begin);
+::pack(targ,desc+".end",arg,&ravel::SortedVector::end);
+::pack(targ,desc+".size",arg,&ravel::SortedVector::size);
+::pack(targ,desc+".empty",arg,&ravel::SortedVector::empty);
+::pack(targ,desc+".orderReversed",arg,&ravel::SortedVector::orderReversed);
+::pack(targ,desc+".customPermutation",arg,&ravel::SortedVector::customPermutation);
+::pack(targ,desc+".isPermValid",arg,&ravel::SortedVector::isPermValid);
+::pack(targ,desc+".m_order",arg.m_order);
+::pack(targ,desc+".labels",arg.labels);
+::pack(targ,desc+".indices",arg.indices);
+}
+};
+template <> struct access_pack<struct ::classdesc_access::access_random_init< ravel :: SortedVector >  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+}
+};
+template <> struct access_unpack<enum ::ravel::HandleSort::Order > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_unpack<struct ::ravel::HandleSort > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_unpack<class ::ravel::SortedVector::iterator > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  SortedVector::value_type value_type;
+typedef  SortedVector::iterator iterator;
+typedef  SortedVector::const_iterator const_iterator;
+typedef  SortedVector::size_type size_type;
+::unpack_onbase(targ,desc+"",classdesc::base_cast<std::iterator<std::bidirectional_iterator_tag,std::string> >::cast(arg));
+::unpack(targ,desc+".v",arg.v);
+::unpack(targ,desc+".i",arg.i);
+}
+};
+template <> struct access_unpack<class ::ravel::SortedVector > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::unpack_onbase(targ,desc+"",classdesc::base_cast<HandleSort >::cast(arg));
+::unpack(targ,desc+".resize",arg,&ravel::SortedVector::resize);
+::unpack(targ,desc+".clear",arg,&ravel::SortedVector::clear);
+::unpack(targ,desc+".push_back",arg,&ravel::SortedVector::push_back);
+::unpack(targ,desc+".idx",arg,&ravel::SortedVector::idx);
+::unpack(targ,desc+".begin",arg,&ravel::SortedVector::begin);
+::unpack(targ,desc+".end",arg,&ravel::SortedVector::end);
+::unpack(targ,desc+".size",arg,&ravel::SortedVector::size);
+::unpack(targ,desc+".empty",arg,&ravel::SortedVector::empty);
+::unpack(targ,desc+".orderReversed",arg,&ravel::SortedVector::orderReversed);
+::unpack(targ,desc+".customPermutation",arg,&ravel::SortedVector::customPermutation);
+::unpack(targ,desc+".isPermValid",arg,&ravel::SortedVector::isPermValid);
+::unpack(targ,desc+".m_order",arg.m_order);
+::unpack(targ,desc+".labels",arg.labels);
+::unpack(targ,desc+".indices",arg.indices);
+}
+};
+template <> struct access_unpack<struct ::classdesc_access::access_random_init< ravel :: SortedVector >  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+}
+};
+template <> struct access_xml_pack<enum ::ravel::HandleSort::Order > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_xml_pack<struct ::ravel::HandleSort > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_xml_pack<class ::ravel::SortedVector::iterator > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  SortedVector::value_type value_type;
+typedef  SortedVector::iterator iterator;
+typedef  SortedVector::const_iterator const_iterator;
+typedef  SortedVector::size_type size_type;
+::xml_pack_onbase(targ,desc+"",classdesc::base_cast<std::iterator<std::bidirectional_iterator_tag,std::string> >::cast(arg));
+::xml_pack(targ,desc+".v",arg.v);
+::xml_pack(targ,desc+".i",arg.i);
+}
+};
+template <> struct access_xml_pack<class ::ravel::SortedVector > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_pack_onbase(targ,desc+"",classdesc::base_cast<HandleSort >::cast(arg));
+::xml_pack(targ,desc+".resize",arg,&ravel::SortedVector::resize);
+::xml_pack(targ,desc+".clear",arg,&ravel::SortedVector::clear);
+::xml_pack(targ,desc+".push_back",arg,&ravel::SortedVector::push_back);
+::xml_pack(targ,desc+".idx",arg,&ravel::SortedVector::idx);
+::xml_pack(targ,desc+".begin",arg,&ravel::SortedVector::begin);
+::xml_pack(targ,desc+".end",arg,&ravel::SortedVector::end);
+::xml_pack(targ,desc+".size",arg,&ravel::SortedVector::size);
+::xml_pack(targ,desc+".empty",arg,&ravel::SortedVector::empty);
+::xml_pack(targ,desc+".orderReversed",arg,&ravel::SortedVector::orderReversed);
+::xml_pack(targ,desc+".customPermutation",arg,&ravel::SortedVector::customPermutation);
+::xml_pack(targ,desc+".isPermValid",arg,&ravel::SortedVector::isPermValid);
+::xml_pack(targ,desc+".m_order",arg.m_order);
+::xml_pack(targ,desc+".labels",arg.labels);
+::xml_pack(targ,desc+".indices",arg.indices);
+}
+};
+template <> struct access_xml_pack<struct ::classdesc_access::access_random_init< ravel :: SortedVector >  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_pack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+}
+};
+template <> struct access_xml_unpack<enum ::ravel::HandleSort::Order > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_xml_unpack<struct ::ravel::HandleSort > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_xml_unpack<class ::ravel::SortedVector::iterator > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  SortedVector::value_type value_type;
+typedef  SortedVector::iterator iterator;
+typedef  SortedVector::const_iterator const_iterator;
+typedef  SortedVector::size_type size_type;
+::xml_unpack_onbase(targ,desc+"",classdesc::base_cast<std::iterator<std::bidirectional_iterator_tag,std::string> >::cast(arg));
+::xml_unpack(targ,desc+".v",arg.v);
+::xml_unpack(targ,desc+".i",arg.i);
+}
+};
+template <> struct access_xml_unpack<class ::ravel::SortedVector > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::xml_unpack_onbase(targ,desc+"",classdesc::base_cast<HandleSort >::cast(arg));
+::xml_unpack(targ,desc+".resize",arg,&ravel::SortedVector::resize);
+::xml_unpack(targ,desc+".clear",arg,&ravel::SortedVector::clear);
+::xml_unpack(targ,desc+".push_back",arg,&ravel::SortedVector::push_back);
+::xml_unpack(targ,desc+".idx",arg,&ravel::SortedVector::idx);
+::xml_unpack(targ,desc+".begin",arg,&ravel::SortedVector::begin);
+::xml_unpack(targ,desc+".end",arg,&ravel::SortedVector::end);
+::xml_unpack(targ,desc+".size",arg,&ravel::SortedVector::size);
+::xml_unpack(targ,desc+".empty",arg,&ravel::SortedVector::empty);
+::xml_unpack(targ,desc+".orderReversed",arg,&ravel::SortedVector::orderReversed);
+::xml_unpack(targ,desc+".customPermutation",arg,&ravel::SortedVector::customPermutation);
+::xml_unpack(targ,desc+".isPermValid",arg,&ravel::SortedVector::isPermValid);
+::xml_unpack(targ,desc+".m_order",arg.m_order);
+::xml_unpack(targ,desc+".labels",arg.labels);
+::xml_unpack(targ,desc+".indices",arg.indices);
+}
+};
+template <> struct access_xml_unpack<struct ::classdesc_access::access_random_init< ravel :: SortedVector >  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::xml_unpack_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+}
+};
+template <> struct access_random_init<enum ::ravel::HandleSort::Order > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::random_init(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_random_init<struct ::ravel::HandleSort > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_random_init<class ::ravel::SortedVector::iterator > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  SortedVector::value_type value_type;
+typedef  SortedVector::iterator iterator;
+typedef  SortedVector::const_iterator const_iterator;
+typedef  SortedVector::size_type size_type;
+::random_init_onbase(targ,desc+"",classdesc::base_cast<std::iterator<std::bidirectional_iterator_tag,std::string> >::cast(arg));
+::random_init(targ,desc+".v",arg.v);
+::random_init(targ,desc+".i",arg.i);
+}
+};
+template <> struct access_random_init<struct ::classdesc_access::access_random_init< ravel :: SortedVector >  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::random_init_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+}
+};
+}
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
+#include "classdesc.h"
+
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+#include "TCL_obj_base.h"
+#include "isa_base.h"
+#ifndef CLASSDESC_TYPENAME_ravel__HandleSort__Order
+#define CLASSDESC_TYPENAME_ravel__HandleSort__Order
+namespace classdesc {
+template <> inline std::string typeName<ravel::HandleSort::Order >()
+  {return "ravel::HandleSort::Order";}
+namespace   {
+template <> EnumKey enum_keysData<ravel::HandleSort::Order>::keysData[]=
+ {
+  {"none",int(ravel::HandleSort::none)},
+  {"forward",int(ravel::HandleSort::forward)},
+  {"reverse",int(ravel::HandleSort::reverse)},
+  {"numForward",int(ravel::HandleSort::numForward)},
+  {"numReverse",int(ravel::HandleSort::numReverse)},
+  {"custom",int(ravel::HandleSort::custom)}
+ };
+template <> EnumKeys<ravel::HandleSort::Order> enum_keysData<ravel::HandleSort::Order>::keys(enum_keysData<ravel::HandleSort::Order>::keysData,sizeof(enum_keysData<ravel::HandleSort::Order>::keysData)/sizeof(enum_keysData<ravel::HandleSort::Order>::keysData[0]));
+template <> int enumKey<ravel::HandleSort::Order>(const std::string& x){return int(enum_keysData<ravel::HandleSort::Order>::keys(x));}
+template <> std::string enumKey<ravel::HandleSort::Order>(int x){return enum_keysData<ravel::HandleSort::Order>::keys(x);}
+}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__HandleSort
+#define CLASSDESC_TYPENAME_ravel__HandleSort
+namespace classdesc {
+template <> inline std::string typeName<ravel::HandleSort >()
+  {return "ravel::HandleSort";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__SortedVector__iterator
+#define CLASSDESC_TYPENAME_ravel__SortedVector__iterator
+namespace classdesc {
+template <> inline std::string typeName<ravel::SortedVector::iterator >()
+  {return "ravel::SortedVector::iterator";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_ravel__SortedVector
+#define CLASSDESC_TYPENAME_ravel__SortedVector
+namespace classdesc {
+template <> inline std::string typeName<ravel::SortedVector >()
+  {return "ravel::SortedVector";}
+}
+#endif
+#ifndef CLASSDESC_TYPENAME_classdesc_access__access_random_init__ravel____SortedVector___
+#define CLASSDESC_TYPENAME_classdesc_access__access_random_init__ravel____SortedVector___
+namespace classdesc {
+template <> inline std::string typeName<classdesc_access::access_random_init< ravel :: SortedVector >  >()
+  {return "classdesc_access::access_random_init< ravel :: SortedVector > ";}
+}
+#endif
+namespace classdesc_access {
+template <> struct access_TCL_obj<enum ::ravel::HandleSort::Order > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::TCL_obj(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_TCL_obj<struct ::ravel::HandleSort > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_TCL_obj<class ::ravel::SortedVector::iterator > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  SortedVector::value_type value_type;
+typedef  SortedVector::iterator iterator;
+typedef  SortedVector::const_iterator const_iterator;
+typedef  SortedVector::size_type size_type;
+::TCL_obj_onbase(targ,desc+"",classdesc::base_cast<std::iterator<std::bidirectional_iterator_tag,std::string> >::cast(arg));
+}
+};
+template <> struct access_TCL_obj<struct ::classdesc_access::access_random_init< ravel :: SortedVector >  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::TCL_obj_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+}
+};
+template <> struct access_isa<enum ::ravel::HandleSort::Order > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa(targ,desc+"",classdesc::enum_handle(arg));
+}
+};
+template <> struct access_isa<struct ::ravel::HandleSort > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+}
+};
+template <> struct access_isa<class ::ravel::SortedVector::iterator > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+typedef  SortedVector::value_type value_type;
+typedef  SortedVector::iterator iterator;
+typedef  SortedVector::const_iterator const_iterator;
+typedef  SortedVector::size_type size_type;
+::isa_onbase(targ,desc+"",classdesc::base_cast<std::iterator<std::bidirectional_iterator_tag,std::string> >::cast(arg));
+}
+};
+template <> struct access_isa<class ::ravel::SortedVector > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace ravel;
+::isa_onbase(targ,desc+"",classdesc::base_cast<HandleSort >::cast(arg));
+::isa(targ,desc+".resize",arg,&ravel::SortedVector::resize);
+::isa(targ,desc+".clear",arg,&ravel::SortedVector::clear);
+::isa(targ,desc+".push_back",arg,&ravel::SortedVector::push_back);
+::isa(targ,desc+".idx",arg,&ravel::SortedVector::idx);
+::isa(targ,desc+".begin",arg,&ravel::SortedVector::begin);
+::isa(targ,desc+".end",arg,&ravel::SortedVector::end);
+::isa(targ,desc+".size",arg,&ravel::SortedVector::size);
+::isa(targ,desc+".empty",arg,&ravel::SortedVector::empty);
+::isa(targ,desc+".orderReversed",arg,&ravel::SortedVector::orderReversed);
+::isa(targ,desc+".customPermutation",arg,&ravel::SortedVector::customPermutation);
+::isa(targ,desc+".isPermValid",arg,&ravel::SortedVector::isPermValid);
+}
+};
+template <> struct access_isa<struct ::classdesc_access::access_random_init< ravel :: SortedVector >  > {
+template <class _CD_ARG_TYPE>
+void operator()(classdesc::isa_t& targ, const classdesc::string& desc,_CD_ARG_TYPE& arg)
+{
+using namespace classdesc_access;
+}
+};
+}
+#if defined(__GNUC__) && !defined(__ICC) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif

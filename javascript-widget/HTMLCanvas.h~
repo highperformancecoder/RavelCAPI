@@ -1,0 +1,18 @@
+#ifndef HTMLCANVAS
+#define HTMLCANVAS
+#include <string>
+#include <emscripten/emscript.h>
+
+namespace ravel
+{
+  struct HTMLCanvas
+  {
+    int id;
+    HTMLCanvas(const string& canvasId) {
+      emscripten_run_script("HTMLcanvas.newCanvas("+canvasId+")");
+      id=EM_ASM_INT_V({return HTMLcanvas.length});
+    }
+  };
+}
+
+#endif

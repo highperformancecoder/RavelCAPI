@@ -1,0 +1,110 @@
+#include "cairoShim.h"
+#include "HTMLCanvas.h"
+
+using namespace std;
+
+namespace ravel
+{
+  template <> class CairoShimImpl<HTMLCanvas>: public HTMLCanvas
+  {
+    bool pathOpen=false;
+  public:
+    void beginPath()
+    {
+      if (!pathOpen)
+        EM_ASM_ARGS(HTMLcanvas[$0].beginPath(),id);
+      pathOpen=true;
+    }
+    void endPath() {pathOpen=false;}
+    CairoShimImpl(const HTMLCanvas& canvas): HTMLCanvas(canvas) {}
+  };
+
+  template <> CairoShim<cairo_t*>::CairoShim(const HTMLCanvas& canvas): 
+    impl(new CairoShimImpl<HTMLCanvas>(cairo)) {}
+  template <> CairoShim<cairo_t*>::~CairoShim()
+  {delete impl;}
+
+  // template parameter G = cairo_t* or HDC
+  template <> void CairoShim<cairo_t*>::moveTo(double x, double y) 
+  {
+    impl->beginPath();
+    EM_ASM_ARGS(HTMLcanvas[$0].moveTo($1,$2),id,x,y);
+  }
+  
+  template <> void CairoShim<cairo_t*>::lineTo(double x, double y)
+  {
+    impl->beginPath();
+    EM_ASM_ARGS(HTMLcanvas[$0].lineTo($1,$2),id,x,y);
+  }
+
+  template <> void CairoShim<cairo_t*>::relMoveTo(double x, double y)
+  {}
+
+  template <> void CairoShim<cairo_t*>::relLineTo(double x, double y)
+  {}
+
+  template <> void CairoShim<cairo_t*>::arc
+  (double x, double y, double radius, double start, double end)
+  {}
+
+    // paths
+  template <> void CairoShim<cairo_t*>::newPath()
+  {}
+
+  template <> void CairoShim<cairo_t*>::closePath()
+  {
+    EM_ASM_ARGS(HTMLcanvas[$0].closePath(),id);
+    impl->endPath();
+}
+
+  template <> void CairoShim<cairo_t*>::fill()
+  {}
+
+  template <> void CairoShim<cairo_t*>::stroke()
+  {}
+  template <> void CairoShim<cairo_t*>::strokePreserve()
+  {}
+
+  template <> void CairoShim<cairo_t*>::setLineWidth(double w)
+  {}
+
+  // sources
+  template <> void CairoShim<cairo_t*>::setSourceRGB
+  (double r, double g, double b)
+  {}
+
+  // text. Argument is in UTF8 encoding
+  template <> void CairoShim<cairo_t*>::showText(const std::string& text)
+  {}
+
+  template <> void CairoShim<cairo_t*>::setTextExtents(const std::string& text)
+  {}
+
+  template <> double CairoShim<cairo_t*>::textWidth() const
+  {}
+
+  template <> double CairoShim<cairo_t*>::textHeight() const
+  {}
+
+  // matrix transformation
+  template <> void CairoShim<cairo_t*>::identityMatrix()
+  {}
+  
+  template <> void CairoShim<cairo_t*>::translate(double x, double y)
+  {}
+
+  template <> void CairoShim<cairo_t*>::scale(double sx, double sy)
+  {}
+
+  template <> void CairoShim<cairo_t*>::rotate(double angle)
+  {}
+
+    // context manipulation
+  template <> void CairoShim<cairo_t*>::save()
+  {}
+
+  template <> void CairoShim<cairo_t*>::restore()
+  {}
+
+
+}

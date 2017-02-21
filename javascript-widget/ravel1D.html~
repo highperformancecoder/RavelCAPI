@@ -1,0 +1,43 @@
+<html>
+  <meta charset="utf-8">
+  <body onunload="onunload()">
+
+    <h1>Ravel!</h1>
+
+    Database: <select onchange="setTable(this.value)" id="tableSelector">
+    </select>
+
+    <table id="tableBlock">
+      <tr>
+        <td valign="top" width="50%">
+            <canvas width="500" height="500" id="ravel1"></canvas>
+        </td>
+        <td>
+          <select onchange="op=this.value">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">×</option>
+            <option value="/">̣÷</option>
+          </select>
+        </td>
+        <td valign="top" width="50%">
+            <canvas width="500" height="500" id="ravel2"></canvas>
+       </td>
+      </tr>
+    </table>
+
+    <div id="plot" style="width:600px;height:500px;"></div>
+    <script type="text/javascript" src="plotly.js/dist/plotly.min.js"></script>
+    
+    <script type="text/javascript" src="jsravel.js"></script>
+    <script type="text/javascript" src="ravel-slickGrid.js"></script>
+    <script type="text/javascript" src="ravel.js"></script>
+    
+   
+    <script src="SlickGrid/lib/jquery-1.11.2.min.js"></script>
+    <script src="SlickGrid/lib/jquery.event.drag-2.3.0.js"></script>
+    <script src="SlickGrid/slick.core.js"></script>
+    <script src="SlickGrid/slick.grid.js"></script>
+
+  </body>
+</html> 
