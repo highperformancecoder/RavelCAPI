@@ -1,0 +1,60 @@
+<html>
+  <meta charset="utf-8">
+  <body onunload="onunload()">
+
+    <h1>Ravel!</h1>
+
+    <table id="tableBlock">
+      <tr>
+        <td>
+          Database: <select onchange="setTable(this.value,ravel1)"
+                            id="tableSelector1">
+          </select>
+        </td>
+        <td></td>
+        <td>
+          Database: <select onchange="setTable(this.value,ravel2)"
+                            id="tableSelector2">
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top" width="50%">
+          <canvas width="500" height="500" id="ravel1"></canvas>
+        </td>
+        <td>
+          <select onchange="op=this.value; processData(0);">
+            <option selected="1" value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">×</option>
+            <option value="/">̣÷</option>
+          </select>
+        </td>
+        <td valign="top" width="50%">
+            <canvas width="500" height="500" id="ravel2"></canvas>
+       </td>
+      </tr>
+    </table>
+
+    <div id="plot" style="width:1000px;height:500px;"></div>
+    <script type="text/javascript" src="plotly.js/dist/plotly.min.js"></script>
+    
+    <script type="text/javascript" src="jsravel.js"></script>
+    <script type="text/javascript" src="ravel-1dplotly.js"></script>
+    <script type="text/javascript" src="ravel.js"></script>
+    <script>
+      var ravel1=newRavel("ravel1");
+      var ravel2=newRavel("ravel2");
+      // turn these into 1D ravels
+      ravel1.setRank(1);
+      ravel2.setRank(1);
+      populateTableSelector("tableSelector1");
+      populateTableSelector("tableSelector2");
+      function onunload() {
+        if (ravel1) ravel1.delete();
+        if (ravel2) ravel2.delete();
+      }
+    </script>
+
+  </body>
+</html> 

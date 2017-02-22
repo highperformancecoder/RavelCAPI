@@ -99,3 +99,7 @@ sure: tests
 
 Ravel/Installer/ravelDoc.wxi: doc doc/ravelDoc.tex 
 	cd doc && sh makeDoc.sh && sh createRavelDocWXI.sh
+
+install-web:
+	ncftpput -F -m -S .tmp -f hpcoders.conf public_html mySqlService.php
+	ncftpput -F -m -S .tmp -f hpcoders.conf public_html/ravel javascript-widget/*.js javascript-widget/*.html 

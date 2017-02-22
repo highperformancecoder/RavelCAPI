@@ -1,4 +1,13 @@
-var table=""; // selected table
+function findPos(obj) {
+    var curleft = curtop = 0;
+    if (obj.offsetParent) {
+        do {
+	    curleft += obj.offsetLeft;
+	    curtop += obj.offsetTop;
+        } while (obj = obj.offsetParent);
+    }
+    return [curleft,curtop];
+}
 
 var newRavel = function(canvasId) {
     var ravel = new Module.RavelCairo;
@@ -16,38 +25,45 @@ var newRavel = function(canvasId) {
     }
    
     // bind mouse actions
-    var tableBlock=document.getElementById("tableBlock");
-    ravel.x=0.5*canvasElem.width+tableBlock.offsetLeft;
-    ravel.y=0.5*canvasElem.height+tableBlock.offsetTop;
+    var offsets=findPos(canvasElem);
+    ravel.x=0.5*canvasElem.width+offsets[0];
+    ravel.y=0.5*canvasElem.height+offsets[1];
+    var x=function(event) {
+        return event.clientX+window.pageXOffset;
+    }
+    var y=function(event) {
+        return event.clientY+window.pageYOffset;
+    }
     canvasElem.onmousedown=function(event) {
-        ravel.onMouseDown(event.clientX, event.clientY);
+        console.log(window.pageYOffset);
+        ravel.onMouseDown(x(event), y(event));
     };
     canvasElem.onmouseup=function(event) {
-        ravel.onMouseUp(event.clientX, event.clientY);
+        ravel.onMouseUp(x(event), y(event));
         ravel.redraw();
         ravel.onRedraw();
     };
     canvasElem.onmousemove=function(event) {
-        if (ravel.onMouseOver(event.clientX, event.clientY))
+        if (ravel.onMouseOver(x(event), y(event)))
             ravel.redraw();
-        if (event.button==0 && ravel.onMouseMotion(event.clientX, event.clientY))
+        if (event.button==0 && ravel.onMouseMotion(x(event), y(event)))
             ravel.redraw();
     };
-    canvasElem.ondblclick=function(event) {
-        var h=ravel.handleIfMouseOver(event.clientX, event.clientY, -1);
-        if (h>=0)
-        {
-            ravel.handles(h).toggleCollapsed();
-            ravel.redraw();
-            ravel.onRedraw();
-        }
-    }
+//    canvasElem.ondblclick=function(event) {
+//        var h=ravel.handleIfMouseOver(event.clientX, event.clientY, -1);
+//        if (h>=0)
+//        {
+//            ravel.handles(h).toggleCollapsed();
+//            ravel.redraw();
+//            ravel.onRedraw();
+//        }
+//    }
     
     return ravel;
 }
 
 var buildDbQuery=function(db,ravel) {
-    var r="/mySqlService.php/data/"+table+"?";
+    var r="/mySqlService.php/data/"+ravel.table+"?";
     for (var i=0; i<ravel.numHandles(); ++i)
     {
         if (i>0) r+="&";
@@ -64,46 +80,48 @@ var buildDbQuery=function(db,ravel) {
     return r;
 }
 
-var xhttp = new XMLHttpRequest();
-
-// populate table selector
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        var response = eval(this.responseText);
-        response.unshift("-"); // a dummy table name to indicate unselected
-        var tableSelector=document.getElementById("tableSelector");
-        for (var i=0; i<response.length; ++i)
-        {
-            var option=document.createElement("option");
-            tableSelector.appendChild(option);
-            option.setAttribute("value",response[i]);
-            option.innerHTML=response[i];
-        }
+/// obtain the full database, regardless of ravel configuration
+var fullDbQuery=function(db,ravel) {
+    var r="/mySqlService.php/data/"+ravel.table+"?";
+    for (var i=0; i<ravel.numHandles(); ++i)
+    {
+        if (i>0) r+="&";
+        var h=ravel.handles(i);
+        r+=h.description+"=";
     }
+    return r;
 }
 
-xhttp.open("GET","/mySqlService.php/axes");
-xhttp.send();
+// populate table selector
+function populateTableSelector(selectorId)
+{
+    var xhttp = new XMLHttpRequest();
 
-var ravel=newRavel("ravel");
-
-function setTable(name) {
-    table=name;
-    ravel.clear();
-    
-    ravel.onRedraw=function() {
-        var dataReq=new XMLHttpRequest;
-        var dbQuery=buildDbQuery(table,ravel);
-        if (dbQuery==ravel.dbQuery) return; //cache optimisation
-        ravel.dbQuery=dbQuery;
-        dataReq.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                processData(ravel,eval(this.responseText));
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var response = eval(this.responseText);
+            response.unshift("-"); // a dummy table name to indicate unselected
+            var tableSelector=document.getElementById(selectorId);
+            for (var i=0; i<response.length; ++i)
+            {
+                var option=document.createElement("option");
+                tableSelector.appendChild(option);
+                option.setAttribute("value",response[i]);
+                option.innerHTML=response[i];
             }
         }
-        dataReq.open("GET",dbQuery);
-        dataReq.send();
     }
+
+    xhttp.open("GET","/mySqlService.php/axes");
+    xhttp.send();
+}
+
+function setTable(name,ravel) {
+    var xhttp = new XMLHttpRequest();
+    ravel.table=name;
+    ravel.clear();
+    
+    ravel.onRedraw=function() {processData(ravel);}
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -121,22 +139,29 @@ function setTable(name) {
                         ravel.addHandle(this.axis,sliceLabels);
                         if (ravel.numHandles()==axes.length)
                         {
+                            ravel.dimension(axes);
                             ravel.redraw();
+
+                            var dataReq=new XMLHttpRequest;
+                            var dbQuery="/mySqlService.php/allData/"+ravel.table;
+                            dataReq.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    ravel.loadData(this.responseText);
+                                    ravel.onRedraw();
+                                }
+                            }
+                            dataReq.open("GET",dbQuery);
+                            dataReq.send();
                         }
                     }
                 }
                 // request slicelabels
-                sliceLabelReq.open("GET","/mySqlService.php/axes/"+table+"/"+axes[i]);
+                sliceLabelReq.open("GET","/mySqlService.php/axes/"+ravel.table+"/"+axes[i]);
                 sliceLabelReq.send();
             }
         }
     }
     // request axis names
-    xhttp.open("GET","/mySqlService.php/axes/"+table);
+    xhttp.open("GET","/mySqlService.php/axes/"+ravel.table);
     xhttp.send();
 }
-
-function onunload() {
-    if (ravel) ravel.delete();
-}
-

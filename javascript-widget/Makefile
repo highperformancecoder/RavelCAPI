@@ -1,6 +1,12 @@
 .SUFFIXES: .cc .bc .js .d
-CFLAGS=-I. -I../src --std=c++11 --bind
-#-s ALLOW_MEMORY_GROWTH=1
+CFLAGS=-I. -I../src --std=c++11 --bind -I$(HOME)/usr/emscripten/include 
+LIBS=-L$(HOME)/usr/emscripten/lib
+
+# different emscripten options here
+#CFLAGS+=-s ALLOW_MEMORY_GROWTH=1
+# 0 here means emit catch blocks, 1 don't emit catch blocks, 2 selectively emit catch blocks
+CFLAGS+=-s DISABLE_EXCEPTION_CATCHING=0
+
 RAVELSRC=$(wildcard ../src/*.cc)
 RAVELOBJS=$(RAVELSRC:%.cc=%.bc)
 JSRAVELOBJS=cairoShimHTMLCanvas.bc
@@ -26,3 +32,12 @@ endif
 
 clean:
 	-rm -f $(JSMODULES) *.bc *.mem *.d
+
+install:
+	ncftpput -F -m -S .tmp -f hpcoders.conf public_html/ravel *.js ravel.html
+	ncftpput -F -m -S .tmp -f hpcoders.conf public_html ../mySqlService.php
+
+install-slickgrid:
+	cd SlickGrid; ncftpput -F -m -S .tmp -f ../hpcoders.conf public_html/ravel/SlickGrid slick.core.* slick.grid.*
+	cd SlickGrid/lib; ncftpput -F -m -S .tmp -f ../../hpcoders.conf public_html/ravel/SlickGrid/lib jquery-1.11.2.min.js jquery.event.drag-2.3.0.js
+	cd SlickGrid; ncftpput -F -m -S .tmp -f ../hpcoders.conf -R public_html/ravel/SlickGrid css

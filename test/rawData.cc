@@ -45,11 +45,12 @@ SUITE(RawDataT)
         CHECK_EQUAL(1,rd[0]);
         CHECK_EQUAL(2,rd[6+3+1]);
 
-        RawData hs=rd.hyperSlice({"foo","fbar"},{{"bar","b2"}});
+        RawDataIdx hs=rd.slice({"foo","fbar"},{{"bar","b2"}});
         CHECK_EQUAL(2,hs.rank());
         CHECK_EQUAL(6,hs.size());
         
-        CHECK_EQUAL(2,(hs[{{"foo","f2"},{"fbar","fb1"}}]));
-        CHECK(std::isnan(hs[0]));
+        CHECK_EQUAL(2,(rd[hs.idx({{"foo","f2"},{"fbar","fb1"}})]));
+        RawData rd2(rd,hs);
+        CHECK(std::isnan(rd2[0]));
     }
 }

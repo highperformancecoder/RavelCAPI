@@ -86,9 +86,12 @@ namespace ravel
         type(type), rowCol(rowCol), reverse(reverse) {}
     };
 
-  private:
+  protected:
+    RawData rawData;
     std::vector<std::vector<std::string> > m_dimLabels; // dxvy below
     std::vector<SortBy> m_sortBy;
+    
+  private:
     size_t xh, yh;  // x & y handle Id (from last populateArray)
 
     /// break point between axes that appeared as columns and those that
@@ -101,17 +104,6 @@ namespace ravel
 
     CLASSDESC_ACCESS(DataCube);
   public:
-//    typedef std::vector<std::string> Key;
-//    struct KeyHash 
-//    {
-//      size_t operator()(const Key& k) const {
-//        size_t h{ 0 };
-//        std::hash<std::string> hash;
-//        for (const std::string& s : k) h ^= hash(s);
-//        return h;
-//      }
-//    };
-
     // dimension names starting with column titles, followed by the
     // row axes, which are not inferred from the input data
     std::vector<std::string> dimNames;  
@@ -119,6 +111,13 @@ namespace ravel
     const std::vector<std::vector<std::string> >  dimLabels() const
     {return m_dimLabels;}
 
+    void renameAxis(size_t axis, const std::string& newDescription, Ravel& ravel)
+    {
+      if (axis>=ravel.handles.size()) throw std::runtime_error("invalid axis");
+      rawData.renameAxis(ravel.handles[axis].description, newDescription);
+      ravel.handles[axis].description = newDescription;
+    }
+    
     /// max row and max col on which non blank data exists
     size_t maxRow() const {return m_maxRow;}
     size_t maxCol() const {return m_maxCol;}
@@ -157,6 +156,11 @@ namespace ravel
     /// initialise a Ravel object based on data loaded here
     void initRavel(Ravel&) const;
 
+    /// return the hypersliced data corresponding the Ravel settings
+    RawData hyperSlice(Ravel& r) const
+    {RawData sd; hyperSlice(sd,r); return sd;}
+    void hyperSlice(RawData&,Ravel&) const;
+    
     /// populate the data array managed by the subclass of this, using
     /// the setDataElement() method. The array is assumed to be cleared
     /// prior to this call, as setDataElement is not called on undefined
@@ -175,11 +179,22 @@ namespace ravel
     /// distributed bins, filled by previous call the populateArray
     std::vector<unsigned> histogram=std::vector<unsigned>(20);
 
-  protected:
-    RawData rawData;
+    /// number of finite data elements in raw data
+    size_t numFinite() const {
+      size_t count=0;
+      for (size_t i=0; i<rawData.size(); ++i) count+=isfinite(rawData[i]);
+      return count;
+    }
+
+    size_t size() const {return rawData.size();}
+    
 
   };
 }
+
+#ifdef ECOLAB_LIB
+#include <TCL_obj_stl.h>
+#endif
 
 #if defined(CLASSDESC) || defined(ECOLAB_LIB)
 

@@ -9,4 +9,7 @@
     <CustomBuild Include="..\..\src\sortedVector.h" />
     <CustomBuild Include="..\..\src\splitMerge.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\rawData.h" />
+  </ItemGroup>
 </Project>

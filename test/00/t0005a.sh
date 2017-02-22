@@ -62,8 +62,8 @@ dc.filterMax 5
 dc.populateArray data
 foreach idx [array names data] {
   if {[string is double \$data(\$idx)]} {
-    assert "\$data(\$idx)>=\[dc.filterMin\]" "data($idx)"
-    assert "\$data(\$idx)<=\[dc.filterMax\]" "data($idx)"
+    assert "\$data(\$idx)>=\[dc.filterMin\]" "data(\$idx)"
+    assert "\$data(\$idx)<=\[dc.filterMax\]" "data(\$idx)"
   }
 }
 EOF

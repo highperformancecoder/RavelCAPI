@@ -251,29 +251,29 @@ namespace
                                r->DataCube::filterMin>r->minVal());
                 break;
               case FilterMenuItems::xAxis:
-                toggle(r->handles[r->xHandleId()].displayFilterCaliper);
+                toggle(r->handles[r->handleIds[0]].displayFilterCaliper);
                 r->redraw(r->hwnd);
                 break;
               case FilterMenuItems::yAxis:
-                toggle(r->handles[r->yHandleId()].displayFilterCaliper);
+                toggle(r->handles[r->handleIds[1]].displayFilterCaliper);
                 r->redraw(r->hwnd);
                 break;
               }
           }
         else if ((HMENU)lparam==r->xsortMenu)
           {
-            r->handles[r->xHandleId()].sliceLabels.order
+            r->handles[r->handleIds[0]].sliceLabels.order
               (SortedVector::Order(wparam));
-            r->unsortAxis(r->xHandleId());
+            r->unsortAxis(r->handleIds[0]);
             r->redraw(r->hwnd);
             r->notifyExcel(true);
             radioCheckMenu(r->xsortMenu,wparam);
           }
         else if ((HMENU)lparam==r->ysortMenu)
           {
-            r->handles[r->yHandleId()].sliceLabels.order
+            r->handles[r->handleIds[1]].sliceLabels.order
               (SortedVector::Order(wparam));
-           r->unsortAxis(r->yHandleId());
+           r->unsortAxis(r->handleIds[1]);
            r->redraw(r->hwnd);
             r->notifyExcel(true);
             radioCheckMenu(r->ysortMenu,wparam);
@@ -495,31 +495,31 @@ void RavelCtl::populateSheet()
     throw RavelError("No data to ravel!");
   SaveRestoreSelection ss;
   CallXL(xlcWorkbookActivate, workbookName()+destSheet);
-    destData = OPERX((int)handles[yHandleId()].sliceLabels.size(), (int)handles[xHandleId()].sliceLabels.size());
+    destData = OPERX((int)handles[handleIds[1]].sliceLabels.size(), (int)handles[handleIds[0]].sliceLabels.size());
   populateArray(*this);
   CallXL(xlSet, SSOPERX(sheetId(destSheet), 2,1,(unsigned short)destData.rows(),(unsigned short)destData.columns()),destData);
   // fill in the slice labels
-  if (handles[xHandleId()].collapsed())
-    CallXL(xlSet, SSOPERX(sheetId(destSheet), 0, 1), handles[xHandleId()].reductionDescription());
+  if (handles[handleIds[0]].collapsed())
+    CallXL(xlSet, SSOPERX(sheetId(destSheet), 0, 1), handles[handleIds[0]].reductionDescription());
   else
     {
-      auto& xlabels = handles[xHandleId()].sliceLabels;
+      auto& xlabels = handles[handleIds[0]].sliceLabels;
       for (unsigned short i = 0, i1=1; i < xlabels.size(); ++i)
-	if (handles[xHandleId()].mask.count(i))
+	if (handles[handleIds[0]].mask.count(i))
 	  CallXL(xlSet, SSOPERX(sheetId(destSheet), 1, i1++), xlabels[i]);
     }
-  if (handles[yHandleId()].collapsed())
-    CallXL(xlSet, SSOPERX(sheetId(destSheet), 2, 0), handles[yHandleId()].reductionDescription());
+  if (handles[handleIds[1]].collapsed())
+    CallXL(xlSet, SSOPERX(sheetId(destSheet), 2, 0), handles[handleIds[1]].reductionDescription());
   else
     {
-      auto& ylabels = handles[yHandleId()].sliceLabels;
+      auto& ylabels = handles[handleIds[1]].sliceLabels;
       for (unsigned short i = 0, i1=2; i < ylabels.size(); ++i)
-	if (handles[yHandleId()].mask.count(i))
+	if (handles[handleIds[1]].mask.count(i))
 	  CallXL(xlSet, SSOPERX(sheetId(destSheet), i1++, 0), ylabels[i]);
     }
   // make first row of output sheet a descriptive title
   CallXL(xlSet, SSOPERX(sheetId(destSheet), 0, 5), description());
-  CallXL(xlcSelect, OPERX(0, 0, 1, int(handles[xHandleId()].sliceLabels.size())));
+  CallXL(xlcSelect, OPERX(0, 0, 1, int(handles[handleIds[0]].sliceLabels.size())));
   // formatText dosn't bahve according to doc.
 //  CallXL(xlcFormatText, OPERX(2), OPERX(1), OPERX(0), OPERX(false), OPERX(true), OPERX(false),OPERX(false),OPERX(false)); // centred
   // set top and bottom borders to a medium line
@@ -674,10 +674,10 @@ void RavelCtl::checkSorting()
       sortRequested=false;
       if (sortDir == HandleSort::none)
         {
-          handles[xHandleId()].sliceLabels.order(SortedVector::none);
-          unsortAxis(xHandleId());
-          handles[yHandleId()].sliceLabels.order(SortedVector::none);
-          unsortAxis(yHandleId());
+          handles[handleIds[0]].sliceLabels.order(SortedVector::none);
+          unsortAxis(handleIds[0]);
+          handles[handleIds[1]].sliceLabels.order(SortedVector::none);
+          unsortAxis(handleIds[1]);
         }
       else
         {
@@ -696,26 +696,26 @@ void RavelCtl::checkSorting()
             {
               if (cl == 0)
                 {
-                  handles[yHandleId()].sliceLabels.order(sortDir);
-                  unsortAxis(yHandleId());
+                  handles[handleIds[1]].sliceLabels.order(sortDir);
+                  unsortAxis(handleIds[1]);
                 }
              else if (cl > 0)
                 {
-                  handles[yHandleId()].sliceLabels.order(HandleSort::none);
-                  sortBy(yHandleId(), cl - 1, sortDir == HandleSort::forward ? 1 : -1);
+                  handles[handleIds[1]].sliceLabels.order(HandleSort::none);
+                  sortBy(handleIds[1], cl - 1, sortDir == HandleSort::forward ? 1 : -1);
                 }
             }
           else if (ncols >= nsCols)
             {
               if (rw == 1)
                 {
-                  handles[xHandleId()].sliceLabels.order(sortDir);
-                  unsortAxis(xHandleId());
+                  handles[handleIds[0]].sliceLabels.order(sortDir);
+                  unsortAxis(handleIds[0]);
                 }
               else if (rw > 1)
                 {
-                  handles[xHandleId()].sliceLabels.order(HandleSort::none);
-				  sortBy(xHandleId(), rw - 2, sortDir == HandleSort::forward ? 1 : -1);
+                  handles[handleIds[0]].sliceLabels.order(HandleSort::none);
+				  sortBy(handleIds[0], rw - 2, sortDir == HandleSort::forward ? 1 : -1);
                 }
             }
           else
@@ -832,7 +832,7 @@ LRESULT CALLBACK RavelCtl::windowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM
               throw LastError();
           }
         else if ((handle=r->handleIfMouseOver(p.x-r->x, p.y-r->x))>=0 &&
-                 handle==int(r->xHandleId())||handle==int(r->yHandleId()))
+                 handle==int(r->handleIds[0])||handle==int(r->handleIds[1]))
           {
 			Handle& h = r->handles[handle];
             POINT pp{p.x,p.y};
@@ -1092,10 +1092,10 @@ void RavelCtl::addChart() const
       SaveRestoreSelection ss;
       // clear selection of chart (which causes problem with later select)
       CallXL(xlcSelect, OPERX(0, 0, 1,1));
-      unsigned nsRows = handles[yHandleId()].collapsed() ? 2 :
-        (unsigned)handles[yHandleId()].sliceLabels.size() + 1;
-      unsigned nsCols = handles[xHandleId()].collapsed() ? 2 :
-        (unsigned)handles[xHandleId()].sliceLabels.size() + 1;
+      unsigned nsRows = handles[handleIds[1]].collapsed() ? 2 :
+        (unsigned)handles[handleIds[1]].sliceLabels.size() + 1;
+      unsigned nsCols = handles[handleIds[0]].collapsed() ? 2 :
+        (unsigned)handles[handleIds[0]].sliceLabels.size() + 1;
       CallXL(xlcSelect, OPERX(1, 0, nsRows, nsCols));
       try
         {
