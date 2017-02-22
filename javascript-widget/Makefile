@@ -1,7 +1,11 @@
 .SUFFIXES: .cc .bc .js .d
 CFLAGS=-I. -I../src --std=c++11 --bind -I$(HOME)/usr/emscripten/include 
 LIBS=-L$(HOME)/usr/emscripten/lib
-#-s ALLOW_MEMORY_GROWTH=1
+
+# different emscripten options here
+#CFLAGS+=-s ALLOW_MEMORY_GROWTH=1
+CFLAGS+=-s DISABLE_EXCEPTION_CATCHING=2
+
 RAVELSRC=$(wildcard ../src/*.cc)
 RAVELOBJS=$(RAVELSRC:%.cc=%.bc)
 JSRAVELOBJS=cairoShimHTMLCanvas.bc

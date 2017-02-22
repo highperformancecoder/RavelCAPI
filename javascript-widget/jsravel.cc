@@ -65,6 +65,7 @@ using ravel::endl;
     void setDataCallback(val f) {dc.dataCallback=f;}
 
     void loadData(const std::string& jsonData) {dc.loadData(jsonData);}
+    RawData hyperSlice() {return dc.hyperSlice(*this);}
     void populateData() {dc.populateArray(*this);}
     /// dimension the datacube according to info in Ravel
     void dimension(const val& arg) {
@@ -118,6 +119,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("y",&Handle::y)
     .property("description",&Handle::description)
     .function("sliceLabels",optional_override([](const Handle& self, size_t i){return self.sliceLabels[i];}))
+    .function("sliceIdx",optional_override([](const Handle& self, size_t i){return self.sliceLabels.idx(i);}))
     .function("numSliceLabels",&Handle::numSliceLabels)
     .function("reductionDescription",&Handle::reductionDescription)
     .function("sliceX",&Handle::sliceX)
@@ -166,13 +168,14 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .property("dataCallback",&JSDataCube::dataCallback)
     .function("loadData",&JSDataCube::loadData)
     .function("dimension",&JSDataCube::dimension)
-    .constructor<>()
+   .constructor<>()
     ;
 
   class_<JRavelCairo,base<RavelCairo<val*>>>("RavelCairo")
     .allow_subclass<RavelCairoWrapper>("RavelCairoWrapper")
     .property("dc",&JRavelCairo::dc)
     .function("setCanvas",&JRavelCairo::setCanvas)
+    .function("hyperSlice",&JRavelCairo::hyperSlice)
     .function("populateData",&JRavelCairo::populateData)
     .function("dimension",&JRavelCairo::dimension)
     .function("loadData",&JRavelCairo::loadData)
@@ -181,6 +184,10 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .constructor<>()
     ;
 
+  class_<RawData>("RawData")
+    .function("val",optional_override([](const RawData& self, size_t i){return self[i];}))
+    ;
+  
   register_vector<size_t>("VectorSizet");
   register_vector<string>("VectorString");
   
