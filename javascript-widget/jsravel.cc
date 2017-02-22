@@ -57,6 +57,27 @@ using ravel::endl;
     }
   };
   
+  struct JSRawData: public RawData
+  {
+    JSRawData(RawData&& x): RawData(x) {}
+    //    double val(size_t i){return operator[](i);}
+    // a bit clumsy, but couldn't figure out any natural way of converting a javascript array of objects to a Key
+    double val(const emscripten::val& v) {
+      auto l=v["length"].as<unsigned>();
+      console<<"l="<<l<<ravel::endl;
+      Key k(l);
+      console<<"k allocated"<<ravel::endl;
+      for (size_t i=0; i<l; ++i)
+        {
+          k[i].axis=v[i]["axis"].as<string>();
+          k[i].slice=v[i]["slice"].as<string>();
+          console<<"k["<<i<<"]={"<<k[i].axis<<","<<k[i].slice<<"}"<<ravel::endl;
+        }
+      try {console << "trying..." << ravel::endl; return operator[](k);}
+      catch (const std::exception& ex) {console << "in catch"<<ravel::endl; return nan("");} //invalid key
+    }
+  };
+  
   struct JRavelCairo: public RavelCairo<val*>
   {
     unique_ptr<val> canvasContext;
@@ -65,7 +86,7 @@ using ravel::endl;
     void setDataCallback(val f) {dc.dataCallback=f;}
 
     void loadData(const std::string& jsonData) {dc.loadData(jsonData);}
-    RawData hyperSlice() {return dc.hyperSlice(*this);}
+    JSRawData hyperSlice() {return JSRawData(dc.hyperSlice(*this));}
     void populateData() {dc.populateArray(*this);}
     /// dimension the datacube according to info in Ravel
     void dimension(const val& arg) {
@@ -88,7 +109,7 @@ using ravel::endl;
         handleIds[i]=i;
     }
   };
-  
+
   struct RavelCairoWrapper: public wrapper<JRavelCairo> {
     EMSCRIPTEN_WRAPPER(RavelCairoWrapper);
   };
@@ -148,6 +169,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("handleIfMouseOver",&Ravel::handleIfMouseOver)
     .function("handleX",&Ravel::handleX)
     .function("handleY",&Ravel::handleY)
+    .function("description",&Ravel::description)
     ;
   
   class_<RavelCairo<val*>,base<Ravel>>("RavelCairoval*")
@@ -184,15 +206,23 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .constructor<>()
     ;
 
-  class_<RawData>("RawData")
-    .function("val",optional_override([](const RawData& self, size_t i){return self[i];}))
+  class_<RawDataIdx>("RawDataIdx")
+    .function("size",&RawData::size)
+    .function("rank",&RawData::rank)
     ;
-  
+
+  class_<RawData,base<RawDataIdx>>("RawData");
+
+  class_<JSRawData,base<RawData>>("JSRawData")
+    .function("val",&JSRawData::val)
+    ;
+
   register_vector<size_t>("VectorSizet");
   register_vector<string>("VectorString");
   
   register_vector<Labels>("LabelsVector");
   register_vector<double>("DoubleVector");
+  register_vector<AxisSlice>("Key");
 }
 
 

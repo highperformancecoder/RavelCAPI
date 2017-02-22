@@ -199,7 +199,7 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
                   if (col<spec.nColAxes)
                     {
                       key.emplace_back(dimNames[dim],str(line[col]));
-                      axisLabelSet[dim].insert(UniqueString(key.back().second,row));
+                      axisLabelSet[dim].insert(UniqueString(key.back().slice,row));
                       dim++;
                     }
                   else // in data area
@@ -299,7 +299,7 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
 
   RawDataIdx slice=rawData.slice(axes, sliceLabels);
 
-  if (slice.rank()>2)
+  if (slice.rank()>ravel.handleIds.size())
     // perform reductions
     {
       bool firstReduction=true;

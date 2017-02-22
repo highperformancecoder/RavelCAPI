@@ -27,7 +27,16 @@ namespace ravel
 
   typedef std::vector<std::pair<std::string,std::vector<std::string>>> 
     LabelsVector;
-  typedef std::vector<std::pair<std::string, std::string>> Key;
+  struct AxisSlice
+  {
+    std::string axis, slice;
+    AxisSlice() {}
+    AxisSlice(const std::string& a, const std::string& s): axis(a), slice(s) {}
+    bool operator<(const AxisSlice& x) const {
+      return axis<x.axis || (axis==x.axis && slice<x.slice);
+    }
+  };
+  typedef std::vector<AxisSlice> Key;
 
   class RawDataIdx
   {
@@ -145,14 +154,14 @@ namespace ravel
   {
     std::vector<double> data;
     CLASSDESC_ACCESS(RawData);
-
+   
   public:
     double& operator[](const Key& key) {return data[idx(key)];}
     double operator[](const Key& key) const {return data[idx(key)];}
     double& operator[](size_t i) {return data[i];}
     double operator[](size_t i) const {return data[i];}
 
-    RawData() {}
+    RawData(): data(1,nan("")) {}
 
     /** @{
         Create an empty RawData with structure given by \a x
