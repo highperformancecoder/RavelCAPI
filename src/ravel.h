@@ -206,7 +206,11 @@ namespace ravel
       return std::find(handleIds.begin(), handleIds.end(), i)
         !=handleIds.end();
     }
-
+    
+    bool isOutputHandle(const Handle& h) const {
+      return isOutputHandle(&h-&*handles.begin());
+    }
+    
     /// distribute handles uniformly around the 1st to 3rd quadrants
     void redistributeHandles();
     

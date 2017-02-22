@@ -281,36 +281,29 @@ void setupSortByPerm(DataCube::SortBy sortBy, size_t axis, size_t otherAxis,
 
   }
 
-void DataCube::populateArray(ravel::Ravel& ravel)
+void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
 {
-  // TODO: handle ranks other than 2.
-  if (ravel.handleIds.size()<2) return;
-  xh=ravel.handleIds[0]; yh=ravel.handleIds[1];
-  Handle& xHandle = ravel.handles[xh];
-  Handle& yHandle = ravel.handles[yh];
-
-  m_minVal=numeric_limits<double>::max(); 
-  m_maxVal=-m_minVal;
-
-  vector<string> axes{xHandle.description, yHandle.description};
+  vector<string> axes;
   Key sliceLabels;
+  for (auto i: ravel.handleIds)
+    axes.push_back(ravel.handles[i].description);
   for (auto& h: ravel.handles)
-    if (&h!=&xHandle && &h!=&yHandle)
+    if (!ravel.isOutputHandle(h))
       {
         if (h.collapsed())
           axes.push_back(h.description);
         else
           sliceLabels.emplace_back(h.description, h.sliceLabel());
       }
+
   RawDataIdx slice=rawData.slice(axes, sliceLabels);
 
-  RawData sliceData;
   if (slice.rank()>2)
     // perform reductions
     {
       bool firstReduction=true;
       for (auto& h: ravel.handles)
-        if (&h!=&xHandle && &h!=&yHandle && h.collapsed())
+        if (h.collapsed() && !ravel.isOutputHandle(h))
           {
             if (firstReduction)
               {
@@ -326,6 +319,20 @@ void DataCube::populateArray(ravel::Ravel& ravel)
     }
   else
     sliceData=move(RawData(rawData,slice));
+}
+
+void DataCube::populateArray(Ravel& ravel)
+{
+  // TODO: handle ranks other than 2.
+  if (ravel.handleIds.size()<2) return;
+  xh=ravel.handleIds[0]; yh=ravel.handleIds[1];
+  Handle& xHandle = ravel.handles[xh];
+  Handle& yHandle = ravel.handles[yh];
+
+  m_minVal=numeric_limits<double>::max(); 
+  m_maxVal=-m_minVal;
+
+  RawData sliceData(hyperSlice(ravel));
 
   // TODO reduction operations
 
