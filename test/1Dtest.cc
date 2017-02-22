@@ -14,7 +14,7 @@ struct DC: public DataCube
 
 SUITE(Datacube)
 {
-  TEST_FIXTURE(DC,hypeslice)
+  TEST_FIXTURE(DC,hyperslice)
     {
       ifstream f("input.csv");
       CSVFTokeniser tok(f,',');
@@ -25,6 +25,17 @@ SUITE(Datacube)
       initRavel(ravel);
       ravel.handleIds={0};
       auto rd=hyperSlice(ravel);
-      
+
+      // try an empty ravel
+      Ravel ravel2;
+      auto rd2=hyperSlice(ravel2);
+    }
+  
+  TEST_FIXTURE(DC,emptyHyperslice)
+    {
+      Ravel ravel;
+      initRavel(ravel);
+      ravel.handleIds={0};
+      auto rd=hyperSlice(ravel);
     }
 }

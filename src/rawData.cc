@@ -175,10 +175,18 @@ RawData::RawData(const RawData& x, const RawDataIdx& slice): RawDataIdx(slice)
   normalise();
   data.resize(size(),nan(""));
   vector<SizeStride> sizeStride;
-  for (size_t i=0; i<slice.rank(); i++)
-    sizeStride.emplace_back(slice.dim(i),slice.stride(i));
-  size_t i=0;
-  apply(slice.offset(),sizeStride,[&](size_t j) {data[i++]=x[j];});
+  if (rank()==0)
+    {
+      if (x.size()>0)
+        data[0]=x[0];
+    }
+  else
+    {
+      for (size_t i=0; i<slice.rank(); i++)
+        sizeStride.emplace_back(slice.dim(i),slice.stride(i));
+      size_t i=0;
+      apply(slice.offset(),sizeStride,[&](size_t j) {data[i++]=x[j];});
+    }
 }
   
 RawData RawData::reduceAlong(size_t axis, const RawDataIdx& slice,

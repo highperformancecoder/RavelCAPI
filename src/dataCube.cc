@@ -286,7 +286,8 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
   vector<string> axes;
   Key sliceLabels;
   for (auto i: ravel.handleIds)
-    axes.push_back(ravel.handles[i].description);
+    if (i<ravel.handles.size())
+      axes.push_back(ravel.handles[i].description);
   for (auto& h: ravel.handles)
     if (!ravel.isOutputHandle(h))
       {

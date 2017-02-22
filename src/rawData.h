@@ -41,7 +41,7 @@ namespace ravel
 
     std::map<std::string, size_t> indicesByName;
     std::vector<Idx> indices;
-    size_t m_size, m_offset=0;
+    size_t m_size=0, m_offset=0;
 
     const Idx& index(const std::string& axis) const;
     CLASSDESC_ACCESS(RawDataIdx);
