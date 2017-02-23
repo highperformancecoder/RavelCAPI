@@ -54,7 +54,7 @@ vector<any> CSVFTokeniser::getLine()
       // trim any extraneous carriage returns
       if (buf.back()=='\r')
         buf.resize(buf.size()-1);
-      boost::escaped_list_separator<char> csvParser('\\',separator,'"');
+      boost::escaped_list_separator<char> csvParser('\\',separator,'"');//
       boost::tokenizer<boost::escaped_list_separator<char> >
         tok(buf.begin(), buf.end(),csvParser);
       // attempt to convert to doubles, if not then leave as strings
