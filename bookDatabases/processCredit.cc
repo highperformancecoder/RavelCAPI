@@ -31,8 +31,8 @@ int main()
   vector<string> col(tok.begin(),tok.end());
 
   ofstream privCredit("priv_credit.txt"), govCredit("gov_credit.txt"), gdp("gdp.txt");
-  format privFormat(R"("%1%","%2%","%3%","%4%",%5%)""\n");
-  format govFormat(R"("%1%","%2%","%3%",%4%)""\n");
+  format privFormat(R"("%1%","%2%","%3%","%4%")""\n");
+  format govFormat(R"("%1%","%2%","%3%")""\n");
   format gdpFormat(R"("%1%","%2%",%3%)""\n");
                    
   map<string, map<string, double>> usdValue, gdpRatio;
@@ -48,7 +48,7 @@ int main()
         auto valuation=trim(row[4]);
         auto unit_type=trim(row[5]);
         auto adjustment=trim(row[6]);
-        if (valuation!="Market value" || adjustment!="Adjusted for breaks")
+        if (valuation!="Market value" || adjustment!="Adjusted for breaks" || lendSector!="All sectors")
           continue;
         // grab the values needed for computing GDP
         if (sector=="General government" && lendSector=="All sectors")
@@ -65,10 +65,10 @@ int main()
             if (i<col.size() && !row[i].empty())
               {
                 if (sector=="General government")
-                  govCredit<<govFormat % country % lendSector % col[i] % row[i];
+                  govCredit<<govFormat % country % col[i] % row[i];
                 else if (sector=="Households & NPISHs" ||
                          sector=="Non-financial corporations")
-                  privCredit<<privFormat % country % sector % lendSector % col[i] %
+                  privCredit<<privFormat % country % sector % col[i] %
                     row[i];
               }
       }
