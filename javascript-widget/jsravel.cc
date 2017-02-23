@@ -89,7 +89,11 @@ using ravel::endl;
     void dimension(const val& arg) {
       map<string,vector<string>> labels;
       for (auto& h: handles)
-        labels[h.description]=vector<string>(h.sliceLabels.begin(),h.sliceLabels.end());
+        {
+          labels[h.description]=vector<string>(h.sliceLabels.begin(),h.sliceLabels.end());
+          // forward sort axis labels always for now.
+          h.sliceLabels.order(HandleSort::forward);
+        }
 
       LabelsVector lv;
       vector<string> axes;
