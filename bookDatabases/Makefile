@@ -2,7 +2,7 @@
 FLAGS+=-std=c++11 #-Wno-error=offsetof
 FLAGS+=-I. -I../src -g
 
-EXES=processCredit processPP
+EXES=processCredit processPP processPopulation processUnemployment
 
 # object files making up libravel
 OBJS=

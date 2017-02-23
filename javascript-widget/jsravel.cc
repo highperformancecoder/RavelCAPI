@@ -64,14 +64,11 @@ using ravel::endl;
     // a bit clumsy, but couldn't figure out any natural way of converting a javascript array of objects to a Key
     double val(const emscripten::val& v) {
       auto l=v["length"].as<unsigned>();
-      console<<"l="<<l<<ravel::endl;
       Key k(l);
-      console<<"k allocated"<<ravel::endl;
       for (size_t i=0; i<l; ++i)
         {
           k[i].axis=v[i]["axis"].as<string>();
           k[i].slice=v[i]["slice"].as<string>();
-          console<<"k["<<i<<"]={"<<k[i].axis<<","<<k[i].slice<<"}"<<ravel::endl;
         }
       try {console << "trying..." << ravel::endl; return operator[](k);}
       catch (const std::exception& ex) {console << "in catch"<<ravel::endl; return nan("");} //invalid key
