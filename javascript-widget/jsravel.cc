@@ -70,8 +70,8 @@ using ravel::endl;
           k[i].axis=v[i]["axis"].as<string>();
           k[i].slice=v[i]["slice"].as<string>();
         }
-      try {console << "trying..." << ravel::endl; return operator[](k);}
-      catch (const std::exception& ex) {console << "in catch"<<ravel::endl; return nan("");} //invalid key
+      try {return operator[](k);}
+      catch (const std::exception& ex) {return nan("");} //invalid key
     }
   };
   
@@ -108,6 +108,16 @@ using ravel::endl;
       handleIds.resize(r);
       for (size_t i=0; i<r; ++i)
         handleIds[i]=i;
+    }
+    void setSlicer(size_t handle, const std::string& label)
+    {
+      auto& h=handles[handle];
+      for (size_t i=0; i<h.sliceLabels.size(); ++i)
+        if (h.sliceLabels[i]==label)
+          {
+            h.sliceIndex=i;
+            break;
+          }
     }
   };
 
@@ -157,6 +167,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .property("x",&Ravel::x)
     .property("y",&Ravel::y)
     .function("handleIds",optional_override([](const Ravel& self, size_t i){return self.handleIds[i];}))
+    .function("setHandleIds",optional_override([](Ravel& self, const val& ids){return self.handleIds=vecFromJSArray<size_t>(ids);}))
     .function("handles",optional_override([](const Ravel& self, size_t i){return self.handles[i];}))
     .function("numHandles",optional_override([](const Ravel& self){return self.handles.size();}))
     .function("addHandle",&Ravel::addHandle)
@@ -171,6 +182,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("handleX",&Ravel::handleX)
     .function("handleY",&Ravel::handleY)
     .function("description",&Ravel::description)
+    .function("redistributeHandles",&Ravel::redistributeHandles)
     ;
   
   class_<RavelCairo<val*>,base<Ravel>>("RavelCairoval*")
@@ -204,7 +216,8 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("loadData",&JRavelCairo::loadData)
     .function("setDataCallback",&JRavelCairo::setDataCallback)
     .function("setRank",&JRavelCairo::setRank)
-    .constructor<>()
+    .function("setSlicer",&JRavelCairo::setSlicer)
+   .constructor<>()
     ;
 
   class_<RawDataIdx>("RawDataIdx")

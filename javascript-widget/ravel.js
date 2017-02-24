@@ -35,7 +35,6 @@ var newRavel = function(canvasId) {
         return event.clientY+window.pageYOffset;
     }
     canvasElem.onmousedown=function(event) {
-        console.log(window.pageYOffset);
         ravel.onMouseDown(x(event), y(event));
     };
     canvasElem.onmouseup=function(event) {
