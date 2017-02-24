@@ -71,7 +71,6 @@ size_t RawDataIdx::idx(const Key& key) const
         throw InvalidKey();
       idx+=k->second;
     }
-  if (idx>=size()) throw InvalidKey();
   return idx;
 }
 
@@ -87,7 +86,6 @@ RawDataIdx RawDataIdx::slice
 (const vector<string>& axes, const Key& fixedLabels) const
 {
   RawDataIdx r;
-  if (fixedLabels.empty()) return r; // following statment throws in this case
   r.m_offset=idx(fixedLabels);
   r.m_size=1;
   for (auto& axis: axes)

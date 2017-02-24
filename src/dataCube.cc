@@ -334,7 +334,9 @@ void DataCube::populateArray(Ravel& ravel)
   m_maxVal=-m_minVal;
 
   RawData sliceData(hyperSlice(ravel));
-
+  if (sliceData.rank()!=2)
+    return; 
+  
   // TODO reduction operations
 
   assert(m_sortBy[xh].rowCol<yHandle.sliceLabels.size() && 

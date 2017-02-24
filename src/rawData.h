@@ -154,10 +154,17 @@ namespace ravel
   {
     std::vector<double> data;
     CLASSDESC_ACCESS(RawData);
-   
+
+    size_t checkIdx(const Key& key) const {
+      size_t i=idx(key);
+      if (i>=data.size())
+        throw InvalidKey();
+      return i;
+    }
+    
   public:
-    double& operator[](const Key& key) {return data[idx(key)];}
-    double operator[](const Key& key) const {return data[idx(key)];}
+    double& operator[](const Key& key) {return data[checkIdx(key)];}
+    double operator[](const Key& key) const {return data[checkIdx(key)];}
     double& operator[](size_t i) {return data[i];}
     double operator[](size_t i) const {return data[i];}
 
