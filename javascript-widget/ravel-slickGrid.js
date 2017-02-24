@@ -5,7 +5,7 @@ function processData(ravel) {
 
     var xh=ravel.handles(ravel.handleIds(0));
     var columns=[{id: "ylabel", name: "", field: "ylabel"}];
-    for (var i=0; i<xh.numSliceLabels(); ++i)
+    for (var i=0; !xh.collapsed() && i<xh.numSliceLabels(); ++i)
         columns.push({id: "c"+i, name: xh.sliceLabels(i), field: "c"+i});
     
     var yh=ravel.handles(ravel.handleIds(1));
@@ -16,7 +16,15 @@ function processData(ravel) {
         /*x: [], y: [],*/ z: []
     }];
 
-    for (var i=0; i<yh.numSliceLabels(); ++i)
+    if (yh.collapsed())
+    {
+        gridData.push({});
+//        plotlyData[0].x.push([]);
+//        plotlyData[0].y.push([]);
+        plotlyData[0].z.push([]);
+        plotlyData[0].z.push([]);
+    }
+    for (var i=0; !yh.collapsed() && i<yh.numSliceLabels(); ++i)
     {
         gridData.push({ylabel: yh.sliceLabels(i)});
 //        plotlyData[0].x.push([]);
@@ -40,18 +48,18 @@ function processData(ravel) {
     grid=new Slick.Grid("#myGrid",gridData,columns,options);
 
     var layout = {
-        title: 'Ravel\'s plot',
+        title: ravel.table,
         xaxis: {
             showgrid: false,
             zeroline: false,
+            title: xh.description
 //            type: "category"
         },
         yaxis: {
+            title: yh.description,
             showline: false,
 //            type: "category"
         }
     };
-    layout.xaxis.title=xh.description;
-    layout.yaxis.title=yh.description;
     Plotly.newPlot(document.getElementById("plot"),plotlyData,layout);
 };
