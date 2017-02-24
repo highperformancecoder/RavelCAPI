@@ -119,7 +119,12 @@ namespace ravel
     RawDataIdx slice(const std::vector<std::string>& axes,
                      const Key& fixedLabels) const;
 
-    RawDataIdx removeDimension(size_t) const;
+    /// remove the \a ith axis from the data set. The returned object
+    /// has rank one less than the original
+    RawDataIdx removeDimension(size_t i) const;
+    /// collapse axis \a i down to a single number (result of a
+    /// reduction). Returned object has the same rank as the original
+    RawDataIdx collapseAxis(size_t i) const;
   };
 
   /** apply functional \a f to a range of elements in a contiguous data range
@@ -193,8 +198,9 @@ namespace ravel
     double reduce(Op::ReductionOp op, size_t offset, size_t stride, size_t n) const;
 
     /// Produce a new slice by reducing along dimension axis of the slice given by \a slice
+    /// @param outputHandle affects the rank of the returned object
     RawData reduceAlong(size_t axis, const RawDataIdx& slice,
-                                 Op::ReductionOp op) const;
+                        Op::ReductionOp op, bool outputHandle) const;
   };
 
 }

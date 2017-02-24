@@ -90,10 +90,10 @@ namespace ravel
       if (xh==yh) {xh=0; yh=1;}
       Handle xHandle=ravel.handles[xh];
       Handle yHandle=ravel.handles[yh];
-      for (size_t i=0; i<xHandle.sliceLabels.size(); ++i)
+      for (size_t i=0; !xHandle.collapsed() && i<xHandle.sliceLabels.size(); ++i)
         // first index of tclArray is row index which is the yHandle index
         tclArray(0,i+1)=xHandle.sliceLabels[i].c_str();
-      for (size_t i=0; i<yHandle.sliceLabels.size(); ++i)
+      for (size_t i=0; !yHandle.collapsed() && i<yHandle.sliceLabels.size(); ++i)
         tclArray(i+1,0)=yHandle.sliceLabels[i].c_str();
           
     }
