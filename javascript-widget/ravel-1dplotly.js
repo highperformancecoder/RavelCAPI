@@ -104,5 +104,5 @@ function processData(ravel) {
     };
     layout.xaxis.title=xh.description;
     Plotly.newPlot(document.getElementById("plot"),plotlyData,layout);
-    //xh.delete();
+    xh.delete();
 };
