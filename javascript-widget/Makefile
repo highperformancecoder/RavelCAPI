@@ -8,6 +8,10 @@ LIBS=-L$(HOME)/usr/emscripten/lib
 # 0 here means emit catch blocks, 1 don't emit catch blocks, 2 selectively emit catch blocks
 CFLAGS+=-s DISABLE_EXCEPTION_CATCHING=0
 
+# the separated memory init file seems to cause a problem with missing
+# constructors
+OPT=-O3  --memory-init-file 0 -DNDEBUG
+
 RAVELSRC=$(wildcard ../src/*.cc)
 RAVELOBJS=$(RAVELSRC:%.cc=%.bc)
 JSRAVELOBJS=cairoShimHTMLCanvas.bc
@@ -17,10 +21,10 @@ $(warning $(RAVELOBJS))
 all: $(JSMODULES)
 
 $(JSMODULES): %.js: %.bc $(JSRAVELOBJS) $(RAVELOBJS)
-	em++ $(CFLAGS) -O1 $^ -o $@
+	em++ $(CFLAGS) $(OPT) $^ -o $@
 
 .cc.bc:
-	em++ $(CFLAGS) -O1 -c $< -o $@
+	em++ $(CFLAGS) $(OPT) -c $< -o $@
 
 .cc.d: 
 	em++ $(CFLAGS) -MM -MG $< >$@
