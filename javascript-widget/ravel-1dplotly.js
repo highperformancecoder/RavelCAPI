@@ -35,7 +35,9 @@ function processData(ravel) {
             {
                 if (ravel2.numHandles()>ravel2.handleIds(0))
                 {
-                    key[0].axis=ravel2.handles(ravel2.handleIds(0)).description;
+                    var h2=ravel2.handles(ravel2.handleIds(0));
+                    key[0].axis=h2.description;
+                    h2.delete();
                     var value2=slice2.val(key);
                     if (isFinite(value2))
                     {
@@ -55,10 +57,9 @@ function processData(ravel) {
         }
         slice1.delete();
         slice2.delete();
+        xh.delete();
     }
 
-    //tryCombine();
-    //if (title===ravel1.table && ravel2.numHandles()>ravel2.handleIds(0))
     if (ravel2.numHandles()>ravel2.handleIds(0))
     {
         // didn't combine, try rotating ravel2 to match orientation of ravel1
@@ -105,4 +106,7 @@ function processData(ravel) {
     layout.xaxis.title=xh.description;
     Plotly.newPlot(document.getElementById("plot"),plotlyData,layout);
     xh.delete();
+    // for debugging memory leak problems caused by lack of finalisers
+    //    in javascript
+    // console.log("mem usage="+DYNAMICTOP);
 };
