@@ -119,6 +119,7 @@ using ravel::endl;
             break;
           }
     }
+    void toggleCollapsed(size_t h) {handles[h].toggleCollapsed();}
   };
 
   struct RavelCairoWrapper: public wrapper<JRavelCairo> {
@@ -217,6 +218,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("setDataCallback",&JRavelCairo::setDataCallback)
     .function("setRank",&JRavelCairo::setRank)
     .function("setSlicer",&JRavelCairo::setSlicer)
+    .function("toggleCollapsed",&JRavelCairo::toggleCollapsed)
    .constructor<>()
     ;
 
