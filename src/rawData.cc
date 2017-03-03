@@ -125,6 +125,23 @@ RawDataIdx RawDataIdx::collapseAxis(size_t i) const
   return r;
 }
 
+template <class Op>
+double reduceImpl(const RawData& x, Op op, double r, size_t offset,
+                       size_t stride, size_t dim)
+{
+  bool valid=false;
+  for (size_t i=offset; i<offset+stride*dim; i+=stride)
+    {
+      double v=x[i];
+      if (isfinite(v))
+        {
+          valid=true;
+          op(r,v);
+        }
+    }
+  return valid? r: nan("");
+}
+
 double RawData::reduce(Op::ReductionOp op, size_t offset,
                        size_t stride, size_t dim) const
 {
@@ -132,24 +149,10 @@ double RawData::reduce(Op::ReductionOp op, size_t offset,
   switch (op)
     {
     case Op::sum:
-      r=0;
-      for (size_t i=offset; i<offset+stride*dim; i+=stride)
-        {
-          double v=(*this)[i];
-          if (isfinite(v))
-            r+=v;
-        }
-      return r;
+      return reduceImpl(*this, [](double& r,double v){r+=v;}, 0, offset,stride,dim);
 
     case Op::prod:
-      r=1;
-      for (size_t i=offset; i<offset+stride*dim; i+=stride)
-        {
-          double v=(*this)[i];
-          if (isfinite(v))
-            r*=v;
-        }
-      return r;
+      return reduceImpl(*this, [](double& r,double v){r*=v;}, 1, offset,stride,dim);
 
     case Op::av:
       {
@@ -164,7 +167,7 @@ double RawData::reduce(Op::ReductionOp op, size_t offset,
                 c++;
               }
           }
-        return c>0? r/c: 0;
+        return c>0? r/c: nan("");
       }
     case Op::stddev:
       {
@@ -180,30 +183,18 @@ double RawData::reduce(Op::ReductionOp op, size_t offset,
                 c++;
               }
           }
-        if (c==0) return 0;
+        if (c==0) return nan("");
         sum/=c;
         return sqrt(max(0.0, sumsq/c-sum*sum));
       }
 
     case Op::min:
-      r=std::numeric_limits<double>::max();
-      for (size_t i=offset; i<offset+stride*dim; i+=stride)
-          {
-            double v=(*this)[i];
-            if (isfinite(v))
-              r=min(r, v);
-          }
-      return r;
+      return reduceImpl(*this, [](double& r,double v){r=min(r,v);},
+                    numeric_limits<double>::max(), offset,stride,dim);
       
     case Op::max:
-      r=-std::numeric_limits<double>::max();
-      for (size_t i=offset; i<offset+stride*dim; i+=stride)
-          {
-            double v=(*this)[i];
-            if (isfinite(v))
-              r=max(r, v);
-          }
-      return r;
+      return reduceImpl(*this, [](double& r,double v){r=max(r,v);},
+                    -numeric_limits<double>::max(), offset,stride,dim);
 
     default:
       assert(false);
