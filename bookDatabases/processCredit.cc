@@ -51,7 +51,7 @@ int main()
         if (valuation!="Market value" || adjustment!="Adjusted for breaks" || lendSector!="All sectors")
           continue;
         // grab the values needed for computing GDP
-        if (sector=="General government" && lendSector=="All sectors")
+        if (sector=="Private non-financial sector" && lendSector=="All sectors")
           for (size_t i=8; i<row.size(); ++i)
             if (i<col.size() && !row[i].empty())
               {

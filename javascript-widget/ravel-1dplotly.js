@@ -49,12 +49,28 @@ function processData(ravel) {
                             case '*': value*=value2; break;
                             case '/': value/=value2; break;
                         }
+                        plotlyData[0].x.push(xh.sliceLabels(i));
+                        plotlyData[0].y.push(value);        
                     }
                 }
-                plotlyData[0].x.push(xh.sliceLabels(i));
-                plotlyData[0].y.push(value);        
             }
         }
+        
+        if (plotlyData[0].x.length==0)
+        {
+            // no second ravel data matched, so replace by that of ravel 1
+            for (var i=0; i<xh.numSliceLabels(); ++i)
+            {
+                var key=[{axis:xh.description, slice:xh.sliceLabels(i)}];
+                var value=slice1.val(key);
+                if (isFinite(value))
+                {
+                    plotlyData[0].x.push(xh.sliceLabels(i));
+                    plotlyData[0].y.push(value);    
+                }
+            }
+        }
+                
         slice1.delete();
         slice2.delete();
         xh.delete();
