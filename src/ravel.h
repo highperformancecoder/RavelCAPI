@@ -63,7 +63,12 @@ namespace ravel
     size_t numSliceLabels() const {return sliceLabels.size();}
     /// current slice, filter bounds
     size_t sliceIndex, sliceMin=0, sliceMax=std::numeric_limits<size_t>::max();
-
+    /// move slice index by \a p, taking into acount the bounds
+    void moveSliceIdx(int p) {
+      if (long(sliceIndex)+p >= 0 && long(sliceIndex) + p < sliceLabels.size())
+        sliceIndex+=p;
+    }
+    
     /// masked sliceLabels (used by filter functionality to remove
     /// empty row/cols from output sheet
     std::set<unsigned long> mask;
@@ -200,9 +205,6 @@ namespace ravel
     /// indices of the handles representing x, y, z etc coordinates
     std::vector<size_t> handleIds{0,1};
     
-    /// set output handles
-    //    void setOutputHandle(size_t); 
-
     /// returns true if the ith handle is an output handle
     bool isOutputHandle(size_t i) const {
       return std::find(handleIds.begin(), handleIds.end(), i)

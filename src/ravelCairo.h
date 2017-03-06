@@ -35,6 +35,14 @@ namespace ravel
     int handleIfMouseOverCaliperLabel(double x, double y) const;
     /// renders ravel image to graphics context g
     void render() const;
+    /// returns reference to last handle mouse was over, and rendered
+    /// with tooltips. Returns nullptr if no such handle is selected.
+    Handle* selectedHandle() {
+      return toolTipHandle>=0? &handles[toolTipHandle]: nullptr;
+    }
+    const Handle* selectedHandle() const {
+      return toolTipHandle>=0? &handles[toolTipHandle]: nullptr;
+    }
   };
 }
 

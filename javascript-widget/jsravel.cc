@@ -120,6 +120,12 @@ using ravel::endl;
           }
     }
     void toggleCollapsed(size_t h) {handles[h].toggleCollapsed();}
+    void handleLeftKey() {
+      if (auto h=selectedHandle()) h->moveSliceIdx(1);
+    }
+    void handleRightKey() {
+      if (auto h=selectedHandle()) h->moveSliceIdx(-1);
+    }
   };
 
   struct RavelCairoWrapper: public wrapper<JRavelCairo> {
@@ -219,7 +225,9 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("setRank",&JRavelCairo::setRank)
     .function("setSlicer",&JRavelCairo::setSlicer)
     .function("toggleCollapsed",&JRavelCairo::toggleCollapsed)
-   .constructor<>()
+    .function("handleLeftKey",&JRavelCairo::handleLeftKey)
+    .function("handleRightKey",&JRavelCairo::handleRightKey)
+    .constructor<>()
     ;
 
   class_<RawDataIdx>("RawDataIdx")
