@@ -177,7 +177,7 @@ void Ravel::moveHandleTo(unsigned handle, double xx, double yy)
       Handle& h=handles[handle];
       if (!h.collapsed())
         h.reductionOp=nextRedOp;
-      h.moveTo(xx-x,yy-y, false /* always collapse */);
+      h.moveTo(xx-x,yy-y, /*false*/ !moved /* only collapse if moving*/);
     }
 }
 
@@ -292,6 +292,7 @@ bool Ravel::onMouseMotion(double a_x, double a_y)
           break;
         }
     }
+  moved=true;
   return lastHandle != -1;
 }
 
@@ -299,11 +300,13 @@ void Ravel::onMouseDown(double xx, double yy)
 {
   lastHandle=handleIfMouseOver(xx-x,yy-y);
   elementMoving = sliceCtlHandle(lastHandle, xx-x,yy-y);
+  moved=false;
 }
 
 void Ravel::onMouseUp(double a_x, double a_y)
 {
   onMouseMotion(a_x,a_y);
+  moved=false;
   if (lastHandle!=-1 && elementMoving==handle)
     snapHandle(lastHandle);
   lastHandle=-1;

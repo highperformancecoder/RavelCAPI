@@ -141,6 +141,8 @@ namespace ravel
     /// id of handle for previous event. Used for tracking motion events
     int lastHandle=-1;
     ElementMoving elementMoving;
+    bool moved=false; // indicates if a mouse motion even has been
+                      // received since onMouseDown
 
   public:
 
