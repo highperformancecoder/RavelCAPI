@@ -49,37 +49,37 @@ var newRavel = function(canvasId) {
             ravel.redraw();
     };
 //    // these two are needed to capture keyboard focus when mouse hovering over ravel
-//    canvasElem.onmouseover=function(event) {
-//        canvasElem.focus();
-//    };
-//    canvasElem.onmouseout=function(event) {
-//        canvasElem.blur();
-//    };
-//    canvasElem.onkeydown=function(event) {
-//        switch (event.key)
-//        {
-//            case "ArrowLeft": ravel.handleLeftKey(); break;
-//            case "ArrowRight": ravel.handleRightKey(); break;
-//        }
-//        ravel.redraw();
-//        ravel.onRedraw();
-//        event.preventDefault();
-//    }
-//    canvasElem.onkeyup=function(event) {event.preventDefault();}
-//    canvasElem.onkeypress=function(event) {event.preventDefault();}
-//    canvasElem.onwheel=function(event) {
-//        if (event.deltaY)
-//        {
-//            if (event.deltaY>0)
-//                ravel.handleLeftKey();
-//            else 
-//                ravel.handleRightKey();
-//            ravel.redraw();
-//            //ravel.onRedraw();
-//        }
-//        event.preventDefault();
-//        event.stopPropagation();
-//    }
+    canvasElem.onmouseover=function(event) {
+        canvasElem.focus();
+    };
+    canvasElem.onmouseout=function(event) {
+        canvasElem.blur();
+    };
+    canvasElem.onkeydown=function(event) {
+        switch (event.key)
+        {
+            case "ArrowLeft": ravel.handleLeftKey(); break;
+            case "ArrowRight": ravel.handleRightKey(); break;
+        }
+        ravel.redraw();
+        ravel.onRedraw();
+        event.preventDefault();
+    }
+    canvasElem.onkeyup=function(event) {event.preventDefault();}
+    canvasElem.onkeypress=function(event) {event.preventDefault();}
+    canvasElem.onwheel=function(event) {
+        if (event.deltaY)
+        {
+            if (event.deltaY>0)
+                ravel.handleLeftKey();
+            else 
+                ravel.handleRightKey();
+            ravel.redraw();
+            ravel.onRedraw();
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    }
     
 //    canvasElem.ondblclick=function(event) {
 //        var h=ravel.handleIfMouseOver(event.clientX, event.clientY, -1);

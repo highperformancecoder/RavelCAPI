@@ -3,8 +3,8 @@ CFLAGS=-I. -I../src --std=c++11 --bind -I$(HOME)/usr/emscripten/include
 LIBS=-L$(HOME)/usr/emscripten/lib
 
 # different emscripten options here
-#CFLAGS+=-s ALLOW_MEMORY_GROWTH=1
-CFLAGS+=-s TOTAL_MEMORY=67108864
+CFLAGS+=-s ALLOW_MEMORY_GROWTH=1
+#CFLAGS+=-s TOTAL_MEMORY=67108864
 # 0 here means emit catch blocks, 1 don't emit catch blocks, 2 selectively emit catch blocks
 CFLAGS+=-s DISABLE_EXCEPTION_CATCHING=0
 
