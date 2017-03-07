@@ -51,14 +51,14 @@ int main()
         if (valuation!="Market value" || adjustment!="Adjusted for breaks" || lendSector!="All sectors")
           continue;
         // grab the values needed for computing GDP
-        if (sector=="Private non-financial sector" && lendSector=="All sectors")
+        if (/*sector=="Private non-financial sector" && */lendSector=="All sectors")
           for (size_t i=8; i<row.size(); ++i)
             if (i<col.size() && !row[i].empty())
               {
                 if (unit_type=="Percentage of GDP")
-                  gdpRatio[country][col[i]]=stod(row[i]);
+                  gdpRatio[country][col[i]]+=stod(row[i]);
                 else if (unit_type=="US Dollar")
-                  usdValue[country][col[i]]=stod(row[i]);
+                  usdValue[country][col[i]]+=stod(row[i]);
               }
         if  (unit_type=="US Dollar")
           for (size_t i=8; i<row.size(); ++i)
