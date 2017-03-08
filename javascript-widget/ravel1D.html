@@ -36,8 +36,13 @@
       </tr>
     </table>
 
-    <div id="plot" style="width:1000px;height:500px;"></div>
     <script type="text/javascript" src="plotly.js/dist/plotly.min.js"></script>
+
+    <select onchange="plotType=this.value; processData(0);">
+      <option value="scatter" selected="1">line chart</option>
+      <option value="bar">bar chart</option>
+    </select>
+    <div id="plot" style="width:1000px;height:500px;"></div>
     
     <script type="text/javascript" src="jsravel.js"></script>
     <script type="text/javascript" src="ravel-1dplotly.js"></script>

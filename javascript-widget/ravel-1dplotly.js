@@ -1,10 +1,11 @@
 var op='+';
+var plotType='scatter';
 
 function processData(ravel) {
     // in this case, we ignore the ravel argument, but use the global ravel1, ravel2 variables
 
     var plotlyData=[{
-        type: 'scatter',
+        type: plotType,
         mode: 'lines',
         x: [], y: []
    }];
