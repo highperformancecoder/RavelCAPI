@@ -23,7 +23,7 @@
            <canvas width="500" height="500" id="ravel1" tabindex="10"></canvas>
         </td>
         <td>
-          <select onchange="op=this.value; processData(0);">
+          <select id="op" onchange="processData(0);">
             <option selected="1" value="+">+</option>
             <option value="-">-</option>
             <option value="*">×</option>
@@ -36,14 +36,19 @@
       </tr>
     </table>
 
-    <script type="text/javascript" src="plotly.js/dist/plotly.min.js"></script>
-
-    <select onchange="plotType=this.value; processData(0);">
+    <select id="plotType" onchange="processData(0);">
       <option value="scatter" selected="1">line chart</option>
       <option value="bar">bar chart</option>
     </select>
+    <input id="xmin" oninput="processData(0);" value="min x">
+    <input id="xmax" oninput="processData(0);" value="max x">
+    <input id="ymin" oninput="processData(0);" value="min y">
+    <input id="ymax" oninput="processData(0);" value="max y">
+ 
+
     <div id="plot" style="width:1000px;height:500px;"></div>
     
+    <script type="text/javascript" src="plotly.js/dist/plotly.min.js"></script>
     <script type="text/javascript" src="jsravel.js"></script>
     <script type="text/javascript" src="ravel-1dplotly.js"></script>
     <script type="text/javascript" src="ravel.js"></script>

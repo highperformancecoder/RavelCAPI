@@ -1,11 +1,8 @@
-var op='+';
-var plotType='scatter';
-
 function processData(ravel) {
     // in this case, we ignore the ravel argument, but use the global ravel1, ravel2 variables
 
     var plotlyData=[{
-        type: plotType,
+        type: document.getElementById("plotType").value,
         mode: 'lines',
         x: [], y: []
    }];
@@ -27,7 +24,8 @@ function processData(ravel) {
         var slice2=ravel2.hyperSlice();
         
         var xh=ravel1.handles(ravel1.handleIds(0));
-            
+
+        var op=document.getElementById("op").value;
         for (var i=0; i<xh.numSliceLabels(); ++i)
         {
             var key=[{axis:xh.description, slice:xh.sliceLabels(i)}];
@@ -121,6 +119,21 @@ function processData(ravel) {
         }
     };
     layout.xaxis.title=xh.description;
+
+    // allow manual ranges to be set
+    var xmin=document.getElementById("xmin").value;
+    var xmax=document.getElementById("xmax").value;
+    var ymin=document.getElementById("ymin").value;
+    var ymax=document.getElementById("ymax").value;
+    if (xmin!="" && isFinite(xmin) && xmax!="" && isFinite(xmax))
+    {layout.xaxis.range=[xmin,xmax];}
+    else
+    {delete layout.xaxis.range;}
+    if (ymin!="" && isFinite(ymin) && ymax!="" && isFinite(ymax))
+    {layout.yaxis.range=[ymin,ymax];}
+    else
+    {delete layout.yaxis.range;}
+
     Plotly.newPlot(document.getElementById("plot"),plotlyData,layout);
     xh.delete();
     // for debugging memory leak problems caused by lack of finalisers
