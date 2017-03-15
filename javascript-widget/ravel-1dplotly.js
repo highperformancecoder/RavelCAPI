@@ -134,7 +134,9 @@ function processData(ravel) {
     else
     {delete layout.yaxis.range;}
 
-    Plotly.newPlot(document.getElementById("plot"),plotlyData,layout);
+    var plot=document.getElementById("plot");
+    Plotly.purge(plot);
+    Plotly.plot(plot,plotlyData,layout);
     xh.delete();
     // for debugging memory leak problems caused by lack of finalisers
     //    in javascript
