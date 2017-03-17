@@ -48,10 +48,13 @@ function processData(ravel) {
                             case '*': value*=value2; break;
                             case '/': value/=value2; break;
                         }
-                        plotlyData[0].x.push(xh.sliceLabels(i));
-                        plotlyData[0].y.push(value);        
                     }
                 }
+            }
+            if (isFinite(value) || document.getElementById("allDomain").checked)
+            {
+                plotlyData[0].x.push(xh.sliceLabels(i));
+                plotlyData[0].y.push(value);
             }
         }
         
