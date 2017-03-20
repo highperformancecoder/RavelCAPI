@@ -345,6 +345,13 @@ void DataCube::populateArray(Ravel& ravel)
   if (!yHandle.collapsed())
     setupSortByPerm(m_sortBy[yh],1,0,sliceData, yHandle.sliceLabels);
 
+  for (size_t i=0; i<sliceData.size(); ++i)
+    if (isfinite(sliceData[i]))
+      {
+        m_minVal=min(m_minVal,sliceData[i]);
+        m_maxVal=max(m_maxVal,sliceData[i]);
+      }
+
   // prepare empty row/column masks
   xHandle.mask.clear(); yHandle.mask.clear();
 
@@ -377,12 +384,6 @@ void DataCube::populateArray(Ravel& ravel)
 
   // populate the histogram
   for (unsigned& x: histogram) x=0;
-  for (size_t i=0; i<sliceData.size(); ++i)
-    if (isfinite(sliceData[i]))
-      {
-        m_minVal=min(m_minVal,sliceData[i]);
-        m_maxVal=max(m_maxVal,sliceData[i]);
-      }
   for (size_t i=0; i<sliceData.size(); ++i)
     if (isfinite(sliceData[i]))
       {
@@ -491,11 +492,6 @@ void DataCube::initRavel(ravel::Ravel& ravel) const
 
 void DataCube::filterDataElement(size_t col, size_t row, double v)
 {
-  if (!filterOn)
-    {
-      m_minVal=min(m_minVal, v);
-      m_maxVal=max(m_maxVal, v);
-    }
   if (v>=filterMin && v<=filterMax)
     setDataElement(col,row,v);
 }

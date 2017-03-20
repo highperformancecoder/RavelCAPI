@@ -32,14 +32,22 @@ function processData(ravel) {
         plotlyData[0].z.push([]);
     }
 
+    var maxRowLength=0;
     ravel.setDataCallback(function (col,row,v) {
         gridData[row]["c"+col]=v;
 //        plotlyData[0].x[row][col]=xh.sliceLabels(col);
 //        plotlyData[0].y[row][col]=yh.sliceLabels(row);
         plotlyData[0].z[row][col]=v;
+        if (maxRowLength<=col)
+            maxRowLength=col+1;
     });
     ravel.populateData();
 
+//    //ensure arrays all the same size by adding some dummy element
+//    for (var i=0; i<plotlyData[0].z.length; ++i)
+//        if (plotlyData[0].z[i].length<maxRowLength)
+//            plotlyData[0].z[i][maxRowLength-1]=0;
+    
     var options = {
         enableCellNavigation: true,
         enableColumnReorder: false
@@ -61,5 +69,7 @@ function processData(ravel) {
 //            type: "category"
         }
     };
-    Plotly.newPlot(document.getElementById("plot"),plotlyData,layout);
+    var plot=document.getElementById("plot");
+    Plotly.purge(plot);
+    Plotly.plot(plot,plotlyData,layout);
 };
