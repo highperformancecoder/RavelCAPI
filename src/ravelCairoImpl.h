@@ -212,6 +212,12 @@ namespace ravel
             gc.restore();
           }
       }
+
+    gc.setSourceRGB(0,0,0);
+    gc.setLineWidth(1);
+    if (!axisMenu.label.empty())
+      axisMenu.render(gc);
+    
     gc.restore();
   }
 

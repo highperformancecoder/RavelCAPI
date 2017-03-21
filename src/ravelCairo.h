@@ -1,6 +1,7 @@
 #ifndef RAVELCAIRO_H
 #define RAVELCAIRO_H
 #include "ravel.h"
+#include "menu.h"
 #include "cda.h"
 
 namespace ravel
@@ -15,11 +16,29 @@ namespace ravel
     /// mouse is hovering over, and to render the handle differently
     int toolTipHandle = -1;
 
-    //classdesc::Exclude<G> g{ nullptr }; ///< weak reference to graphics context
     G g{ nullptr }; ///< weak reference to graphics context
     CLASSDESC_ACCESS(RavelCairo);
   public:
     void setG(G gg) {g=gg;}
+    /// enable axis menus for things like sorting, filtering etc.
+    Menu axisMenu{-1,-1};
+
+    void rescale(double radius) override {
+      axisMenu.x=x-radius;
+      axisMenu.y=y-radius;
+      Ravel::rescale(radius);
+    }
+
+    size_t addHandle(const std::string& description="", 
+                     const std::vector<std::string>& sliceLabels=
+                     std::vector<std::string>()) override
+    {
+      axisMenu.items.emplace_back(new Menu);
+      axisMenu.items.back()->label=description;
+      return Ravel::addHandle(description,sliceLabels);
+    }
+
+    
     /// checks whether mouse is over a caliper label, otherwise calls Ravel::onMouseDown
     void onMouseDown(double xx, double yy);
     /// handles tooltip annotations on the ravel rendering. Returns
