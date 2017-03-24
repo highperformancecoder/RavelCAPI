@@ -1,3 +1,15 @@
+
+// function for overriding ravel's dimension method and populating axis menus
+//function dimension(menu, axes, raveldim) {
+//    raveldim(axes);
+//    for (var i in axes)
+//    {
+//        var item=document.createElement("li");
+//        var sortLabel=document.createElement("div")
+//    menu
+//}
+
+
 function processData(ravel) {
     // in this case, we ignore the ravel argument, but use the global ravel1, ravel2 variables
 
