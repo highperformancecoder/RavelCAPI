@@ -1,14 +1,110 @@
+function makeRadio(row, ravel, axis, radioName, checkedName, selections)
+{
+    var radioBox=document.createElement("td");
+    row.appendChild(radioBox);
+    radioBox.setAttribute("style","border:1px solid black");
+    for (var i=0; i<selections.length; ++i)
+    {
+        var item=document.createElement("div");
+        radioBox.appendChild(item);
+        item.setAttribute("class","tooltip");
+        var input=document.createElement("input");
+        item.appendChild(input);
+        input.setAttribute("type","radio");
+        input.setAttribute("name",axis+"-"+radioName);
+        input.setAttribute("value",i);
+        if (selections[i].value===checkedName)
+        {
+            input.setAttribute("checked","1");
+        }
+        input.ravel=ravel;
+        input.setAttribute("onchange",'radio'+radioName+'Pushed(this.ravel,'+axis+',this.value)');
+        var span=document.createElement("span");
+        item.appendChild(span);
+        span.setAttribute("class","tooltiptext");
+        span.innerHTML=selections[i].tooltiptext;
+    }
+}
+
+function radiosortPushed(ravel,axis,value)
+{
+    ravel.setSort(axis,parseInt(value));
+    ravel.onRedraw();
+    ravel.redraw();
+}
+
+function radioreducePushed(ravel,axis,value)
+{
+    ravel.setReductionOp(axis,parseInt(value));
+    ravel.onRedraw();
+    ravel.redraw();
+}
 
 // function for overriding ravel's dimension method and populating axis menus
-//function dimension(menu, axes, raveldim) {
-//    raveldim(axes);
-//    for (var i in axes)
-//    {
-//        var item=document.createElement("li");
-//        var sortLabel=document.createElement("div")
-//    menu
-//}
+function dimension(menu, axes, ravel) {
+    ravel.oldDim(axes);
+    var header=document.createElement("tr");
+    menu.appendChild(header);
+    var item=document.createElement("th");
+    header.appendChild(item);
+    item.innerHTML="Axis";
+    item=document.createElement("th");
+    header.appendChild(item);
+    item.innerHTML="Reduce";
+    item=document.createElement("th");
+    header.appendChild(item);
+    item.innerHTML="Sort";
+    item=document.createElement("th");
+    header.appendChild(item);
+    item.innerHTML="Filtering";
 
+    
+    for (var i=0; i<axes.length; ++i)
+    {
+        var h=ravel.handles(i);
+        var row=document.createElement("tr");
+        menu.appendChild(row);
+        var item=document.createElement("td");
+        row.appendChild(item);
+        item.innerHTML=h.description;
+        var reductionSelector=
+            [
+                {"value": "sum", "tooltiptext": "sum"},
+                {"value": "prod", "tooltiptext": "product"},
+                {"value": "av", "tooltiptext": "average"},
+                {"value": "stddev", "tooltiptext": "standard deviation"},
+                {"value": "min", "tooltiptext": "minimum"},
+                {"value": "max", "tooltiptext": "maximum"},
+            ];
+        makeRadio(row, ravel, i, "reduce", "sum", reductionSelector);
+        var sortSelector=
+            [
+                {"value":"none", "tooltiptext": "None"},
+                {"value":"forward", "tooltiptext": "Forward"},
+                {"value":"reverse", "tooltiptext": "Reverse"},
+                {"value":"numForward", "tooltiptext": "Numerically Forward"},
+                {"value":"numReverse", "tooltiptext": "Numerically Reverse"}
+            ];
+        makeRadio(row, ravel, i, "sort", "forward", sortSelector);
+
+        item=document.createElement("td");
+        row.appendChild(item);
+        var input=document.createElement("input");
+        item.appendChild(input);
+        input.setAttribute("type","checkbox");
+        input.setAttribute("name","filter");
+        input.setAttribute("onchange","toggleFilter(this)");
+        input.axis=i;
+        input.ravel=ravel;
+        h.delete;
+    }
+}
+
+function toggleFilter(checkBox)
+{
+    checkBox.ravel.setDisplayFilter(checkBox.axis,checkBox.checked);
+    checkBox.ravel.redraw();
+}
 
 function processData(ravel) {
     // in this case, we ignore the ravel argument, but use the global ravel1, ravel2 variables

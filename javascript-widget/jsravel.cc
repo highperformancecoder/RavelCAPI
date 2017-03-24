@@ -126,6 +126,19 @@ using ravel::endl;
     void handleRightKey() {
       if (auto h=selectedHandle()) h->moveSliceIdx(-1);
     }
+    void setReductionOp(size_t i, int op)
+    {
+      nextRedOp=Op::ReductionOp(op);
+      handles[i].reductionOp=nextRedOp;
+    }
+    void setSort(size_t i, int o)
+    {
+      handles[i].sliceLabels.order(HandleSort::Order(o));
+    }
+    void setDisplayFilter(size_t i, bool filtering)
+    {
+      handles[i].displayFilterCaliper=filtering;
+    }
   };
 
   struct RavelCairoWrapper: public wrapper<JRavelCairo> {
@@ -145,6 +158,21 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .value("nw",AnchorPoint::nw)
     .value("se",AnchorPoint::se)
     .value("sw",AnchorPoint::sw);
+
+  enum_<Op::ReductionOp>("ReductionOp")
+    .value("sum",Op::sum)
+    .value("prod",Op::prod)
+    .value("av",Op::av)
+    .value("stddev",Op::stddev)
+    .value("min",Op::min)
+    .value("max",Op::max);
+    
+  enum_<HandleSort::Order>("Order")
+    .value("none",HandleSort::none)
+    .value("forward",HandleSort::forward)
+    .value("reverse",HandleSort::reverse)
+    .value("numForward",HandleSort::numForward)
+    .value("numReverse",HandleSort::numReverse);
 
   class_<AnchorPoint>("AnchorPoint")
     .constructor<>()
@@ -210,7 +238,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .property("dataCallback",&JSDataCube::dataCallback)
     .function("loadData",&JSDataCube::loadData)
     .function("dimension",&JSDataCube::dimension)
-   .constructor<>()
+    .constructor<>()
     ;
 
   class_<JRavelCairo,base<RavelCairo<val*>>>("RavelCairo")
@@ -227,6 +255,9 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("toggleCollapsed",&JRavelCairo::toggleCollapsed)
     .function("handleLeftKey",&JRavelCairo::handleLeftKey)
     .function("handleRightKey",&JRavelCairo::handleRightKey)
+    .function("setReductionOp",&JRavelCairo::setReductionOp)
+    .function("setSort",&JRavelCairo::setSort)
+    .function("setDisplayFilter",&JRavelCairo::setDisplayFilter)
     .constructor<>()
     ;
 
