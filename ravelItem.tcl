@@ -21,12 +21,13 @@ proc resize {w h} {
     set x [expr $w/2]
     set y [expr $h/2]
     .tl.ravel coords ravel $x $y
-    ravel.rescale [expr 0.75*min($x,$y)]
     ravel.x $x
     ravel.y $y
+    ravel.rescale [expr 0.75*min($x,$y)]
 }
 
 resize 500 500
+ravel.axisMenu.label "axis menu"
 
 ravel.addHandle "x000" {foo bar}
 ravel.addHandle "y000" {africa asia america}

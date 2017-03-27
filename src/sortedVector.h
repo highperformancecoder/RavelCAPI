@@ -37,6 +37,10 @@ namespace ravel
       labels.push_back(x);
       order(order());
     }
+    void pop_back() {
+      labels.pop_back();
+    }
+    
     const std::string& operator[](size_t i) const {
       assert(isPermValid());
       return labels[indices[i]];
@@ -66,7 +70,8 @@ namespace ravel
     typedef size_t size_type;
     size_t size() const {return labels.size();};
     bool empty() const {return size()==0;}
-
+    std::string& back() {return labels.back();}
+    
     /// elementwise equality.
     bool operator==(const SortedVector& x) {
       if (x.size()!=size()) return false;

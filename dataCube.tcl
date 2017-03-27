@@ -15,9 +15,10 @@ if {[string equal unix $tcl_platform(platform)]} {
 set palette {black red darkgreen blue magenta cyan orange purple}
 
 DataCube dc
-dc.ravel.rescale 150
 dc.ravel.x 50
 dc.ravel.y 50
+dc.ravel.rescale 150
+dc.ravel.axisMenu.label "axis menu"
 
 # forces a redraw of the ravel
 proc redraw {} {

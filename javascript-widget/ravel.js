@@ -197,3 +197,48 @@ function setTable(name,ravel) {
     xhttp.open("GET","/mySqlService.php/axes/"+ravel.table);
     xhttp.send();
 }
+
+function addCommand(menu,label,cmd)
+{
+    var entry=document.createElement("li");
+    menu.appendChild(entry);
+    var anchor=document.createElement("a");
+    entry.appendChild(anchor);
+    anchor.setAttribute("href","#");
+    anchor.innerHTML=label;
+//    anchor.setAttribute("onclick",cmd);
+}
+
+function addMenu(menu,label)
+{
+    var entry=document.createElement("li");
+    menu.appendChild(entry);
+    var a=document.createElement("a");
+    entry.appendChild(a);
+    a.innerHTML=label;
+    a.setAttribute("href","#");
+    a.setAttribute("class","hsub");
+    var subMenu=document.createElement("ul");
+    entry.appendChild(subMenu);
+    return subMenu;
+}
+
+function axisMenu(ravel, menuId)
+{
+    var menu=document.getElementById(menuId);
+    while (menu.hasChildNodes())
+    {menu.removeChild(menu.firstChild);}
+    for (var i=0; i<ravel.numHandles(); ++i)
+    {
+        var h=ravel.handles(i);
+        var submenu=addMenu(menu,h.description);
+        var sortMenu=addMenu(submenu,"sort");
+        addCommand(sortMenu,"lexicographically");
+        addCommand(sortMenu,"reverse lexicographically");
+        addCommand(sortMenu,"numerically");
+        addCommand(sortMenu,"reverse numerically");
+        addMenu(submenu,"reduce");
+        addMenu(submenu,"filter");
+        h.delete;
+    }
+}

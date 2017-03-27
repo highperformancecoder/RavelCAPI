@@ -172,12 +172,14 @@ namespace ravel
       using Super::value_type;
       using Super::const_iterator;
       using Super::iterator;
+      using Super::back;
       const Handle& at(size_t i) const {return Super::operator[](i);}
       size_t size() const {return Super::size();}
-      void clear() {/* clear does nothing by design */}
-      void resize(size_type) {/* clear does nothing by design */}
-      void push_back(value_type) {/* clear does nothing by design */}
-      void emplace(value_type) {/* clear does nothing by design */}
+      void clear() {/* does nothing by design */}
+      void resize(size_type) {/* does nothing by design */}
+      void push_back(value_type) {/* does nothing by design */}
+      void emplace(value_type) {/* does nothing by design */}
+      void pop_back() {/* does nothing by design */}
     };
 
     /// the handles assciated with this Ravel
@@ -219,10 +221,11 @@ namespace ravel
     void redistributeHandles();
     
     Ravel(double radius=1): m_radius(radius) {}
-
+    virtual ~Ravel() {}
+    
     /// add a handle (and dimension it controls) to system
     /// @return handleId for newly added handle
-    size_t addHandle(const std::string& description="", 
+    virtual size_t addHandle(const std::string& description="", 
                   const std::vector<std::string>& sliceLabels=
                   std::vector<std::string>());
     void clear() {handles.clearHandles();}
@@ -235,7 +238,7 @@ namespace ravel
     double radius() const {return m_radius;}
 
     /// rescale item to \a radius
-    void rescale(double radius);
+    virtual void rescale(double radius);
 
     /// returns a list of slice labels, looped over the collapsed handles
     //    std::vector<std::vector<std::string> > rolledupKeys() const;

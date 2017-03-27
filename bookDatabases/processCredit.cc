@@ -31,11 +31,14 @@ int main()
   vector<string> col(tok.begin(),tok.end());
 
   ofstream privCredit("priv_credit.txt"), govCredit("gov_credit.txt"), gdp("gdp.txt");
-  format privFormat(R"("%1%","%2%","%3%","%4%")""\n");
-  format govFormat(R"("%1%","%2%","%3%")""\n");
-  format gdpFormat(R"("%1%","%2%",%3%)""\n");
-                   
-  map<string, map<string, double>> usdValue, gdpRatio;
+  format privFormat(R"("%1%","%2%","%3%","%4%",%5%)""\n");
+  format govFormat(R"("%1%","%2%","%3%",%4%)""\n");
+  format gdpFormat(R"("%1%","%2%","%3%",%4%)""\n");
+
+//  govCredit<<"country,unit,quarter,value"<<endl;
+//  privCredit<<"country,sector,unit,quarter,value"<<endl;
+//  gdp<<"country,unit,quarter,value"<<endl;
+  map<string, map<string, map<string, double>>> totalDebt;
   while (getline(f,buf))
     try
       {
@@ -54,31 +57,34 @@ int main()
         if (/*sector=="Private non-financial sector" && */lendSector=="All sectors")
           for (size_t i=8; i<row.size(); ++i)
             if (i<col.size() && !row[i].empty())
-              {
-                if (unit_type=="Percentage of GDP")
-                  gdpRatio[country][col[i]]+=stod(row[i]);
-                else if (unit_type=="US Dollar")
-                  usdValue[country][col[i]]+=stod(row[i]);
-              }
-        if  (unit_type=="US Dollar")
-          for (size_t i=8; i<row.size(); ++i)
-            if (i<col.size() && !row[i].empty())
-              {
-                if (sector=="General government")
-                  govCredit<<govFormat % country % col[i] % row[i];
+              totalDebt[country][unit_type][col[i]]+=stod(row[i]);
+        for (size_t i=8; i<row.size(); ++i)
+          if (i<col.size() && !row[i].empty())
+            {
+              if (sector=="General government")
+                govCredit<<govFormat % country % unit_type % col[i] % row[i];
                 else if (sector=="Households & NPISHs" ||
                          sector=="Non-financial corporations")
-                  privCredit<<privFormat % country % sector % col[i] %
+                  privCredit<<privFormat % country % sector % unit_type % col[i] %
                     row[i];
               }
       }
     catch (...) {/*ignore bad data*/}
 
+  
+  
   // write out GDP data
-  for (auto& i: usdValue)
-    if (gdpRatio.count(i.first))
-      for (auto& j: i.second)
-        if (gdpRatio[i.first].count(j.first))
-          gdp<<gdpFormat % i.first % j.first % (100*j.second/gdpRatio[i.first][j.first]);
+  for (auto& i: totalDebt) // countries
+    {
+      auto gdpPercentageMap=i.second.find("Percentage of GDP");
+      if (gdpPercentageMap!=i.second.end())
+        for (auto& j: i.second) // currencies
+          for (auto& k: j.second) // quarters
+            {
+              auto gdpPercentage=gdpPercentageMap->second.find(k.first);
+              if (gdpPercentage!=gdpPercentageMap->second.end())
+                gdp<<gdpFormat % i.first % j.first % k.first % (100*k.second/gdpPercentage->second);
+            }
+    }
           
 }
