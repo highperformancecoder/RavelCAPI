@@ -18,7 +18,8 @@ function makeRadio(row, ravel, axis, radioName, checkedName, selections)
             input.setAttribute("checked","1");
         }
         input.ravel=ravel;
-        input.setAttribute("onchange",'radio'+radioName+'Pushed(this.ravel,'+axis+',this.value)');
+        input.axis=axis;
+        input.setAttribute("onchange",'radio'+radioName+'Pushed(this)');
         var span=document.createElement("span");
         item.appendChild(span);
         span.setAttribute("class","tooltiptext");
@@ -26,18 +27,19 @@ function makeRadio(row, ravel, axis, radioName, checkedName, selections)
     }
 }
 
-function radiosortPushed(ravel,axis,value)
+function radiosortPushed(input)
 {
-    ravel.setSort(axis,parseInt(value));
-    ravel.onRedraw();
-    ravel.redraw();
+    console.log(input.axis+' '+input.value);
+    input.ravel.setSort(input.axis,parseInt(input.value));
+    input.ravel.onRedraw();
+    input.ravel.redraw();
 }
 
-function radioreducePushed(ravel,axis,value)
+function radioreducePushed(input)
 {
-    ravel.setReductionOp(axis,parseInt(value));
-    ravel.onRedraw();
-    ravel.redraw();
+    input.ravel.setReductionOp(input.axis,parseInt(input.value));
+    input.ravel.onRedraw();
+    input.ravel.redraw();
 }
 
 // function for overriding ravel's dimension method and populating axis menus
@@ -54,9 +56,9 @@ function dimension(menu, axes, ravel) {
     item=document.createElement("th");
     header.appendChild(item);
     item.innerHTML="Sort";
-    item=document.createElement("th");
-    header.appendChild(item);
-    item.innerHTML="Filtering";
+//    item=document.createElement("th");
+//    header.appendChild(item);
+//    item.innerHTML="Filtering";
 
     
     for (var i=0; i<axes.length; ++i)
@@ -87,15 +89,15 @@ function dimension(menu, axes, ravel) {
             ];
         makeRadio(row, ravel, i, "sort", "forward", sortSelector);
 
-        item=document.createElement("td");
-        row.appendChild(item);
-        var input=document.createElement("input");
-        item.appendChild(input);
-        input.setAttribute("type","checkbox");
-        input.setAttribute("name","filter");
-        input.setAttribute("onchange","toggleFilter(this)");
-        input.axis=i;
-        input.ravel=ravel;
+//        item=document.createElement("td");
+//        row.appendChild(item);
+//        var input=document.createElement("input");
+//        item.appendChild(input);
+//        input.setAttribute("type","checkbox");
+//        input.setAttribute("name","filter");
+//        input.setAttribute("onchange","toggleFilter(this)");
+//        input.axis=i;
+//        input.ravel=ravel;
         h.delete;
     }
 }
