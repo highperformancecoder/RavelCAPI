@@ -202,11 +202,8 @@ function addCommand(menu,label,cmd)
 {
     var entry=document.createElement("li");
     menu.appendChild(entry);
-    var anchor=document.createElement("a");
-    entry.appendChild(anchor);
-    anchor.setAttribute("href","#");
-    anchor.innerHTML=label;
-//    anchor.setAttribute("onclick",cmd);
+    entry.innerHTML=h.description;
+    entry.setAttribute("onclick",cmd);
 }
 
 function addMenu(menu,label)
@@ -232,11 +229,7 @@ function axisMenu(ravel, menuId)
     {
         var h=ravel.handles(i);
         var submenu=addMenu(menu,h.description);
-        var sortMenu=addMenu(submenu,"sort");
-        addCommand(sortMenu,"lexicographically");
-        addCommand(sortMenu,"reverse lexicographically");
-        addCommand(sortMenu,"numerically");
-        addCommand(sortMenu,"reverse numerically");
+        addMenu(submenu,"sort");
         addMenu(submenu,"reduce");
         addMenu(submenu,"filter");
         h.delete;

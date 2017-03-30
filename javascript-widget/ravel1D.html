@@ -46,9 +46,8 @@
     <table id="tableBlock">
       <tr>
         <td>
-          Database: <select
-                       onchange="ravelSetTable(this.value,ravel1,'ravel1menu')"
-                       id="tableSelector1">
+          Database: <select onchange="setTable(this.value,ravel1)"
+                            id="tableSelector1">
           </select>
         </td>
         <td></td>
@@ -60,25 +59,11 @@
       </tr>
       <tr>
         <td>
-<<<<<<< HEAD
           <table id="ravel1Axes"></table>
         </td>
         <td></td>
         <td>
           <table id="ravel2Axes"></table>
-=======
-          <!--button onclick="axisMenu(ravel1,'ravel1menu')">Axis
-            menu</button-->
-          <div style="background-color: #ABC9DE;height:1%">
-            <ul class="mlddm" params="3,-3,1500,fade,150,h,1,25,1,1" style="width:500px">
-              <li><a href="#">Axis menu</a>
-                <ul id="ravel1menu" >
-                </ul>
-              </li>
-            </ul>
-            <div style="clear:both"></div>
-          </div>
->>>>>>> 74094c4e20f32a616eb8216a0f228532ade1b42e
         </td>
       <tr>
         <td valign="top" width="50%">
@@ -114,19 +99,6 @@
     <script type="text/javascript" src="jsravel.js"></script>
     <script type="text/javascript" src="ravel-1dplotly.js"></script>
     <script type="text/javascript" src="ravel.js"></script>
-    <script type="text/javascript">
-      var mlddm_shiftx       = 3;       // horizontal submenu shifting (in pixels)
-      var mlddm_shifty       = -3;      // vertical submenu shifting (in pixels)	
-      var mlddm_timeout      = 100;     // delay before closing (in milliseconds)
-      var mlddm_effect       = 'slide'; // specifies the visual effect for submenus (can be 'none', fade', 'slide')
-      var mlddm_effect_speed = 150;     // specifies the visual effect speed
-      var mlddm_orientation  = 'h';     // specifies the horizontal or vertical orientation (can be 'h' or 'v')
-      var mlddm_direction    = 1;       // on/off automatic submenus direction (submenus on left side when not enough right space) (can be 1 or 0)
-      var mlddm_delay        = 50;      // delay before first menu opening (in milliseconds). Useful to prevent accidental hovers
-      var mlddm_highlight    = 1;       // keep 'hover' pseudo class style on the parent active items. (can be 1 or 0)
-      var mlddm_closeonclick = 1;       // closing menu when onclick event happens. (can be 1 or 0)
-    </script>
-
     <script>
       var ravel1=newRavel("ravel1");
       var ravel2=newRavel("ravel2");
@@ -139,23 +111,13 @@
         if (ravel1) ravel1.delete();
         if (ravel2) ravel2.delete();
       }
-<<<<<<< HEAD
       // overide dimension to populate axis menus
       ravel1.oldDim=ravel1.dimension;
       ravel1.dimension=function(axes) {
         dimension(document.getElementById("ravel1Axes"),axes,ravel1);
       }
       
-=======
-      function ravelSetTable(table,ravel,id) {
-        setTable(table,ravel);
-        ravel.onRedraw=function() {
-          axisMenu(ravel,id);
-          processData(ravel);
-        }
-      }
->>>>>>> 74094c4e20f32a616eb8216a0f228532ade1b42e
-    </script>
+   </script>
 
   </body>
 </html> 
