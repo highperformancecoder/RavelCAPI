@@ -78,6 +78,20 @@ using ravel::endl;
   struct JRavelCairo: public RavelCairo<val*>
   {
     unique_ptr<val> canvasContext;
+
+    JRavelCairo() {
+      EM_ASM(
+             var uuid=document.createElement("div");
+             uuid.setAttribute("style","display:none");
+             uuid.innerHTML="c45b9a57-e174-4732-8955-a7b6d23f1387";
+             var bodies=document.getElementsByTagName("body");
+             if (bodies.length>0)
+               {
+                 bodies[0].appendChild(uuid);
+               }
+             );
+    }
+
     void setCanvas(const val& x) { canvasContext.reset(new val(x)); setG(canvasContext.get());}
     JSDataCube dc;
     void setDataCallback(val f) {dc.dataCallback=f;}
