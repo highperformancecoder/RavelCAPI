@@ -46,17 +46,30 @@
     <table id="tableBlock">
       <tr>
         <td>
-          Database: <select onchange="setTable(this.value,ravel1)"
-                            id="tableSelector1">
+          Database: <select id="tableSelector1"
+           onchange="setTable(this.value,ravel1); hideAxisMenus('ravel1Axes')">
           </select>
         </td>
         <td></td>
         <td>
-          Database: <select onchange="setTable(this.value,ravel2)"
-                            id="tableSelector2">
+          Database: <select id="tableSelector2"
+      onchange="setTable(this.value,ravel2); hideAxisMenus('ravel2Axes')">
           </select>
         </td>
       </tr>
+      <tr>
+        <td>
+          <input type="button"
+                 onclick="toggleAxisMenus('ravel1Axes',ravel1)"
+                 value="toggle axis menus">
+          </td>
+        <td></td>
+        <td>
+          <input type="button"
+                 onclick="toggleAxisMenus('ravel2Axes',ravel2)"
+                 value="toggle axis menus">
+          </td>
+        </tr>
       <tr>
         <td>
           <table id="ravel1Axes"></table>
@@ -111,12 +124,6 @@
         if (ravel1) ravel1.delete();
         if (ravel2) ravel2.delete();
       }
-      // overide dimension to populate axis menus
-      ravel1.oldDim=ravel1.dimension;
-      ravel1.dimension=function(axes) {
-        dimension(document.getElementById("ravel1Axes"),axes,ravel1);
-      }
-      
    </script>
 
   </body>

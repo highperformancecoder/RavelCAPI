@@ -65,12 +65,20 @@ function radioreducePushed(input)
     input.ravel.redraw();
 }
 
-// function for overriding ravel's dimension method and populating axis menus
-function dimension(menu, axes, ravel) {
-    ravel.oldDim(axes);
-
+function hideAxisMenus(menuID) {
+    var menu=document.getElementById(menuID);
     while (menu.hasChildNodes())
         menu.removeChild(menu.firstChild);
+}
+
+function toggleAxisMenus(menuID, ravel) {
+    var menu=document.getElementById(menuID);
+    if (menu.hasChildNodes())
+    {
+        while (menu.hasChildNodes())
+            menu.removeChild(menu.firstChild);
+        return;
+    }
 
     var header=document.createElement("tr");
     menu.appendChild(header);
@@ -88,7 +96,7 @@ function dimension(menu, axes, ravel) {
     item.innerHTML="Filtering";
 
     
-    for (var i=0; i<axes.length; ++i)
+    for (var i=0; i<ravel.numHandles(); ++i)
     {
         var h=ravel.handles(i);
         var row=document.createElement("tr");

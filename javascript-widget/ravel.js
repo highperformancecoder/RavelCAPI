@@ -1,3 +1,8 @@
+/*
+  © Ravelation Pty Ltd
+  Example code released under the MIT license.
+*/
+
 function findPos(obj) {
     var curleft = curtop = 0;
     if (obj.offsetParent) {
