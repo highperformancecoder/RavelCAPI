@@ -49,27 +49,21 @@
           Database: <select id="tableSelector1"
            onchange="setTable(this.value,ravel1); hideAxisMenus('ravel1Axes')">
           </select>
+          <input type="button"
+                 onclick="toggleAxisMenus('ravel1Axes',ravel1)"
+                 value="toggle axis menus">
         </td>
         <td></td>
         <td>
           Database: <select id="tableSelector2"
       onchange="setTable(this.value,ravel2); hideAxisMenus('ravel2Axes')">
           </select>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <input type="button"
-                 onclick="toggleAxisMenus('ravel1Axes',ravel1)"
-                 value="toggle axis menus">
-          </td>
-        <td></td>
-        <td>
           <input type="button"
                  onclick="toggleAxisMenus('ravel2Axes',ravel2)"
                  value="toggle axis menus">
           </td>
-        </tr>
+        </td>
+      </tr>
       <tr>
         <td>
           <table id="ravel1Axes"></table>
