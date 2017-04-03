@@ -25,6 +25,7 @@ OBJS=ravel.o dataCube.o ravelCairo.o cairoShimCairo.o \
 LIBS+=libravel.a
 LIBS:=-L$(HOME)/usr/lib64 $(LIBS)
 MODELS=ravelTest
+EXES=logos
 
 DLLS=libgcc_s_dw2-1.dll libstdc++-6.dll libcairo-2.dll libgobject-2.0-0.dll libgsl-0.dll libpango-1.0-0.dll libpangocairo-1.0-0.dll tcl85.dll tk85.dll libz-1.dll libpixman-1-0.dll libpng15-15.dll libglib-2.0-0.dll libintl-8.dll libiconv-2.dll libffi-6.dll libgslcblas-0.dll libgmodule-2.0-0.dll libpangowin32-1.0-0.dll Tktable211.dll
 
@@ -34,7 +35,7 @@ aegis-all: all
 endif
 
 #chmod command is to counteract AEGIS removing execute privelege from scripts
-all: $(MODELS) Ravel/Installer/ravelDoc.wxi src/ravelVersion.h
+all: $(MODELS) $(EXES) Ravel/Installer/ravelDoc.wxi src/ravelVersion.h
 	-$(CHMOD) a+x *.tcl
 
 ifeq ($(OS),Darwin)
@@ -62,6 +63,10 @@ $(MODELS:=.o): %.o: %.cc
 # how to build a model executable
 $(MODELS): %: %.o libravel.a
 	$(LINK) $(FLAGS) $*.o $(MODLINK) $(LIBS) -o $@
+
+$(EXES): %: %.o libravel.a
+	$(LINK) $(FLAGS) $*.o $(LIBS) -o $@
+
 
 #make MacOS application bundles
 $(MODELS:=.app): %.app: %

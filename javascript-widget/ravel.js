@@ -194,6 +194,7 @@ function setTable(name,ravel) {
                             dataReq.send();
                         }
                     }
+                    sliceLabels.delete;
                 }
                 // request slicelabels
                 sliceLabelReq.open("GET","/mySqlService.php/axes/"+ravel.table+"/"+axes[i]);
@@ -211,4 +212,5 @@ function initialiseVector(vec, arr)
 {
     for (var i=0; i<arr.length; ++i)
         vec.push_back(arr[i]);
+    return vec;
 }
