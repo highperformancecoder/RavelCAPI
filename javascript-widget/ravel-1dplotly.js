@@ -27,6 +27,29 @@ function makeRadio(row, ravel, axis, radioName, checkedName, selections)
     }
 }
 
+function makeSelect(row, ravel, axis, radioName, checkedName, selections)
+{
+    var item=document.createElement("td");
+    row.appendChild(item);
+//    radioBox.setAttribute("style","border:1px solid black");
+    var select=document.createElement("select");
+    item.appendChild(select);
+    for (var i=0; i<selections.length; ++i)
+    {
+        var option=document.createElement("option");
+        select.appendChild(option);
+        option.innerHTML=selections[i].tooltiptext;
+        option.setAttribute("value",i);
+        if (selections[i].value===checkedName)
+        {
+            option.setAttribute("selected","1");
+        }
+        select.ravel=ravel;
+        select.axis=axis;
+        select.setAttribute("onchange",'radio'+radioName+'Pushed(this)');
+    }
+}
+
 function radiosortPushed(input)
 {
     console.log(input.axis+' '+input.value);
@@ -45,6 +68,10 @@ function radioreducePushed(input)
 // function for overriding ravel's dimension method and populating axis menus
 function dimension(menu, axes, ravel) {
     ravel.oldDim(axes);
+
+    while (menu.hasChildNodes())
+        menu.removeChild(menu.firstChild);
+
     var header=document.createElement("tr");
     menu.appendChild(header);
     var item=document.createElement("th");
@@ -56,9 +83,9 @@ function dimension(menu, axes, ravel) {
     item=document.createElement("th");
     header.appendChild(item);
     item.innerHTML="Sort";
-//    item=document.createElement("th");
-//    header.appendChild(item);
-//    item.innerHTML="Filtering";
+    item=document.createElement("th");
+    header.appendChild(item);
+    item.innerHTML="Filtering";
 
     
     for (var i=0; i<axes.length; ++i)
@@ -69,6 +96,7 @@ function dimension(menu, axes, ravel) {
         var item=document.createElement("td");
         row.appendChild(item);
         item.innerHTML=h.description;
+
         var reductionSelector=
             [
                 {"value": "sum", "tooltiptext": "sum"},
@@ -78,7 +106,7 @@ function dimension(menu, axes, ravel) {
                 {"value": "min", "tooltiptext": "minimum"},
                 {"value": "max", "tooltiptext": "maximum"},
             ];
-        makeRadio(row, ravel, i, "reduce", "sum", reductionSelector);
+        makeSelect(row, ravel, i, "reduce", "sum", reductionSelector);
         var sortSelector=
             [
                 {"value":"none", "tooltiptext": "None"},
@@ -87,17 +115,18 @@ function dimension(menu, axes, ravel) {
                 {"value":"numForward", "tooltiptext": "Numerically Forward"},
                 {"value":"numReverse", "tooltiptext": "Numerically Reverse"}
             ];
-        makeRadio(row, ravel, i, "sort", "forward", sortSelector);
+        makeSelect(row, ravel, i, "sort", "forward", sortSelector);
 
-//        item=document.createElement("td");
-//        row.appendChild(item);
-//        var input=document.createElement("input");
-//        item.appendChild(input);
-//        input.setAttribute("type","checkbox");
-//        input.setAttribute("name","filter");
-//        input.setAttribute("onchange","toggleFilter(this)");
-//        input.axis=i;
-//        input.ravel=ravel;
+        item=document.createElement("td");
+        row.appendChild(item);
+        var input=document.createElement("input");
+        item.appendChild(input);
+        input.setAttribute("type","checkbox");
+        input.setAttribute("name","filter");
+        input.setAttribute("onchange","toggleFilter(this)");
+        input.axis=i;
+        input.ravel=ravel;
+
         h.delete;
     }
 }

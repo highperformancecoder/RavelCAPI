@@ -25,9 +25,11 @@ var newRavel = function(canvasId) {
     }
    
     // bind mouse actions
-    var offsets=findPos(canvasElem);
-    ravel.x=0.5*canvasElem.width+offsets[0];
-    ravel.y=0.5*canvasElem.height+offsets[1];
+    var adjustOrigin=function() {
+        var offsets=findPos(canvasElem);
+        ravel.x=0.5*canvasElem.width+offsets[0];
+        ravel.y=0.5*canvasElem.height+offsets[1];
+    }
     var x=function(event) {
         return event.clientX+window.pageXOffset;
     }
@@ -35,14 +37,17 @@ var newRavel = function(canvasId) {
         return event.clientY+window.pageYOffset;
     }
     canvasElem.onmousedown=function(event) {
+        adjustOrigin();
         ravel.onMouseDown(x(event), y(event));
     };
     canvasElem.onmouseup=function(event) {
+        adjustOrigin();
         ravel.onMouseUp(x(event), y(event));
         ravel.redraw();
         ravel.onRedraw();
     };
     canvasElem.onmousemove=function(event) {
+        adjustOrigin();
         if (ravel.onMouseOver(x(event), y(event)))
             ravel.redraw();
         if (event.button==0 && ravel.onMouseMotion(x(event), y(event)))
