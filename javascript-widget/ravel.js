@@ -19,6 +19,7 @@ var newRavel = function(canvasId) {
     var canvasElem=document.getElementById(canvasId);
     var canvas = canvasElem.getContext('2d');
     var radius = 0.5*Math.min(canvasElem.width,canvasElem.height);
+    ravel.dataLoadHook=function(){} // hook function when data is loaded
     ravel.setCanvas(canvas);
     ravel.rescale(0.8*radius);
     ravel.x=0; ravel.y=0;
@@ -187,14 +188,15 @@ function setTable(name,ravel) {
                             dataReq.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
                                     ravel.loadData(this.responseText);
+                                    ravel.dataLoadHook();
                                     ravel.onRedraw();
                                 }
                             }
                             dataReq.open("GET",dbQuery);
                             dataReq.send();
                         }
+                        sliceLabels.delete;
                     }
-                    sliceLabels.delete;
                 }
                 // request slicelabels
                 sliceLabelReq.open("GET","/mySqlService.php/axes/"+ravel.table+"/"+axes[i]);

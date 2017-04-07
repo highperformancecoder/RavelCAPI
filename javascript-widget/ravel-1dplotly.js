@@ -127,7 +127,7 @@ function toggleAxisMenus(menuID, ravel) {
                 {"value":"numForward", "tooltiptext": "Numerically Forward"},
                 {"value":"numReverse", "tooltiptext": "Numerically Reverse"}
             ];
-        makeSelect(row, ravel, i, "sort", "forward", sortSelector);
+        makeSelect(row, ravel, i, "sort", "reverse", sortSelector);
 
         item=document.createElement("td");
         row.appendChild(item);
@@ -296,3 +296,20 @@ function processData(ravel) {
     //    in javascript
     // console.log("mem usage="+DYNAMICTOP);
 };
+
+// make country the default x-axis
+function makeCountryDefaultX(ravel) {
+    console.log("in makeCountryDefaultX");
+    for (var i=0; i<ravel.numHandles(); ++i) {
+        var h=ravel.handles(i);
+        console.log(h.description+"|"+(h.description==="country"));
+        if (h.description==="country") {
+            ravel.setHandleIds([i]);
+            ravel.redistributeHandles();
+            ravel.redraw();
+            break;
+        }
+        h.delete;
+    }
+}
+    

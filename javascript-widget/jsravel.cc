@@ -221,6 +221,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("numHandles",optional_override([](const Ravel& self){return self.handles.size();}))
     .function("addHandle",&Ravel::addHandle)
     .function("rank",&Ravel::rank)
+    .function("radius",&Ravel::radius)
     .function("clear",&Ravel::clear)
     .function("moveHandleTo",&Ravel::moveHandleTo)
     .function("rescale",&Ravel::rescale)
