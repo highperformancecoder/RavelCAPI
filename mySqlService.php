@@ -1,4 +1,7 @@
 <?php
+# © Ravelation 2017
+# Released under MIT open source license
+
 #echo "<pre>";
 #var_dump($_SERVER);
 

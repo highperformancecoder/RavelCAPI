@@ -1,3 +1,7 @@
+/*
+  © Ravelation Pty Ltd 2017
+  Example code released under the MIT license.
+*/
 function makeRadio(row, ravel, axis, radioName, checkedName, selections)
 {
     var radioBox=document.createElement("td");

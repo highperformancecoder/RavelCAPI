@@ -1,5 +1,5 @@
 /*
-  © Ravelation Pty Ltd
+  © Ravelation Pty Ltd 2017
   Example code released under the MIT license.
 */
 

@@ -1,3 +1,7 @@
+/*
+  © Ravelation Pty Ltd 2017
+  Example code released under the MIT license.
+*/
 var grid;
 
 function processData(ravel) {
