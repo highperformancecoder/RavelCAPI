@@ -10,6 +10,9 @@ include $(ECOLAB_HOME)/include/Makefile
 ACTIONS+=xml_pack xml_unpack random_init
 FLAGS+=-std=c++11 #-Wno-error=offsetof
 
+WEBINSTALLROOT=public_html/ravelation
+WEBINSTALL=$(WEBINSTALLROOT)/examples
+
 # override EcoLab's classdesc rule to get enums handled correctly
 .h.cd:
 	$(CLASSDESC) -nodef -onbase -typeName -I $(CDINCLUDE) -I $(ECOLAB_HOME)/include -i $< $(ACTIONS) >$@
@@ -106,5 +109,5 @@ Ravel/Installer/ravelDoc.wxi: doc doc/ravelDoc.tex
 	cd doc && sh makeDoc.sh && sh createRavelDocWXI.sh
 
 install-web:
-	ncftpput -F -m -S .tmp -f hpcoders.conf public_html/ravelation mySqlService.php
-	ncftpput -F -m -S .tmp -f hpcoders.conf public_html/ravelation/examples javascript-widget/*.js javascript-widget/*.html 
+	ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALLROOT)/ mySqlService.php
+	ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALL) javascript-widget/*.js javascript-widget/*.html 
