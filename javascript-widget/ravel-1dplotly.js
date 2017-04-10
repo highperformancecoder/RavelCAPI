@@ -307,7 +307,9 @@ function makeCountryDefaultX(ravel) {
             ravel.setHandleIds([i]);
             ravel.redistributeHandles();
             ravel.redraw();
-            break;
+        } else {
+            // select reverse sorting
+            ravel.setSort(i,2);
         }
         h.delete;
     }
