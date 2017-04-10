@@ -92,15 +92,31 @@ function Ravel1D(canvas) {
             master.addHandle(i,initialiseVector(new Module.VectorString, axisData[i]));
         }
         makeCountryDefaultX(master);
-        plotData(ravel1D);
+        plotAllData();
     }
     lhs.dataLoadHook=synchroniseMaster;
     rhs.dataLoadHook=synchroniseMaster;
-    master.onRedraw=function() {plotData(ravel1D);}
+    master.onRedraw=function() {plotAllData();}
 }
 
 Ravel1D.prototype=new Object;
 
+// make country the default x-axis
+function makeCountryDefaultX(ravel) {
+    for (var i=0; i<ravel.numHandles(); ++i) {
+        var h=ravel.handles(i);
+        if (h.description==="country") {
+            ravel.setHandleIds([i]);
+            ravel.redistributeHandles();
+        } else {
+            // select reverse sorting
+            ravel.setSort(i,2);
+        }
+        h.delete;
+    }
+    ravel.redraw();
+}
+    
 function radiosortPushed(input)
 {
     console.log(input.axis+' '+input.value);
@@ -196,18 +212,54 @@ function toggleFilter(checkBox)
     checkBox.ravel.redraw();
 }
 
-function plotData(ravel) {
-    // in this case, we ignore the ravel argument, but use the global ravel1, ravel2 variables
+// align handlers and slicers of slave ravel to that of master
+function alignHandles(master,slave) {
+    if (slave.numHandles()>slave.handleIds(0))
+    {
+        var xh=master.handles(master.handleIds(0));
+        // didn't combine, try rotating slave ravel to match orientation of master
+        for (var i=0; i<slave.numHandles(); ++i)
+        {
+            if (slave.handles(i).description===xh.description)
+            {
+                slave.setHandleIds([i]);
+                slave.redistributeHandles();
+            }
+            else // check that slicers match
+            {
+                var h2=slave.handles(i);
+                for (var j=0; j<master.numHandles(); ++j)
+                {
+                    var h1=master.handles(j);
+                    if (h2.description===h1.description)
+                    {
+                        slave.setSlicer(i, h1.sliceLabel());
+                        if (h2.collapsed()!=h1.collapsed())
+                        {
+                            slave.toggleCollapsed(i);
+                        }
+                    }
+                    h1.delete();
+                }
+                h2.delete();
+            }
+        }
+        slave.redraw();
+        xh.delete()
+    }
+}
 
-    var plotlyData=[{
+function plotData(ravel) {
+    var plotlyData={
+        name: "",
         type: document.getElementById("plotType").value,
         mode: 'lines',
         x: [], y: []
-   }];
+    };
 
-    if (ravel.master.numHandles()<=ravel.master.handleIds(0)) return; //nothing to do
+    if (ravel.master.numHandles()<=ravel.master.handleIds(0)) return plotlyData; //nothing to do
     var xh=ravel.master.handles(ravel.master.handleIds(0));
-    var title=ravel.lhs.table;
+    plotlyData.name=ravel.lhs.table;
 
     if (xh.collapsed())
     {
@@ -238,7 +290,7 @@ function plotData(ravel) {
                     var value2=slice2.val(key);
                     if (isFinite(value2))
                     {
-                        title=ravel.lhs.table+" "+op+" "+ravel.rhs.table;
+                        plotlyData.name=ravel.lhs.table+" "+op+" "+ravel.rhs.table;
                         switch (op)
                         {
                             case '+': value+=value2; break;
@@ -251,12 +303,12 @@ function plotData(ravel) {
             }
             if (isFinite(value) || document.getElementById("allDomain").checked)
             {
-                plotlyData[0].x.push(xh.sliceLabels(i));
-                plotlyData[0].y.push(value);
+                plotlyData.x.push(xh.sliceLabels(i));
+                plotlyData.y.push(value);
             }
         }
         
-        if (plotlyData[0].x.length==0)
+        if (plotlyData.x.length==0)
         {
             // no second ravel data matched, so replace by that of ravel 1
             for (var i=0; i<xh.numSliceLabels(); ++i)
@@ -265,8 +317,8 @@ function plotData(ravel) {
                 var value=slice1.val(key);
                 if (isFinite(value))
                 {
-                    plotlyData[0].x.push(xh.sliceLabels(i));
-                    plotlyData[0].y.push(value);    
+                    plotlyData.x.push(xh.sliceLabels(i));
+                    plotlyData.y.push(value);    
                 }
             }
         }
@@ -276,54 +328,37 @@ function plotData(ravel) {
         xh.delete();
     }
 
-    function alignHandles(slave) {
-        if (slave.numHandles()>slave.handleIds(0))
-        {
-            // didn't combine, try rotating slave ravel to match orientation of master
-            for (var i=0; i<slave.numHandles(); ++i)
-            {
-                if (slave.handles(i).description===xh.description)
-                {
-                    slave.setHandleIds([i]);
-                    slave.redistributeHandles();
-                }
-                else // check that slicers match
-                {
-                    var h2=slave.handles(i);
-                    for (var j=0; j<ravel.master.numHandles(); ++j)
-                    {
-                        var h1=ravel.master.handles(j);
-                        if (h2.description===h1.description)
-                        {
-                            slave.setSlicer(i, h1.sliceLabel());
-                            if (h2.collapsed()!=h1.collapsed())
-                            {
-                                slave.toggleCollapsed(i);
-                            }
-                        }
-                        h1.delete();
-                    }
-                    h2.delete();
-                }
-            }
-            slave.redraw();
-        }
-    }
-
-    alignHandles(ravel.lhs);
-    alignHandles(ravel.rhs);
+    alignHandles(ravel.master,ravel.lhs);
+    alignHandles(ravel.master,ravel.rhs);
     tryCombine();
+    xh.delete();
+   
+    return plotlyData;
+};
 
+function processData(ravel) {/* not used */}
+function plotAllData() {
+    alignHandles(ravel1.master, ravel2.master);
+    var data=[plotData(ravel1), plotData(ravel2)];
+    data[1].yaxis="y2";
+    
     var layout = {
-        title: title,
         xaxis: {
             showgrid: false,
             zeroline: false,
         },
         yaxis: {
+            title: data[0].name,
             showline: false,
+        },
+        yaxis2: {
+            title: data[1].name,
+            overlaying: "y",
+            side: "right"
         }
     };
+
+    var xh=ravel1.master.handles(ravel1.master.handleIds(0));
     layout.xaxis.title=xh.description;
 
     // allow manual ranges to be set
@@ -342,28 +377,9 @@ function plotData(ravel) {
 
     var plot=document.getElementById("plot");
     Plotly.purge(plot);
-    Plotly.plot(plot,plotlyData,layout);
+    Plotly.plot(plot,data,layout);
     xh.delete();
     // for debugging memory leak problems caused by lack of finalisers
     //    in javascript
     // console.log("mem usage="+DYNAMICTOP);
-};
-
-// make country the default x-axis
-function makeCountryDefaultX(ravel) {
-    for (var i=0; i<ravel.numHandles(); ++i) {
-        var h=ravel.handles(i);
-        if (h.description==="country") {
-            ravel.setHandleIds([i]);
-            ravel.redistributeHandles();
-        } else {
-            // select reverse sorting
-            ravel.setSort(i,2);
-        }
-        h.delete;
-    }
-    ravel.redraw();
 }
-    
-function processData(ravel) {/* not used */}
-function plotAllData() {plotData(ravel1); /* plotData(ravel2) */}
