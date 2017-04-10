@@ -362,19 +362,25 @@ function plotAllData() {
     layout.xaxis.title=xh.description;
 
     // allow manual ranges to be set
-    var xmin=document.getElementById("xmin").value;
-    var xmax=document.getElementById("xmax").value;
-    var ymin=document.getElementById("ymin").value;
-    var ymax=document.getElementById("ymax").value;
-    if (xmin!="" && isFinite(xmin) && xmax!="" && isFinite(xmax))
-    {layout.xaxis.range=[xmin,xmax];}
-    else
-    {delete layout.xaxis.range;}
-    if (ymin!="" && isFinite(ymin) && ymax!="" && isFinite(ymax))
-    {layout.yaxis.range=[ymin,ymax];}
+    var y1min=document.getElementById("y1min").value;
+    var y1max=document.getElementById("y1max").value;
+    var y2min=document.getElementById("y2min").value;
+    var y2max=document.getElementById("y2max").value;
+    if (y1min!="" && isFinite(y1min) && y1max!="" && isFinite(y1max))
+    {layout.yaxis.range=[y1min,y1max];}
     else
     {delete layout.yaxis.range;}
+    if (y2min!="" && isFinite(y2min) && y2max!="" && isFinite(y2max))
+    {layout.yaxis2.range=[y2min,y2max];}
+    else
+    {delete layout.yaxis2.range;}
 
+    // if no data, and no range set, set to [0,1]
+    if (data[0].x.length==0 && layout.yaxis.range==undefined)
+        layout.yaxis.range=[0,1];
+    if (data[1].x.length==0 && layout.yaxis2.range==undefined)
+        layout.yaxis2.range=[0,1];
+        
     var plot=document.getElementById("plot");
     Plotly.purge(plot);
     Plotly.plot(plot,data,layout);
