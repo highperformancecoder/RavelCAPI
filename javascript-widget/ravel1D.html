@@ -46,11 +46,22 @@
     <table id="tableBlock">
       <tr>
         <td>
-          Database: <select id="tableSelector1"
-           onchange="setTable(this.value,ravel1); hideAxisMenus('ravel1Axes')">
+          Database: <select id="tableSelector1lhs"
+           onchange="setTable(this.value,ravel1.lhs);
+           hideAxisMenus('ravel1Axes'); plotData(ravel1)">
+          </select>
+          <select id="op1" onchange="plotData(ravel1);">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">×</option>
+            <option selected="1" value="/">̣÷</option>
+          </select>
+          <select id="tableSelector1rhs"
+           onchange="setTable(this.value,ravel1.rhs);
+                     hideAxisMenus('ravel1Axes'); plotData(ravel1)">
           </select>
           <input type="button"
-                 onclick="toggleAxisMenus('ravel1Axes',ravel1)"
+                 onclick="toggleAxisMenus('ravel1Axes',ravel1.master)"
                  value="toggle axis menus">
         </td>
         <td></td>
@@ -77,12 +88,6 @@
            <canvas width="300" height="300" id="ravel1" tabindex="10"></canvas>
         </td>
         <td>
-          <select id="op" onchange="processData(0);">
-            <option value="+">+</option>
-            <option value="-">-</option>
-            <option value="*">×</option>
-            <option selected="1" value="/">̣÷</option>
-          </select>
         </td>
         <td valign="top" width="50%">
             <canvas width="300" height="300" id="ravel2" tabindex="11"></canvas>
@@ -90,17 +95,18 @@
       </tr>
     </table>
 
-    <select id="plotType" onchange="processData(0);">
+    <select id="plotType" onchange="plotAllData();">
       <option value="scatter">line chart</option>
       <option value="bar" selected="1">bar chart</option>
     </select>
-    <input id="xmin" oninput="processData(0);" value="min x">
-    <input id="xmax" oninput="processData(0);" value="max x">
-    <input id="ymin" oninput="processData(0);" value="min y">
-    <input id="ymax" oninput="processData(0);" value="max y">
-    <input type="checkbox" checked id="allDomain" value="0" onchange="processData(0);">Whole domain
+    <input id="xmin" oninput="plotAllData()" value="min x">
+    <input id="xmax" oninput="plotAllData()" value="max x">
+    <input id="ymin" oninput="plotAllData()" value="min y">
+    <input id="ymax" oninput="plotAllData()" value="max y">
+    <input type="checkbox" checked id="allDomain" value="0" onchange="plotAllData()">Whole domain
 
     <div id="plot" style="width:1000px;height:400px;"></div>
+    <canvas id="hiddenCanvas" style="display:none">
     
     <script type="text/javascript" src="plotly.js/dist/plotly.min.js"></script>
     <!-- jsravel.js is not freeware - 
@@ -109,19 +115,18 @@
     <script type="text/javascript" src="ravel-1dplotly.js"></script>
     <script type="text/javascript" src="ravel.js"></script>
     <script>
-      var ravel1=newRavel("ravel1");
+      var ravel1=new Ravel1D("ravel1");
       var ravel2=newRavel("ravel2");
       // turn these into 1D ravels
-      ravel1.setRank(1);
       ravel2.setRank(1);
-      populateTableSelector("tableSelector1");
+      populateTableSelector("tableSelector1lhs");
+      populateTableSelector("tableSelector1rhs");
       populateTableSelector("tableSelector2");
       function onunload() {
-        if (ravel1) ravel1.delete();
-        if (ravel2) ravel2.delete();
+        if (ravel1) {ravel1.delete();}
+        if (ravel2) {ravel2.delete();}
       }
 
-      ravel1.dataLoadHook=function() {makeCountryDefaultX(ravel1);}
       ravel2.dataLoadHook=function() {makeCountryDefaultX(ravel2);}
    </script>
 

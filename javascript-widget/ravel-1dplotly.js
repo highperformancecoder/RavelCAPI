@@ -2,6 +2,7 @@
   © Ravelation Pty Ltd 2017
   Example code released under the MIT license.
 */
+
 function makeRadio(row, ravel, axis, radioName, checkedName, selections)
 {
     var radioBox=document.createElement("td");
@@ -53,6 +54,52 @@ function makeSelect(row, ravel, axis, radioName, checkedName, selections)
         select.setAttribute("onchange",'radio'+radioName+'Pushed(this)');
     }
 }
+
+function Ravel1D(canvas) {
+    var master=this.master=newRavel(canvas);
+    var lhs=this.lhs=newRavel("hiddenCanvas");
+    var rhs=this.rhs=newRavel("hiddenCanvas");
+    var ravel1D=this;
+    master.setRank(1);
+    lhs.setRank(1);
+    rhs.setRank(1);
+//    lhs.master=this;
+//    rhs.master=this;
+    this.delete=function() {
+        this.lhs.delete();
+        this.rhs.delete();
+        this.master.delete();
+    }
+    var synchroniseMaster = function() {
+        var axisData={};
+        function addAxisDataFrom(ravel) {
+            for (var i=0; i<ravel.numHandles(); ++i)
+            {
+                var h=ravel.handles(i);
+                var ad=axisData[h.description]=[];
+                for (var j=0; j<h.numSliceLabels(); ++j)
+                {
+                    ad.push(h.sliceLabels(j));
+                }
+                h.delete();
+            }
+        }
+        addAxisDataFrom(lhs);
+        addAxisDataFrom(rhs);
+        master.clear();
+        for (i in axisData)
+        {
+            master.addHandle(i,initialiseVector(new Module.VectorString, axisData[i]));
+        }
+        makeCountryDefaultX(master);
+        plotData(ravel1D);
+    }
+    lhs.dataLoadHook=synchroniseMaster;
+    rhs.dataLoadHook=synchroniseMaster;
+    master.onRedraw=function() {plotData(ravel1D);}
+}
+
+Ravel1D.prototype=new Object;
 
 function radiosortPushed(input)
 {
@@ -149,7 +196,7 @@ function toggleFilter(checkBox)
     checkBox.ravel.redraw();
 }
 
-function processData(ravel) {
+function plotData(ravel) {
     // in this case, we ignore the ravel argument, but use the global ravel1, ravel2 variables
 
     var plotlyData=[{
@@ -158,40 +205,40 @@ function processData(ravel) {
         x: [], y: []
    }];
 
-    if (ravel1.numHandles()<=ravel1.handleIds(0)) return; //nothing to do
-    var xh=ravel1.handles(ravel1.handleIds(0));
-    var title=ravel1.table;
+    if (ravel.master.numHandles()<=ravel.master.handleIds(0)) return; //nothing to do
+    var xh=ravel.master.handles(ravel.master.handleIds(0));
+    var title=ravel.lhs.table;
 
     if (xh.collapsed())
     {
-        ravel1.toggleCollapsed(ravel1.handleIds(0));
-        ravel1.redraw();
+        ravel.lhs.toggleCollapsed(ravel.lhs.handleIds(0));
+        ravel.rhs.toggleCollapsed(ravel.rhs.handleIds(0));
     }
     
     // arithmetic operation extracted out, as we may need to try this twice
     function tryCombine()
     {
-        var slice1=ravel1.hyperSlice();
-        var slice2=ravel2.hyperSlice();
+        var slice1=ravel.lhs.hyperSlice();
+        var slice2=ravel.rhs.hyperSlice();
         
-        var xh=ravel1.handles(ravel1.handleIds(0));
+        var xh=ravel.lhs.handles(ravel.lhs.handleIds(0));
 
-        var op=document.getElementById("op").value;
+        var op=document.getElementById("op1").value;
         for (var i=0; i<xh.numSliceLabels(); ++i)
         {
             var key=[{axis:xh.description, slice:xh.sliceLabels(i)}];
             var value=slice1.val(key);
             if (isFinite(value))
             {
-                if (ravel2.numHandles()>ravel2.handleIds(0))
+                if (ravel.rhs.numHandles()>ravel.rhs.handleIds(0))
                 {
-                    var h2=ravel2.handles(ravel2.handleIds(0));
+                    var h2=ravel.rhs.handles(ravel.rhs.handleIds(0));
                     key[0].axis=h2.description;
                     h2.delete();
                     var value2=slice2.val(key);
                     if (isFinite(value2))
                     {
-                        title=ravel1.table+" "+op+" "+ravel2.table;
+                        title=ravel.lhs.table+" "+op+" "+ravel.rhs.table;
                         switch (op)
                         {
                             case '+': value+=value2; break;
@@ -229,37 +276,42 @@ function processData(ravel) {
         xh.delete();
     }
 
-    if (ravel2.numHandles()>ravel2.handleIds(0))
-    {
-        // didn't combine, try rotating ravel2 to match orientation of ravel1
-        for (var i=0; i<ravel2.numHandles(); ++i)
+    function alignHandles(slave) {
+        if (slave.numHandles()>slave.handleIds(0))
         {
-            if (ravel2.handles(i).description===xh.description)
+            // didn't combine, try rotating slave ravel to match orientation of master
+            for (var i=0; i<slave.numHandles(); ++i)
             {
-                ravel2.setHandleIds([i]);
-                ravel2.redistributeHandles();
-            }
-            else // check that slicers match
-            {
-                var h2=ravel2.handles(i);
-                for (var j=0; j<ravel1.numHandles(); ++j)
+                if (slave.handles(i).description===xh.description)
                 {
-                    var h1=ravel1.handles(j);
-                    if (h2.description===h1.description)
-                    {
-                        ravel2.setSlicer(i, h1.sliceLabel());
-                        if (h2.collapsed()!=h1.collapsed())
-                        {
-                            ravel2.toggleCollapsed(i);
-                        }
-                    }
-                    h1.delete();
+                    slave.setHandleIds([i]);
+                    slave.redistributeHandles();
                 }
-                h2.delete();
+                else // check that slicers match
+                {
+                    var h2=slave.handles(i);
+                    for (var j=0; j<ravel.master.numHandles(); ++j)
+                    {
+                        var h1=ravel.master.handles(j);
+                        if (h2.description===h1.description)
+                        {
+                            slave.setSlicer(i, h1.sliceLabel());
+                            if (h2.collapsed()!=h1.collapsed())
+                            {
+                                slave.toggleCollapsed(i);
+                            }
+                        }
+                        h1.delete();
+                    }
+                    h2.delete();
+                }
             }
+            slave.redraw();
         }
-        ravel2.redraw();
     }
+
+    alignHandles(ravel.lhs);
+    alignHandles(ravel.rhs);
     tryCombine();
 
     var layout = {
@@ -299,19 +351,19 @@ function processData(ravel) {
 
 // make country the default x-axis
 function makeCountryDefaultX(ravel) {
-    console.log("in makeCountryDefaultX");
     for (var i=0; i<ravel.numHandles(); ++i) {
         var h=ravel.handles(i);
-        console.log(h.description+"|"+(h.description==="country"));
         if (h.description==="country") {
             ravel.setHandleIds([i]);
             ravel.redistributeHandles();
-            ravel.redraw();
         } else {
             // select reverse sorting
             ravel.setSort(i,2);
         }
         h.delete;
     }
+    ravel.redraw();
 }
     
+function processData(ravel) {/* not used */}
+function plotAllData() {plotData(ravel1); /* plotData(ravel2) */}
