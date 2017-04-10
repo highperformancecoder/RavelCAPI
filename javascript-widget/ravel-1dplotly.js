@@ -55,80 +55,18 @@ function makeSelect(row, ravel, axis, radioName, checkedName, selections)
     }
 }
 
-function Ravel1D(canvas) {
-    var master=this.master=newRavel(canvas);
-    var lhs=this.lhs=newRavel("hiddenCanvas");
-    var rhs=this.rhs=newRavel("hiddenCanvas");
-    var ravel1D=this;
-    master.setRank(1);
-    lhs.setRank(1);
-    rhs.setRank(1);
-//    lhs.master=this;
-//    rhs.master=this;
-    this.delete=function() {
-        this.lhs.delete();
-        this.rhs.delete();
-        this.master.delete();
-    }
-    var synchroniseMaster = function() {
-        var axisData={};
-        function addAxisDataFrom(ravel) {
-            for (var i=0; i<ravel.numHandles(); ++i)
-            {
-                var h=ravel.handles(i);
-                var ad=axisData[h.description]=[];
-                for (var j=0; j<h.numSliceLabels(); ++j)
-                {
-                    ad.push(h.sliceLabels(j));
-                }
-                h.delete();
-            }
-        }
-        addAxisDataFrom(lhs);
-        addAxisDataFrom(rhs);
-        master.clear();
-        for (i in axisData)
-        {
-            master.addHandle(i,initialiseVector(new Module.VectorString, axisData[i]));
-        }
-        makeCountryDefaultX(master);
-        plotAllData();
-    }
-    lhs.dataLoadHook=synchroniseMaster;
-    rhs.dataLoadHook=synchroniseMaster;
-    master.onRedraw=function() {plotAllData();}
-}
-
-Ravel1D.prototype=new Object;
-
-// make country the default x-axis
-function makeCountryDefaultX(ravel) {
-    for (var i=0; i<ravel.numHandles(); ++i) {
-        var h=ravel.handles(i);
-        if (h.description==="country") {
-            ravel.setHandleIds([i]);
-            ravel.redistributeHandles();
-        } else {
-            // select reverse sorting
-            ravel.setSort(i,2);
-        }
-        h.delete;
-    }
-    ravel.redraw();
-}
-    
 function radiosortPushed(input)
 {
     console.log(input.axis+' '+input.value);
     input.ravel.setSort(input.axis,parseInt(input.value));
-    input.ravel.onRedraw();
+    plotAllData();
     input.ravel.redraw();
 }
 
 function radioreducePushed(input)
 {
     input.ravel.setReductionOp(input.axis,parseInt(input.value));
-    input.ravel.onRedraw();
+    plotAllData();
     input.ravel.redraw();
 }
 
@@ -212,6 +150,64 @@ function toggleFilter(checkBox)
     checkBox.ravel.redraw();
 }
 
+function Ravel1D(canvas) {
+    var master=this.master=newRavel(canvas);
+    var lhs=this.lhs=newRavel("hiddenCanvas");
+    var rhs=this.rhs=newRavel("hiddenCanvas");
+    master.setRank(1);
+    lhs.setRank(1);
+    rhs.setRank(1);
+    this.delete=function() {
+        this.lhs.delete();
+        this.rhs.delete();
+        this.master.delete();
+    }
+    var synchroniseMaster = function() {
+        var axisData={};
+        function addAxisDataFrom(ravel) {
+            for (var i=0; i<ravel.numHandles(); ++i)
+            {
+                var h=ravel.handles(i);
+                var ad=axisData[h.description]=[];
+                for (var j=0; j<h.numSliceLabels(); ++j)
+                {
+                    ad.push(h.sliceLabels(j));
+                }
+                h.delete();
+            }
+        }
+        addAxisDataFrom(lhs);
+        addAxisDataFrom(rhs);
+        master.clear();
+        for (i in axisData)
+        {
+            master.addHandle(i,initialiseVector(new Module.VectorString, axisData[i]));
+        }
+        makeCountryDefaultX(master);
+        plotAllData();
+    }
+    lhs.dataLoadHook=synchroniseMaster;
+    rhs.dataLoadHook=synchroniseMaster;
+    master.onRedraw=function() {plotAllData();}
+}
+
+Ravel1D.prototype=new Object;
+
+// make country the default x-axis
+function makeCountryDefaultX(ravel) {
+    for (var i=0; i<ravel.numHandles(); ++i) {
+        var h=ravel.handles(i);
+        if (h.description==="country") {
+            ravel.setHandleIds([i]);
+            ravel.redistributeHandles();
+        } 
+        // select reverse sorting
+        ravel.setSort(i,2);
+        h.delete;
+    }
+    ravel.redraw();
+}
+    
 // align handlers and slicers of slave ravel to that of master
 function alignHandles(master,slave) {
     if (slave.numHandles()>slave.handleIds(0))
@@ -220,14 +216,16 @@ function alignHandles(master,slave) {
         // didn't combine, try rotating slave ravel to match orientation of master
         for (var i=0; i<slave.numHandles(); ++i)
         {
-            if (slave.handles(i).description===xh.description)
+            var h2=slave.handles(i);
+            if (h2.description===xh.description)
             {
                 slave.setHandleIds([i]);
                 slave.redistributeHandles();
+                slave.setSort(i,xh.sortOrder());
+                slave.setReductionOp(i,xh.reductionOp());
             }
             else // check that slicers match
             {
-                var h2=slave.handles(i);
                 for (var j=0; j<master.numHandles(); ++j)
                 {
                     var h1=master.handles(j);
@@ -238,11 +236,13 @@ function alignHandles(master,slave) {
                         {
                             slave.toggleCollapsed(i);
                         }
+                        slave.setSort(i,h1.sortOrder());
+                        slave.setReductionOp(i,h1.reductionOp());
                     }
                     h1.delete();
                 }
-                h2.delete();
             }
+            h2.delete();
         }
         slave.redraw();
         xh.delete()

@@ -199,6 +199,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("x",&Handle::x)
     .function("y",&Handle::y)
     .property("description",&Handle::description)
+    .function("reductionOp",optional_override([](const Handle& self){return int(self.reductionOp);}))
     .function("sliceLabels",optional_override([](const Handle& self, size_t i){return self.sliceLabels[i];}))
     .function("sliceIdx",optional_override([](const Handle& self, size_t i){return self.sliceLabels.idx(i);}))
     .function("numSliceLabels",&Handle::numSliceLabels)
@@ -209,6 +210,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("labelAnchor",&Handle::labelAnchor)
     .function("collapsed",&Handle::collapsed)
     .function("toggleCollapsed",&Handle::toggleCollapsed)
+    .function("sortOrder",optional_override([](const Handle& self){return int(self.sliceLabels.order());}))
     ;
   
   class_<Ravel>("Ravel")
