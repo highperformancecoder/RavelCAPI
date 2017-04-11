@@ -17,7 +17,7 @@ function makeRadio(row, ravel, axis, radioName, checkedName, selections)
         item.appendChild(input);
         input.setAttribute("type","radio");
         input.setAttribute("name",axis+"-"+radioName);
-        input.setAttribute("value",i);
+        input.setAttribute("value",selections[i].value);
         if (selections[i].value===checkedName)
         {
             input.setAttribute("checked","1");
@@ -44,7 +44,7 @@ function makeSelect(row, ravel, axis, radioName, checkedName, selections)
         var option=document.createElement("option");
         select.appendChild(option);
         option.innerHTML=selections[i].tooltiptext;
-        option.setAttribute("value",i);
+        option.setAttribute("value",selections[i].value);
         if (selections[i].value===checkedName)
         {
             option.setAttribute("selected","1");
@@ -57,15 +57,14 @@ function makeSelect(row, ravel, axis, radioName, checkedName, selections)
 
 function radiosortPushed(input)
 {
-    console.log(input.axis+' '+input.value);
-    input.ravel.setSort(input.axis,parseInt(input.value));
+    input.ravel.setSort(input.axis,Module.Order[input.value]);
     plotAllData();
     input.ravel.redraw();
 }
 
 function radioreducePushed(input)
 {
-    input.ravel.setReductionOp(input.axis,parseInt(input.value));
+    input.ravel.setReductionOp(input.axis,Module.ReductionOp[input.value]);
     plotAllData();
     input.ravel.redraw();
 }
@@ -202,7 +201,7 @@ function makeCountryDefaultX(ravel) {
             ravel.redistributeHandles();
         } 
         // select reverse sorting
-        ravel.setSort(i,2);
+        ravel.setSort(i,Module.Order.reverse);
         h.delete;
     }
     ravel.redraw();
@@ -222,7 +221,7 @@ function alignHandles(master,slave) {
                 slave.setHandleIds([i]);
                 slave.redistributeHandles();
                 slave.setSort(i,xh.sortOrder());
-                slave.setReductionOp(i,xh.reductionOp());
+                slave.setReductionOp(i,xh.reductionOp);
             }
             else // check that slicers match
             {
@@ -237,7 +236,7 @@ function alignHandles(master,slave) {
                             slave.toggleCollapsed(i);
                         }
                         slave.setSort(i,h1.sortOrder());
-                        slave.setReductionOp(i,h1.reductionOp());
+                        slave.setReductionOp(i,h1.reductionOp);
                     }
                     h1.delete();
                 }

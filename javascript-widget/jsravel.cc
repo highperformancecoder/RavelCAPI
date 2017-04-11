@@ -140,14 +140,13 @@ using ravel::endl;
     void handleRightKey() {
       if (auto h=selectedHandle()) h->moveSliceIdx(-1);
     }
-    void setReductionOp(size_t i, int op)
+    void setReductionOp(size_t i, Op::ReductionOp op)
     {
-      nextRedOp=Op::ReductionOp(op);
-      handles[i].reductionOp=nextRedOp;
+      handles[i].reductionOp=op;
     }
-    void setSort(size_t i, int o)
+    void setSort(size_t i, HandleSort::Order o)
     {
-      handles[i].sliceLabels.order(HandleSort::Order(o));
+      handles[i].sliceLabels.order(o);
     }
     void setDisplayFilter(size_t i, bool filtering)
     {
@@ -199,7 +198,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("x",&Handle::x)
     .function("y",&Handle::y)
     .property("description",&Handle::description)
-    .function("reductionOp",optional_override([](const Handle& self){return int(self.reductionOp);}))
+    .property("reductionOp",&Handle::reductionOp)
     .function("sliceLabels",optional_override([](const Handle& self, size_t i){return self.sliceLabels[i];}))
     .function("sliceIdx",optional_override([](const Handle& self, size_t i){return self.sliceLabels.idx(i);}))
     .function("numSliceLabels",&Handle::numSliceLabels)
@@ -210,7 +209,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("labelAnchor",&Handle::labelAnchor)
     .function("collapsed",&Handle::collapsed)
     .function("toggleCollapsed",&Handle::toggleCollapsed)
-    .function("sortOrder",optional_override([](const Handle& self){return int(self.sliceLabels.order());}))
+    .function("sortOrder",optional_override([](const Handle& self){return self.sliceLabels.order();}))
     ;
   
   class_<Ravel>("Ravel")
