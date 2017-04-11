@@ -199,9 +199,12 @@ function makeCountryDefaultX(ravel) {
         if (h.description==="country") {
             ravel.setHandleIds([i]);
             ravel.redistributeHandles();
-        } 
+        } else {
+            ravel.setSliceCoordinates(i,h.x()+ravel.x,h.y()+ravel.y);
+            console.log(ravel.handles(i).sliceLabel());
+        }
         // select reverse sorting
-        ravel.setSort(i,Module.Order.reverse);
+        ravel.setSort(i,Module.Order.forward);
         h.delete;
     }
     ravel.redraw();

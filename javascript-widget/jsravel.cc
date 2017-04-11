@@ -234,6 +234,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("handleY",&Ravel::handleY)
     .function("description",&Ravel::description)
     .function("redistributeHandles",&Ravel::redistributeHandles)
+    .function("setSliceCoordinates",&Ravel::setSliceCoordinates)
     ;
   
   class_<RavelCairo<val*>,base<Ravel>>("RavelCairoval*")
