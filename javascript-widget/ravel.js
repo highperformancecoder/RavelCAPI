@@ -110,9 +110,10 @@ var buildDbQuery=function(db,ravel) {
     for (var i=0; i<ravel.numHandles(); ++i)
     {
         if (i>0) r+="&";
-        var h=ravel.handles(i);
-        r+=h.description+"=";
-        if (i!=ravel.xHandleId() && i!=ravel.yHandleId())
+        var h=ravel.handle;
+        h.get(i);
+        r+=h.getDescription()+"=";
+        if (i!=ravel.handleId(0) && i!=ravel.handleId(1))
         {
             if (h.collapsed())
                 r+="reduce("+reductionOp+")";
@@ -129,8 +130,9 @@ var fullDbQuery=function(db,ravel) {
     for (var i=0; i<ravel.numHandles(); ++i)
     {
         if (i>0) r+="&";
-        var h=ravel.handles(i);
-        r+=h.description+"=";
+        var h=ravel.handle;
+        h.get(i);
+        r+=h.description()+"=";
     }
     return r;
 }

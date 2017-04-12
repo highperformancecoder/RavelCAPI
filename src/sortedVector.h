@@ -64,7 +64,7 @@ namespace ravel
     iterator begin() const {return iterator(labels,indices.begin());}
     iterator end() const {return iterator(labels,indices.end());}
     typedef size_t size_type;
-    size_t size() const {return labels.size();};
+    size_t size() const {return labels.size();}
     bool empty() const {return size()==0;}
 
     /// elementwise equality.
@@ -86,7 +86,7 @@ namespace ravel
     }
 
     /// apply a custom permuatation
-    void customPermutation(std::vector<size_t>&);
+    void customPermutation(const std::vector<size_t>&);
 
     /// check permutation is valid
     bool isPermValid() const;
