@@ -142,8 +142,6 @@ function toggleAxisMenus(menuID, ravel) {
         input.setAttribute("onchange","toggleFilter(this)");
         input.axis=i;
         input.ravel=ravel;
-
-        h.delete;
     }
 }
 
@@ -337,7 +335,6 @@ function plotData(ravel) {
     alignHandles(ravel.master,ravel.lhs);
     alignHandles(ravel.master,ravel.rhs);
     tryCombine();
-    xh.delete();
    
     return plotlyData;
 };
@@ -391,7 +388,6 @@ function plotAllData() {
     var plot=document.getElementById("plot");
     Plotly.purge(plot);
     Plotly.plot(plot,data,layout);
-    xh.delete();
     // for debugging memory leak problems caused by lack of finalisers
     //    in javascript
     // console.log("mem usage="+DYNAMICTOP);
