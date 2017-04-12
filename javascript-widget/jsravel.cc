@@ -1,6 +1,7 @@
 #include "ravelCairo.h"
 #include "dataCube.h"
 #include "ravelCairoImpl.h"
+#include "ravelVersion.h"
 #include <string>
 #include <emscripten/emscripten.h>
 #include <emscripten/bind.h>
@@ -151,7 +152,12 @@ using ravel::endl;
 
     JRavelCairo() {
       EM_ASM(
-             var uuid=document.createElement("div");
+             var uuid=document.getElementById("ravelInfo");
+             if (uuid===null)
+               {
+                 uuid=document.createElement("div");
+                 uuid.setAttribute("id","ravelInfo");
+               }                 
              uuid.setAttribute("style","display:none");
              uuid.innerHTML="c45b9a57-e174-4732-8955-a7b6d23f1387";
              var bodies=document.getElementsByTagName("body");
@@ -160,6 +166,8 @@ using ravel::endl;
                  bodies[0].appendChild(uuid);
                }
              );
+      val::global("document").call<val>("getElementById",string("ravelInfo")).
+        call<void>("setAttribute",string("version"),string(RAVEL_VERSION));
     }
 
     void setCanvas(const val& x) { canvasContext.reset(new val(x)); setG(canvasContext.get());}
