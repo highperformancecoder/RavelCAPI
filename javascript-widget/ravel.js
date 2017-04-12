@@ -15,7 +15,7 @@ function findPos(obj) {
 }
 
 var newRavel = function(canvasId) {
-    var ravel = new Module.RavelCairo;
+    var ravel = new Module.RavelDataCube;
     var canvasElem=document.getElementById(canvasId);
     var canvas = canvasElem.getContext('2d');
     var radius = 0.5*Math.min(canvasElem.width,canvasElem.height);

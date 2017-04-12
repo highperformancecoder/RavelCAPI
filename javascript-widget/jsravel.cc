@@ -326,14 +326,14 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("render",&RavelCairo<val*>::render)
     ;
 
-  class_<JSDataCube>("JSDataCube")
+  class_<JSDataCube>("DataCube")
     .property("dataCallback",&JSDataCube::dataCallback)
     .function("loadData",&JSDataCube::loadData)
     .function("dimension",&JSDataCube::dimension)
     .constructor<>()
     ;
 
-  class_<JRavelCairo,base<RavelCairo<val*>>>("RavelCairo")
+  class_<JRavelCairo,base<RavelCairo<val*>>>("RavelDataCube")
     .allow_subclass<RavelCairoWrapper>("RavelCairoWrapper")
     .property("dc",&JRavelCairo::dc)
     .property("handle",&JRavelCairo::handle)
@@ -359,9 +359,9 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("rank",&RawData::rank)
     ;
 
-  class_<RawData,base<RawDataIdx>>("RawData");
+  class_<RawData,base<RawDataIdx>>("RawDataBase");
 
-  class_<JSRawData,base<RawData>>("JSRawData")
+  class_<JSRawData,base<RawData>>("RawData")
     .function("val",&JSRawData::val)
     ;
 }
