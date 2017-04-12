@@ -75,24 +75,6 @@ using ravel::endl;
     }
   };
 
-  template <class V>
-  class JSVector
-  {
-    V& v;
-  public:
-    JSVector(V& v): v(v) {}
-    size_t size() const {return v.size();}
-  };
-  
-  /// wraps a value vector, returning a an element reference if passed a number, otherwise set the whole vector if passed an array
-  template <class V>
-  typename V::value_type vector1arg(const val& x, V& v) {
-    if (x.typeof().as<std::string>()=="number")
-      return v[x.as<size_t>()];
-    v=vecFromJSArray<typename V::value_type>(x);
-    return typename V::value_type();
-  }
-
   /// turn a container into an array
   template <class I>
   val arrayFromContainer(I begin, I end) {
@@ -159,6 +141,8 @@ using ravel::endl;
     bool collapsed() const {return h->collapsed();}
     void moveTo(double x, double y, bool dontCollapse) {h->moveTo(x,y,dontCollapse);}
     void toggleCollapsed() {h->toggleCollapsed();}
+    bool getDisplayFilterCaliper() const {return h->displayFilterCaliper;}
+    void setDisplayFilterCaliper(bool x) {h->displayFilterCaliper=x;}
   };
   
   struct JRavelCairo: public RavelCairo<val*>
@@ -219,13 +203,16 @@ using ravel::endl;
             break;
           }
     }
-    //    void toggleCollapsed(size_t h) {handles[h].toggleCollapsed();}
     void handleLeftKey() {
       if (auto h=selectedHandle()) h->moveSliceIdx(1);
     }
     void handleRightKey() {
       if (auto h=selectedHandle()) h->moveSliceIdx(-1);
     }
+    size_t addHandle(const std::string& description, const val& sliceLabels) {
+      return Ravel::addHandle(description, vecFromJSArray<std::string>(sliceLabels));
+    }
+
     JSHandle handle{Ravel::handles};
     val getHandleIds() const {return arrayFromContainer(handleIds.begin(), handleIds.end());}
     void setHandleIds(const val& x) {handleIds=vecFromJSArray<size_t>(x);}
@@ -236,19 +223,12 @@ using ravel::endl;
     EMSCRIPTEN_WRAPPER(RavelCairoWrapper);
   };
 
-  typedef std::pair<std::string,std::vector<std::string>> Labels;
-
   struct DataCubeWrapper: public wrapper<JSDataCube> {
     EMSCRIPTEN_WRAPPER(DataCubeWrapper);
   };
 }
 
 EMSCRIPTEN_BINDINGS(Ravel) {
-  enum_<AnchorPoint::Anchor>("Anchor")
-    .value("ne",AnchorPoint::ne)
-    .value("nw",AnchorPoint::nw)
-    .value("se",AnchorPoint::se)
-    .value("sw",AnchorPoint::sw);
 
   enum_<Op::ReductionOp>("ReductionOp")
     .value("sum",Op::sum)
@@ -264,31 +244,6 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .value("reverse",HandleSort::reverse)
     .value("numForward",HandleSort::numForward)
     .value("numReverse",HandleSort::numReverse);
-
-  class_<AnchorPoint>("AnchorPoint")
-    .constructor<>()
-    .property("x",&AnchorPoint::x)
-    .property("y",&AnchorPoint::y)
-    .property("anchor",&AnchorPoint::anchor);
-  
-//  class_<Handle>("Handle")
-//    .constructor<>()
-//    .function("x",&Handle::x)
-//    .function("y",&Handle::y)
-//    .property("description",&Handle::description)
-//    .property("reductionOp",&Handle::reductionOp)
-//    .function("sliceLabels",optional_override([](const Handle& self, size_t i){return self.sliceLabels[i];}))
-//    .function("sliceIdx",optional_override([](const Handle& self, size_t i){return self.sliceLabels.idx(i);}))
-//    .function("numSliceLabels",&Handle::numSliceLabels)
-//    .function("reductionDescription",&Handle::reductionDescription)
-//    .function("sliceX",&Handle::sliceX)
-//    .function("sliceY",&Handle::sliceY)
-//    .function("sliceLabel",&Handle::sliceLabel)
-//    .function("labelAnchor",&Handle::labelAnchor)
-//    .function("collapsed",&Handle::collapsed)
-//    .function("toggleCollapsed",&Handle::toggleCollapsed)
-//    .function("sortOrder",optional_override([](const Handle& self){return self.sliceLabels.order();}))
-//    ;
 
   class_<JSSortedVector>("SortedVector")
     .function("resize",&JSSortedVector::resize)
@@ -315,27 +270,28 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("getDescription",&JSHandle::getDescription)
     .function("setDescription",&JSHandle::setDescription)
     .function("reductionDescription",&JSHandle::reductionDescription)
-//    .function("sliceIndex",&JSHandle::sliceIndex)
-//    .function("sliceMin",&JSHandle::sliceMin)
-//    .function("sliceMax",&JSHandle::sliceMax)
+    .function("getSliceIndex",&JSHandle::getSliceIndex)
+    .function("setSliceIndex",&JSHandle::setSliceIndex)
+    .function("getSliceMin",&JSHandle::getSliceMin)
+    .function("setSliceMin",&JSHandle::setSliceMin)
+    .function("getSliceMax",&JSHandle::getSliceMax)
+    .function("setSliceMax",&JSHandle::setSliceMax)
     .function("sliceLabel",&JSHandle::sliceLabel)
     .function("sliceLabelAt",&JSHandle::sliceLabelAt)
-//    .function("minSliceLabel",&JSHandle::minSliceLabel)
-//    .function("maxSliceLabel",&JSHandle::maxSliceLabel)
+    .function("minSliceLabel",&JSHandle::minSliceLabel)
+    .function("maxSliceLabel",&JSHandle::maxSliceLabel)
     .function("collapsed",&JSHandle::collapsed)
     .function("moveTo",&JSHandle::moveTo)
     .function("toggleCollapsed",&JSHandle::toggleCollapsed)
+    .function("getDisplayFilterCaliper",&JSHandle::getDisplayFilterCaliper)
+    .function("setDisplayFilterCaliper",&JSHandle::setDisplayFilterCaliper)
     ;
   
   class_<Ravel>("Ravel")
     .constructor<>()
     .property("x",&Ravel::x)
     .property("y",&Ravel::y)
-//    .function("handleIds",optional_override([](const Ravel& self, size_t i){return self.handleIds[i];}))
-//    .function("setHandleIds",optional_override([](Ravel& self, const val& ids){return self.handleIds=vecFromJSArray<size_t>(ids);}))
-//    .function("handles",optional_override([](const Ravel& self, size_t i){return self.handles[i];}))
     .function("numHandles",optional_override([](const Ravel& self){return self.handles.size();}))
-    .function("addHandle",&Ravel::addHandle)
     .function("rank",&Ravel::rank)
     .function("radius",&Ravel::radius)
     .function("clear",&Ravel::clear)
@@ -362,10 +318,6 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("render",&RavelCairo<val*>::render)
     ;
 
-  class_<Labels>("Labels")
-    .property("axis",&Labels::first)
-    .property("labels",&Labels::second);
-
   class_<JSDataCube>("JSDataCube")
     .property("dataCallback",&JSDataCube::dataCallback)
     .function("loadData",&JSDataCube::loadData)
@@ -385,12 +337,9 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("setDataCallback",&JRavelCairo::setDataCallback)
     .function("setRank",&JRavelCairo::setRank)
     .function("setSlicer",&JRavelCairo::setSlicer)
-    //    .function("toggleCollapsed",&JRavelCairo::toggleCollapsed)
+    .function("addHandle",&JRavelCairo::addHandle)
     .function("handleLeftKey",&JRavelCairo::handleLeftKey)
     .function("handleRightKey",&JRavelCairo::handleRightKey)
-    //    .function("setReductionOp",&JRavelCairo::setReductionOp)
-    //    .function("setSort",&JRavelCairo::setSort)
-    //    .function("setDisplayFilter",&JRavelCairo::setDisplayFilter)
     .function("getHandleIds",&JRavelCairo::getHandleIds)
     .function("setHandleIds",&JRavelCairo::setHandleIds)
     .function("handleId",&JRavelCairo::handleId)
@@ -407,13 +356,6 @@ EMSCRIPTEN_BINDINGS(Ravel) {
   class_<JSRawData,base<RawData>>("JSRawData")
     .function("val",&JSRawData::val)
     ;
-
-  register_vector<size_t>("VectorSizet");
-  register_vector<string>("VectorString");
-  
-  register_vector<Labels>("LabelsVector");
-  register_vector<double>("DoubleVector");
-  register_vector<AxisSlice>("Key");
 }
 
 

@@ -184,7 +184,7 @@ function Ravel1D(canvas) {
         master.clear();
         for (i in axisData)
         {
-            master.addHandle(i,initialiseVector(new Module.VectorString, axisData[i]));
+            master.addHandle(i,axisData[i]);
         }
         makeCountryDefaultX(master);
         plotAllData();

@@ -177,9 +177,7 @@ function setTable(name,ravel) {
                 sliceLabelReq.axis=axes[i];
                 sliceLabelReq.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        var sliceLabels=new Module.VectorString();
-                        initialiseVector(sliceLabels, eval(this.responseText));
-                        ravel.addHandle(this.axis,sliceLabels);
+                        ravel.addHandle(this.axis,eval(this.responseText));
                         if (ravel.numHandles()==axes.length)
                         {
                             ravel.dimension(axes);
@@ -197,7 +195,6 @@ function setTable(name,ravel) {
                             dataReq.open("GET",dbQuery);
                             dataReq.send();
                         }
-                        sliceLabels.delete;
                     }
                 }
                 // request slicelabels
