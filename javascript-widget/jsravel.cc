@@ -61,7 +61,6 @@ using ravel::endl;
   struct JSRawData: public RawData
   {
     JSRawData(RawData&& x): RawData(x) {}
-    //    double val(size_t i){return operator[](i);}
     // a bit clumsy, but couldn't figure out any natural way of converting a javascript array of objects to a Key
     double val(const emscripten::val& v) {
       auto l=v["length"].as<unsigned>();
@@ -221,14 +220,16 @@ using ravel::endl;
       if (auto h=selectedHandle()) h->moveSliceIdx(-1);
     }
   };
-  
-  struct JSRavelDataCube: public JSRavelCanvas
+
+  template<class Ravel>
+  struct JSRavelDataCube: public Ravel
   {
 
     JSDataCube dc;
+    // method below doesn't work if placed in JSDataCube, but works here. Go figure!
     void setDataCallback(val f) {dc.dataCallback=f;}
-
-    void loadData(const std::string& jsonData) {dc.loadData(jsonData);}
+    void loadData(const std::string& x) {dc.loadData(x);}
+    
     JSRawData hyperSlice() {return JSRawData(dc.hyperSlice(*this));}
     void populateData() {dc.populateArray(*this);}
     /// dimension the datacube according to info in Ravel
@@ -248,8 +249,25 @@ using ravel::endl;
       for (auto& axis: axes)
           lv.emplace_back(axis, labels[axis]);
       dc.dimension(lv);
-      redistributeHandles();
+      Ravel::redistributeHandles();
     }
+  };
+
+  template <class Ravel>
+  struct JSRavelDataCubeBindings: public class_<JSRavelDataCube<Ravel>,base<Ravel>>
+  {
+    JSRavelDataCubeBindings(const char* name):
+      class_<JSRavelDataCube<Ravel>,base<Ravel>>(name)
+      {
+        this->constructor<>()
+          .property("dc",&JSRavelDataCube<Ravel>::dc)
+          .function("setDataCallback",&JSRavelDataCube<Ravel>::setDataCallback)
+          .function("hyperSlice",&JSRavelDataCube<Ravel>::hyperSlice)
+          .function("populateData",&JSRavelDataCube<Ravel>::populateData)
+          .function("dimension",&JSRavelDataCube<Ravel>::dimension)
+          .function("loadData",&JSRavelDataCube<Ravel>::loadData)
+          ;
+      }
   };
 }
 
@@ -355,21 +373,14 @@ EMSCRIPTEN_BINDINGS(Ravel) {
   
   class_<JSDataCube>("DataCube")
     .constructor<>()
-    .property("dataCallback",&JSDataCube::dataCallback)
+    //.property("dataCallback",&JSDataCube::dataCallback)
     .function("loadData",&JSDataCube::loadData)
     .function("dimension",&JSDataCube::dimension)
     ;
 
-  class_<JSRavelDataCube,base<JSRavelCanvas>>("RavelDataCube")
-    .constructor<>()
-    .property("dc",&JSRavelDataCube::dc)
-    .function("hyperSlice",&JSRavelDataCube::hyperSlice)
-    .function("populateData",&JSRavelDataCube::populateData)
-    .function("dimension",&JSRavelDataCube::dimension)
-    .function("loadData",&JSRavelDataCube::loadData)
-    .function("setDataCallback",&JSRavelDataCube::setDataCallback)
-    ;
-
+  JSRavelDataCubeBindings<Ravel>("RavelDataCube");
+  JSRavelDataCubeBindings<JSRavelCanvas>("RavelCanvasDataCube");
+  
   class_<RawDataIdx>("RawDataIdx")
     .function("size",&RawData::size)
     .function("rank",&RawData::rank)
