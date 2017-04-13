@@ -140,17 +140,15 @@ using ravel::endl;
     const std::string& minSliceLabel() const {return h->minSliceLabel();}
     const std::string& maxSliceLabel() const {return h->maxSliceLabel();}
     bool collapsed() const {return h->collapsed();}
-    void moveTo(double x, double y, bool dontCollapse) {h->moveTo(x,y,dontCollapse);}
     void toggleCollapsed() {h->toggleCollapsed();}
     bool getDisplayFilterCaliper() const {return h->displayFilterCaliper;}
     void setDisplayFilterCaliper(bool x) {h->displayFilterCaliper=x;}
   };
-  
-  struct JRavelCairo: public RavelCairo<val*>
-  {
-    unique_ptr<val> canvasContext;
 
-    JRavelCairo() {
+  template <class Ravel>
+  struct JSRavel: public Ravel
+  {
+    JSRavel() {
       EM_ASM(
              var uuid=document.getElementById("ravelInfo");
              if (uuid===null)
@@ -170,7 +168,63 @@ using ravel::endl;
         call<void>("setAttribute",string("version"),string(RAVEL_VERSION));
     }
 
+    void setRank(int r) {
+      Ravel::handleIds.resize(r);
+      for (size_t i=0; i<r; ++i)
+        Ravel::handleIds[i]=i;
+    }
+    void setSlicer(size_t handle, const std::string& label)
+    {
+      auto& h=Ravel::handles[handle];
+      for (size_t i=0; i<h.sliceLabels.size(); ++i)
+        if (h.sliceLabels[i]==label)
+          {
+            h.sliceIndex=i;
+            break;
+          }
+    }
+    size_t addHandle(const std::string& description, const val& sliceLabels) {
+      return Ravel::addHandle(description, vecFromJSArray<std::string>(sliceLabels));
+    }
+
+    JSHandle handle{Ravel::handles};
+    val getHandleIds() const {return arrayFromContainer(Ravel::handleIds.begin(), Ravel::handleIds.end());}
+    void setHandleIds(const val& x) {Ravel::handleIds=vecFromJSArray<size_t>(x);}
+    size_t handleId(size_t i) const {return Ravel::handleIds[i];}
+  };
+
+  template <class Ravel>
+  struct JSRavelBindings: public class_<JSRavel<Ravel>,base<Ravel>>
+  {
+    JSRavelBindings(const char* name): class_<JSRavel<Ravel>,base<Ravel>>(name)
+      {
+        this->constructor<>()
+        .property("handle",&JSRavel<Ravel>::handle)
+        .function("setRank",&JSRavel<Ravel>::setRank)
+        .function("setSlicer",&JSRavel<Ravel>::setSlicer)
+        .function("addHandle",&JSRavel<Ravel>::addHandle)
+        .function("getHandleIds",&JSRavel<Ravel>::getHandleIds)
+        .function("setHandleIds",&JSRavel<Ravel>::setHandleIds)
+        .function("handleId",&JSRavel<Ravel>::handleId)
+        ;
+      }
+  };
+
+  struct JSRavelCanvas: public JSRavel<RavelCairo<val*>>
+  {
+    unique_ptr<val> canvasContext;
     void setCanvas(const val& x) { canvasContext.reset(new val(x)); setG(canvasContext.get());}
+    void handleLeftKey() {
+      if (auto h=selectedHandle()) h->moveSliceIdx(1);
+    }
+    void handleRightKey() {
+      if (auto h=selectedHandle()) h->moveSliceIdx(-1);
+    }
+  };
+  
+  struct JSRavelDataCube: public JSRavelCanvas
+  {
+
     JSDataCube dc;
     void setDataCallback(val f) {dc.dataCallback=f;}
 
@@ -196,43 +250,6 @@ using ravel::endl;
       dc.dimension(lv);
       redistributeHandles();
     }
-    void setRank(int r) {
-      Ravel::handleIds.resize(r);
-      for (size_t i=0; i<r; ++i)
-        Ravel::handleIds[i]=i;
-    }
-    void setSlicer(size_t handle, const std::string& label)
-    {
-      auto& h=Ravel::handles[handle];
-      for (size_t i=0; i<h.sliceLabels.size(); ++i)
-        if (h.sliceLabels[i]==label)
-          {
-            h.sliceIndex=i;
-            break;
-          }
-    }
-    void handleLeftKey() {
-      if (auto h=selectedHandle()) h->moveSliceIdx(1);
-    }
-    void handleRightKey() {
-      if (auto h=selectedHandle()) h->moveSliceIdx(-1);
-    }
-    size_t addHandle(const std::string& description, const val& sliceLabels) {
-      return Ravel::addHandle(description, vecFromJSArray<std::string>(sliceLabels));
-    }
-
-    JSHandle handle{Ravel::handles};
-    val getHandleIds() const {return arrayFromContainer(handleIds.begin(), handleIds.end());}
-    void setHandleIds(const val& x) {handleIds=vecFromJSArray<size_t>(x);}
-    size_t handleId(size_t i) const {return handleIds[i];}
-  };
-
-  struct RavelCairoWrapper: public wrapper<JRavelCairo> {
-    EMSCRIPTEN_WRAPPER(RavelCairoWrapper);
-  };
-
-  struct DataCubeWrapper: public wrapper<JSDataCube> {
-    EMSCRIPTEN_WRAPPER(DataCubeWrapper);
   };
 }
 
@@ -289,13 +306,12 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("minSliceLabel",&JSHandle::minSliceLabel)
     .function("maxSliceLabel",&JSHandle::maxSliceLabel)
     .function("collapsed",&JSHandle::collapsed)
-    .function("moveTo",&JSHandle::moveTo)
     .function("toggleCollapsed",&JSHandle::toggleCollapsed)
     .function("getDisplayFilterCaliper",&JSHandle::getDisplayFilterCaliper)
     .function("setDisplayFilterCaliper",&JSHandle::setDisplayFilterCaliper)
     ;
   
-  class_<Ravel>("Ravel")
+  class_<Ravel>("RavelBase")
     .constructor<>()
     .property("x",&Ravel::x)
     .property("y",&Ravel::y)
@@ -315,8 +331,10 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("redistributeHandles",&Ravel::redistributeHandles)
     .function("setSliceCoordinates",&Ravel::setSliceCoordinates)
     ;
-  
-  class_<RavelCairo<val*>,base<Ravel>>("RavelCairoval*")
+
+  JSRavelBindings<Ravel>("Ravel");
+                  
+  class_<RavelCairo<val*>,base<Ravel>>("RavelCairoVal*")
     .function("onMouseDown",&RavelCairo<val*>::onMouseDown)
     .function("onMouseOver",&RavelCairo<val*>::onMouseOver)
     .function("handleIfMouseOverAxisLabel",&RavelCairo<val*>::handleIfMouseOverAxisLabel)
@@ -326,32 +344,30 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("render",&RavelCairo<val*>::render)
     ;
 
+  JSRavelBindings<RavelCairo<val*>>("RavelCanvasBase");
+  
+  class_<JSRavelCanvas,base<JSRavel<RavelCairo<val*>>>>("RavelCanvas")
+    .constructor<>()
+    .function("setCanvas",&JSRavelCanvas::setCanvas)
+    .function("handleLeftKey",&JSRavelCanvas::handleLeftKey)
+    .function("handleRightKey",&JSRavelCanvas::handleRightKey)
+    ;
+  
   class_<JSDataCube>("DataCube")
+    .constructor<>()
     .property("dataCallback",&JSDataCube::dataCallback)
     .function("loadData",&JSDataCube::loadData)
     .function("dimension",&JSDataCube::dimension)
-    .constructor<>()
     ;
 
-  class_<JRavelCairo,base<RavelCairo<val*>>>("RavelDataCube")
-    .allow_subclass<RavelCairoWrapper>("RavelCairoWrapper")
-    .property("dc",&JRavelCairo::dc)
-    .property("handle",&JRavelCairo::handle)
-    .function("setCanvas",&JRavelCairo::setCanvas)
-    .function("hyperSlice",&JRavelCairo::hyperSlice)
-    .function("populateData",&JRavelCairo::populateData)
-    .function("dimension",&JRavelCairo::dimension)
-    .function("loadData",&JRavelCairo::loadData)
-    .function("setDataCallback",&JRavelCairo::setDataCallback)
-    .function("setRank",&JRavelCairo::setRank)
-    .function("setSlicer",&JRavelCairo::setSlicer)
-    .function("addHandle",&JRavelCairo::addHandle)
-    .function("handleLeftKey",&JRavelCairo::handleLeftKey)
-    .function("handleRightKey",&JRavelCairo::handleRightKey)
-    .function("getHandleIds",&JRavelCairo::getHandleIds)
-    .function("setHandleIds",&JRavelCairo::setHandleIds)
-    .function("handleId",&JRavelCairo::handleId)
+  class_<JSRavelDataCube,base<JSRavelCanvas>>("RavelDataCube")
     .constructor<>()
+    .property("dc",&JSRavelDataCube::dc)
+    .function("hyperSlice",&JSRavelDataCube::hyperSlice)
+    .function("populateData",&JSRavelDataCube::populateData)
+    .function("dimension",&JSRavelDataCube::dimension)
+    .function("loadData",&JSRavelDataCube::loadData)
+    .function("setDataCallback",&JSRavelDataCube::setDataCallback)
     ;
 
   class_<RawDataIdx>("RawDataIdx")
