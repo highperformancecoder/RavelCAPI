@@ -127,6 +127,17 @@ void Handle::toggleCollapsed()
   snap();
 }
 
+void Handle::setSlicer(const std::string& label)
+{
+  for (size_t i=0; i<sliceLabels.size(); ++i)
+    if (sliceLabels[i]==label)
+      {
+        sliceIndex=i;
+        break;
+      }
+}
+
+
 void Ravel::redistributeHandles()
 {
   double delta;

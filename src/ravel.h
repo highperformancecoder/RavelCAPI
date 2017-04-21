@@ -133,6 +133,11 @@ namespace ravel
     void snap();
     /// toggle collapsed status
     void toggleCollapsed();
+
+    /// sets the slicer to the position occupied by \a label. Does
+    /// nothing if \a label is not present
+    void setSlicer(const std::string& label);
+
   };
 
   class Ravel

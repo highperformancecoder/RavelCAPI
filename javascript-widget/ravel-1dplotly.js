@@ -199,14 +199,15 @@ function makeCountryDefaultX(ravel) {
     for (var i=0; i<ravel.numHandles(); ++i) {
         var h=ravel.handle;
         h.get(i);
+        // select reverse sorting
+        h.sliceLabels.setOrder(Module.Order.forward);
+
         if (h.getDescription()==="country") {
             ravel.setHandleIds([i]);
             ravel.redistributeHandles();
         } else {
-            ravel.setSliceCoordinates(i,h.x()+ravel.x,h.y()+ravel.y);
+            h.setSliceIndex(h.sliceLabels.size()-1);
         }
-        // select reverse sorting
-        h.sliceLabels.setOrder(Module.Order.forward);
     }
     ravel.redraw();
 }
@@ -237,7 +238,7 @@ function alignHandles(master,slave) {
                     h1.get(j);
                     if (h2.getDescription()===h1.getDescription())
                     {
-                        slave.setSlicer(i, h1.sliceLabel());
+                        h2.setSlicer(h1.sliceLabel());
                         if (h2.collapsed()!=h1.collapsed())
                         {
                             slave.toggleCollapsed(i);

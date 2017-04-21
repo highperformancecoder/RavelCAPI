@@ -51,6 +51,22 @@ using ravel::endl;
         }
     }
 
+    // javascript interface to dimension
+    void jdimension(const emscripten::val& v) {
+      auto l=v["length"].as<unsigned>();
+      LabelsVector lv;
+      for (size_t i=0; i<l; ++i)
+        {
+          auto vi=v[i];
+          lv.emplace_back();
+          lv.back().first=vi["axis"].as<string>();
+          auto vil=vi["length"].as<unsigned>();
+          for (size_t j=0; j<vil; ++j)
+            lv.back().second.emplace_back(vi[j].as<string>());
+        }
+      dimension(lv);
+    }
+    
     // set the dimensions of this datacube
     void dimension(const LabelsVector& lv) {
       rawData=RawDataIdx(lv);
@@ -103,7 +119,8 @@ using ravel::endl;
     HandleSort::Order setOrder(HandleSort::Order o) {return v->order(o);}
    /// returns true if order is numerically or lexicograpgically reverse
     bool orderReversed() const {return v->orderReversed();}
-    void customPermutation(const val& x) {v->customPermutation(vecFromJSArray<size_t>(x));}
+    void customPermutation(const val& x)
+    {v->customPermutation(vecFromJSArray<size_t>(x));}
     bool isPermValid() const {return v->isPermValid();}
     /// set sets the labels to a Javascript array - resets order to none.
     void set(const val& x) {*v=SortedVector(vecFromJSArray<std::string>(x));}
@@ -134,6 +151,7 @@ using ravel::endl;
     size_t setSliceMin(size_t x) {return h->sliceMin=x;}
     size_t getSliceMax() const {return h->sliceMax;}
     size_t setSliceMax(size_t x) {return h->sliceMax=x;}
+    void setSlicer(const std::string& label) {h->setSlicer(label);}
     const std::string& sliceLabel() const {return h->sliceLabel();}
     const std::string& sliceLabelAt(size_t i) const {return h->sliceLabels[i];}
     const std::string& minSliceLabel() const {return h->minSliceLabel();}
@@ -172,16 +190,6 @@ using ravel::endl;
       for (size_t i=0; i<r; ++i)
         Ravel::handleIds[i]=i;
     }
-    void setSlicer(size_t handle, const std::string& label)
-    {
-      auto& h=Ravel::handles[handle];
-      for (size_t i=0; i<h.sliceLabels.size(); ++i)
-        if (h.sliceLabels[i]==label)
-          {
-            h.sliceIndex=i;
-            break;
-          }
-    }
     size_t addHandle(const std::string& description, const val& sliceLabels) {
       return Ravel::addHandle(description, vecFromJSArray<std::string>(sliceLabels));
     }
@@ -200,7 +208,6 @@ using ravel::endl;
         this->constructor<>()
         .property("handle",&JSRavel<Ravel>::handle)
         .function("setRank",&JSRavel<Ravel>::setRank)
-        .function("setSlicer",&JSRavel<Ravel>::setSlicer)
         .function("addHandle",&JSRavel<Ravel>::addHandle)
         .function("getHandleIds",&JSRavel<Ravel>::getHandleIds)
         .function("setHandleIds",&JSRavel<Ravel>::setHandleIds)
@@ -319,6 +326,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("setSliceMin",&JSHandle::setSliceMin)
     .function("getSliceMax",&JSHandle::getSliceMax)
     .function("setSliceMax",&JSHandle::setSliceMax)
+    .function("setSlicer",&JSHandle::setSlicer)
     .function("sliceLabel",&JSHandle::sliceLabel)
     .function("sliceLabelAt",&JSHandle::sliceLabelAt)
     .function("minSliceLabel",&JSHandle::minSliceLabel)
@@ -343,11 +351,8 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("onMouseDown",&Ravel::onMouseDown)
     .function("onMouseUp",&Ravel::onMouseUp)
     .function("handleIfMouseOver",&Ravel::handleIfMouseOver)
-    .function("handleX",&Ravel::handleX)
-    .function("handleY",&Ravel::handleY)
     .function("description",&Ravel::description)
     .function("redistributeHandles",&Ravel::redistributeHandles)
-    .function("setSliceCoordinates",&Ravel::setSliceCoordinates)
     ;
 
   JSRavelBindings<Ravel>("Ravel");
@@ -355,10 +360,6 @@ EMSCRIPTEN_BINDINGS(Ravel) {
   class_<RavelCairo<val*>,base<Ravel>>("RavelCairoVal*")
     .function("onMouseDown",&RavelCairo<val*>::onMouseDown)
     .function("onMouseOver",&RavelCairo<val*>::onMouseOver)
-    .function("handleIfMouseOverAxisLabel",&RavelCairo<val*>::handleIfMouseOverAxisLabel)
-    .function("handleIfMouseOverOpLabel",&RavelCairo<val*>::handleIfMouseOverOpLabel)
-    .function("handleIfMouseOverCaliperLabel",
-              &RavelCairo<val*>::handleIfMouseOverCaliperLabel)
     .function("render",&RavelCairo<val*>::render)
     ;
 
@@ -375,7 +376,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .constructor<>()
     //.property("dataCallback",&JSDataCube::dataCallback)
     .function("loadData",&JSDataCube::loadData)
-    .function("dimension",&JSDataCube::dimension)
+    .function("dimension",&JSDataCube::jdimension)
     ;
 
   JSRavelDataCubeBindings<Ravel>("RavelDataCube");
