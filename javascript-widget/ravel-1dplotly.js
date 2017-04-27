@@ -275,8 +275,10 @@ function plotData(ravel) {
     // arithmetic operation extracted out, as we may need to try this twice
     function tryCombine()
     {
-        var slice1=ravel.lhs.hyperSlice();
-        var slice2=ravel.rhs.hyperSlice();
+        ravel.lhs.hyperSlice();
+        ravel.rhs.hyperSlice();
+        var slice1=ravel.lhs.output;
+        var slice2=ravel.rhs.output;
         
         var xh=ravel.lhs.handle;
         xh.get(ravel.lhs.handleId(0));
@@ -329,8 +331,6 @@ function plotData(ravel) {
             }
         }
                 
-        slice1.delete();
-        slice2.delete();
     }
 
     alignHandles(ravel.master,ravel.lhs);

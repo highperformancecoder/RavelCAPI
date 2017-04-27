@@ -76,6 +76,7 @@ using ravel::endl;
   
   struct JSRawData: public RawData
   {
+    JSRawData() {}
     JSRawData(RawData&& x): RawData(x) {}
     // a bit clumsy, but couldn't figure out any natural way of converting a javascript array of objects to a Key
     double val(const emscripten::val& v) {
@@ -233,11 +234,12 @@ using ravel::endl;
   {
 
     JSDataCube dc;
+    JSRawData output;
     // method below doesn't work if placed in JSDataCube, but works here. Go figure!
     void setDataCallback(val f) {dc.dataCallback=f;}
     void loadData(const std::string& x) {dc.loadData(x);}
     
-    JSRawData hyperSlice() {return JSRawData(dc.hyperSlice(*this));}
+    void hyperSlice() {output=dc.hyperSlice(*this);}
     void populateData() {dc.populateArray(*this);}
     /// dimension the datacube according to info in Ravel
     void dimension(const val& arg) {
@@ -268,6 +270,7 @@ using ravel::endl;
       {
         this->constructor<>()
           .property("dc",&JSRavelDataCube<Ravel>::dc)
+          .property("output",&JSRavelDataCube<Ravel>::output)
           .function("setDataCallback",&JSRavelDataCube<Ravel>::setDataCallback)
           .function("hyperSlice",&JSRavelDataCube<Ravel>::hyperSlice)
           .function("populateData",&JSRavelDataCube<Ravel>::populateData)

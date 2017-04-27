@@ -32,6 +32,7 @@
     <script type="text/javascript" src="ravel.js"></script>
     <script>
       var ravel=newRavel("ravel");
+      ravel.onRedraw=function() {processData(ravel);}
       populateTableSelector("tableSelector");
       function onunload() {
         if (ravel) ravel.delete();
