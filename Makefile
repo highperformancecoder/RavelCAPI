@@ -108,6 +108,25 @@ sure: tests
 Ravel/Installer/ravelDoc.wxi: doc doc/ravelDoc.tex 
 	cd doc && sh makeDoc.sh && sh createRavelDocWXI.sh
 
-install-web:
+doc/javascriptAPI/index.html: doc/javascriptAPI.tex doc/javascriptAPI-UML.svg
+	cd doc && latex javascriptAPI.tex
+	cd doc && latex2html -address "Ravelation Pty Ldt" -info 0 -local_icons javascriptAPI.tex
+	cp doc/javascriptAPI-UML.svg doc/javascriptAPI
+
+doc/ravelDoc/index.html: doc/ravelDoc.tex
+	cd doc && latex ravelDoc.tex
+	cd doc && latex2html -address "Ravelation Pty Ltd" -info 0 -local_icons ravelDoc.tex
+
+doc/javascriptAPI-UML.eps: doc/javascriptAPI-UML.xmi
+	echo "Please use umbrello to reexport javascript UML diagram"
+	false
+
+doc/javascriptAPI-UML.svg: doc/javascriptAPI-UML.xmi
+	echo "Please use umbrello to reexport javascript UML diagram"
+	false
+
+install-web: doc/javascriptAPI/index.html doc/ravelDoc/index.html
 	ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALLROOT)/ mySqlService.php
-	ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALL) javascript-widget/*.js javascript-widget/*.html 
+	ncftpput -F -m -S .tmp -f hpcoders.conf -R $(WEBINSTALLROOT) doc/javascriptAPI
+	ncftpput -F -m -S .tmp -f hpcoders.conf -R $(WEBINSTALLROOT) doc/ravelDoc
+	-ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALL) javascript-widget/*.js javascript-widget/*.html 

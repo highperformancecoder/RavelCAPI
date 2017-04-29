@@ -41,10 +41,6 @@ endif
 clean:
 	-rm -f $(JSMODULES) *.bc *.mem *.d
 
-install-web:
-	ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALLROOT)/ ../mySqlService.php
-	ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALL) *.js *.html 
-
 install-slickgrid:
 	cd SlickGrid; ncftpput -F -m -S .tmp -f ../hpcoders.conf $(WEBINSTALL)/SlickGrid slick.core.* slick.grid.*
 	cd SlickGrid/lib; ncftpput -F -m -S .tmp -f ../../hpcoders.conf $(WEBINSTALL)/SlickGrid/lib jquery-1.11.2.min.js jquery.event.drag-2.3.0.js
