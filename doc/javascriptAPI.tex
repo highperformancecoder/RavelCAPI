@@ -11,7 +11,7 @@ compiler.
 To insert a Ravel widget in your HTML document, create a
 canvas element, then pass the canvas's ID to the factory function {\tt
   newRavel}. Finally, add some data describing the handles and you're
-ready to go. For example, from the top level page of this site.
+ready to go. For example, from the top level page of the Ravelation website.
 
 \begin{verbatim}
 <script type="text/javascript" src="examples/jsravel.js"></script>
@@ -58,7 +58,7 @@ function onunload() {ravel.delete();}
 
 \section{Ravel Terminology}
 
-A ravel provides a way of manipulating $n$-dimensional dataset. Each
+A ravel provides a way of manipulating $n$-dimensional datasets. Each
 dimension is controlled by a {\em handle}, which looks like an
 arrow. The dimensionality of the ravel's output data is called the
 {\em rank}. Typical applications might have a rank 1 ravel (for
@@ -90,8 +90,8 @@ emscripten implementation:
 \begin{itemize}
 \item C++ objects created by the system must be explicitly deleted by
   calling their \verb+delete+ method, otherwise a memory leak
-  results. Unfortunately, Javascript has no concept of {\em finalizer}
-  that is present in other garbage collected languages that woudl help
+  results. Unfortunately, Javascript has no concept of {\em finaliser}
+  that is present in other garbage collected languages that would help
   here.
 \item C++ methods returning complex data types will generate a new C++
   object, that needs to be deleted as well. Strings are an exception, in
@@ -107,9 +107,9 @@ emscripten implementation:
   C++ methods must have different names in Javascript (even if the
   number of arguments differ). In particular, this means that
   getter/setter methods need distinct names, so we use the get/set{\em
-    Attribute} convention here, even if the C++ equivalents are just teh
+    Attribute} convention here, even if the C++ equivalents are just the
   attribute name with setter/getter functionality distinguished by argument.
-\item All C++ classes and other object are created in the Module namespace.
+\item All C++ classes and other objects are created in the Module namespace.
 \end{itemize}
 
 \subsection{Module.Ravel}
@@ -148,15 +148,16 @@ emscripten implementation:
     
   \item[clear()] Removes all handles from the system.
     
-  \item[moveHandleTo(handle, x, y)] moves the handle {\tt i} to
+  \item[moveHandleTo(handle, x, y)] moves the handle {\tt handle} to
     lie along the vector ({\tt x},{\tt y}). If the norm of ({\tt x},{\tt
       y}) is below the collapse threshold, the handle is collapsed. This is
     a somewhat low-level method, usually one should just use the {\tt
       onMouse}* event processing methods.
     
-  \item[onMouseMotion(x,y)] Handle mouse motion. Does things render
-    handles the mouse is over differently. Returns true if the ravel needs
-    to be redrawn.
+  \item[onMouseMotion(x,y)] Handle mouse motion. Handles are rendered
+    differently when the mouse point is hovering over a
+    handle. If the mouse button is pressed, then the handle is moved
+    to the location of the mouse. Returns true if the ravel needs to be redrawn.
   \item[onMouseDown(x,y)] Handle mouse button press event.
   \item[onMouseUp(x,y)] Handle mouse button release event.
     
@@ -327,7 +328,7 @@ handle.get(i);
   \item[getDescription()] returns the axis label of this handle
   \item[setDescription(axisName)] sets the axis label of this handle
   \item[reductionDescription()] if the handle is collapsed, returns an
-English language description of the reduction operation - eg "sum of
+English language description of the reduction operation - eg ``sum of
 countries", otherwise is equivalent to getDescription().
 \item[getSliceIndex()] returns the position along the axis where the
   slicer control is position.
@@ -400,7 +401,7 @@ order.
 
 \section{ravel.js}
 
-Ravel.js is utility wrapper of javascript code distributed with the
+Ravel.js is a utility wrapper of javascript code distributed with the
 javascript Ravel widget that helps setting up a ravel and connecting
 it to a database. It is open source, so may be useful as a source of
 studying the Ravel API.
@@ -425,6 +426,44 @@ studying the Ravel API.
 
 \section{mySqlService.php}
 
+mySqlService.php is an implementation of a webservice that implements
+generating hyperslices for the MySQL database. It is used in the
+online examples on the Ravelation website.
+
+The dataset is assumed to have a simple structure. The database needs
+to have a separate row for each data element. There are two reserved
+column names, id\$, which is the primary key (if any), and value\$ which
+is the column containing the values. There is a column for each
+dimension of the hypercube, filled with the slice labels for each data
+item. The full hypercube of data need not be present - any missing
+data is filled with NaN on output.
+
+\subsection{mySqlService API}
+
+\begin{description}
+  \item[/mySqlService.php/axes] return the list of tables in the
+    database as a JSON array
+  \item[/mySqlService.php/axes/{\em table}] returns the list of axes
+    (column names) for {\em table} as a JSON array
+  \item[/mySqlService.php/axes/{\em table}/{\em axis}] returns the
+    list of slice labels for axis {\em axis} of table {\em table} as a
+    JSON array.
+  \item[/mySqlService.php/allData/{\em table}] returns the contents
+    of {\em table} as a single JSON array of doubles. Missing data
+    is replace by NaN.
+  \item[/mySqlService.php/data/{\em table}?{\em axis1=spec}\&{\em
+      axis2=spec}...] returns a hyperslice of the table's dataset. The
+    specification of the query string parameters are:
+    \begin{description}
+      \item[{\em axisName}=slice({\em label})] dataset is sliced along
+        {\em axisName} at the value {\em label}.
+      \item[{\em axisName}=reduce({\em op})] perform a reduction along
+        {\em axisName}, using op (sum, prod, av, stddev, min, max).
+      \item[{\em axisName}=filter({\em min},{\em max})] only return
+        values in between min and max slice labels.
+    \end{description}
+\end{description}
 
 
+    
 \end{document}
