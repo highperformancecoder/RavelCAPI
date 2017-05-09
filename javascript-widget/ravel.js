@@ -20,7 +20,7 @@ var newRavel = function(canvasId) {
     var canvas = canvasElem.getContext('2d');
     var radius = 0.5*Math.min(canvasElem.width,canvasElem.height);
     ravel.dataLoadHook=function(){} // hook function when data is loaded
-    ravel.onredraw=function(){} // hook function when ravel is rerendered
+    ravel.onRedraw=function(){} // hook function when ravel is rerendered
     ravel.setCanvas(canvas);
     ravel.rescale(0.8*radius);
     ravel.x=0; ravel.y=0;
