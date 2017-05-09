@@ -373,6 +373,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
   class_<RavelCairo<val*>,base<Ravel>>("RavelCairoVal*")
     .function("onMouseDown",&RavelCairo<val*>::onMouseDown)
     .function("onMouseOver",&RavelCairo<val*>::onMouseOver)
+    .function("onMouseLeave",&RavelCairo<val*>::onMouseLeave)
     .function("render",&RavelCairo<val*>::render)
     ;
 

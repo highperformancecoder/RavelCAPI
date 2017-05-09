@@ -60,7 +60,11 @@ var newRavel = function(canvasId) {
         if (event.button==0 && ravel.onMouseMotion(x(event), y(event)))
             ravel.redraw();
     };
-//    // these two are needed to capture keyboard focus when mouse hovering over ravel
+    canvasElem.onmouseleave=function(event) {
+        ravel.onMouseLeave();
+        ravel.redraw();
+    }
+    //    // these two are needed to capture keyboard focus when mouse hovering over ravel
     canvasElem.onmouseover=function(event) {
         canvasElem.focus();
     };

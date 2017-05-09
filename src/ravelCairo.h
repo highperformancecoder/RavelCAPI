@@ -25,6 +25,8 @@ namespace ravel
     /// handles tooltip annotations on the ravel rendering. Returns
     /// true if state changes. (x,y) in window coordinates
     bool onMouseOver(double x, double y);
+    /// handle mouse leaving the canvas
+    void onMouseLeave() {toolTipHandle=-1;}
     /// returns handle id if mouse is over axis label. (x,y) in window
     /// coordinates
     int handleIfMouseOverAxisLabel(double x, double y) const;
