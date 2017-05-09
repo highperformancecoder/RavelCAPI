@@ -9,12 +9,15 @@ function processData(ravel) {
 
     var h=ravel.handle;
     h.get(ravel.handleId(0));
+    var colLabels=h.sliceLabels.get();
+    var xCollapsed=h.collapsed();
     var columns=[{id: "ylabel", name: "", field: "ylabel"}];
-    for (var i=0; !h.collapsed() && i<h.sliceLabels.size(); ++i)
-        columns.push({id: "c"+i, name: h.sliceLabelAt(i), field: "c"+i});
+    for (var i=0; !h.collapsed() && i<colLabels.length; ++i)
+        columns.push({id: "c"+i, name: colLabels[i], field: "c"+i});
     var xtitle=h.getDescription();
     
     h.get(ravel.handleId(1));
+    var rowLabels=h.sliceLabels.get();
     
     var plotlyData=[{
         type: 'surface',
@@ -27,22 +30,35 @@ function processData(ravel) {
         plotlyData[0].z.push([]);
         plotlyData[0].z.push([]);
     }
-    for (var i=0; !h.collapsed() && i<h.sliceLabels.size(); ++i)
+    if (!h.collapsed())
     {
-        gridData.push({ylabel: h.sliceLabelAt(i)});
-        plotlyData[0].z.push([]);
+        for (var i=0; i<rowLabels.length; ++i)
+        {
+            gridData.push({ylabel: colLabels[i]});
+            plotlyData[0].z.push([]);
+            h.get(ravel.handleId(0));
+            for (var j=0; !xCollapsed && j<rowLabels.length; ++j)
+                plotlyData[0].z[i].push(0);
+        }
     }
 
-    var maxRowLength=0;
+    var maxRow=0;
     ravel.setDataCallback(function (col,row,v) {
     //ravel.dataCallback=(function (col,row,v) {
         gridData[row]["c"+col]=v;
         plotlyData[0].z[row][col]=v;
-        if (maxRowLength<=col)
-            maxRowLength=col+1;
+        if (maxRow<col)
+            maxRow=col;
     });
     ravel.populateData();
 
+//    for (var i=0; i<plotlyData[0].z.length; ++i)
+//        if (plotlyData[0].z[i].length<=maxRow)
+//    {
+//        gridData[i]["c"+maxRow]=' ';
+//        plotlyData[0].z[i][maxRow]=' ';
+//    }
+    
     var options = {
         enableCellNavigation: true,
         enableColumnReorder: false

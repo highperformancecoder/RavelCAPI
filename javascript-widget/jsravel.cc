@@ -125,6 +125,12 @@ using ravel::endl;
     bool isPermValid() const {return v->isPermValid();}
     /// set sets the labels to a Javascript array - resets order to none.
     void set(const val& x) {*v=SortedVector(vecFromJSArray<std::string>(x));}
+    val get() const {
+      val r{val::array()};
+      for (size_t i=0; i<size(); ++i)
+        r.set(i,(*v)[i]);
+      return r;
+    }
   };
 
   
@@ -312,6 +318,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("orderReversed",&JSSortedVector::orderReversed)
     .function("customPermutation",&JSSortedVector::customPermutation)
     .function("isPermValid",&JSSortedVector::isPermValid)
+    .function("get",&JSSortedVector::get)
     .function("set",&JSSortedVector::set)
     ;
   
