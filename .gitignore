@@ -1,0 +1,15 @@
+*.d
+*.o
+*.bc
+*.dvi
+*.log
+*.aux
+*.cd
+*~
+libravel.a
+test/unittests
+test/testSerialisation
+ravelTest
+logos
+javascript-widget/jsravel.js
+bookDatabases/*.sql

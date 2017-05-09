@@ -66,7 +66,7 @@ namespace ravel
     return m_order;
   }
   
-  void SortedVector::customPermutation(std::vector<size_t>& p)
+  void SortedVector::customPermutation(const std::vector<size_t>& p)
   {
     m_order=none;
     indices=p;

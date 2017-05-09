@@ -156,6 +156,11 @@ namespace ravel
     /// initialise a Ravel object based on data loaded here
     void initRavel(Ravel&) const;
 
+    /// return the hypersliced data corresponding the Ravel settings
+    RawData hyperSlice(Ravel& r) const
+    {RawData sd; hyperSlice(sd,r); return sd;}
+    void hyperSlice(RawData&,Ravel&) const;
+    
     /// populate the data array managed by the subclass of this, using
     /// the setDataElement() method. The array is assumed to be cleared
     /// prior to this call, as setDataElement is not called on undefined

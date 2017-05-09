@@ -27,7 +27,16 @@ namespace ravel
 
   typedef std::vector<std::pair<std::string,std::vector<std::string>>> 
     LabelsVector;
-  typedef std::vector<std::pair<std::string, std::string>> Key;
+  struct AxisSlice
+  {
+    std::string axis, slice;
+    AxisSlice() {}
+    AxisSlice(const std::string& a, const std::string& s): axis(a), slice(s) {}
+    bool operator<(const AxisSlice& x) const {
+      return axis<x.axis || (axis==x.axis && slice<x.slice);
+    }
+  };
+  typedef std::vector<AxisSlice> Key;
 
   class RawDataIdx
   {
@@ -41,7 +50,7 @@ namespace ravel
 
     std::map<std::string, size_t> indicesByName;
     std::vector<Idx> indices;
-    size_t m_size, m_offset=0;
+    size_t m_size=0, m_offset=0;
 
     const Idx& index(const std::string& axis) const;
     CLASSDESC_ACCESS(RawDataIdx);
@@ -110,7 +119,12 @@ namespace ravel
     RawDataIdx slice(const std::vector<std::string>& axes,
                      const Key& fixedLabels) const;
 
-    RawDataIdx removeDimension(size_t) const;
+    /// remove the \a ith axis from the data set. The returned object
+    /// has rank one less than the original
+    RawDataIdx removeDimension(size_t i) const;
+    /// collapse axis \a i down to a single number (result of a
+    /// reduction). Returned object has the same rank as the original
+    RawDataIdx collapseAxis(size_t i) const;
   };
 
   /** apply functional \a f to a range of elements in a contiguous data range
@@ -146,13 +160,20 @@ namespace ravel
     std::vector<double> data;
     CLASSDESC_ACCESS(RawData);
 
+    size_t checkIdx(const Key& key) const {
+      size_t i=idx(key);
+      if (i>=data.size())
+        throw InvalidKey();
+      return i;
+    }
+    
   public:
-    double& operator[](const Key& key) {return data[idx(key)];}
-    double operator[](const Key& key) const {return data[idx(key)];}
+    double& operator[](const Key& key) {return data[checkIdx(key)];}
+    double operator[](const Key& key) const {return data[checkIdx(key)];}
     double& operator[](size_t i) {return data[i];}
     double operator[](size_t i) const {return data[i];}
 
-    RawData() {}
+    RawData(): data(1,nan("")) {}
 
     /** @{
         Create an empty RawData with structure given by \a x
@@ -177,8 +198,9 @@ namespace ravel
     double reduce(Op::ReductionOp op, size_t offset, size_t stride, size_t n) const;
 
     /// Produce a new slice by reducing along dimension axis of the slice given by \a slice
+    /// @param outputHandle affects the rank of the returned object
     RawData reduceAlong(size_t axis, const RawDataIdx& slice,
-                                 Op::ReductionOp op) const;
+                        Op::ReductionOp op, bool outputHandle) const;
   };
 
 }

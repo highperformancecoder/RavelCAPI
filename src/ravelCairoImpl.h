@@ -196,8 +196,20 @@ namespace ravel
             gc.arc(h.sliceX()/sf, h.sliceY()/sf, 4, 0, 2*pi);
             gc.fill();
           
-            gc.moveTo(h.sliceX()/sf+2, h.sliceY()/sf-2);
+            gc.save();
+            double angle;
+            if (h.y()>0)
+              angle=-atan2(h.x(),h.y());
+            else
+              angle=M_PI-atan2(h.x(),h.y());
+            double scale=.75;
+            gc.rotate(angle);
+            gc.scale(scale,scale);
+            double x=(h.sliceX()/sf+2)/scale, y=(h.sliceY()/sf-2)/scale;
+            // do moveTo in rotated frame to allow for HTML canvas behaviour
+            gc.moveTo(x*cos(angle)+y*sin(angle), y*cos(angle)-x*sin(angle));
             gc.showText(h.sliceLabel().c_str());
+            gc.restore();
           }
       }
     gc.restore();

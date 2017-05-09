@@ -49,6 +49,7 @@ SUITE(RawDataT)
         CHECK_EQUAL(2,hs.rank());
         CHECK_EQUAL(6,hs.size());
         
+        CHECK(hs.size()<=rd.size());
         CHECK_EQUAL(2,(rd[hs.idx({{"foo","f2"},{"fbar","fb1"}})]));
         RawData rd2(rd,hs);
         CHECK(std::isnan(rd2[0]));

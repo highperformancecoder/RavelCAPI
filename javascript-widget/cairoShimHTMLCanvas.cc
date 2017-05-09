@@ -166,7 +166,6 @@ namespace ravel
   template <> void CairoShim<val*>::setTextExtents(const std::string& text)
   {
     val textExtents=impl->canvas.call<val>("measureText",text);
-    val document(val::global("document"));
     impl->textWidth=textExtents["width"].as<double>();
     impl->textHeight=10; // height not available in current browsers
   }

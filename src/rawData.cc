@@ -51,7 +51,7 @@ void RawDataIdx::normalise()
   for (auto& i: indices)
     {
       for (auto& j: i.idx)
-        j.second=j.second/i.stride*m_size;
+        j.second = j.second/i.stride*m_size;
       i.stride=m_size;
       m_size*=i.idx.size();
     }
@@ -63,10 +63,10 @@ size_t RawDataIdx::idx(const Key& key) const
   size_t idx=m_offset;
   for (auto& i: key)
     {
-      auto j=indicesByName.find(i.first);
+      auto j=indicesByName.find(i.axis);
       if (j==indicesByName.end())
         throw InvalidKey();
-      auto k=indices[j->second].idx.find(i.second);
+      auto k=indices[j->second].idx.find(i.slice);
       if (k==indices[j->second].idx.end())
         throw InvalidKey();
       idx+=k->second;
@@ -116,6 +116,32 @@ RawDataIdx RawDataIdx::removeDimension(size_t axis) const
   return RawDataIdx(*this,axes);
 }
 
+RawDataIdx RawDataIdx::collapseAxis(size_t i) const
+{
+  RawDataIdx r(*this);
+  r.indices[i].idx.clear();
+  r.indices[i].idx["result"]=0;
+  r.normalise();
+  return r;
+}
+
+template <class Op>
+double reduceImpl(const RawData& x, Op op, double r, size_t offset,
+                       size_t stride, size_t dim)
+{
+  bool valid=false;
+  for (size_t i=offset; i<offset+stride*dim; i+=stride)
+    {
+      double v=x[i];
+      if (isfinite(v))
+        {
+          valid=true;
+          op(r,v);
+        }
+    }
+  return valid? r: nan("");
+}
+
 double RawData::reduce(Op::ReductionOp op, size_t offset,
                        size_t stride, size_t dim) const
 {
@@ -123,46 +149,52 @@ double RawData::reduce(Op::ReductionOp op, size_t offset,
   switch (op)
     {
     case Op::sum:
-      r=0;
-      for (size_t i=offset; i<offset+stride*dim; i+=stride)
-        r+=(*this)[i];
-      return r;
+      return reduceImpl(*this, [](double& r,double v){r+=v;}, 0, offset,stride,dim);
 
     case Op::prod:
-      r=1;
-      for (size_t i=offset; i<offset+stride*dim; i+=stride)
-        r*=(*this)[i];
-      return r;
+      return reduceImpl(*this, [](double& r,double v){r*=v;}, 1, offset,stride,dim);
 
     case Op::av:
-      r=0;
-      for (size_t i=offset; i<offset+stride*dim; i+=stride)
-        r+=(*this)[i];
-      return r/dim;
-
+      {
+        r=0;
+        size_t c=0;
+        for (size_t i=offset; i<offset+stride*dim; i+=stride)
+          {
+            double v=(*this)[i];
+            if (isfinite(v))
+              {
+                r+=v;
+                c++;
+              }
+          }
+        return c>0? r/c: nan("");
+      }
     case Op::stddev:
       {
         double sum=0, sumsq=0;
+        size_t c=0;
         for (size_t i=offset; i<offset+stride*dim; i+=stride)
           {
-            sum+=(*this)[i];
-            sumsq+= (*this)[i] * (*this)[i];
+            double v=(*this)[i];
+            if (isfinite(v))
+              {
+                sum+=v;
+                sumsq+= v*v;
+                c++;
+              }
           }
-        sum/=dim;
-        return sqrt(max(0.0, sumsq/dim-sum*sum));
+        if (c==0) return nan("");
+        sum/=c;
+        return sqrt(max(0.0, sumsq/c-sum*sum));
       }
 
     case Op::min:
-      r=std::numeric_limits<double>::max();
-      for (size_t i=offset; i<offset+stride*dim; i+=stride)
-        r=min(r, (*this)[i]);
-      return r;
+      return reduceImpl(*this, [](double& r,double v){r=min(r,v);},
+                    numeric_limits<double>::max(), offset,stride,dim);
       
     case Op::max:
-      r=-std::numeric_limits<double>::max();
-      for (size_t i=offset; i<offset+stride*dim; i+=stride)
-        r=max(r, (*this)[i]);
-      return r;
+      return reduceImpl(*this, [](double& r,double v){r=max(r,v);},
+                    -numeric_limits<double>::max(), offset,stride,dim);
 
     default:
       assert(false);
@@ -175,16 +207,25 @@ RawData::RawData(const RawData& x, const RawDataIdx& slice): RawDataIdx(slice)
   normalise();
   data.resize(size(),nan(""));
   vector<SizeStride> sizeStride;
-  for (size_t i=0; i<slice.rank(); i++)
-    sizeStride.emplace_back(slice.dim(i),slice.stride(i));
-  size_t i=0;
-  apply(slice.offset(),sizeStride,[&](size_t j) {data[i++]=x[j];});
+  if (rank()==0)
+    {
+      if (x.size()>0)
+        data[0]=x[0];
+    }
+  else
+    {
+      for (size_t i=0; i<slice.rank(); i++)
+        sizeStride.emplace_back(slice.dim(i),slice.stride(i));
+      size_t i=0;
+      apply(slice.offset(),sizeStride,[&](size_t j) {data[i++]=x[j];});
+    }
 }
   
 RawData RawData::reduceAlong(size_t axis, const RawDataIdx& slice,
-                             Op::ReductionOp op) const
+                             Op::ReductionOp op, bool outputHandle) const
 {
-  RawData r(slice.removeDimension(axis));
+  RawData r(outputHandle? slice.collapseAxis(axis): slice.removeDimension(axis));
+  assert(outputHandle && r.rank()==slice.rank() || !outputHandle && r.rank()==slice.rank()-1);
   vector<SizeStride> sizeStride;
   for (size_t i=0; i<slice.rank(); i++)
     if (i!=axis)

@@ -10,6 +10,9 @@ include $(ECOLAB_HOME)/include/Makefile
 ACTIONS+=xml_pack xml_unpack random_init
 FLAGS+=-std=c++11 #-Wno-error=offsetof
 
+WEBINSTALLROOT=public_html/ravelation
+WEBINSTALL=$(WEBINSTALLROOT)/examples
+
 # override EcoLab's classdesc rule to get enums handled correctly
 .h.cd:
 	$(CLASSDESC) -nodef -onbase -typeName -I $(CDINCLUDE) -I $(ECOLAB_HOME)/include -i $< $(ACTIONS) >$@
@@ -25,6 +28,7 @@ OBJS=ravel.o dataCube.o ravelCairo.o cairoShimCairo.o \
 LIBS+=libravel.a
 LIBS:=-L$(HOME)/usr/lib64 $(LIBS)
 MODELS=ravelTest
+EXES=logos
 
 DLLS=libgcc_s_dw2-1.dll libstdc++-6.dll libcairo-2.dll libgobject-2.0-0.dll libgsl-0.dll libpango-1.0-0.dll libpangocairo-1.0-0.dll tcl85.dll tk85.dll libz-1.dll libpixman-1-0.dll libpng15-15.dll libglib-2.0-0.dll libintl-8.dll libiconv-2.dll libffi-6.dll libgslcblas-0.dll libgmodule-2.0-0.dll libpangowin32-1.0-0.dll Tktable211.dll
 
@@ -34,7 +38,7 @@ aegis-all: all
 endif
 
 #chmod command is to counteract AEGIS removing execute privelege from scripts
-all: $(MODELS) Ravel/Installer/ravelDoc.wxi src/ravelVersion.h
+all: $(MODELS) $(EXES) Ravel/Installer/ravelDoc.wxi src/ravelVersion.h
 	-$(CHMOD) a+x *.tcl
 
 ifeq ($(OS),Darwin)
@@ -62,6 +66,10 @@ $(MODELS:=.o): %.o: %.cc
 # how to build a model executable
 $(MODELS): %: %.o libravel.a
 	$(LINK) $(FLAGS) $*.o $(MODLINK) $(LIBS) -o $@
+
+$(EXES): %: %.o libravel.a
+	$(LINK) $(FLAGS) $*.o $(LIBS) -o $@
+
 
 #make MacOS application bundles
 $(MODELS:=.app): %.app: %
@@ -100,6 +108,29 @@ sure: tests
 Ravel/Installer/ravelDoc.wxi: doc doc/ravelDoc.tex 
 	cd doc && sh makeDoc.sh && sh createRavelDocWXI.sh
 
-install-web:
-	ncftpput -F -m -S .tmp -f hpcoders.conf public_html mySqlService.php
-	ncftpput -F -m -S .tmp -f hpcoders.conf public_html/ravel javascript-widget/*.js javascript-widget/*.html 
+doc/javascriptAPI/index.html: doc/javascriptAPI.tex doc/javascriptAPI-UML.svg
+	cd doc && latex javascriptAPI.tex
+	cd doc && latex2html -address "Ravelation Pty Ldt" -info 0 -local_icons javascriptAPI.tex
+	cp doc/javascriptAPI-UML.svg doc/javascriptAPI
+
+doc/ravelDoc/index.html: doc/ravelDoc.tex
+	cd doc && latex ravelDoc.tex
+	cd doc && latex2html -address "Ravelation Pty Ltd" -info 0 -local_icons ravelDoc.tex
+
+doc/javascriptAPI-UML.eps: doc/javascriptAPI-UML.xmi
+	echo "Please use umbrello to reexport javascript UML diagram"
+	false
+
+doc/javascriptAPI-UML.svg: doc/javascriptAPI-UML.xmi
+	echo "Please use umbrello to reexport javascript UML diagram"
+	false
+
+install-web: doc/javascriptAPI/index.html doc/ravelDoc/index.html
+	$(MAKE) -C javascript-widget
+	rsync -z -P -r mySqlService.php doc/javascriptAPI doc/ravelDoc hpcoders:$(WEBINSTALLROOT)
+	rsync -z -P -r javascript-widget/*.html javascript-widget/*.js hpcoders:$(WEBINSTALL)
+#	ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALLROOT)/ mySqlService.php
+#	ncftpput -F -m -S .tmp -f hpcoders.conf -R $(WEBINSTALLROOT) doc/javascriptAPI
+#	ncftpput -F -m -S .tmp -f hpcoders.conf -R $(WEBINSTALLROOT) doc/ravelDoc
+#	-ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALL) javascript-widget/*.js javascript-widget/*.html 
+

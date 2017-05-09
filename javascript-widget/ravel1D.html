@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <meta charset="utf-8">
+  <style>
+    .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+    }
+
+    .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+    visibility: visible;
+    }
+  </style>
+
+  <body onunload="onunload()">
+
+    <h1>Ravel!</h1>
+
+    <table id="tableBlock">
+      <tr>
+        <td>
+          Database: <select id="tableSelector1lhs"
+           onchange="setTable(this.value,ravel1.lhs);
+           hideAxisMenus('ravel1Axes'); plotData(ravel1)">
+          </select>
+          <select id="op1" onchange="plotData(ravel1);">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">×</option>
+            <option selected="1" value="/">̣÷</option>
+          </select>
+          <select id="tableSelector1rhs"
+           onchange="setTable(this.value,ravel1.rhs);
+                     hideAxisMenus('ravel1Axes'); plotData(ravel1)">
+          </select>
+          <input type="button"
+                 onclick="toggleAxisMenus('ravel1Axes',ravel1.master)"
+                 value="toggle axis menus">
+        </td>
+        <td>
+          Database: <select id="tableSelector2lhs"
+           onchange="setTable(this.value,ravel2.lhs);
+           hideAxisMenus('ravel1Axes'); plotData(ravel2)">
+          </select>
+          <select id="op2" onchange="plotData(ravel2);">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">×</option>
+            <option selected="1" value="/">̣÷</option>
+          </select>
+          <select id="tableSelector2rhs"
+           onchange="setTable(this.value,ravel2.rhs);
+                     hideAxisMenus('ravel2Axes'); plotData(ravel2)">
+          </select>
+          <input type="button"
+                 onclick="toggleAxisMenus('ravel2Axes',ravel2.master)"
+                 value="toggle axis menus">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table id="ravel1Axes"></table>
+        </td>
+        <td>
+          <table id="ravel2Axes"></table>
+        </td>
+      <tr>
+        <td valign="top" width="50%">
+           <canvas width="300" height="300" id="ravel1" tabindex="10"></canvas>
+        </td>
+        <td valign="top" width="50%">
+            <canvas width="300" height="300" id="ravel2" tabindex="11"></canvas>
+       </td>
+      </tr>
+    </table>
+
+    <select id="plotType" onchange="plotAllData();">
+      <option value="scatter">line chart</option>
+      <option value="bar" selected="1">bar chart</option>
+    </select>
+    <input id="y1min" oninput="plotAllData()" value="min left">
+    <input id="y1max" oninput="plotAllData()" value="max left">
+    <input id="y2min" oninput="plotAllData()" value="min right">
+    <input id="y2max" oninput="plotAllData()" value="max right">
+    <input type="checkbox" checked id="allDomain" value="0" onchange="plotAllData()">Whole domain
+
+    <div id="plot" style="width:1000px;height:400px;"></div>
+    <canvas id="hiddenCanvas" style="display:none"></canvas>
+    <center>
+      <small>
+        Ravel version <div id="ravelVersion"></div>
+      </small>
+    </center>
+    
+    <script type="text/javascript" src="plotly.js/dist/plotly.min.js"></script>
+    <!-- jsravel.js is not freeware - 
+    please purchase a license at http://ravelation.hpcoders.com.au -->
+    <script type="text/javascript" src="jsravel.js"></script>
+    <script type="text/javascript" src="ravel-1dplotly.js"></script>
+    <script type="text/javascript" src="ravel.js"></script>
+    <script>
+      var ravel1=new Ravel1D("ravel1");
+      var ravel2=new Ravel1D("ravel2");
+      populateTableSelector("tableSelector1lhs");
+      populateTableSelector("tableSelector1rhs");
+      populateTableSelector("tableSelector2lhs");
+      populateTableSelector("tableSelector2rhs");
+      function onunload() {
+        if (ravel1) {ravel1.delete();}
+        if (ravel2) {ravel2.delete();}
+      }
+      document.getElementById("ravelVersion").innerHTML=ravel1.master.version();
+   </script>
+
+  </body>
+</html> 

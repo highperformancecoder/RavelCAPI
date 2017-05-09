@@ -127,10 +127,27 @@ void Handle::toggleCollapsed()
   snap();
 }
 
+void Handle::setSlicer(const std::string& label)
+{
+  for (size_t i=0; i<sliceLabels.size(); ++i)
+    if (sliceLabels[i]==label)
+      {
+        sliceIndex=i;
+        break;
+      }
+}
+
+
 void Ravel::redistributeHandles()
 {
-  double delta=1.5*M_PI/(handles.size()-1);
-  double angle=0.5*M_PI+delta;
+  double delta;
+  switch (rank())
+    {
+    case 1: delta=2*M_PI/(handles.size()); break;
+    case 2: delta=1.5*M_PI/(handles.size()-1); break;
+    default: throw RavelError("high ranks not supported");
+    }
+  double angle=delta;
   for (unsigned i=0; i<handles.size(); ++i)
     if (handleIds.size()>0 && i==handleIds[0])
       handles[i].setHome(radius(),0);
@@ -139,20 +156,12 @@ void Ravel::redistributeHandles()
   // TODO handle higher rank (eg 3D) ravels
     else
       {
-        handles[i].setHome(radius()*cos(angle), radius()*sin(angle));
+        // -ve y because y coordinates increase going down the page
+        handles[i].setHome(radius()*cos(angle), -radius()*sin(angle));
         angle+=delta;
       }
 }
 
-
-//void Ravel::setOutputHandle(size_t dimension, size_t handle) 
-//{
-//  for (auto j: handleIds)
-//    if (handle==j) return; // handle already an output handle
-//  if (dimension>=handleIds.size()) handleIds.resize(dimension+1);
-//  handleIds[dimension]=handle;
-//  redistributeHandles();
-//}
 
 void Ravel::Handles::addHandle(const string& description, 
                      const vector<string>& sliceLabels)
@@ -179,7 +188,7 @@ void Ravel::moveHandleTo(unsigned handle, double xx, double yy)
       Handle& h=handles[handle];
       if (!h.collapsed())
         h.reductionOp=nextRedOp;
-      h.moveTo(xx-x,yy-y, false /* always collapse */);
+      h.moveTo(xx-x,yy-y, /*false*/ !moved /* only collapse if moving*/);
     }
 }
 
@@ -294,6 +303,7 @@ bool Ravel::onMouseMotion(double a_x, double a_y)
           break;
         }
     }
+  moved=true;
   return lastHandle != -1;
 }
 
@@ -301,11 +311,13 @@ void Ravel::onMouseDown(double xx, double yy)
 {
   lastHandle=handleIfMouseOver(xx-x,yy-y);
   elementMoving = sliceCtlHandle(lastHandle, xx-x,yy-y);
+  moved=false;
 }
 
 void Ravel::onMouseUp(double a_x, double a_y)
 {
   onMouseMotion(a_x,a_y);
+  moved=false;
   if (lastHandle!=-1 && elementMoving==handle)
     snapHandle(lastHandle);
   lastHandle=-1;

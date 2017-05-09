@@ -13,6 +13,7 @@
 #include <boost/tokenizer.hpp>
 #include <boost/token_functions.hpp>
 #include <fstream>
+#include <iostream>
 
 using namespace std;
 using namespace ravel;
@@ -54,7 +55,7 @@ vector<any> CSVFTokeniser::getLine()
       // trim any extraneous carriage returns
       if (buf.back()=='\r')
         buf.resize(buf.size()-1);
-      boost::escaped_list_separator<char> csvParser('\\',separator,'"');
+      boost::escaped_list_separator<char> csvParser('\\',separator,'"');//
       boost::tokenizer<boost::escaped_list_separator<char> >
         tok(buf.begin(), buf.end(),csvParser);
       // attempt to convert to doubles, if not then leave as strings
@@ -199,7 +200,7 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
                   if (col<spec.nColAxes)
                     {
                       key.emplace_back(dimNames[dim],str(line[col]));
-                      axisLabelSet[dim].insert(UniqueString(key.back().second,row));
+                      axisLabelSet[dim].insert(UniqueString(key.back().slice,row));
                       dim++;
                     }
                   else // in data area
@@ -281,7 +282,46 @@ void setupSortByPerm(DataCube::SortBy sortBy, size_t axis, size_t otherAxis,
 
   }
 
-void DataCube::populateArray(ravel::Ravel& ravel)
+void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
+{
+  vector<string> axes;
+  Key sliceLabels;
+  for (auto i: ravel.handleIds)
+    if (i<ravel.handles.size())
+      axes.push_back(ravel.handles[i].description);
+  for (auto& h: ravel.handles)
+    if (!ravel.isOutputHandle(h))
+      {
+        if (h.collapsed())
+          axes.push_back(h.description);
+        else
+          sliceLabels.emplace_back(h.description, h.sliceLabel());
+      }
+
+  RawDataIdx slice=rawData.slice(axes, sliceLabels);
+
+  // perform reductions
+  bool noReductions=true;
+  for (auto& h: ravel.handles)
+    if (h.collapsed())
+      {
+        if (noReductions)
+          {
+            // avoid copying data first time around
+            sliceData=move
+              (rawData.reduceAlong(slice.dim(h.description),slice,h.reductionOp,ravel.isOutputHandle(h)));
+            noReductions=false;
+          }
+        else
+          sliceData=move(sliceData.reduceAlong(sliceData.dim(h.description), sliceData,
+                                                   h.reductionOp,ravel.isOutputHandle(h)));
+      }
+ 
+  if (noReductions)
+    sliceData=move(RawData(rawData,slice));
+}
+
+void DataCube::populateArray(Ravel& ravel)
 {
   // TODO: handle ranks other than 2.
   if (ravel.handleIds.size()<2) return;
@@ -292,41 +332,10 @@ void DataCube::populateArray(ravel::Ravel& ravel)
   m_minVal=numeric_limits<double>::max(); 
   m_maxVal=-m_minVal;
 
-  vector<string> axes{xHandle.description, yHandle.description};
-  Key sliceLabels;
-  for (auto& h: ravel.handles)
-    if (&h!=&xHandle && &h!=&yHandle)
-      {
-        if (h.collapsed())
-          axes.push_back(h.description);
-        else
-          sliceLabels.emplace_back(h.description, h.sliceLabel());
-      }
-  RawDataIdx slice=rawData.slice(axes, sliceLabels);
-
-  RawData sliceData;
-  if (slice.rank()>2)
-    // perform reductions
-    {
-      bool firstReduction=true;
-      for (auto& h: ravel.handles)
-        if (&h!=&xHandle && &h!=&yHandle && h.collapsed())
-          {
-            if (firstReduction)
-              {
-                // avoid copying data first time around
-                sliceData=move
-                  (rawData.reduceAlong(slice.dim(h.description),slice,h.reductionOp));
-                firstReduction=false;
-              }
-            else
-              sliceData=move(sliceData.reduceAlong(sliceData.dim(h.description), sliceData,
-                                                   h.reductionOp));
-          }
-    }
-  else
-    sliceData=move(RawData(rawData,slice));
-
+  RawData sliceData(hyperSlice(ravel));
+  if (sliceData.rank()!=2)
+    return; 
+  
   // TODO reduction operations
 
   assert(m_sortBy[xh].rowCol<yHandle.sliceLabels.size() && 
@@ -337,82 +346,54 @@ void DataCube::populateArray(ravel::Ravel& ravel)
   if (!yHandle.collapsed())
     setupSortByPerm(m_sortBy[yh],1,0,sliceData, yHandle.sliceLabels);
 
-  // prepare empty row/column masks
-  xHandle.mask.clear(); yHandle.mask.clear();
-
-  if (xHandle.collapsed())
-    {
-      RawData rd=sliceData.reduceAlong(0,sliceData,xHandle.reductionOp);
-      if (yHandle.collapsed())
-        filterDataElement(0,0,rd.reduce(yHandle.reductionOp, 0, rd.stride(0), rd.size()));
-      else
-        for (size_t i=0, i1=0; i<rd.dim(0); ++i)
-          {
-            double v=rd[yHandle.sliceLabels.idx(i)*rd.stride(0)];
-            if (!isnan(v))
-              filterDataElement(0,i1++,v);
-            else
-              yHandle.mask.insert(i);
-          }
-    }
-  else if (yHandle.collapsed())
-    {
-      RawData rd=sliceData.reduceAlong(1,sliceData,yHandle.reductionOp);
-      for (size_t i=0, i1=0; i<rd.dim(0); ++i)
-        {
-          double v=rd[xHandle.sliceLabels.idx(i)*rd.stride(0)];
-          if (!isnan(v))
-            filterDataElement(i1++,0,v);
-          else
-            xHandle.mask.insert(i);
-        }
-    }
-  else
-    {
-      // set up masks to eliminate empty rows/cols
-      set<size_t> validX, validY;
-      for (size_t i=0; i<sliceData.dim(0); ++i)
-        for (size_t j=0; j<sliceData.dim(1); ++j)
-          if (!isnan(sliceData[i*sliceData.stride(0) + j*sliceData.stride(1)]))
-            {validX.insert(i); validY.insert(j);}
-
-      for (size_t i=0; i<xHandle.sliceLabels.size(); ++i)
-        if (!validX.count(i)) xHandle.mask.insert(i);
-      for (size_t i=0; i<yHandle.sliceLabels.size(); ++i)
-        if (!validY.count(i)) yHandle.mask.insert(i);
-
-      for (size_t i=0, i1=0; i<sliceData.dim(0); ++i)
-        if (validX.count(i))
-          {
-            for (size_t j=0, j1=0; j<sliceData.dim(1); ++j)
-              if (validY.count(j))
-                {
-                  double v=sliceData[xHandle.sliceLabels.idx(i)*sliceData.stride(0)
-                                     + yHandle.sliceLabels.idx(j)*sliceData.stride(1)];
-                  if (!isnan(v))
-                    filterDataElement(i1,j1,v);
-                  j1++;
-                }
-            i1++;
-          }
-    }
-
-  // populate the histogram
-  for (unsigned& x: histogram) x=0;
   for (size_t i=0; i<sliceData.size(); ++i)
     if (isfinite(sliceData[i]))
       {
         m_minVal=min(m_minVal,sliceData[i]);
         m_maxVal=max(m_maxVal,sliceData[i]);
       }
+
+  // prepare empty row/column masks
+  xHandle.mask.clear(); yHandle.mask.clear();
+
+  // set up masks to eliminate empty rows/cols
+  set<size_t> validX, validY;
+  for (size_t i=0; i<sliceData.dim(0); ++i)
+    for (size_t j=0; j<sliceData.dim(1); ++j)
+      if (!isnan(sliceData[xHandle.sliceLabels.idx(i)*sliceData.stride(0)
+                                 + yHandle.sliceLabels.idx(j)*sliceData.stride(1)]))
+        {validX.insert(i); validY.insert(j);}
+
+  for (size_t i=0; i<xHandle.sliceLabels.size(); ++i)
+    if (!validX.count(i)) xHandle.mask.insert(i);
+  for (size_t i=0; i<yHandle.sliceLabels.size(); ++i)
+    if (!validY.count(i)) yHandle.mask.insert(i);
+
+  for (size_t i=0, i1=0; i<sliceData.dim(0); ++i)
+    if (validX.count(i))
+      {
+        for (size_t j=0, j1=0; j<sliceData.dim(1); ++j)
+          if (validY.count(j))
+            {
+              double v=sliceData[xHandle.sliceLabels.idx(i)*sliceData.stride(0)
+                                 + yHandle.sliceLabels.idx(j)*sliceData.stride(1)];
+              if (!isnan(v))
+                filterDataElement(i1,j1,v);
+              j1++;
+            }
+        i1++;
+      }
+
+  // populate the histogram
+  for (unsigned& x: histogram) x=0;
   for (size_t i=0; i<sliceData.size(); ++i)
     if (isfinite(sliceData[i]))
-    {
-      size_t idx=size_t((histogram.size()*(sliceData[i]-m_minVal))/
-                        (m_maxVal-m_minVal));
-      if (idx>=histogram.size()) idx=histogram.size()-1;
-      histogram[idx]++;
-    }
+      {
+        size_t idx=size_t((histogram.size()*(sliceData[i]-m_minVal))/
+                          (m_maxVal-m_minVal));
+        if (idx>=histogram.size()) idx=histogram.size()-1;
+        histogram[idx]++;
+      }
 }
 
 // returns first position of v such that all elements in that or later
@@ -513,11 +494,6 @@ void DataCube::initRavel(ravel::Ravel& ravel) const
 
 void DataCube::filterDataElement(size_t col, size_t row, double v)
 {
-  if (!filterOn)
-    {
-      m_minVal=min(m_minVal, v);
-      m_maxVal=max(m_maxVal, v);
-    }
   if (v>=filterMin && v<=filterMax)
     setDataElement(col,row,v);
 }
