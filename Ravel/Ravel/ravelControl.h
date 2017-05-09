@@ -81,6 +81,7 @@ struct RavelCtl : public RavelCtlData
   Menu menubar, reductionMenu, filterMenu, sortMenu, xsortMenu, ysortMenu, 
     chartMenu, helpMenu;
 
+  TRACKMOUSEEVENT eventTrack{ sizeof(TRACKMOUSEEVENT),TME_LEAVE,0,HOVER_DEFAULT };
   void setup();
   void render();
   void renderFilter(HWND hwnd); ///< render filter widget into hwnd 

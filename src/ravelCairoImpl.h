@@ -201,7 +201,7 @@ namespace ravel
             if (h.y()>0)
               angle=-atan2(h.x(),h.y());
             else
-              angle=M_PI-atan2(h.x(),h.y());
+              angle=pi-atan2(h.x(),h.y());
             double scale=.75;
             gc.rotate(angle);
             gc.scale(scale,scale);

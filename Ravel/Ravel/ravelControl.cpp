@@ -420,6 +420,9 @@ void RavelCtl::setup()
 
 		  SetWindowLongPtr(toplevel, GWLP_USERDATA, (LONG_PTR)new TopLvlWndData{ 0/*opSelector*/, hwnd,filter,0/*chartSelector*/ });
           SetWindowLongPtr(toplevel, GWLP_WNDPROC, (LONG_PTR)topLvlWndProc);
+
+		  // enable receipt of mouse leave events
+		  eventTrack.hwndTrack = hwnd;
 	  }
     }
 }
@@ -932,8 +935,13 @@ LRESULT CALLBACK RavelCtl::windowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM
             r->updateExcel = true;
             r->redraw(hwnd);
           }
+		TrackMouseEvent(&r->eventTrack);
       }
       return 0;
+   case WM_MOUSELEAVE:
+	   r->onMouseLeave();
+	   r->redraw(hwnd);
+	   return 0;
     case WM_SIZE:
       r->x = 0.5*LOWORD(lparam);
       r->y = 0.5*HIWORD(lparam);

@@ -65,7 +65,7 @@ namespace ravel
     size_t sliceIndex, sliceMin=0, sliceMax=std::numeric_limits<size_t>::max();
     /// move slice index by \a p, taking into acount the bounds
     void moveSliceIdx(int p) {
-      if (long(sliceIndex)+p >= 0 && long(sliceIndex) + p < sliceLabels.size())
+      if (long(sliceIndex)+p >= 0 && long(sliceIndex) + p < long(sliceLabels.size()))
         sliceIndex+=p;
     }
     
