@@ -34,7 +34,7 @@ function processData(ravel) {
     {
         for (var i=0; i<rowLabels.length; ++i)
         {
-            gridData.push({ylabel: colLabels[i]});
+            gridData.push({ylabel: rowLabels[i]});
             plotlyData[0].z.push([]);
             h.get(ravel.handleId(0));
             for (var j=0; !xCollapsed && j<rowLabels.length; ++j)

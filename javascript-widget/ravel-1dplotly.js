@@ -241,7 +241,7 @@ function alignHandles(master,slave) {
                         h2.setSlicer(h1.sliceLabel());
                         if (h2.collapsed()!=h1.collapsed())
                         {
-                            slave.toggleCollapsed(i);
+                            h2.toggleCollapsed();
                         }
                         h2.sliceLabels.setOrder(h1.sliceLabels.getOrder());
                         h1.setReductionOp(h1.getReductionOp());
