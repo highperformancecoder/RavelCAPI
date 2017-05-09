@@ -25,6 +25,12 @@
     <div id="plot" style="width:600px;height:500px;"></div>
     <script type="text/javascript" src="plotly.js/dist/plotly.min.js"></script>
     
+    <center>
+      <small>
+        Ravel version <div id="ravelVersion"></div>
+      </small>
+    </center>
+
     <!-- jsravel.js is not freeware - 
     please purchase a license at http://ravelation.hpcoders.com.au -->
     <script type="text/javascript" src="jsravel.js"></script>
@@ -37,7 +43,7 @@
       function onunload() {
         if (ravel) ravel.delete();
       }
-
+      document.getElementById("ravelVersion").innerHTML=ravel.version();
     </script>
 
    

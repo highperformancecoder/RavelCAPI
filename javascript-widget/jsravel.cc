@@ -199,6 +199,7 @@ using ravel::endl;
     val getHandleIds() const {return arrayFromContainer(Ravel::handleIds.begin(), Ravel::handleIds.end());}
     void setHandleIds(const val& x) {Ravel::handleIds=vecFromJSArray<size_t>(x);}
     size_t handleId(size_t i) const {return Ravel::handleIds[i];}
+    string version() const {return RAVEL_VERSION;}
   };
 
   template <class Ravel>
@@ -213,6 +214,7 @@ using ravel::endl;
         .function("getHandleIds",&JSRavel<Ravel>::getHandleIds)
         .function("setHandleIds",&JSRavel<Ravel>::setHandleIds)
         .function("handleId",&JSRavel<Ravel>::handleId)
+        .function("version",&JSRavel<Ravel>::version)
         ;
       }
   };

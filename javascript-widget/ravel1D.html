@@ -112,7 +112,12 @@
     <input type="checkbox" checked id="allDomain" value="0" onchange="plotAllData()">Whole domain
 
     <div id="plot" style="width:1000px;height:400px;"></div>
-    <canvas id="hiddenCanvas" style="display:none">
+    <canvas id="hiddenCanvas" style="display:none"></canvas>
+    <center>
+      <small>
+        Ravel version <div id="ravelVersion"></div>
+      </small>
+    </center>
     
     <script type="text/javascript" src="plotly.js/dist/plotly.min.js"></script>
     <!-- jsravel.js is not freeware - 
@@ -131,6 +136,7 @@
         if (ravel1) {ravel1.delete();}
         if (ravel2) {ravel2.delete();}
       }
+      document.getElementById("ravelVersion").innerHTML=ravel1.master.version();
    </script>
 
   </body>
