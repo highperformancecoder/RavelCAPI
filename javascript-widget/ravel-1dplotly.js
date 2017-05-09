@@ -148,7 +148,9 @@ function toggleAxisMenus(menuID, ravel) {
 
 function toggleFilter(checkBox)
 {
-    checkBox.ravel.setDisplayFilter(checkBox.axis,checkBox.checked);
+    var h=checkBox.ravel.handle;
+    h.get(checkBox.axis);
+    h.setDisplayFilterCaliper(checkBox.checked);
     checkBox.ravel.redraw();
 }
 
