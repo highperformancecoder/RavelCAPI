@@ -13,6 +13,7 @@
 #include <boost/tokenizer.hpp>
 #include <boost/token_functions.hpp>
 #include <fstream>
+#include <iostream>
 
 using namespace std;
 using namespace ravel;
@@ -359,7 +360,8 @@ void DataCube::populateArray(Ravel& ravel)
   set<size_t> validX, validY;
   for (size_t i=0; i<sliceData.dim(0); ++i)
     for (size_t j=0; j<sliceData.dim(1); ++j)
-      if (!isnan(sliceData[i*sliceData.stride(0) + j*sliceData.stride(1)]))
+      if (!isnan(sliceData[xHandle.sliceLabels.idx(i)*sliceData.stride(0)
+                                 + yHandle.sliceLabels.idx(j)*sliceData.stride(1)]))
         {validX.insert(i); validY.insert(j);}
 
   for (size_t i=0; i<xHandle.sliceLabels.size(); ++i)

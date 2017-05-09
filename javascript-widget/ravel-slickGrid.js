@@ -44,7 +44,8 @@ function processData(ravel) {
 
     var maxRow=0;
     ravel.setDataCallback(function (col,row,v) {
-    //ravel.dataCallback=(function (col,row,v) {
+        //ravel.dataCallback=(function (col,row,v) {
+        console.log(col+" "+row+" "+v);
         gridData[row]["c"+col]=v;
         plotlyData[0].z[row][col]=v;
         if (maxRow<col)
