@@ -6,6 +6,7 @@
 #include <emscripten/emscripten.h>
 #include <emscripten/bind.h>
 #include <consoleLog.h>
+#include <iostream>
 
 using namespace std;
 using namespace ravel;

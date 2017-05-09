@@ -59,7 +59,7 @@ function radiosortPushed(input)
 {
     var h=input.ravel.handle;
     h.get(input.axis);
-    h.setOrder(Module.Order[input.value]);
+    h.sliceLabels.setOrder(Module.Order[input.value]);
     plotAllData();
     input.ravel.redraw();
 }
@@ -67,7 +67,8 @@ function radiosortPushed(input)
 function radioreducePushed(input)
 {
     var h=input.ravel.handle;
-    h.reductionOp(Module.ReductionOp[input.value]);
+    h.get(input.axis);
+    h.setReductionOp(Module.ReductionOp[input.value]);
     plotAllData();
     input.ravel.redraw();
 }
@@ -111,7 +112,7 @@ function toggleAxisMenus(menuID, ravel) {
         menu.appendChild(row);
         var item=document.createElement("td");
         row.appendChild(item);
-        item.innerHTML=h.description;
+        item.innerHTML=h.getDescription();
 
         var reductionSelector=
             [
@@ -131,7 +132,7 @@ function toggleAxisMenus(menuID, ravel) {
                 {"value":"numForward", "tooltiptext": "Numerically Forward"},
                 {"value":"numReverse", "tooltiptext": "Numerically Reverse"}
             ];
-        makeSelect(row, ravel, i, "sort", "reverse", sortSelector);
+        makeSelect(row, ravel, i, "sort", "forward", sortSelector);
 
         item=document.createElement("td");
         row.appendChild(item);
@@ -216,35 +217,38 @@ function makeCountryDefaultX(ravel) {
 function alignHandles(master,slave) {
     if (slave.numHandles()>slave.handleId(0))
     {
-        var xh=master.handle;
-        xh.get(master.handleId(0));
+        var mh=master.handle;
+        var sh=slave.handle;
+        
+        mh.get(master.handleId(0));
+        var xDesc=mh.getDescription();
+        var xOp=mh.getReductionOp();
+        var xOrder=mh.sliceLabels.getOrder();
         // didn't combine, try rotating slave ravel to match orientation of master
         for (var i=0; i<slave.numHandles(); ++i)
         {
-            var h2=slave.handle;
-            h2.get(i);
-            if (h2.getDescription()===xh.getDescription())
+            sh.get(i);
+            if (sh.getDescription()===xDesc)
             {
                 slave.setHandleIds([i]);
                 slave.redistributeHandles();
-                h2.sliceLabels.setOrder(xh.sliceLabels.getOrder());
-                h2.setReductionOp(xh.getReductionOp());
+                sh.sliceLabels.setOrder(xOrder);
+                sh.setReductionOp(xOp);
             }
             else // check that slicers match
             {
                 for (var j=0; j<master.numHandles(); ++j)
                 {
-                    var h1=master.handle;
-                    h1.get(j);
-                    if (h2.getDescription()===h1.getDescription())
+                    mh.get(j);
+                    if (sh.getDescription()===mh.getDescription())
                     {
-                        h2.setSlicer(h1.sliceLabel());
-                        if (h2.collapsed()!=h1.collapsed())
+                        sh.setSlicer(mh.sliceLabel());
+                        if (sh.collapsed()!=mh.collapsed())
                         {
-                            h2.toggleCollapsed();
+                            sh.toggleCollapsed();
                         }
-                        h2.sliceLabels.setOrder(h1.sliceLabels.getOrder());
-                        h1.setReductionOp(h1.getReductionOp());
+                        sh.sliceLabels.setOrder(mh.sliceLabels.getOrder());
+                        sh.setReductionOp(mh.getReductionOp());
                     }
                 }
             }
