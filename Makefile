@@ -126,7 +126,9 @@ doc/javascriptAPI-UML.svg: doc/javascriptAPI-UML.xmi
 	false
 
 install-web: doc/javascriptAPI/index.html doc/ravelDoc/index.html
+	$(MAKE) -C javascript-widget
 	ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALLROOT)/ mySqlService.php
 	ncftpput -F -m -S .tmp -f hpcoders.conf -R $(WEBINSTALLROOT) doc/javascriptAPI
 	ncftpput -F -m -S .tmp -f hpcoders.conf -R $(WEBINSTALLROOT) doc/ravelDoc
 	-ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALL) javascript-widget/*.js javascript-widget/*.html 
+
