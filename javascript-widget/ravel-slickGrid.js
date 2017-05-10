@@ -9,16 +9,9 @@ function processData(ravel) {
 
     var h=ravel.handle;
     h.get(ravel.handleId(0));
-    var xmask=h.mask();
     var colLabels=h.sliceLabels.get();
     var xCollapsed=h.collapsed();
     var columns=[{id: "ylabel", name: "", field: "ylabel"}];
-    for (var i=0, j=0; !h.collapsed() && i<colLabels.length; ++i)
-        if (!xmask[i])
-    {
-        columns.push({id: "c"+j, name: colLabels[i], field: "c"+j});
-        j++
-    }
     var xtitle=h.getDescription();
     
     h.get(ravel.handleId(1));
@@ -40,8 +33,7 @@ function processData(ravel) {
     {
         for (var i=0; i<rowLabels.length; ++i)
         {
-            if (!ymask[i])
-                gridData.push({ylabel: rowLabels[i]});
+            gridData.push({});
             plotlyData[0].z.push([]);
             h.get(ravel.handleId(0));
             for (var j=0; !xCollapsed && j<rowLabels.length; ++j)
@@ -58,10 +50,42 @@ function processData(ravel) {
     });
     ravel.populateData();
 
+    // set up column labels, skipping empty columns
+    h.get(ravel.handleId(0));
+    var xmask=h.mask();
+    for (var i=0, j=0; !h.collapsed() && i<colLabels.length; ++i)
+    {
+        if (!xmask[i])
+        {
+            columns.push({id: "c"+j, name: colLabels[i], field: "c"+j});
+            j++;
+        }
+    }
+    
+    // set up row labels, skipping empty rows
+    h.get(ravel.handleId(1));
+    var rowLabels=h.sliceLabels.get();
+    var ymask=h.mask();
+    if (!h.collapsed())
+        for (var i=0, j=0; i<rowLabels.length; ++i)
+        {
+            if (!ymask[i])
+            {
+                gridData[j].ylabel=rowLabels[i];
+                j++;
+            }
+        }
+            
+
+    
     var options = {
         enableCellNavigation: true,
         enableColumnReorder: false
     };
+
+//    var gridDiv=document.getElementById("myGrid");
+//    while (gridDiv.firstChild)
+//        gridDiv.removeChild(gridDiv.firstChild);
     
     grid=new Slick.Grid("#myGrid",gridData,columns,options);
 

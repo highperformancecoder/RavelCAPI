@@ -192,6 +192,7 @@ function setTable(name,ravel) {
                                 if (this.readyState == 4 && this.status == 200) {
                                     ravel.loadData(this.responseText);
                                     ravel.dataLoadHook();
+                                    ravel.redraw();
                                     ravel.onRedraw();
                                 }
                             }
