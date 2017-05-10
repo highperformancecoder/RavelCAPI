@@ -361,6 +361,9 @@ countries", otherwise is equivalent to getDescription().
 \item[setSlicer(label)] sets the slicer to the position where label is
   found. If label is not a sliceLabel, then nothing happens. If the
   slice labels are not unique, then the action is indeterminate
+\item[mask()] returns an array of boolean values. If a mask[i] is
+  true, then no data items corresponding to slice i exist in the
+  data. 
   \end{description}
 \end{description}
 

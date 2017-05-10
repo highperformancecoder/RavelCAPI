@@ -9,15 +9,21 @@ function processData(ravel) {
 
     var h=ravel.handle;
     h.get(ravel.handleId(0));
+    var xmask=h.mask();
     var colLabels=h.sliceLabels.get();
     var xCollapsed=h.collapsed();
     var columns=[{id: "ylabel", name: "", field: "ylabel"}];
-    for (var i=0; !h.collapsed() && i<colLabels.length; ++i)
-        columns.push({id: "c"+i, name: colLabels[i], field: "c"+i});
+    for (var i=0, j=0; !h.collapsed() && i<colLabels.length; ++i)
+        if (!xmask[i])
+    {
+        columns.push({id: "c"+j, name: colLabels[i], field: "c"+j});
+        j++
+    }
     var xtitle=h.getDescription();
     
     h.get(ravel.handleId(1));
     var rowLabels=h.sliceLabels.get();
+    var ymask=h.mask();
     
     var plotlyData=[{
         type: 'surface',
@@ -34,7 +40,8 @@ function processData(ravel) {
     {
         for (var i=0; i<rowLabels.length; ++i)
         {
-            gridData.push({ylabel: rowLabels[i]});
+            if (!ymask[i])
+                gridData.push({ylabel: rowLabels[i]});
             plotlyData[0].z.push([]);
             h.get(ravel.handleId(0));
             for (var j=0; !xCollapsed && j<rowLabels.length; ++j)
@@ -44,8 +51,6 @@ function processData(ravel) {
 
     var maxRow=0;
     ravel.setDataCallback(function (col,row,v) {
-        //ravel.dataCallback=(function (col,row,v) {
-        console.log(col+" "+row+" "+v);
         gridData[row]["c"+col]=v;
         plotlyData[0].z[row][col]=v;
         if (maxRow<col)
@@ -53,13 +58,6 @@ function processData(ravel) {
     });
     ravel.populateData();
 
-//    for (var i=0; i<plotlyData[0].z.length; ++i)
-//        if (plotlyData[0].z[i].length<=maxRow)
-//    {
-//        gridData[i]["c"+maxRow]=' ';
-//        plotlyData[0].z[i][maxRow]=' ';
-//    }
-    
     var options = {
         enableCellNavigation: true,
         enableColumnReorder: false

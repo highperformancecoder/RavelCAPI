@@ -69,8 +69,7 @@ namespace ravel
         sliceIndex+=p;
     }
     
-    /// masked sliceLabels (used by filter functionality to remove
-    /// empty row/cols from output sheet
+    /// masked sliceLabels where slices are empty of all values
     std::set<unsigned long> mask;
 
     /// interpolates \a x by idx/sliceLabels.size()

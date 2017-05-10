@@ -168,6 +168,15 @@ using ravel::endl;
     void toggleCollapsed() {h->toggleCollapsed();}
     bool getDisplayFilterCaliper() const {return h->displayFilterCaliper;}
     void setDisplayFilterCaliper(bool x) {h->displayFilterCaliper=x;}
+
+    /// return an array of true/false according to whether there is
+    /// data present for the slicelabel at that array index
+    val mask() const {
+      val r{val::array()};
+      for (auto& i: h->mask)
+        r.set(i,true);
+      return r;
+    }
   };
 
   template <class Ravel>
@@ -348,6 +357,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("toggleCollapsed",&JSHandle::toggleCollapsed)
     .function("getDisplayFilterCaliper",&JSHandle::getDisplayFilterCaliper)
     .function("setDisplayFilterCaliper",&JSHandle::setDisplayFilterCaliper)
+    .function("mask",&JSHandle::mask)
     ;
   
   class_<Ravel>("RavelBase")
