@@ -41,12 +41,9 @@ function processData(ravel) {
         }
     }
 
-    var maxRow=0;
-    ravel.setDataCallback(function (col,row,v) {
-        gridData[row]["c"+col]=v;
-        plotlyData[0].z[row][col]=v;
-        if (maxRow<col)
-            maxRow=col;
+    ravel.setDataCallback(function (idx,v) {
+        gridData[idx[1]]["c"+idx[0]]=v;
+        plotlyData[0].z[idx[1]][idx[0]]=v;
     });
     ravel.populateData();
 

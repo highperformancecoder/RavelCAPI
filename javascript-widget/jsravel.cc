@@ -26,7 +26,12 @@ using ravel::endl;
     /// assign a Javascript function to this value
     val dataCallback=val::null();
     void setDataElement(size_t col, size_t row, double v) override
-    {dataCallback(col,row,v);}
+    {
+      val key=val::array();
+      key.set(0,col);
+      key.set(1,row);
+      dataCallback(key,v);
+    }
     
     void loadData(const std::string& jsonData) {
       if (jsonData.empty()) return;

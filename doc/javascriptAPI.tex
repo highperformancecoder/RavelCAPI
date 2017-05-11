@@ -258,11 +258,12 @@ A RavelDataCube is a Ravel that has a DataCube object.
     populateData() call. This is only useful for rank 2 ravels. f has
     signature
 \begin{verbatim}
-var f=function(col,row,v) {...}
+var f=function(idx,v) {var col=idx[0], row=idx[1];...}
 \end{verbatim}
-where col and row refer to the index along the x and y output handles
-(0-based), and v is the output value at that location. This function
-will only be called if a value exists at that location.
+where idx is an array of indices along the output handles (0-based),
+and v is the output value at that location. This function will only be
+called if a value exists at that location. The above example shows
+decoding a rank 2 ravel, which is currently all that is supported.
 \item[populateArray()] Computes the hyperslice for a rank 2 ravel,
 call the callback function for all output values.
 
