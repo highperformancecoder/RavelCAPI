@@ -799,7 +799,7 @@ LRESULT CALLBACK RavelCtl::windowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM
        {
         POINTS& p = (POINTS&)lparam;
         int handle=r->handleIfMouseOver(p.x-r->x,p.y-r->y);
-        if (handle>=0)
+        if (handle>=0 && r->sliceCtlHandle(handle,p.x-r->x,p.y-r->y)==Ravel::handle)
           {
             r->handles[handle].toggleCollapsed();
             r->redraw(hwnd);
