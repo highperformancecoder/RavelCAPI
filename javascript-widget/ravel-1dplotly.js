@@ -232,8 +232,11 @@ function alignHandles(master,slave) {
             sh.get(i);
             if (sh.getDescription()===xDesc)
             {
-                slave.setHandleIds([i]);
-                slave.redistributeHandles();
+                if (slave.getHandleIds()[0]!=i)
+                {
+                    slave.setHandleIds([i]);
+                    slave.redistributeHandles();
+                }
                 sh.sliceLabels.setOrder(xOrder);
                 sh.setReductionOp(xOp);
             }
