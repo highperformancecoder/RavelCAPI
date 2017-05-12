@@ -297,29 +297,29 @@ function plotData(ravel) {
             var value=slice1.val(key);
             if (isFinite(value))
             {
-                if (ravel.rhs.numHandles()>ravel.rhs.handleId(0))
+                if (slice2.rank()>0 && ravel.rhs.numHandles()>ravel.rhs.handleId(0))
                 {
                     var h2=ravel.rhs.handle;
                     h2.get(ravel.rhs.handleId(0));
                     key[0].axis=h2.getDescription();
-                    var value2=slice2.val(key);
-                    if (isFinite(value2))
+                    value2=slice2.val(key);
+                    plotlyData.name=ravel.lhs.table+" "+op+" "+ravel.rhs.table;
+                    switch (op)
                     {
-                        plotlyData.name=ravel.lhs.table+" "+op+" "+ravel.rhs.table;
-                        switch (op)
-                        {
-                            case '+': value+=value2; break;
-                            case '-': value-=value2; break;
-                            case '*': value*=value2; break;
-                            case '/': value/=value2; break;
-                        }
+                        case '+': value+=value2; break;
+                        case '-': value-=value2; break;
+                        case '*': value*=value2; break;
+                        case '/': value/=value2; break;
                     }
                 }
             }
             if (isFinite(value) || document.getElementById("allDomain").checked)
             {
                 plotlyData.x.push(i);
-                plotlyData.y.push(value);
+                if (isFinite(value))
+                    plotlyData.y.push(value);
+                else
+                    plotlyData.y.push(NaN);
             }
             plotlyData.xlabels.push(xh.sliceLabelAt(i));
         }
