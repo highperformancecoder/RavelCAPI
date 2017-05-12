@@ -353,7 +353,8 @@ function plotData(ravel) {
 
 function processData(ravel) {/* not used */}
 function plotAllData() {
-    alignHandles(ravel1.master, ravel2.master);
+    if (document.getElementById("slaved").checked)
+        alignHandles(ravel1.master, ravel2.master);
     var data=[plotData(ravel1), plotData(ravel2)];
     data[1].yaxis="y2";
 
