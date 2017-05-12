@@ -63,8 +63,8 @@ int main()
             {
               if (sector=="General government")
                 govCredit<<govFormat % country % unit_type % col[i] % row[i];
-                else if (sector=="Households & NPISHs" ||
-                         sector=="Non-financial corporations")
+                else /*if (sector=="Households & NPISHs" ||
+                       sector=="Non-financial corporations") */
                   privCredit<<privFormat % country % sector % unit_type % col[i] %
                     row[i];
               }
