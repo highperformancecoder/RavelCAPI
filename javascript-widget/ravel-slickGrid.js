@@ -20,12 +20,16 @@ function processData(ravel) {
     
     var plotlyData=[{
         type: 'surface',
+        hoverinfo: 'text',
+        text: [],
         z: []
     }];
 
     if (h.collapsed())
     {
         gridData.push({});
+        plotlyData[0].text.push([]);
+        plotlyData[0].text.push([]);
         plotlyData[0].z.push([]);
         plotlyData[0].z.push([]);
     }
@@ -34,16 +38,20 @@ function processData(ravel) {
         for (var i=0; i<rowLabels.length; ++i)
         {
             gridData.push({});
+            plotlyData[0].text.push([]);
             plotlyData[0].z.push([]);
             h.get(ravel.handleId(0));
-            for (var j=0; !xCollapsed && j<rowLabels.length; ++j)
+            for (var j=0; !xCollapsed && j<colLabels.length; ++j)
+            {
                 plotlyData[0].z[i].push(0);
+           }
         }
     }
 
     ravel.setDataCallback(function (idx,v) {
         gridData[idx[1]]["c"+idx[0]]=v;
         plotlyData[0].z[idx[1]][idx[0]]=v;
+        plotlyData[0].text[idx[1]][idx[0]]=colLabels[idx[0]]+","+rowLabels[idx[1]]+"="+v;
     });
     ravel.populateData();
 
@@ -72,30 +80,56 @@ function processData(ravel) {
                 j++;
             }
         }
-            
-
     
     var options = {
         enableCellNavigation: true,
         enableColumnReorder: false
     };
 
-//    var gridDiv=document.getElementById("myGrid");
-//    while (gridDiv.firstChild)
-//        gridDiv.removeChild(gridDiv.firstChild);
-    
     grid=new Slick.Grid("#myGrid",gridData,columns,options);
+
+    var xtickvals=[], xticklabels=[];
+    var incr=Math.floor(colLabels.length/10);
+    if (incr==0) incr=1;
+    for (var i=0; i<colLabels.length; i+=incr)
+    {
+        xtickvals.push(i);
+        xticklabels.push(colLabels[i]);
+    }
+
+    var ytickvals=[], yticklabels=[];
+    incr=Math.floor(rowLabels.length/10);
+    if (incr==0) incr=1;
+    for (var i=0; i<rowLabels.length; i+=incr)
+    {
+        ytickvals.push(i);
+        yticklabels.push(rowLabels[i]);
+    }
 
     var layout = {
         title: ravel.table,
-        xaxis: {
-            showgrid: false,
-            zeroline: false,
-            title: xtitle
-        },
-        yaxis: {
-            title: h.getDescription(),
-            showline: false,
+//        xaxis: {
+//            ticktext: colLabels
+//        },
+//        yaxis: {
+//            ticktext: rowLabels
+//        },
+        scene: {
+            xaxis: {
+                showgrid: false,
+                zeroline: false,
+                tickmode: "array",
+                tickvals: xtickvals,
+                ticktext: xticklabels,
+                title: xtitle
+            },
+            yaxis: {
+                title: h.getDescription(),
+                showline: false,
+                tickmode: "array",
+                tickvals: ytickvals,
+                ticktext: yticklabels
+            }
         }
     };
     var plot=document.getElementById("plot");
