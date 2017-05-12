@@ -264,7 +264,8 @@ function plotData(ravel) {
         name: "",
         type: document.getElementById("plotType").value,
         mode: 'lines',
-        x: [], y: []
+        x: [], y: [],
+        xlabels: []
     };
 
     if (ravel.master.numHandles()<=ravel.master.handleId(0)) return plotlyData; //nothing to do
@@ -317,9 +318,10 @@ function plotData(ravel) {
             }
             if (isFinite(value) || document.getElementById("allDomain").checked)
             {
-                plotlyData.x.push(xh.sliceLabelAt(i));
+                plotlyData.x.push(i);
                 plotlyData.y.push(value);
             }
+            plotlyData.xlabels.push(xh.sliceLabelAt(i));
         }
         
         if (plotlyData.x.length==0)
@@ -351,11 +353,27 @@ function plotAllData() {
     alignHandles(ravel1.master, ravel2.master);
     var data=[plotData(ravel1), plotData(ravel2)];
     data[1].yaxis="y2";
+
+    var minx=data[0].x[0];
+    if (data[1].x[0]<minx) minx=data[1].x[0];
+    var maxx=data[0].x[data[0].x.length-1];
+    if (data[1].x[data[0].x.length-1]>maxx) maxx=data[1].x[data[0].x.length-1];
+    var xticks=[], xlabels=[];
+    var incr=Math.floor((maxx-minx)/30);
+    if (incr==0) incr=1;
+    for (var i=minx; i<=maxx; i+=incr)
+    {
+        xticks.push(i);
+        xlabels.push(data[0].xlabels[i]);
+    }
     
     var layout = {
         xaxis: {
             showgrid: false,
             zeroline: false,
+            tickmode: "array",
+            tickvals: xticks,
+            ticktext: xlabels
         },
         yaxis: {
             title: data[0].name,
