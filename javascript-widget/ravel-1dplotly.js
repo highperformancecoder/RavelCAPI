@@ -372,6 +372,7 @@ function plotAllData() {
     }
     
     var layout = {
+        title: "By "+ravel1.master.description(),
         xaxis: {
             showgrid: false,
             zeroline: false,
