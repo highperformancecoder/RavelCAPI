@@ -129,10 +129,17 @@
     <script>
       var ravel1=new Ravel1D("ravel1");
       var ravel2=new Ravel1D("ravel2");
-      populateTableSelector("tableSelector1lhs");
-      populateTableSelector("tableSelector1rhs");
-      populateTableSelector("tableSelector2lhs");
-      populateTableSelector("tableSelector2rhs");
+      // if we're the desktop app running under electron, customise stuff here 
+      if (typeof(process) != 'undefined'
+      && process.versions && process.versions.electron)
+        require("./desktop.js");
+      else
+      {
+        populateTableSelector("tableSelector1lhs");
+        populateTableSelector("tableSelector1rhs");
+        populateTableSelector("tableSelector2lhs");
+        populateTableSelector("tableSelector2rhs");
+      }
       function onunload() {
         if (ravel1) {ravel1.delete();}
         if (ravel2) {ravel2.delete();}

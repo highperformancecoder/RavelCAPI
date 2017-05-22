@@ -1,0 +1,16 @@
+{
+  "name": "Ravel1D",
+  "version": "1.0.0",
+  "description": "A pair of 1D Ravels that can be combined",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "",
+  "keywords": [],
+  "author": "High Performance Coders",
+  "license": "commercial in confidence",
+  "devDependencies": {
+    "electron": "~1.6.2"
+  }
+}
