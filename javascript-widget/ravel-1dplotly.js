@@ -415,6 +415,13 @@ function plotAllData() {
     if (data[1].x.length==0 && layout.yaxis2.range==undefined)
         layout.yaxis2.range=[0,1];
         
+    // if no y2 data, remove anything related to it
+    if (data[1].y.length==0)
+    {
+        data.length=1;
+        delete layout.yaxis2;
+    }
+    
     var plot=document.getElementById("plot");
     Plotly.purge(plot);
     Plotly.plot(plot,data,layout);
