@@ -196,8 +196,8 @@ HTML canvas element. It subclasses Module.Ravel.
 \item[Methods:]\mbox{}
 \begin{description}
 \item[render()] render the Ravel to the canvas element
-\item[setCanvas(canvas)] canvas is the actual DOM object, as returned
-  by {\tt document.getElementById()} or similar.
+\item[setCanvas(canvas)] canvas is the canvas context of an actual DOM object, as returned
+  by \verb+document.getElementById().getContext('2d')+ or similar.
 \item[handleLeftKey()] called to adjust the slicer towards the origin
   on the handle the mouse is currently hovering over
 \item[handleRightKey()] called to adjust the slicer away from the origin

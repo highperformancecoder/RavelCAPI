@@ -136,7 +136,14 @@ namespace ravel
   {impl->canvas.call<void>("closePath");}
 
   template <> void CairoShim<val*>::fill()
-  {impl->canvas.call<void>("fill");newPath();}
+  {
+    // clipping helps with chrome rendering bugs, but only in v59 and higher 
+    //    impl->canvas.call<void>("save");
+    //    impl->canvas.call<void>("clip");
+    impl->canvas.call<void>("fill");
+    //    impl->canvas.call<void>("restore");
+    newPath();
+  }
 
   template <> void CairoShim<val*>::stroke()
   {impl->canvas.call<void>("stroke");newPath();}
@@ -145,7 +152,7 @@ namespace ravel
   {impl->canvas.call<void>("stroke");}
 
   template <> void CairoShim<val*>::setLineWidth(double w)
-  {}
+  {impl->canvas.set("lineWidth",w);}
 
   // sources
   template <> void CairoShim<val*>::setSourceRGB
