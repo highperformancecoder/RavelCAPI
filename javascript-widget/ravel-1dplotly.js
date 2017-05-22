@@ -352,7 +352,7 @@ function plotData(ravel) {
 };
 
 function processData(ravel) {/* not used */}
-function plotAllData() {plotMasterData(ravel1);}
+function plotAllData() {plotMasterData(ravel1.master);}
 
 function plotMasterData(masterRavel) {
     if (document.getElementById("slaved").checked)
