@@ -192,7 +192,7 @@ function Ravel1D(canvas) {
     }
     lhs.dataLoadHook=synchroniseMaster;
     rhs.dataLoadHook=synchroniseMaster;
-    master.onRedraw=function() {plotAllData();}
+    master.onRedraw=function() {plotMasterData(master);}
 }
 
 Ravel1D.prototype=new Object;
@@ -352,9 +352,16 @@ function plotData(ravel) {
 };
 
 function processData(ravel) {/* not used */}
-function plotAllData() {
+function plotAllData() {plotMasterData(ravel1);}
+
+function plotMasterData(masterRavel) {
     if (document.getElementById("slaved").checked)
-        alignHandles(ravel1.master, ravel2.master);
+    {
+        if (masterRavel==ravel1.master)
+            alignHandles(ravel1.master, ravel2.master);
+        else
+            alignHandles(ravel2.master, ravel1.master);            
+    }
     var data=[plotData(ravel1), plotData(ravel2)];
     data[1].yaxis="y2";
 
