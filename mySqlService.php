@@ -188,6 +188,66 @@ function doAllData($table)
    print "]";
 }
 
+function doAllDataWithSchema($table)
+{
+   header('Content-type: application/data');
+   global $mysqli;               
+   # get column names
+   $result=$mysqli->query("show columns from ".$table);
+   $columns=array();
+   while($row = mysqli_fetch_array($result))
+   {
+     if ($row['Field'] != "id$" && $row['Field'] != "value$")
+       array_push($columns,$row['Field']);
+   }
+
+   print "{[";
+
+   # now prepare column ordering so as to serve data back to client in 
+   $offsets=array();
+   $stride=1;
+   foreach ($columns as $col)
+   {
+      if ($stride>1) print ",";
+      print "{axis:\"$col\",labels:[";
+      $result=$mysqli->query("select distinct `".$col."` from ".$table);
+      $count=0;
+      $colOffsets=array();
+      $offs=0;
+      while($row = mysqli_fetch_array($result))
+      {
+        if ($count>0) print ",";
+        print "\"$row[0]\"";
+        $colOffsets[$row[0]]=$offs;
+        $offs+=$stride;
+        $count++;
+      }
+      $stride*=$count;
+      array_push($offsets,$colOffsets);
+      print "]}";
+   }
+   print "],data:[";
+   
+   #var_dump($offsets);
+
+   # now grab the data, ordered alphanumerically by the axis labels
+   $dbreq="select ".implode(",",$columns).",value$ from ".$table;
+   $result=$mysqli->query($dbreq);
+
+   # prepare return array with NANs to indicate missing data
+   $cnt=0;
+   while($row = mysqli_fetch_array($result,MYSQLI_NUM))
+   {
+     $idx=0;
+     for ($i=0; $i<count($row)-1; ++$i)
+        $idx+=$offsets[$i][$row[$i]];
+     if ($cnt++>0)
+            print ",";       
+     echo $idx,",",(float)$row[count($row)-1];
+   }
+   print "]}";
+}
+
 $pathInfo=explode("/",$_SERVER["PATH_INFO"]);
 if (count($pathInfo)>1)
 {
@@ -201,6 +261,9 @@ if (count($pathInfo)>1)
       break;
     case "allData":     
       doAllData($pathInfo[2]);
+      break;
+    case "allDataWithSchema":     
+      doAllDataWithSchema($pathInfo[2]);
       break;
   }
 }

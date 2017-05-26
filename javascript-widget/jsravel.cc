@@ -5,8 +5,8 @@
 #include <string>
 #include <emscripten/emscripten.h>
 #include <emscripten/bind.h>
-#include <consoleLog.h>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 using namespace ravel;
@@ -15,12 +15,9 @@ using namespace emscripten;
 namespace ravel
 {
   template class RavelCairo<val*>;
-  ConsoleLog console;
-  ConsoleLogEndl endl;
 }
 
 namespace {
-using ravel::endl;
   struct JSDataCube: public DataCube
   {
     /// assign a Javascript function to this value
@@ -77,6 +74,17 @@ using ravel::endl;
     void dimension(const LabelsVector& lv) {
       rawData=RawDataIdx(lv);
       m_sortBy.resize(lv.size());
+    }
+
+    void initSpec(const std::string& fileName) {
+    }
+    void loadCSV(const std::string& fileName) {
+    DataSpec spec;
+    char separator=',';
+      std::ifstream input(fileName);
+      CSVFTokeniser tok(input, separator);
+      spec=initDataSpec(tok);
+      loadFile(fileName,separator,spec);
     }
   };
   
@@ -261,6 +269,10 @@ using ravel::endl;
     // method below doesn't work if placed in JSDataCube, but works here. Go figure!
     void setDataCallback(val f) {dc.dataCallback=f;}
     void loadData(const std::string& x) {dc.loadData(x);}
+    void loadCSV(const std::string& file) {
+      dc.loadCSV(file);
+      dc.initRavel(*this);
+    }
     
     void hyperSlice() {output=dc.hyperSlice(*this);}
     void populateData() {dc.populateArray(*this);}
@@ -299,6 +311,7 @@ using ravel::endl;
           .function("populateData",&JSRavelDataCube<Ravel>::populateData)
           .function("dimension",&JSRavelDataCube<Ravel>::dimension)
           .function("loadData",&JSRavelDataCube<Ravel>::loadData)
+          .function("loadCSV",&JSRavelDataCube<Ravel>::loadCSV)
           ;
       }
   };
@@ -400,12 +413,46 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("handleLeftKey",&JSRavelCanvas::handleLeftKey)
     .function("handleRightKey",&JSRavelCanvas::handleRightKey)
     ;
+
+  class_<DataSpec>("DataSpec")
+    .property("nRowAxes",&DataSpec::nRowAxes)
+    .property("nColAxes",&DataSpec::nColAxes)
+    .function("getCommentRows",optional_override([](const DataSpec& self){
+          val c=val::array();
+          size_t i=0;
+          for (auto j: self.commentRows) c.set(i++,j);
+          return c;
+        }))
+    .function("getCommentCols",optional_override([](const DataSpec& self){
+          val c=val::array();
+          size_t i=0;
+          for (auto j: self.commentCols) c.set(i++,j);
+          return c;
+        }))
+    .function("setCommentRows",optional_override([](DataSpec& self, const val& x){
+          auto xv=vecFromJSArray<unsigned>(x);
+          self.commentRows.clear();
+          self.commentRows.insert(xv.begin(), xv.end());
+        }))
+    .function("setCommentCols",optional_override([](DataSpec& self, const val& x){
+          auto xv=vecFromJSArray<unsigned>(x);
+          self.commentCols.clear();
+          self.commentCols.insert(xv.begin(), xv.end());
+        }))
+    ;
+
+  class_<DataCube>("_DataCube")
+    .function("size",&DataCube::size)
+    .function("rank",&DataCube::rank)
+    ;
   
-  class_<JSDataCube>("DataCube")
+  class_<JSDataCube,base<DataCube>>("DataCube")
     .constructor<>()
     //.property("dataCallback",&JSDataCube::dataCallback)
     .function("loadData",&JSDataCube::loadData)
     .function("dimension",&JSDataCube::jdimension)
+    .function("initSpec",&JSDataCube::initSpec)
+    .function("loadCSV",&JSDataCube::loadCSV)
     ;
 
   JSRavelDataCubeBindings<Ravel>("RavelDataCube");

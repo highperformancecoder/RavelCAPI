@@ -26,10 +26,10 @@
    <File Id='fid22' Name='prev.png' Source='../../doc/ravelDoc/prev.png' KeyPath='no'/>
    <File Id='fid23' Name='ravelDoc.css' Source='../../doc/ravelDoc/ravelDoc.css' KeyPath='no'/>
    <File Id='fid24' Name='ravelDoc.html' Source='../../doc/ravelDoc/ravelDoc.html' KeyPath='no'/>
-   <File Id='fid25' Name='RavelEx1.xlsx' Source='../../doc/RavelEx1.xlsx' KeyPath='no'/>
-   <File Id='fid26' Name='RavelEx2.xlsx' Source='../../doc/RavelEx2.xlsx' KeyPath='no'/>
-   <File Id='fid27' Name='RavelEx3.xlsx' Source='../../doc/RavelEx3.xlsx' KeyPath='no'/>
-   <File Id='fid28' Name='RavelEx.png' Source='../../doc/RavelEx.png' KeyPath='no'/>
+   <File Id='fid25' Name='RavelEx1.xlsx' Source='../../doc/ravelDoc/RavelEx1.xlsx' KeyPath='no'/>
+   <File Id='fid26' Name='RavelEx2.xlsx' Source='../../doc/ravelDoc/RavelEx2.xlsx' KeyPath='no'/>
+   <File Id='fid27' Name='RavelEx3.xlsx' Source='../../doc/ravelDoc/RavelEx3.xlsx' KeyPath='no'/>
+   <File Id='fid28' Name='RavelEx.png' Source='../../doc/ravelDoc/RavelEx.png' KeyPath='no'/>
    <File Id='fid29' Name='up_g.png' Source='../../doc/ravelDoc/up_g.png' KeyPath='no'/>
    <File Id='fid30' Name='up.png' Source='../../doc/ravelDoc/up.png' KeyPath='no'/>
    <File Id='fid31' Name='WARNINGS' Source='../../doc/ravelDoc/WARNINGS' KeyPath='no'/>

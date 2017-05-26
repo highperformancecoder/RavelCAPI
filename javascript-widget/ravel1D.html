@@ -46,10 +46,13 @@
     <table id="tableBlock">
       <tr>
         <td>
-          Database: <select id="tableSelector1lhs"
+          Database:
+          <span id="tableSelector1lhsWrap">
+            <select id="tableSelector1lhs"
            onchange="setTable(this.value,ravel1.lhs);
            hideAxisMenus('ravel1Axes'); plotData(ravel1)">
-          </select>
+            </select>
+          </span>
           <select id="op1" onclick="handleOpSelector(ravel1);">
             <option value="+">+</option>
             <option value="-">-</option>
@@ -57,19 +60,24 @@
             <option selected="1" value="/">̣÷</option>
             <option value="custom">JS</option>
           </select>
-          <select id="tableSelector1rhs"
-           onchange="setTable(this.value,ravel1.rhs);
-                     hideAxisMenus('ravel1Axes'); plotData(ravel1)">
-          </select>
+          <span id="tableSelector1rhsWrap">
+            <select id="tableSelector1rhs"
+                    onchange="setTable(this.value,ravel1.rhs);
+                              hideAxisMenus('ravel1Axes'); plotData(ravel1)">
+            </select>
+          </span>
           <input type="button"
                  onclick="toggleAxisMenus('ravel1Axes',ravel1.master)"
                  value="toggle axis menus">
         </td>
         <td>
-          Database: <select id="tableSelector2lhs"
-           onchange="setTable(this.value,ravel2.lhs);
-           hideAxisMenus('ravel1Axes'); plotData(ravel2)">
-          </select>
+          <span id="tableSelector2lhsWrap">
+          Database:
+            <select id="tableSelector2lhs"
+                    onchange="setTable(this.value,ravel2.lhs);
+                              hideAxisMenus('ravel1Axes'); plotData(ravel2)">
+            </select>
+          </span>
           <select id="op2" onchange="handleOpSelector(ravel2);">
             <option value="+">+</option>
             <option value="-">-</option>
@@ -77,10 +85,12 @@
             <option selected="1" value="/">̣÷</option>
             <option value="custom">JS</option>
           </select>
-          <select id="tableSelector2rhs"
-           onchange="setTable(this.value,ravel2.rhs);
-                     hideAxisMenus('ravel2Axes'); plotData(ravel2)">
-          </select>
+          <span id="tableSelector2rhsWrap">
+            <select id="tableSelector2rhs"
+                    onchange="setTable(this.value,ravel2.rhs);
+                              hideAxisMenus('ravel2Axes'); plotData(ravel2)">
+            </select>
+          </span>
           <input type="button"
                  onclick="toggleAxisMenus('ravel2Axes',ravel2.master)"
                  value="toggle axis menus">
@@ -122,7 +132,8 @@
       </small>
     </center>
     
-    <script type="text/javascript" src="plotly.js/dist/plotly.min.js"></script>
+    <script type="text/javascript"
+            src="plotly.js/dist/plotly.min.js"></script>
     <!-- jsravel.js is not freeware - 
     please purchase a license at http://ravelation.hpcoders.com.au -->
     <script type="text/javascript" src="jsravel.js"></script>
@@ -131,7 +142,7 @@
     <script>
       var ravel1=new Ravel1D("ravel1");
       var ravel2=new Ravel1D("ravel2");
-      // if we're the desktop app running under electron, customise stuff here 
+      // if we're the desktop app running under electron, customise    stuff here
       if (typeof(process) != 'undefined'
       && process.versions && process.versions.electron)
         require("./desktop.js");
@@ -148,6 +159,6 @@
       }
       document.getElementById("ravelVersion").innerHTML=ravel1.master.version();
    </script>
-
+    
   </body>
 </html> 

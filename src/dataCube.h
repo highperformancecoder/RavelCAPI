@@ -187,8 +187,7 @@ namespace ravel
     }
 
     size_t size() const {return rawData.size();}
-    
-
+    size_t rank() const {return rawData.rank();}
   };
 }
 
