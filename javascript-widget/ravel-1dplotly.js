@@ -3,6 +3,36 @@
   Example code released under the MIT license.
 */
 
+// a difference function for use in custom JS op.
+var diff=function(x)
+{
+    var r=x-diff.xsaved;
+    diff.xsaved=x;
+    if (r===NaN)
+        return 0; // probably start of series
+    else
+        return r;
+}
+
+function handleOpSelector(ravel)
+{
+    var id = ravel==ravel1? "op1": "op2";
+    switch (document.getElementById(id).value)
+    {
+        case '+': ravel.dataFunctor=function(x,y) {return x+y;}; break;
+        case '-': ravel.dataFunctor=function(x,y) {return x-y;}; break;
+        case '*': ravel.dataFunctor=function(x,y) {return x*y;}; break;
+        case '/': ravel.dataFunctor=function(x,y) {return x/y;}; break;
+        case 'custom':
+        ravel.functorCode=prompt
+             ('Please enter a custom Javascript function to combine values. Standard mathematical functions are available in the Math namespace, eg Math.log(). You may also use diff(x) which returns the difference with respect to the previous value. If you are processing only a single dataset, please use a single argument function, eg function(x) {return diff(x);}',
+              ravel.functorCode);
+        eval("ravel.dataFunctor="+ravel.functorCode);
+        break;
+    }
+    plotAllData();
+}
+
 function makeRadio(row, ravel, axis, radioName, checkedName, selections)
 {
     var radioBox=document.createElement("td");
@@ -193,6 +223,8 @@ function Ravel1D(canvas) {
     lhs.dataLoadHook=synchroniseMaster;
     rhs.dataLoadHook=synchroniseMaster;
     master.onRedraw=function() {plotMasterData(master);}
+    this.functorCode="function(x,y) {return x/y;};";
+    this.dataFunctor=function(x,y) {return x/y;};
 }
 
 Ravel1D.prototype=new Object;
@@ -293,7 +325,8 @@ function plotData(ravel) {
         var xh=ravel.lhs.handle;
         xh.get(ravel.lhs.handleId(0));
 
-        var op=document.getElementById("op1").value;
+        diff.xsaved=NaN; // reset diff saved value in case it is used
+        
         for (var i=0; i<xh.sliceLabels.size(); ++i)
         {
             var key=[{axis:xh.getDescription(), slice:xh.sliceLabelAt(i)}];
@@ -306,15 +339,10 @@ function plotData(ravel) {
                     h2.get(ravel.rhs.handleId(0));
                     key[0].axis=h2.getDescription();
                     value2=slice2.val(key);
-                    plotlyData.name=ravel.lhs.table+" "+op+" "+ravel.rhs.table;
-                    switch (op)
-                    {
-                        case '+': value+=value2; break;
-                        case '-': value-=value2; break;
-                        case '*': value*=value2; break;
-                        case '/': value/=value2; break;
-                    }
+                    value=ravel.dataFunctor(value,value2);
                 }
+                else if (ravel.dataFunctor.length===1)
+                    value=ravel.dataFunctor(value);
             }
             if (isFinite(value) || document.getElementById("allDomain").checked)
             {
