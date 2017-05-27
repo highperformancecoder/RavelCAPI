@@ -201,7 +201,7 @@ function doAllDataWithSchema($table)
        array_push($columns,$row['Field']);
    }
 
-   print "{[";
+   print "{\"dimensions\":[";
 
    # now prepare column ordering so as to serve data back to client in 
    $offsets=array();
@@ -209,7 +209,7 @@ function doAllDataWithSchema($table)
    foreach ($columns as $col)
    {
       if ($stride>1) print ",";
-      print "{axis:\"$col\",labels:[";
+      print "{\"axis\":\"$col\",\"slice\":[";
       $result=$mysqli->query("select distinct `".$col."` from ".$table);
       $count=0;
       $colOffsets=array();
@@ -226,7 +226,7 @@ function doAllDataWithSchema($table)
       array_push($offsets,$colOffsets);
       print "]}";
    }
-   print "],data:[";
+   print "],\"data\":[";
    
    #var_dump($offsets);
 

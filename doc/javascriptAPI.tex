@@ -138,7 +138,6 @@ emscripten implementation:
 \item[Methods:]\mbox{}
   \begin{description}
   \item[numHandles()] Returns the number of handles this ravel has.
-    
   \item[rank()] returns the rank of the ravel. Equivalent to getHandleIds().length
   \item[setRank(rank)] sets the rank of the ravel. Equivalent to
     setHandleIds([0,1,...rank]);
@@ -153,6 +152,9 @@ emscripten implementation:
   \item[rescale(radius)] Resize the ravel to have a radius {\tt radius}.
     
   \item[clear()] Removes all handles from the system.
+  \item[addHandle(axisName,sliceLabels)] adds a handle to the Ravel,
+    with description axisName and having slice labels given by the
+    javascript array  sliceLabels.
     
   \item[moveHandleTo(handle, x, y)] moves the handle {\tt handle} to
     lie along the vector ({\tt x},{\tt y}). If the norm of ({\tt x},{\tt
@@ -220,8 +222,8 @@ with a Ravel.
 
 \item[Methods:]\mbox{}
 \begin{description}
-\item[loadData(jsonData)] load the datacube from an array of data
-  (passed as a JSON string). Interpretation of the data is by the
+\item[loadData(data)] load the datacube from an array of data
+  (passed as an array of numbers). Interpretation of the data is by the
   parameters set in dimension
 \item[dimension(labelsVector)] Labels vector is a javascript array of
   objects describing an axis handle:
@@ -252,6 +254,9 @@ A RavelDataCube is a Ravel that has a DataCube object.
   \item[dimension(axisNames)]  Specifies the dimensions of the datacube
     object. Only the axis names need to be supplied, as the sliceLabels
     are inferred from the Ravel's configuration.
+  \item[loadData(data)] load the datacube from a sparse array of data
+    (passed as an array of  (index,value) pairs). Interpretation of the indexdata is by the
+    parameters set in dimension.
   \item[hyperSlice()] Sets the output property to contain the output
     data of the ravel in its current state (data slice). 
   \item[setDataCallback(f)] Sets a callback function for the

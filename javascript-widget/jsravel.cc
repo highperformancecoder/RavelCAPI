@@ -30,11 +30,18 @@ namespace {
       dataCallback(key,v);
     }
     
-    void loadData(const std::string& jsonData) {
+    void loadData(const val& data) {
+      // fill any nonexistent data with NaNs
+      for (size_t i=0; i<rawData.size(); ++i) rawData[i] = nan("");
+      for (size_t i=0; i<data["length"].as<size_t>()-1; i+=2)
+        rawData[data[i].as<size_t>()]=data[i+1].as<double>();
+    }
+    
+    void loadJSONData(const std::string& jsonData) {
       if (jsonData.empty()) return;
       const char* p=jsonData.c_str();
       // fill any nonexistent data with NaNs
-      for (size_t i=0; i<rawData.size(); ++i) rawData[i++] = nan("");
+      for (size_t i=0; i<rawData.size(); ++i) rawData[i] = nan("");
 
       if (p) p++; // skip leading '['
       while (*p)
@@ -268,7 +275,7 @@ namespace {
     JSRawData output;
     // method below doesn't work if placed in JSDataCube, but works here. Go figure!
     void setDataCallback(val f) {dc.dataCallback=f;}
-    void loadData(const std::string& x) {dc.loadData(x);}
+    void loadData(const val& x) {dc.loadData(x);}
     void loadCSV(const std::string& file) {
       dc.loadCSV(file);
       dc.initRavel(*this);
@@ -293,6 +300,7 @@ namespace {
       for (auto& axis: axes)
           lv.emplace_back(axis, labels[axis]);
       dc.dimension(lv);
+      //      dc.initRavel(*this);
       Ravel::redistributeHandles();
     }
   };

@@ -180,7 +180,7 @@ function setTable(name,ravel) {
                 sliceLabelReq.axis=axes[i];
                 sliceLabelReq.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        ravel.addHandle(this.axis,eval(this.responseText));
+                        ravel.addHandle(this.axis,JSON.parse(this.responseText));
                         if (ravel.numHandles()==axes.length)
                         {
                             ravel.dimension(axes);
@@ -190,7 +190,7 @@ function setTable(name,ravel) {
                             var dbQuery="/mySqlService.php/allData/"+ravel.table;
                             dataReq.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
-                                    ravel.loadData(this.responseText);
+                                    ravel.loadData(JSON.parse(this.responseText));
                                     ravel.dataLoadHook();
                                     ravel.redraw();
                                     ravel.onRedraw();

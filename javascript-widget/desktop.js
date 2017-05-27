@@ -13,10 +13,7 @@ for (var i in ids)
 const {dialog} = require('electron').remote;
 
 fs=require('fs');
-FS.mkdir('/root');
 var fileSplit=/(.*)\/([^/]*)$/;
-ENVIRONMENT_IS_NODE=true; //emscripten is confused by the fact that electron looks like a browser
-FS.mount(NODEFS,{root:'/'},"/root");
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
@@ -26,8 +23,16 @@ global.openFile=function (id,ravel)
     dialog.showOpenDialog({}, function (file) {
         var filePath=fileSplit.exec(file);
         document.getElementById(id).firstChild.setAttribute("value",filePath[2]);
-        ravel.loadCSV("/root/"+file);
-        ravel.redraw();
-        ravel.onRedraw();
+
+        var data=JSON.parse(fs.readFileSync(file[0],{encoding: 'utf8'}));
+        //        var data=eval(fs.readFileSync(file[0],{encoding: 'utf8'}));
+        ravel.clear();
+        for (var i=0; i<data.dimensions.length; ++i)
+            ravel.addHandle(data.dimensions[i].axis,data.dimensions[i].slice);
+        var axes=[];
+        for (var i=0; i<data.dimensions.length; ++i) axes.push(data.dimensions[i].axis);
+        ravel.dimension(axes);
+        ravel.loadData(data.data);
+        ravel.dataLoadHook();
     });
 }
