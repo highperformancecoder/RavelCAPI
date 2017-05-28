@@ -11,7 +11,7 @@ ACTIONS+=xml_pack xml_unpack random_init
 FLAGS+=-std=c++11 #-Wno-error=offsetof
 
 WEBINSTALLROOT=public_html/ravelation
-WEBINSTALL=$(WEBINSTALLROOT)/examples
+WEBINSTALLEXAMPLES=$(WEBINSTALLROOT)/examples
 
 # override EcoLab's classdesc rule to get enums handled correctly
 .h.cd:
@@ -128,7 +128,7 @@ doc/javascriptAPI-UML.svg: doc/javascriptAPI-UML.xmi
 install-web: doc/javascriptAPI/index.html doc/ravelDoc/index.html
 	$(MAKE) -C javascript-widget
 	rsync -z -P -r mySqlService.php doc/javascriptAPI doc/ravelDoc hpcoders:$(WEBINSTALLROOT)
-	rsync -z -P -r javascript-widget/*.html javascript-widget/*.js hpcoders:$(WEBINSTALL)
+	rsync -z -P -r javascript-widget/*.html javascript-widget/*.js hpcoders:$(WEBINSTALLEXAMPLES)
 #	ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALLROOT)/ mySqlService.php
 #	ncftpput -F -m -S .tmp -f hpcoders.conf -R $(WEBINSTALLROOT) doc/javascriptAPI
 #	ncftpput -F -m -S .tmp -f hpcoders.conf -R $(WEBINSTALLROOT) doc/ravelDoc
