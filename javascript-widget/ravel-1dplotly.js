@@ -364,7 +364,8 @@ function plotData(ravel) {
                 var value=slice1.val(key);
                 if (isFinite(value))
                 {
-                    plotlyData.x.push(xh.sliceLabelAt(i));
+                    plotlyData.x.push(i);
+                    plotlyData.xlabels.push(xh.sliceLabelAt(i));
                     plotlyData.y.push(value);    
                 }
             }
@@ -393,6 +394,32 @@ function plotMasterData(masterRavel) {
     var data=[plotData(ravel1), plotData(ravel2)];
     data[1].yaxis="y2";
 
+    // ensure both traces occupy the same domain.
+    // find which series starts first
+    var j=0;
+    for (; j<data[0].xlabels.length; ++j)
+    {
+        if (data[0].xlabels[j]===data[1].xlabels[0])
+        {
+            // renumber data 2
+            for (var k=0; k<data[1].x.length; ++k)
+                data[1].x[k]+=j;
+            break;
+        }
+    }
+    if (j===data[0].xlabels.length) // series 1 starts first
+    {
+        for (j=0; j<data[1].xlabels.length; ++j)
+        {
+            if (data[1].xlabels[j]===data[0].xlabels[0])
+            {
+                for (var k=0; k<data[0].x.length; ++k)
+                    data[0].x[k]+=j;
+                break;
+            }
+        }
+    }
+    
     var minx=data[0].x[0];
     if (data[1].x[0]<minx) minx=data[1].x[0];
     var maxx=data[0].x[data[0].x.length-1];
