@@ -132,8 +132,7 @@
       </small>
     </center>
     
-    <script type="text/javascript"
-            src="plotly.js/dist/plotly.min.js"></script>
+    <script type="text/javascript" src="plotly.min.js"></script>
     <!-- jsravel.js is not freeware - 
     please purchase a license at http://ravelation.hpcoders.com.au -->
     <script type="text/javascript" src="jsravel.js"></script>
@@ -145,7 +144,9 @@
       // if we're the desktop app running under electron, customise    stuff here
       if (typeof(process) != 'undefined'
       && process.versions && process.versions.electron)
+      {
         require("./desktop.js");
+      }
       else
       {
         populateTableSelector("tableSelector1lhs");

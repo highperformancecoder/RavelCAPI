@@ -134,3 +134,5 @@ install-web: doc/javascriptAPI/index.html doc/ravelDoc/index.html
 #	ncftpput -F -m -S .tmp -f hpcoders.conf -R $(WEBINSTALLROOT) doc/ravelDoc
 #	-ncftpput -F -m -S .tmp -f hpcoders.conf $(WEBINSTALL) javascript-widget/*.js javascript-widget/*.html 
 
+electron:
+	$(MAKE) -C javascript-widget electron

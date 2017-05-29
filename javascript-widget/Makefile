@@ -46,3 +46,8 @@ install-slickgrid:
 	cd SlickGrid/lib; ncftpput -F -m -S .tmp -f ../../hpcoders.conf $(WEBINSTALL)/SlickGrid/lib jquery-1.11.2.min.js jquery.event.drag-2.3.0.js
 	cd SlickGrid; ncftpput -F -m -S .tmp -f ../hpcoders.conf -R $(WEBINSTALL)/SlickGrid css
 
+electron: all
+	rm -rf electron-ravel electron-ravel.zip
+	mkdir -p electron-ravel
+	cp -r ravel1D.html package.json main.js desktop.js ravel.js jsravel.js ravel-1dplotly.js plotly.min.js electron-ravel
+	zip -r electron-ravel.zip electron-ravel
