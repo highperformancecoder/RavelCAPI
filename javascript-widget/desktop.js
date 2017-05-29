@@ -14,7 +14,7 @@ for (var i in ids)
 const {dialog} = require('electron').remote;
 
 fs=require('fs');
-var fileSplit=/(.*)\/([^/]*)$/;
+var fileSplit=/(.*)[\\\/]([^/]*)$/;
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
