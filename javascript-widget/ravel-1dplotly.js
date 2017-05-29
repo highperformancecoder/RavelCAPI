@@ -485,7 +485,7 @@ function plotMasterData(masterRavel) {
     }
     
     var plot=document.getElementById("plot");
-//    Plotly.purge(plot);
+    Plotly.purge(plot);
     Plotly.plot(plot,data,layout);
     // for debugging memory leak problems caused by lack of finalisers
     //    in javascript
