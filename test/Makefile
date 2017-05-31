@@ -10,7 +10,7 @@ endif
 include $(ECOLAB_HOME)/include/Makefile
 
 ACTIONS+=xml_pack xml_unpack random_init
-UNITTESTOBJS=main.o rawData.o ravelCairo.o filterCairo.o sortedVectorTest.o splitMergeTest.o 1Dtest.o
+UNITTESTOBJS=main.o rawData.o ravelCairo.o filterCairo.o sortedVectorTest.o splitMergeTest.o 1Dtest.o partialReductions.o
 FLAGS+=-std=c++11 -I../src -I.. -I../src/tcl -g -UNDEBUG
 LIBS+=-L.. -lravel -lUnitTest++ -lboost_regex -lcairo
 VPATH+=src src/tcl src/shims

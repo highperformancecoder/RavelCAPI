@@ -2,7 +2,9 @@
 #define RAVEL_H
 
 #include "sortedVector.h"
+#include "partialReduction.h"
 
+#include <memory>
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -137,6 +139,8 @@ namespace ravel
     /// nothing if \a label is not present
     void setSlicer(const std::string& label);
 
+    /// vector of partial reduction transforms
+    std::vector<std::shared_ptr<PartialReduction>> partialReductions;
   };
 
   class Ravel

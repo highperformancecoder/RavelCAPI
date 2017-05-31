@@ -27,6 +27,7 @@ namespace classdesc_access
 }
 #include <dataCubeTCL.h>
 #include <pack_stl.h>
+#include <polyAccessXMLPack.h>
 #include <ecolab_epilogue.h>
 using namespace classdesc;
 using namespace ravel;
