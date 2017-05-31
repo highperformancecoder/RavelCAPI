@@ -23,13 +23,17 @@ function handleOpSelector(ravel)
         case '-': ravel.dataFunctor=function(x,y) {return x-y;}; break;
         case '*': ravel.dataFunctor=function(x,y) {return x*y;}; break;
         case '/': ravel.dataFunctor=function(x,y) {return x/y;}; break;
-        case 'custom':
-        ravel.functorCode=prompt
-             ('Please enter a custom Javascript function to combine values. Standard mathematical functions are available in the Math namespace, eg Math.log(). You may also use diff(x) which returns the difference with respect to the previous value. If you are processing only a single dataset, please use a single argument function, eg function(x) {return diff(x);}',
+        case 'custom': return;
+    }
+    plotAllData();
+}
+
+function handleOpSelectorOnClick(ravel)
+{
+    ravel.functorCode=prompt
+    ('Please enter a custom Javascript function to combine values. Standard mathematical functions are available in the Math namespace, eg Math.log(). You may also use diff(x) which returns the difference with respect to the previous value. If you are processing only a single dataset, please use a single argument function, eg function(x) {return diff(x);}',
               ravel.functorCode);
         eval("ravel.dataFunctor="+ravel.functorCode);
-        break;
-    }
     plotAllData();
 }
 

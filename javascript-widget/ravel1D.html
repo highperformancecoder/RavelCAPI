@@ -53,12 +53,12 @@
            hideAxisMenus('ravel1Axes'); plotData(ravel1)">
             </select>
           </span>
-          <select id="op1" onclick="handleOpSelector(ravel1);">
+          <select id="op1" onchange="handleOpSelector(ravel1)">
             <option value="+">+</option>
             <option value="-">-</option>
             <option value="*">×</option>
             <option selected="1" value="/">̣÷</option>
-            <option value="custom">JS</option>
+            <option value="custom" onclick="handleOpSelectorOnClick(ravel1)">JS</option>
           </select>
           <span id="tableSelector1rhsWrap">
             <select id="tableSelector1rhs"
@@ -83,7 +83,7 @@
             <option value="-">-</option>
             <option value="*">×</option>
             <option selected="1" value="/">̣÷</option>
-            <option value="custom">JS</option>
+            <option value="custom" onclick="handleOpSelectorOnClick(ravel2)">JS</option>
           </select>
           <span id="tableSelector2rhsWrap">
             <select id="tableSelector2rhs"
