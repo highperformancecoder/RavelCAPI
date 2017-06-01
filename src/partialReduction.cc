@@ -35,69 +35,88 @@ namespace ravel
   }
 
 
-  vector<PartialReduction::IndexVal> Bin::operator()(const vector<double>& x) const
+  void Bin::operator()(double* dest, const double* src, size_t stride, size_t N) const
   {
-    vector<IndexVal> r;
-    for (size_t i=0; i<x.size(); i+=binSize)
+    for (size_t i=0; i<N; i+=binSize, dest+=stride)
       {
-        r.emplace_back(i+binSize/2,0);
-        for (size_t j=0; j<binSize && i+j<x.size(); ++j)
+        *dest=0;
+        for (size_t j=0; j<binSize && i+j<N; ++j, src+=stride)
           switch (op)
             {
             case add:
-              r.back().value+=x[i+j];
+              *dest+=*src;
               break;
             case multiply:
-              r.back().value*=x[i+j];
+              *dest*=*src;
               break;
             }
       }
+  }
+
+  std::vector<size_t> Bin::indices(size_t N) const
+  {
+    std::vector<size_t> r(N? (N-1)/binSize+1: 0);
+    for (size_t i=0; i<r.size(); ++i)
+        r[i]=i*binSize+binSize/2;
+    if (r.back()>=N) r.back()=N-1;
     return r;
   }
 
-  vector<PartialReduction::IndexVal> Scan::operator()(const vector<double>& x) const
+
+  void Scan::operator()(double* dest, const double* src, size_t stride, size_t N) const
   {
-    vector<IndexVal> r;
-    r.emplace_back(0,x[0]);
-    for (size_t i=1; i<x.size(); ++i)
+    *dest=*src;
+    for (size_t i=1; i<N; ++i, src+=stride, dest+=stride)
       {
-        r.emplace_back(i,x[i]);
+        *dest=*src;
         switch (op)
           {
           case add:
-            r[i].value+=r[i-1].value;
+            *dest+=*(src-stride);
             if (i>=window)
-              r[i].value-=r[i-window].value;
+              *dest-=*(src-window*stride);
             break;
           case multiply:
-            r[i].value*=r[i-1].value;
-            if (i>=window && r[i-window].value)
-              r[i].value/=r[i-window].value;
+            *dest*=*(src-stride);
+            if (i>=window && *(src-window*stride))
+              *dest/=*(src-window*stride);
             break;
           }
       }
+  }
+
+  std::vector<size_t> Scan::indices(size_t N) const
+  {
+    std::vector<size_t> r(N);
+    for (size_t i=0; i<N; ++i) r[i]=i;
     return r;
   }
 
-  vector<PartialReduction::IndexVal> Change::operator()(const vector<double>& x) const
+  void Change::operator()(double* dest, const double* src, size_t stride, size_t N) const
   {
-    vector<IndexVal> r;
-    for (size_t i=offset; i<x.size(); ++i)
+    for (size_t i=offset; i<N; ++i, dest+=stride, src+=stride)
       switch (op)
         {
         case subtract:
-          r.emplace_back(i,x[i]-x[i-offset]);
+          *dest=src[offset*stride]-*src;
           break;
         case divide:
-          r.emplace_back(i,x[i]/x[i-offset]);
+          *dest=src[offset*stride]/ *src;
           break;
         case percent:
-          r.emplace_back(i,100*(x[i]-x[i-offset])/x[i-offset]);
+          *dest=100*(src[offset*stride]-*src)/ *src;
           break;
         case relative:
-          r.emplace_back(i,(x[i]-x[i-offset])/x[i-offset]);
-          break;
+          *dest=(src[offset*stride]-*src)/ *src;
+         break;
         }
+  }
+  
+  std::vector<size_t> Change::indices(size_t N) const
+  {
+    std::vector<size_t> r(N-offset);
+    for (size_t i=0; i<r.size(); ++i) r[i]=i+offset;
     return r;
   }
+
 }

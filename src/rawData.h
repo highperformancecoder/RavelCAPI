@@ -60,6 +60,9 @@ namespace ravel
     RawDataIdx(const LabelsVector& labels);
     RawDataIdx(const RawDataIdx& x, const std::vector<std::string>& axes);
 
+    /// reconstruct the LabelsVector argument that initialised this
+    LabelsVector labelsVector() const;
+    
     /// reorder indices so that this slice refers to contiguous data
     void normalise();
     
@@ -201,6 +204,9 @@ namespace ravel
     /// @param outputHandle affects the rank of the returned object
     RawData reduceAlong(size_t axis, const RawDataIdx& slice,
                         Op::ReductionOp op, bool outputHandle) const;
+
+    /// apply a partial reduction along \a axis
+    RawData partialReduce(size_t axis, PartialReduction&) const;
   };
 
 }

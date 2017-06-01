@@ -44,6 +44,35 @@ RawDataIdx::RawDataIdx(const RawDataIdx& x, const std::vector<std::string>& axes
     }
 }
 
+LabelsVector RawDataIdx::labelsVector() const
+{
+  LabelsVector r;
+  for (auto& i: indicesByName)
+    {
+      r.emplace_back(i.first,vector<string>{});
+      for (auto& j: indices[i.second].idx)
+        r.back().second.push_back(j.first);
+      sort(r.back().second.begin(),r.back().second.end(),
+           [&](const string& x,const string& y)
+           {
+             auto& m=indices[i.second].idx;
+             auto i=m.find(x);
+             auto j=m.find(y);
+             return i!=m.end() && j!=m.end() && i->second<j->second;
+           });
+    }
+  sort(r.begin(), r.end(),
+       [&](const LabelsVector::value_type& x,const LabelsVector::value_type& y)
+       {
+         auto i=indicesByName.find(x.first);
+         auto j=indicesByName.find(y.first);
+         return i!=indicesByName.end() && j!=indicesByName.end() &&
+           i->second<j->second;
+       });
+  return r;
+}
+
+
 void RawDataIdx::normalise()
 {
   m_offset=0;
@@ -238,3 +267,16 @@ RawData RawData::reduceAlong(size_t axis, const RawDataIdx& slice,
   return r;
 }
 
+RawData RawData::partialReduce(size_t axis, PartialReduction& p) const
+{
+  auto lv=labelsVector();
+  vector<string> labels;
+  for (auto i: p.indices(dim(axis))) labels.push_back(lv[axis].second[i]);
+  lv[axis].second.swap(labels);
+  RawData r{RawDataIdx(lv)};
+  for (size_t i,j=0; i<size();
+       i+=dim(axis)*stride(axis), j+=r.dim(axis)*stride(axis))
+    for (size_t k=0; k<stride(axis); ++k)
+      p(&r[j+k],&data[i+k],stride(axis),dim(axis));
+  return r;
+}

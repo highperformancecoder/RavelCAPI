@@ -17,47 +17,56 @@ namespace ravel
   struct PartialReduction: public classdesc::PolyBase<PartialReductionType>,
                            classdesc::PolyXML<PartialReduction>
   {
-    struct IndexVal
-    {
-      std::size_t index; ///< sliceindex of this value
-      double value=0;
-      IndexVal() {}
-      IndexVal(std::size_t index,double value): index(index), value(value) {}
-    };
+//    struct IndexVal
+//    {
+//      std::size_t index; ///< sliceindex of this value
+//      double value=0;
+//      IndexVal() {}
+//      IndexVal(std::size_t index,double value): index(index), value(value) {}
+//    };
     /// transform data along a slice
-    virtual std::vector<IndexVal> operator()(const std::vector<double>&) const=0;
+    virtual void operator()(double* dest, const double* src, size_t stride, size_t num) const=0;
+    /// return indices corresponding to slice labels in the transformed axis
+    /// @param N - dimension of axis
+    virtual std::vector<size_t> indices(size_t N) const=0;
     static PartialReduction* create(PartialReductionType);
   };
 
   struct Bin: public classdesc::Poly<Bin, PartialReduction>
   {
-    PartialReductionType type() const override {return PartialReductionType::bin;}
+    PartialReductionType type() const override
+    {return PartialReductionType::bin;}
     std::size_t binSize;
     enum Op {add, multiply};
     Op op;
     Bin(Op op=add, std::size_t binSize=1): binSize(binSize), op(op) {}
-    std::vector<IndexVal> operator()(const std::vector<double>&) const override;
+    void operator()(double*, const double*, size_t, size_t) const override;
+    std::vector<size_t> indices(size_t) const override;
   };
     
   struct Scan: public classdesc::Poly<Scan,PartialReduction>
   {
-    PartialReductionType type() const override {return PartialReductionType::scan;}
+    PartialReductionType type() const override
+    {return PartialReductionType::scan;}
     std::size_t window;
     enum Op {add, multiply};
     Op op;
     Scan(Op op=add, std::size_t window=std::numeric_limits<std::size_t>::max()):
       op(op), window(window) {}
-    std::vector<IndexVal> operator()(const std::vector<double>&) const override;
+    void operator()(double*, const double*, size_t, size_t) const override;
+    std::vector<size_t> indices(size_t) const override;
   };
     
   struct Change: public classdesc::Poly<Change,PartialReduction>
   {
-    PartialReductionType type() const override {return PartialReductionType::change;}
+    PartialReductionType type() const override
+    {return PartialReductionType::change;}
     std::size_t offset;
     enum Op {subtract, divide, percent, relative};
     Op op;
     Change(Op op=subtract, std::size_t offset=1): op(op), offset(offset) {}
-    std::vector<IndexVal> operator()(const std::vector<double>&) const override;
+    void operator()(double*, const double*, size_t, size_t) const override;
+    std::vector<size_t> indices(size_t) const override;
   };
 
 }

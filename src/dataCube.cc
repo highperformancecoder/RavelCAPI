@@ -316,7 +316,14 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
           sliceData=move(sliceData.reduceAlong(sliceData.dim(h.description), sliceData,
                                                    h.reductionOp,ravel.isOutputHandle(h)));
       }
- 
+    else if (!h.partialReductions.empty())
+      {
+        noReductions=false;
+        for (auto& pred: h.partialReductions)
+          sliceData=sliceData.partialReduce(sliceData.dim(h.description),*pred);
+      }
+      
+  
   if (noReductions)
     sliceData=move(RawData(rawData,slice));
 }
