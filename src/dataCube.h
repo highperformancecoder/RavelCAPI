@@ -103,6 +103,7 @@ namespace ravel
     size_t m_maxRow=0, m_maxCol=0;
 
     CLASSDESC_ACCESS(DataCube);
+    void hyperSliceAfterPartialReductions(RawData&,Ravel&,const RawData&) const;
   public:
     // dimension names starting with column titles, followed by the
     // row axes, which are not inferred from the input data

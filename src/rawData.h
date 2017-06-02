@@ -96,7 +96,8 @@ namespace ravel
     size_t dim(size_t axis) const {
       return indices[axis].idx.size();
     }
-    size_t dim(const std::string& axis) const {
+    /// returns the axis number corresponding to a named axes
+    size_t axis(const std::string& axis) const {
       auto i=indicesByName.find(axis);
       if (i==indicesByName.end()) throw InvalidKey();
       return i->second;

@@ -39,7 +39,7 @@ namespace ravel
   {
     for (size_t i=0; i<N; i+=binSize, dest+=stride)
       {
-        *dest=0;
+        *dest=op==multiply? 1: 0;
         for (size_t j=0; j<binSize && i+j<N; ++j, src+=stride)
           switch (op)
             {

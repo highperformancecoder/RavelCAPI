@@ -282,7 +282,29 @@ void setupSortByPerm(DataCube::SortBy sortBy, size_t axis, size_t otherAxis,
 
   }
 
+
 void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
+{
+  // apply partial reductions, if any
+  bool noReductions=true;
+  RawData partReducedData;
+  for (auto& h: ravel.handles)
+    for (auto& pred: h.partialReductions)
+      if (noReductions)
+        {
+          // avoid copying data first time around
+          partReducedData=rawData.partialReduce(rawData.axis(h.description),*pred);
+          noReductions=false;
+        }
+      else
+        partReducedData=partReducedData.partialReduce(partReducedData.axis(h.description),*pred);
+  if (noReductions)
+    hyperSliceAfterPartialReductions(sliceData, ravel, rawData);
+  else
+    hyperSliceAfterPartialReductions(sliceData, ravel, partReducedData);
+}
+  
+void DataCube::hyperSliceAfterPartialReductions(RawData& sliceData, Ravel& ravel,const RawData& rawData) const
 {
   vector<string> axes;
   Key sliceLabels;
@@ -309,20 +331,13 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
           {
             // avoid copying data first time around
             sliceData=move
-              (rawData.reduceAlong(slice.dim(h.description),slice,h.reductionOp,ravel.isOutputHandle(h)));
+              (rawData.reduceAlong(slice.axis(h.description),slice,h.reductionOp,ravel.isOutputHandle(h)));
             noReductions=false;
           }
         else
-          sliceData=move(sliceData.reduceAlong(sliceData.dim(h.description), sliceData,
+          sliceData=move(sliceData.reduceAlong(sliceData.axis(h.description), sliceData,
                                                    h.reductionOp,ravel.isOutputHandle(h)));
       }
-    else if (!h.partialReductions.empty())
-      {
-        noReductions=false;
-        for (auto& pred: h.partialReductions)
-          sliceData=sliceData.partialReduce(sliceData.dim(h.description),*pred);
-      }
-      
   
   if (noReductions)
     sliceData=move(RawData(rawData,slice));
