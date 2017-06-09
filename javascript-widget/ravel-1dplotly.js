@@ -283,13 +283,13 @@ function alignHandles(master,slave) {
                     mh.get(j);
                     if (sh.getDescription()===mh.getDescription())
                     {
-                        sh.setSlicer(mh.sliceLabel());
                         if (sh.collapsed()!=mh.collapsed())
                         {
                             sh.toggleCollapsed();
                         }
                         sh.sliceLabels.setOrder(mh.sliceLabels.getOrder());
                         sh.setReductionOp(mh.getReductionOp());
+                        sh.setSlicer(mh.sliceLabel());
                     }
                 }
             }
