@@ -1,5 +1,4 @@
 #include "partialReduction.h"
-#include <factory.h>
 #ifdef CLASSDESC
 #include <classdesc_epilogue.h>
 #endif
@@ -10,28 +9,17 @@
 using namespace std;
 using namespace classdesc;
 
-namespace classdesc
-{
-  using namespace ravel;
-  template <> Factory<PartialReduction,PartialReductionType>::Factory()
-  {
-    registerType<Bin>();
-    registerType<Scan>();
-    registerType<Change>();
-  }
-}
-
 namespace ravel
 {
 
-  namespace
-  {
-    Factory<PartialReduction,PartialReductionType> factory;
-  }
-
   PartialReduction* PartialReduction::create(PartialReductionType t)
   {
-    return factory.create(t);
+    switch (t)
+      {
+      case PartialReductionType::bin: return new Bin();
+      case PartialReductionType::scan: return new Scan();
+      case PartialReductionType::change: return new Change();
+      }
   }
 
 

@@ -1,5 +1,5 @@
 .SUFFIXES: .cc .bc .js .d
-CFLAGS=-I. -I../src --std=c++11 --bind -I$(HOME)/usr/emscripten/include 
+CFLAGS=-I. -I../src --std=c++11 --bind -I$(HOME)/usr/emscripten/include
 LIBS=-L$(HOME)/usr/emscripten/lib
 
 # different emscripten options here

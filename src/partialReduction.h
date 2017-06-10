@@ -8,14 +8,20 @@
 
 #include <vector>
 #include <limits>
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
 #include <polyBase.h>
 #include <polyXMLBase.h>
+#else
+#include "dummyPoly.h"
+#endif
 
 namespace ravel
 {
   enum class PartialReductionType {bin,scan,change};
-  struct PartialReduction: public classdesc::PolyBase<PartialReductionType>,
+  struct PartialReduction:
+    public classdesc::PolyBase<PartialReductionType>,
                            classdesc::PolyXML<PartialReduction>
+    
   {
 //    struct IndexVal
 //    {

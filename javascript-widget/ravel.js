@@ -170,47 +170,69 @@ function setTable(name,ravel) {
     var xhttp = new XMLHttpRequest();
     ravel.table=name;
     ravel.clear();
-    
+    var dbQuery="/mySqlService.php/allDataWithSchema/"+ravel.table;
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            var axes = eval(this.responseText);
-            for (var i=0; i<axes.length; ++i)
-            {
-                var sliceLabelReq=new XMLHttpRequest();
-                sliceLabelReq.axis=axes[i];
-                sliceLabelReq.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        ravel.addHandle(this.axis,JSON.parse(this.responseText));
-                        if (ravel.numHandles()==axes.length)
-                        {
-                            ravel.dimension(axes);
-                            ravel.redraw();
-
-                            var dataReq=new XMLHttpRequest;
-                            var dbQuery="/mySqlService.php/allData/"+ravel.table;
-                            dataReq.onreadystatechange = function() {
-                                if (this.readyState == 4 && this.status == 200) {
-                                    ravel.loadData(JSON.parse(this.responseText));
-                                    ravel.dataLoadHook();
-                                    ravel.redraw();
-                                    ravel.onRedraw();
-                                }
-                            }
-                            dataReq.open("GET",dbQuery);
-                            dataReq.send();
-                        }
-                    }
-                }
-                // request slicelabels
-                sliceLabelReq.open("GET","/mySqlService.php/axes/"+ravel.table+"/"+axes[i]);
-                sliceLabelReq.send();
-            }
+            var data=JSON.parse(this.responseText);
+            for (var i=0; i<data.dimensions.length; ++i)
+                ravel.addHandle(data.dimensions[i].axis,data.dimensions[i].slice);
+            var axes=[];
+            for (var i=0; i<data.dimensions.length; ++i) axes.push(data.dimensions[i].axis);
+            ravel.dimension(axes);
+            ravel.loadData(data.data);
+            ravel.dataLoadHook();
+            ravel.redraw();
+            ravel.onRedraw();
         }
     }
-    // request axis names
-    xhttp.open("GET","/mySqlService.php/axes/"+ravel.table);
+    xhttp.open("GET",dbQuery);
     xhttp.send();
 }
+//function setTable(name,ravel) {
+//    var xhttp = new XMLHttpRequest();
+//    ravel.table=name;
+//    ravel.clear();
+//    
+//    xhttp.onreadystatechange = function() {
+//        if (this.readyState == 4 && this.status == 200) {
+//            var axes = eval(this.responseText);
+//            for (var i=0; i<axes.length; ++i)
+//            {
+//                var sliceLabelReq=new XMLHttpRequest();
+//                sliceLabelReq.axis=axes[i];
+//                sliceLabelReq.onreadystatechange = function() {
+//                    if (this.readyState == 4 && this.status == 200) {
+//                        ravel.addHandle(this.axis,JSON.parse(this.responseText));
+//                        if (ravel.numHandles()==axes.length)
+//                        {
+//                            ravel.dimension(axes);
+//                            ravel.redraw();
+//
+//                            var dataReq=new XMLHttpRequest;
+//                            var dbQuery="/mySqlService.php/allData/"+ravel.table;
+//                            dataReq.onreadystatechange = function() {
+//                                if (this.readyState == 4 && this.status == 200) {
+//                                    ravel.loadData(JSON.parse(this.responseText));
+//                                    ravel.dataLoadHook();
+//                                    ravel.redraw();
+//                                    ravel.onRedraw();
+//                                }
+//                            }
+//                            dataReq.open("GET",dbQuery);
+//                            dataReq.send();
+//                        }
+//                    }
+//                }
+//                // request slicelabels
+//                sliceLabelReq.open("GET","/mySqlService.php/axes/"+ravel.table+"/"+axes[i]);
+//                sliceLabelReq.send();
+//            }
+//        }
+//    }
+//    // request axis names
+//    xhttp.open("GET","/mySqlService.php/axes/"+ravel.table);
+//    xhttp.send();
+//}
 
 // initialise a vector from a java array
 function initialiseVector(vec, arr)
