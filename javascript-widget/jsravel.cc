@@ -82,17 +82,6 @@ namespace {
       rawData=RawDataIdx(lv);
       m_sortBy.resize(lv.size());
     }
-
-    void initSpec(const std::string& fileName) {
-    }
-    void loadCSV(const std::string& fileName) {
-    DataSpec spec;
-    char separator=',';
-      std::ifstream input(fileName);
-      CSVFTokeniser tok(input, separator);
-      spec=initDataSpec(tok);
-      loadFile(fileName,separator,spec);
-    }
   };
   
   struct JSRawData: public RawData
@@ -276,10 +265,6 @@ namespace {
     // method below doesn't work if placed in JSDataCube, but works here. Go figure!
     void setDataCallback(val f) {dc.dataCallback=f;}
     void loadData(const val& x) {dc.loadData(x);}
-    void loadCSV(const std::string& file) {
-      dc.loadCSV(file);
-      dc.initRavel(*this);
-    }
     
     void hyperSlice() {output=dc.hyperSlice(*this);}
     void populateData() {dc.populateArray(*this);}
@@ -319,7 +304,7 @@ namespace {
           .function("populateData",&JSRavelDataCube<Ravel>::populateData)
           .function("dimension",&JSRavelDataCube<Ravel>::dimension)
           .function("loadData",&JSRavelDataCube<Ravel>::loadData)
-          .function("loadCSV",&JSRavelDataCube<Ravel>::loadCSV)
+          //          .function("loadCSV",&JSRavelDataCube<Ravel>::loadCSV)
           ;
       }
   };
@@ -456,11 +441,8 @@ EMSCRIPTEN_BINDINGS(Ravel) {
   
   class_<JSDataCube,base<DataCube>>("DataCube")
     .constructor<>()
-    //.property("dataCallback",&JSDataCube::dataCallback)
     .function("loadData",&JSDataCube::loadData)
     .function("dimension",&JSDataCube::jdimension)
-    .function("initSpec",&JSDataCube::initSpec)
-    .function("loadCSV",&JSDataCube::loadCSV)
     ;
 
   JSRavelDataCubeBindings<Ravel>("RavelDataCube");
