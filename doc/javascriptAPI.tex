@@ -223,7 +223,7 @@ with a Ravel.
 \item[Methods:]\mbox{}
 \begin{description}
 \item[loadData(data)] load the datacube from an array of data
-  (passed as an array of numbers). Interpretation of the data is by the
+  (passed as an array of index,value pairs of numbers). Interpretation of the data is by the
   parameters set in dimension
 \item[dimension(labelsVector)] Labels vector is a javascript array of
   objects describing an axis handle:
@@ -251,12 +251,30 @@ A RavelDataCube is a Ravel that has a DataCube object.
   
 \item[Methods:]\mbox{}
   \begin{description}
-  \item[dimension(axisNames)]  Specifies the dimensions of the datacube
-    object. Only the axis names need to be supplied, as the sliceLabels
-    are inferred from the Ravel's configuration.
-  \item[loadData(data)] load the datacube from a sparse array of data
-    (passed as an array of  (index,value) pairs). Interpretation of the indexdata is by the
-    parameters set in dimension.
+  \item[dimension(labelsVector)]  Labels vector is a javascript array of
+  objects describing an axis handle:
+\begin{verbatim}
+{
+  axis: "axis name",
+  slice: ["sliceLabel1",..."sliceLabeln"]
+} 
+\end{verbatim}
+  \item[loadData(data)] load the datacube from a sparse array of
+    data. The data object has the following structure:
+\begin{verbatim}
+  {
+    dimension: {
+      axis: string,
+      slice: string[]
+     } [],
+    data: number[]
+  }
+\end{verbatim}
+   Each dimension element describes an axis of the datacube, with the
+   slice array containing the slice labels. Each element of the
+   datacube is indexed by the combining the indices of the relevant
+   slices, in order given by the dimension array. \verb+data+ is an
+   array of  (index,value) pairs, describing the data in a sparse format.
   \item[hyperSlice()] Sets the output property to contain the output
     data of the ravel in its current state (data slice). 
   \item[setDataCallback(f)] Sets a callback function for the

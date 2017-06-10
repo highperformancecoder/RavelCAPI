@@ -25,13 +25,7 @@ global.openFile=function (idx)
         document.getElementById(ids[idx]).firstChild.setAttribute("value",filePath[2]);
 
         var data=JSON.parse(fs.readFileSync(file[0],{encoding: 'utf8'}));
-        ravels[idx].clear();
-        for (var i=0; i<data.dimensions.length; ++i)
-            ravels[idx].addHandle(data.dimensions[i].axis,data.dimensions[i].slice);
-        var axes=[];
-        for (var i=0; i<data.dimensions.length; ++i) axes.push(data.dimensions[i].axis);
-        ravels[idx].dimension(axes);
-        ravels[idx].loadData(data.data);
+        ravels[idx].loadData(data);
         ravels[idx].dataLoadHook();
     });
 }

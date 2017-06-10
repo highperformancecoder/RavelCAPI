@@ -140,7 +140,7 @@ namespace ravel
     void setSlicer(const std::string& label);
 
     /// vector of partial reduction transforms
-    //    std::vector<std::shared_ptr<PartialReduction>> partialReductions;
+    //std::vector<std::shared_ptr<PartialReduction>> partialReductions;
   };
 
   class Ravel

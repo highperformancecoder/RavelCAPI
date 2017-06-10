@@ -264,28 +264,29 @@ namespace {
     JSRawData output;
     // method below doesn't work if placed in JSDataCube, but works here. Go figure!
     void setDataCallback(val f) {dc.dataCallback=f;}
-    void loadData(const val& x) {dc.loadData(x);}
+    /// arg has the following structure:
+    /// { dimensions: {axis: string, slice: string[]}[], data: double[]} 
+    void loadData(const val& x) {
+      dimension(x);
+      dc.loadData(x["data"]);
+    }
     
     void hyperSlice() {output=dc.hyperSlice(*this);}
     void populateData() {dc.populateArray(*this);}
     /// dimension the datacube according to info in Ravel
+    /// arg has the following structure:
+    /// { dimensions: {axis: string, slice: string[]}[], data: double[]} 
     void dimension(const val& arg) {
-      map<string,vector<string>> labels;
-      for (auto& h: Ravel::handles)
-        {
-          labels[h.description]=vector<string>(h.sliceLabels.begin(),h.sliceLabels.end());
-          // forward sort axis labels always for now.
-          h.sliceLabels.order(HandleSort::forward);
-        }
-
       LabelsVector lv;
-      vector<string> axes;
-      for (size_t i=0; i<arg["length"].as<unsigned>(); ++i)
-        axes.push_back(arg[i].as<string>());
-      for (auto& axis: axes)
-          lv.emplace_back(axis, labels[axis]);
+      for (size_t i=0; i<arg["dimensions"]["length"].as<unsigned>(); ++i)
+        {
+          auto dim=arg["dimensions"][i];
+          lv.emplace_back(dim["axis"].as<string>(), 
+                          vecFromJSArray<string>(dim["slice"]));
+          ravel::Ravel::addHandle(lv.back().first,lv.back().second);
+        }
+      
       dc.dimension(lv);
-      //      dc.initRavel(*this);
       Ravel::redistributeHandles();
     }
   };
