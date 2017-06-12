@@ -68,11 +68,7 @@ namespace {
       for (size_t i=0; i<l; ++i)
         {
           auto vi=v[i];
-          lv.emplace_back();
-          lv.back().first=vi["axis"].as<string>();
-          auto vil=vi["length"].as<unsigned>();
-          for (size_t j=0; j<vil; ++j)
-            lv.back().second.emplace_back(vi[j].as<string>());
+          lv.emplace_back(vi["axis"].as<string>(), vecFromJSArray<string>(vi["slice"]));
         }
       dimension(lv);
     }
@@ -267,7 +263,7 @@ namespace {
     /// arg has the following structure:
     /// { dimensions: {axis: string, slice: string[]}[], data: double[]} 
     void loadData(const val& x) {
-      dimension(x);
+      dimension(x["dimensions"]);
       dc.loadData(x["data"]);
     }
     
@@ -277,16 +273,11 @@ namespace {
     /// arg has the following structure:
     /// { dimensions: {axis: string, slice: string[]}[], data: double[]} 
     void dimension(const val& arg) {
-      LabelsVector lv;
-      for (size_t i=0; i<arg["dimensions"]["length"].as<unsigned>(); ++i)
-        {
-          auto dim=arg["dimensions"][i];
-          lv.emplace_back(dim["axis"].as<string>(), 
-                          vecFromJSArray<string>(dim["slice"]));
-          ravel::Ravel::addHandle(lv.back().first,lv.back().second);
-        }
-      
-      dc.dimension(lv);
+      this->clear();
+      for (size_t i=0; i<arg["length"].as<unsigned>(); ++i)
+        ravel::Ravel::addHandle(arg[i]["axis"].as<string>(),
+                                vecFromJSArray<string>(arg[i]["slice"]));
+      dc.jdimension(arg);
       Ravel::redistributeHandles();
     }
   };
@@ -305,7 +296,6 @@ namespace {
           .function("populateData",&JSRavelDataCube<Ravel>::populateData)
           .function("dimension",&JSRavelDataCube<Ravel>::dimension)
           .function("loadData",&JSRavelDataCube<Ravel>::loadData)
-          //          .function("loadCSV",&JSRavelDataCube<Ravel>::loadCSV)
           ;
       }
   };

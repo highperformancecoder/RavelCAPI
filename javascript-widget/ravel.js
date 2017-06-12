@@ -169,7 +169,6 @@ function populateTableSelector(selectorId)
 function setTable(name,ravel) {
     var xhttp = new XMLHttpRequest();
     ravel.table=name;
-    ravel.clear();
     var dbQuery="/mySqlService.php/allDataWithSchema/"+ravel.table;
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {

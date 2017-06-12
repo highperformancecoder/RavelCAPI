@@ -10,7 +10,11 @@ CFLAGS+=-s DISABLE_EXCEPTION_CATCHING=0
 
 # the separated memory init file seems to cause a problem with missing
 # constructors
+ifdef DEBUG
+OPT=-g -s ASSERTIONS=1
+else
 OPT=-O3  --memory-init-file 0 -DNDEBUG
+endif
 
 RAVELSRC=$(wildcard ../src/*.cc)
 RAVELOBJS=$(RAVELSRC:%.cc=%.bc)

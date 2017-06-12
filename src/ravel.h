@@ -123,7 +123,7 @@ namespace ravel
     const std::string& maxSliceLabel() const;
     /// @}
 
-    Handle(): description("?"), sliceLabels(1), sliceIndex(0)  {}
+    Handle(): description("?"), sliceLabels(1), sliceIndex(0) {}
 
     /// true if handle is collapsed (rolled up dimension)
     bool collapsed() const {return m_collapsed;}
@@ -140,7 +140,7 @@ namespace ravel
     void setSlicer(const std::string& label);
 
     /// vector of partial reduction transforms
-    //std::vector<std::shared_ptr<PartialReduction>> partialReductions;
+    std::vector<std::shared_ptr<PartialReduction>> partialReductions;
   };
 
   class Ravel

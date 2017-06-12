@@ -6,6 +6,7 @@
 #include <ecolab_epilogue.h>
 #endif
 
+#include <iostream>
 using namespace ravel;
 using namespace std;
 
@@ -159,7 +160,7 @@ double reduceImpl(const RawData& x, Op op, double r, size_t offset,
                        size_t stride, size_t dim)
 {
   bool valid=false;
-  for (size_t i=offset; i<offset+stride*dim; i+=stride)
+  for (size_t i=offset; i<offset+stride*dim && i<x.size(); i+=stride)
     {
       double v=x[i];
       if (isfinite(v))
@@ -187,7 +188,7 @@ double RawData::reduce(Op::ReductionOp op, size_t offset,
       {
         r=0;
         size_t c=0;
-        for (size_t i=offset; i<offset+stride*dim; i+=stride)
+        for (size_t i=offset; i<offset+stride*dim && i<size(); i+=stride)
           {
             double v=(*this)[i];
             if (isfinite(v))
@@ -202,7 +203,7 @@ double RawData::reduce(Op::ReductionOp op, size_t offset,
       {
         double sum=0, sumsq=0;
         size_t c=0;
-        for (size_t i=offset; i<offset+stride*dim; i+=stride)
+        for (size_t i=offset; i<offset+stride*dim && i<size(); i+=stride)
           {
             double v=(*this)[i];
             if (isfinite(v))
@@ -246,7 +247,10 @@ RawData::RawData(const RawData& x, const RawDataIdx& slice): RawDataIdx(slice)
       for (size_t i=0; i<slice.rank(); i++)
         sizeStride.emplace_back(slice.dim(i),slice.stride(i));
       size_t i=0;
-      apply(slice.offset(),sizeStride,[&](size_t j) {data[i++]=x[j];});
+      apply(slice.offset(),sizeStride,[&](size_t j) {
+          if (j<x.size())
+            data[i++]=x[j];
+        });
     }
 }
   
@@ -276,7 +280,7 @@ RawData RawData::partialReduce(size_t axis, PartialReduction& p) const
   RawData r{RawDataIdx(lv)};
   for (size_t i=0,j=0; i<size();
        i+=dim(axis)*stride(axis), j+=r.dim(axis)*stride(axis))
-    for (size_t k=0; k<stride(axis); ++k)
+    for (size_t k=0; k<stride(axis) && j+k<r.size() && i+k<size(); ++k)
       p(&r[j+k],&data[i+k],stride(axis),dim(axis));
   return r;
 }
