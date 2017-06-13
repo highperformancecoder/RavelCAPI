@@ -142,13 +142,25 @@ void Handle::addPartialReduction(const std::shared_ptr<PartialReduction>& red)
   if (m_partialReductions.empty())
     unreducedSliceLabels=sliceLabels;
   m_partialReductions.push_back(red);
+
+  // build new slicelabel vector
   auto origOrder=sliceLabels.order();
   sliceLabels.order(SortedVector::none);
   for (auto& i: m_partialReductions)
     {
       SortedVector labels;
+      bool sliceIndexUnset=true;
       for (auto j: i->indices(sliceLabels.size()))
-        labels.push_back(sliceLabels[j]);
+        {
+          if (sliceIndexUnset && j>=sliceIndex)
+            {
+              sliceIndex=labels.size();
+              sliceIndexUnset=false;
+            }
+          labels.push_back(sliceLabels[j]);
+        }
+      if (sliceIndexUnset)
+        sliceIndex=labels.size()-1;
       sliceLabels=move(labels);
     }
   // restore original order
