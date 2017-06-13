@@ -137,6 +137,34 @@ void Handle::setSlicer(const std::string& label)
       }
 }
 
+void Handle::addPartialReduction(const std::shared_ptr<PartialReduction>& red)
+{
+  if (m_partialReductions.empty())
+    unreducedSliceLabels=sliceLabels;
+  m_partialReductions.push_back(red);
+  auto origOrder=sliceLabels.order();
+  sliceLabels.order(SortedVector::none);
+  for (auto& i: m_partialReductions)
+    {
+      SortedVector labels;
+      for (auto j: i->indices(sliceLabels.size()))
+        labels.push_back(sliceLabels[j]);
+      sliceLabels=move(labels);
+    }
+  // restore original order
+  sliceLabels.order(origOrder);
+}
+
+void Handle::clearPartialReductions()
+{
+  if (!m_partialReductions.empty())
+    {
+      m_partialReductions.clear();
+      unreducedSliceLabels.order(sliceLabels.order());
+      sliceLabels=unreducedSliceLabels;
+    }
+}
+
 
 void Ravel::redistributeHandles()
 {

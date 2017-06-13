@@ -45,6 +45,10 @@ namespace ravel
       std::swap(m_x,x.m_x); std::swap(m_y,x.m_y);
       std::swap(home_x,x.home_x); std::swap(home_y,x.home_y);
     }
+    /// for caching the original slice labels prior to applying partial reductions
+    SortedVector unreducedSliceLabels;
+    std::vector<std::shared_ptr<PartialReduction>> m_partialReductions;
+    
     CLASSDESC_ACCESS(Handle);
   public:
     /// @{
@@ -140,7 +144,13 @@ namespace ravel
     void setSlicer(const std::string& label);
 
     /// vector of partial reduction transforms
-    std::vector<std::shared_ptr<PartialReduction>> partialReductions;
+    const std::vector<std::shared_ptr<PartialReduction>>& partialReductions() const
+    {return m_partialReductions;}
+    void addPartialReduction(const std::shared_ptr<PartialReduction>&);
+    /// ownership of argument passed
+    void addPartialReduction(PartialReduction*x)
+    {addPartialReduction(std::shared_ptr<PartialReduction>(x));}
+    void clearPartialReductions();
   };
 
   class Ravel

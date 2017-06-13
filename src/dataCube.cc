@@ -289,7 +289,7 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
   bool noReductions=true;
   RawData partReducedData;
   for (auto& h: ravel.handles)
-    for (auto& pred: h.partialReductions)
+    for (auto& pred: h.partialReductions())
       if (noReductions)
         {
           // avoid copying data first time around
