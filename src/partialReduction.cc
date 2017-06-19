@@ -27,17 +27,18 @@ namespace ravel
   {
     for (size_t i=0; i<N; i+=binSize, dest+=stride)
       {
-        *dest=op==multiply? 1: 0;
+        *dest=identity<Bin>(op);
         for (size_t j=0; j<binSize && i+j<N; ++j, src+=stride)
-          switch (op)
-            {
-            case add:
-              *dest+=*src;
-              break;
-            case multiply:
-              *dest*=*src;
-              break;
-            }
+          if (isfinite(*src))
+            switch (op)
+              {
+              case add:
+                *dest+=*src;
+                break;
+              case multiply:
+                *dest*=*src;
+                break;
+              }
       }
   }
 
@@ -55,17 +56,21 @@ namespace ravel
   {
     for (size_t i=0; i<N; ++i, src+=stride, dest+=stride)
       {
-        *dest=*src;
-        for (size_t j=1; j<=i && j<window; ++j)
-          switch (op)
-            {
-            case add:
-              *dest+=*(src-j*stride);
-              break;
-            case multiply:
-              *dest*=*(src-j*stride);
-              break;
-            }
+        *dest=identity<Scan>(op);
+        for (size_t j=0; j<=i && j<window; ++j)
+          {
+            double v=*(src-j*stride);
+            if (isfinite(v))
+              switch (op)
+                {
+                case add:
+                  *dest+=v;
+                  break;
+                case multiply:
+                  *dest*=v;
+                  break;
+                }
+          }
       }
   }
 

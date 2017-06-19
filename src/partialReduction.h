@@ -38,6 +38,16 @@ namespace ravel
     static PartialReduction* create(PartialReductionType);
   };
 
+  // group identity value
+  template <class T> inline double identity(typename T::Op x) {
+    switch (x)
+      {
+      case T::add: return 0;
+      case T::multiply: return 1;
+      default: return 0;
+      }
+  }
+  
   struct Bin: public classdesc::Poly<Bin, PartialReduction>
   {
     PartialReductionType type() const override
