@@ -53,23 +53,19 @@ namespace ravel
 
   void Scan::operator()(double* dest, const double* src, size_t stride, size_t N) const
   {
-    *dest=*src;
-    for (size_t i=1; i<N; ++i, src+=stride, dest+=stride)
+    for (size_t i=0; i<N; ++i, src+=stride, dest+=stride)
       {
         *dest=*src;
-        switch (op)
-          {
-          case add:
-            *dest+=*(src-stride);
-            if (i>=window)
-              *dest-=*(src-window*stride);
-            break;
-          case multiply:
-            *dest*=*(src-stride);
-            if (i>=window && *(src-window*stride))
-              *dest/=*(src-window*stride);
-            break;
-          }
+        for (size_t j=1; j<=i && j<window; ++j)
+          switch (op)
+            {
+            case add:
+              *dest+=*(src-j*stride);
+              break;
+            case multiply:
+              *dest*=*(src-j*stride);
+              break;
+            }
       }
   }
 
