@@ -274,6 +274,7 @@ RawData RawData::reduceAlong(size_t axis, const RawDataIdx& slice,
 RawData RawData::partialReduce(size_t axis, PartialReduction& p) const
 {
   auto lv=labelsVector();
+  assert(axis<lv.size());
   vector<string> labels;
   for (auto i: p.indices(dim(axis))) labels.push_back(lv[axis].second[i]);
   lv[axis].second.swap(labels);
@@ -281,6 +282,10 @@ RawData RawData::partialReduce(size_t axis, PartialReduction& p) const
   for (size_t i=0,j=0; i<size();
        i+=dim(axis)*stride(axis), j+=r.dim(axis)*stride(axis))
     for (size_t k=0; k<stride(axis) && j+k<r.size() && i+k<size(); ++k)
-      p(&r[j+k],&data[i+k],stride(axis),dim(axis));
+      {
+        assert(j+k<r.size());
+        assert(i+k<data.size());
+        p(&r[j+k],&data[i+k],stride(axis),dim(axis));
+      }
   return r;
 }

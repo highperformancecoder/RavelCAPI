@@ -90,10 +90,12 @@ namespace ravel
     }
     /// return stride of \a axis
     size_t stride(size_t axis) const {
+      assert(axis<indices.size());
       return indices[axis].stride;
     }
     /// return dimension (size) along an \a axis
     size_t dim(size_t axis) const {
+      assert(axis<indices.size());
       return indices[axis].idx.size();
     }
     /// returns the axis number corresponding to a named axes
@@ -168,14 +170,15 @@ namespace ravel
       size_t i=idx(key);
       if (i>=data.size())
         throw InvalidKey();
+      assert(i<data.size());
       return i;
     }
     
   public:
     double& operator[](const Key& key) {return data[checkIdx(key)];}
     double operator[](const Key& key) const {return data[checkIdx(key)];}
-    double& operator[](size_t i) {return data[i];}
-    double operator[](size_t i) const {return data[i];}
+    double& operator[](size_t i) {assert(i<data.size()); return data[i];}
+    double operator[](size_t i) const {assert(i<data.size()); return data[i];}
 
     RawData(): data(1,nan("")) {}
 
