@@ -6,6 +6,7 @@
 #include <ecolab_epilogue.h>
 #endif
 
+#include <math.h>
 using namespace std;
 using namespace classdesc;
 

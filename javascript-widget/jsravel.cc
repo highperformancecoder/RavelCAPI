@@ -154,7 +154,11 @@ namespace {
     double x() const {return h->x();}
     double y() const {return h->y();}
     Op::ReductionOp getReductionOp() const {return h->reductionOp;}
-    Op::ReductionOp setReductionOp(Op::ReductionOp op) {return h->reductionOp=op;}
+    Op::ReductionOp setReductionOp(Op::ReductionOp op) {
+      h->reductionOp=op;
+      if (!h->collapsed()) h->toggleCollapsed();
+      return op;
+    }
     std::string getDescription() const {return h->description;}
     std::string setDescription(const std::string& d) {return h->description=d;}
     std::string reductionDescription() const {return h->reductionDescription();}  

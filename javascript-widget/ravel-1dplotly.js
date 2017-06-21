@@ -94,7 +94,7 @@ function makeSelect(row, ravel, axis, radioName, checkedName, selections)
         }
         select.ravel=ravel;
         select.axis=axis;
-        select.setAttribute("onchange",'radio'+radioName+'Pushed(this)');
+        select.setAttribute("onclick",'radio'+radioName+'Pushed(this)');
     }
 }
 
@@ -311,6 +311,7 @@ function alignHandles(master,slave) {
                 }
                 sh.sliceLabels.setOrder(xOrder);
                 sh.setReductionOp(xOp);
+                if (sh.collapsed()!=mh.collapsed()) sh.toggleCollapsed();
             }
             else // check that slicers match
             {
@@ -348,12 +349,6 @@ function plotData(ravel) {
     xh.get(ravel.master.handleId(0));
     plotlyData.name=ravel.lhs.table;
 
-    if (xh.collapsed())
-    {
-        ravel.lhs.toggleCollapsed(ravel.lhs.handleId(0));
-        ravel.rhs.toggleCollapsed(ravel.rhs.handleId(0));
-    }
-    
     // arithmetic operation extracted out, as we may need to try this twice
     function tryCombine()
     {

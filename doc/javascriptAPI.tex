@@ -355,7 +355,8 @@ handle.get(i);
     that class, eg Module.ReductionOp.sum, and can be used in comparison
     operators or in case labels of a switch statement.
   \item[setReductionOp(op)] Sets the reductionOp attribute. op is one of
-    the values of the Module.ReductionOp enum.
+    the values of the Module.ReductionOp enum. After this call, the
+    handle is left in a collapsed state.
   \item[getDescription()] returns the axis label of this handle
   \item[setDescription(axisName)] sets the axis label of this handle
   \item[reductionDescription()] if the handle is collapsed, returns an
