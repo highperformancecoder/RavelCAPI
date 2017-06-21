@@ -3,6 +3,15 @@
   Example code released under the MIT license.
 */
 
+// track mouse movement
+var mouseX=0;
+var mouseY=0;
+
+document.onmousemove=function(e) {
+    mouseX=e.pageX;
+    mouseY=e.pageY;
+}
+
 // a difference function for use in custom JS op.
 var diff=function(x)
 {
@@ -98,13 +107,37 @@ function radiosortPushed(input)
     input.ravel.redraw();
 }
 
+function openPartialReductionModal(id)
+{
+    var menu=document.getElementById(id+"Modal");
+    menu.setAttribute("class","md-modal md-show");
+    menu.setAttribute("style","top:"+mouseY+"px; left:"+(mouseX+50)+"px;");
+}
+
+function partialReductionModalOK(id)
+{
+    closeModal(id+"Modal");  
+}
+
+function closeModal(id)
+{
+    var menu=document.getElementById(id).setAttribute("class","md-modal");
+}
+
 function radioreducePushed(input)
 {
     var h=input.ravel.handle;
     h.get(input.axis);
-    h.setReductionOp(Module.ReductionOp[input.value]);
-    plotAllData();
-    input.ravel.redraw();
+    if (Module.ReductionOp.hasOwnProperty(input.value))
+    {
+        h.setReductionOp(Module.ReductionOp[input.value]);
+        plotAllData();
+        input.ravel.redraw();
+    }
+    else
+    {
+        openPartialReductionModal(input.value);
+    }
 }
 
 function hideAxisMenus(menuID) {
@@ -156,8 +189,12 @@ function toggleAxisMenus(menuID, ravel) {
                 {"value": "stddev", "tooltiptext": "standard deviation"},
                 {"value": "min", "tooltiptext": "minimum"},
                 {"value": "max", "tooltiptext": "maximum"},
+                {"value": "bin", "tooltiptext": "bin"},
+                {"value": "scan", "tooltiptext": "or running sum"},
+                {"value": "change", "tooltiptext": "or difference"},
             ];
         makeSelect(row, ravel, i, "reduce", "sum", reductionSelector);
+
         var sortSelector=
             [
                 {"value":"none", "tooltiptext": "None"},
