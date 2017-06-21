@@ -57,41 +57,40 @@
     <!-- partial reduction model overlays -->
     <div class="md-content" id="binModal">
       <h3><center>Binning Parameters</center></h3>
-      <select id="binningOp">
-        <option>+</option>
-        <option>×</option>
+      <select id="binOp">
+        <option value="add">+</option>
+        <option value="multiply">×</option>
       </select>
       Bin size <input type="number" value="1" id="binSize"/>
       <br/>
-      <button onclick='partialReductionModalOK("bin")'>Cancel</button>
-      <button onclick='closeModal("binModal")'>OK</button>
+      <button onclick='closeModal("binModal")'>Cancel</button>
+      <button onclick='partialReductionModalOK("bin")'>OK</button>
     </div>
     
     <div class="md-content" id="scanModal">
       <h3><center>Scanning Parameters</center></h3>
       <select id="scanOp">
-        <option>+</option>
-        <option>×</option>
+        <option value="add">+</option>
+        <option value="multiply">×</option>
       </select>
       Window <input type="number" value="1" id="scanSize"/>
       <br/>
-      <button onclick='partialReductionModalOK("scan")'>Cancel</button>
-      <button onclick='closeModal("scanModal")'>OK</button>
+      <button onclick='closeModal("scanModal")'>Cancel</button>
+      <button onclick='partialReductionModalOK("scan")'>OK</button>
     </div>
     
      <div class="md-content" id="changeModal">
       <h3><center>Change Parameters</center></h3>
       <select id="changeOp">
-        <option>-</option>
-        <option>÷</option>
-        <option>Δ</option>
-        <option>rel</option>
-        <option>%</option>
+        <option value="subtract">Δ</option>
+        <option value="divide">ratio</option>
+        <option value="relative">rel</option>
+        <option value="percent">%</option>
       </select>
       Offset <input type="number" value="1" id="changeSize"/>
       <br/>
-      <button onclick='partialReductionModalOK("change")'>Cancel</button>
-      <button onclick='closeModal("changeModal")'>OK</button>
+      <button onclick='closeModal("changeModal")'>Cancel</button>
+      <button onclick='partialReductionModalOK("change")'>OK</button>
     </div>
    
     <table id="tableBlock">

@@ -107,15 +107,26 @@ function radiosortPushed(input)
     input.ravel.redraw();
 }
 
-function openPartialReductionModal(id)
-{
-    var menu=document.getElementById(id+"Modal");
-    menu.setAttribute("style","visibility: visible; top:"+mouseY+"px; left:"+(mouseX+50)+"px;");
-}
-
 function partialReductionModalOK(id)
 {
-    closeModal(id+"Modal");  
+    var menu=document.getElementById(id+"Modal");
+    menu.setAttribute("style","visibility: hidden");
+    var op=document.getElementById(id+"Op").value;
+    var arg=parseInt(document.getElementById(id+"Size").value,10);
+    switch (id)
+    {
+        case "bin":
+        menu.handle.addBinReduction(Module.BinOp[op],arg);
+        break;
+        case "scan":
+        menu.handle.addScanReduction(Module.ScanOp[op],arg);
+        break;
+        case "change":
+        menu.handle.addChangeReduction(Module.ChangeOp[op],arg);
+        break;
+    }
+    plotAllData();
+    menu.ravel.redraw();
 }
 
 function closeModal(id)
@@ -133,9 +144,17 @@ function radioreducePushed(input)
         plotAllData();
         input.ravel.redraw();
     }
+    else if (input.value==="clear")
+    {
+        h.clearPartialReductions();
+        if (h.collapsed()) h.toggleCollapsed();
+    }
     else
     {
-        openPartialReductionModal(input.value);
+        var menu=document.getElementById(input.value+"Modal");
+        menu.setAttribute("style","visibility: visible; top:"+mouseY+"px; left:"+(mouseX+50)+"px;");
+        menu.handle=h;
+        menu.ravel=input.ravel;
     }
 }
 
@@ -191,6 +210,7 @@ function toggleAxisMenus(menuID, ravel) {
                 {"value": "bin", "tooltiptext": "bin"},
                 {"value": "scan", "tooltiptext": "scan/running sum"},
                 {"value": "change", "tooltiptext": "change/difference"},
+                {"value": "clear", "tooltiptext": "clear"},
             ];
         makeSelect(row, ravel, i, "reduce", "sum", reductionSelector);
 

@@ -186,6 +186,15 @@ namespace {
         r.set(i,true);
       return r;
     }
+
+    /// partial reductions
+    void clearPartialReductions() {h->clearPartialReductions();}
+    void addBinReduction(Bin::Op op, size_t size)
+    {h->addPartialReduction(new Bin(op,size));}
+    void addScanReduction(Scan::Op op, size_t window)
+    {h->addPartialReduction(new Scan(op,window));}
+    void addChangeReduction(Change::Op op, size_t offset)
+    {h->addPartialReduction(new Change(op,offset));}
   };
 
   template <class Ravel>
@@ -322,6 +331,24 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .value("numForward",HandleSort::numForward)
     .value("numReverse",HandleSort::numReverse);
 
+  enum_<Bin::Op>("BinOp")
+    .value("add",Bin::add)
+    .value("multiply",Bin::multiply)
+    ;
+
+   enum_<Scan::Op>("ScanOp")
+    .value("add",Scan::add)
+    .value("multiply",Scan::multiply)
+    ;
+
+   enum_<Change::Op>("ChangeOp")
+    .value("subtract",Change::subtract)
+    .value("divide",Change::divide)
+    .value("percent",Change::percent)
+    .value("relative",Change::relative)
+    ;
+
+
   class_<JSSortedVector>("SortedVector")
     .function("resize",&JSSortedVector::resize)
     .function("clear",&JSSortedVector::clear)
@@ -364,6 +391,10 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("getDisplayFilterCaliper",&JSHandle::getDisplayFilterCaliper)
     .function("setDisplayFilterCaliper",&JSHandle::setDisplayFilterCaliper)
     .function("mask",&JSHandle::mask)
+    .function("clearPartialReductions",&JSHandle::clearPartialReductions)
+    .function("addBinReduction",&JSHandle::addBinReduction)
+    .function("addScanReduction",&JSHandle::addScanReduction)
+    .function("addChangeReduction",&JSHandle::addChangeReduction)
     ;
   
   class_<Ravel>("RavelBase")

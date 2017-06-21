@@ -178,7 +178,7 @@ namespace ravel
           
           }
 
-        if (h.collapsed())
+        if (h.collapsed() || !h.partialReductions().empty())
           {
             // show reduction operations
             assert(h.reductionOp < sizeof(opLabels)/sizeof(opLabels[0]));
