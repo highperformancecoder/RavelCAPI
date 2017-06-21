@@ -110,8 +110,7 @@ function radiosortPushed(input)
 function openPartialReductionModal(id)
 {
     var menu=document.getElementById(id+"Modal");
-    menu.setAttribute("class","md-modal md-show");
-    menu.setAttribute("style","top:"+mouseY+"px; left:"+(mouseX+50)+"px;");
+    menu.setAttribute("style","visibility: visible; top:"+mouseY+"px; left:"+(mouseX+50)+"px;");
 }
 
 function partialReductionModalOK(id)
@@ -121,7 +120,7 @@ function partialReductionModalOK(id)
 
 function closeModal(id)
 {
-    var menu=document.getElementById(id).setAttribute("class","md-modal");
+    var menu=document.getElementById(id).setAttribute("style","visibility: hidden");
 }
 
 function radioreducePushed(input)
@@ -190,8 +189,8 @@ function toggleAxisMenus(menuID, ravel) {
                 {"value": "min", "tooltiptext": "minimum"},
                 {"value": "max", "tooltiptext": "maximum"},
                 {"value": "bin", "tooltiptext": "bin"},
-                {"value": "scan", "tooltiptext": "or running sum"},
-                {"value": "change", "tooltiptext": "or difference"},
+                {"value": "scan", "tooltiptext": "scan/running sum"},
+                {"value": "change", "tooltiptext": "change/difference"},
             ];
         makeSelect(row, ravel, i, "reduce", "sum", reductionSelector);
 
