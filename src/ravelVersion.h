@@ -1,1 +1,1 @@
-#define RAVEL_VERSION "1.0.47"
+#define RAVEL_VERSION "1.0.48"
