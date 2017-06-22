@@ -107,26 +107,52 @@ function radiosortPushed(input)
     input.ravel.redraw();
 }
 
+function findCorrespondingHandle(ravel,handle)
+{
+    for (var i=0; i<ravel.numHandles(); i++)
+    {
+        var h=ravel.handle;
+        h.get(i);
+        if (h.getDescription() === handle.getDescription())
+            return h;
+    }
+    return null;
+}
+
+function applyPartialReductionTo(handle,type,op,arg)
+{
+    switch (type)
+    {
+        case "bin":
+        handle.addBinReduction(Module.BinOp[op],arg);
+        break;
+        case "scan":
+        handle.addScanReduction(Module.ScanOp[op],arg);
+        break;
+        case "change":
+        handle.addChangeReduction(Module.ChangeOp[op],arg);
+        break;
+    }
+ }
+
 function partialReductionModalOK(id)
 {
     var menu=document.getElementById(id+"Modal");
     menu.setAttribute("style","visibility: hidden");
     var op=document.getElementById(id+"Op").value;
     var arg=parseInt(document.getElementById(id+"Size").value,10);
-    switch (id)
-    {
-        case "bin":
-        menu.handle.addBinReduction(Module.BinOp[op],arg);
-        break;
-        case "scan":
-        menu.handle.addScanReduction(Module.ScanOp[op],arg);
-        break;
-        case "change":
-        menu.handle.addChangeReduction(Module.ChangeOp[op],arg);
-        break;
-    }
-    plotAllData();
-    menu.ravel.redraw();
+
+    // find the lhs and rhs handles corresponding to the given master handle
+    var lhsHandle=findCorrespondingHandle(menu.ravel.lhs, menu.handle);
+    if (lhsHandle)
+        applyPartialReductionTo(lhsHandle,id,op,arg);
+    var rhsHandle=findCorrespondingHandle(menu.ravel.rhs, menu.handle);
+    if (rhsHandle)
+        applyPartialReductionTo(rhsHandle,id,op,arg);
+       
+    menu.ravel.synchroniseMaster();
+//    plotAllData();
+//    menu.ravel.redraw();
 }
 
 function closeModal(id)
@@ -147,6 +173,7 @@ function radioreducePushed(input)
     else if (input.value==="clear")
     {
         h.clearPartialReductions();
+        input.ravel.synchroniseMaster();
         if (h.collapsed()) h.toggleCollapsed();
     }
     else
@@ -248,6 +275,8 @@ function Ravel1D(canvas) {
     var master=this.master=newRavel(canvas);
     var lhs=this.lhs=newRavel("hiddenCanvas");
     var rhs=this.rhs=newRavel("hiddenCanvas");
+    master.lhs=lhs;
+    master.rhs=rhs;
     master.setRank(1);
     lhs.setRank(1);
     rhs.setRank(1);
@@ -257,6 +286,9 @@ function Ravel1D(canvas) {
         this.master.delete();
     }
     var synchroniseMaster = function() {
+        // ensure master configuration is not lost 
+        alignHandles(master,lhs);
+        alignHandles(master,rhs);
         var axisData={};
         function addAxisDataFrom(ravel) {
             for (var i=0; i<ravel.numHandles(); ++i)
@@ -277,11 +309,14 @@ function Ravel1D(canvas) {
         {
             master.addHandle(i,axisData[i]);
         }
-        makeCountryDefaultX(master);
+        alignHandles(lhs,master);
+        alignHandles(rhs,master);
         plotAllData();
     }
-    lhs.dataLoadHook=synchroniseMaster;
-    rhs.dataLoadHook=synchroniseMaster;
+    var dataLoadHook=function() {synchroniseMaster(); makeCountryDefaultX(master);}
+    lhs.dataLoadHook=dataLoadHook;
+    rhs.dataLoadHook=dataLoadHook;
+    master.synchroniseMaster=synchroniseMaster;
     master.onRedraw=function() {plotMasterData(master);}
     this.functorCode="function(x,y) {return x/y;};";
     this.dataFunctor=function(x,y) {return x/y;};
@@ -347,6 +382,7 @@ function alignHandles(master,slave) {
                         sh.sliceLabels.setOrder(mh.sliceLabels.getOrder());
                         sh.setReductionOp(mh.getReductionOp());
                         sh.setSlicer(mh.sliceLabel());
+                        if (sh.collapsed()!=mh.collapsed()) sh.toggleCollapsed();
                     }
                 }
             }
