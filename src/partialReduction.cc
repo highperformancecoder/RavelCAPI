@@ -20,6 +20,7 @@ namespace ravel
       case PartialReductionType::bin: return new Bin();
       case PartialReductionType::scan: return new Scan();
       case PartialReductionType::change: return new Change();
+      default: return nullptr;
       }
   }
 
@@ -29,17 +30,22 @@ namespace ravel
     for (size_t i=0; i<N; i+=binSize, dest+=stride)
       {
         *dest=identity<Bin>(op);
+        bool noData=true;
         for (size_t j=0; j<binSize && i+j<N; ++j, src+=stride)
           if (isfinite(*src))
-            switch (op)
-              {
-              case add:
-                *dest+=*src;
-                break;
-              case multiply:
-                *dest*=*src;
-                break;
-              }
+            {
+              switch (op)
+                {
+                case add:
+                  *dest+=*src;
+                  break;
+                case multiply:
+                  *dest*=*src;
+                  break;
+                }
+              noData=false;
+            }
+        if (noData) *dest=nan("");
       }
   }
 

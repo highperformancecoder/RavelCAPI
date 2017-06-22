@@ -17,19 +17,12 @@
 
 namespace ravel
 {
-  enum class PartialReductionType {bin,scan,change};
+  enum class PartialReductionType {bin,scan,change,presort};
   struct PartialReduction:
     public classdesc::PolyBase<PartialReductionType>,
                            classdesc::PolyXML<PartialReduction>
     
   {
-//    struct IndexVal
-//    {
-//      std::size_t index; ///< sliceindex of this value
-//      double value=0;
-//      IndexVal() {}
-//      IndexVal(std::size_t index,double value): index(index), value(value) {}
-//    };
     /// transform data along a slice
     virtual void operator()(double* dest, const double* src, size_t stride, size_t num) const=0;
     /// return indices corresponding to slice labels in the transformed axis

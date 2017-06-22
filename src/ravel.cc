@@ -137,15 +137,51 @@ void Handle::setSlicer(const std::string& label)
       }
 }
 
+namespace
+{
+  class PresortData: public classdesc::Poly<PresortData, PartialReduction>
+  {
+    PartialReductionType type() const override
+    {return PartialReductionType::presort;}
+    vector<size_t> m_indices;
+
+  public:
+    PresortData(const SortedVector& sv) {
+      assert(sv.isPermvalid());
+      for (size_t i=0; i<sv.size(); ++i)
+        m_indices.push_back(sv.idx(i));
+    }
+
+    void operator()(double* dest, const double* src, size_t stride, size_t num)
+      const override
+    {
+      assert(num==m_indices.size());
+      for (size_t i=0; i<num; ++i)
+        dest[i*stride]=src[m_indices[i]*stride];
+    }
+    std::vector<size_t> indices(size_t N) const override {return m_indices;}
+  };
+}
+
 void Handle::addPartialReduction(const std::shared_ptr<PartialReduction>& red)
 {
   if (m_partialReductions.empty())
-    unreducedSliceLabels=sliceLabels;
+    {
+      unreducedSliceLabels=sliceLabels;
+      // we cannot rely on sliceLabels.order()==none, as custom sort order may be applied
+      size_t i=0;
+      for (; i<sliceLabels.size(); ++i)
+        if (i!=sliceLabels.idx(i)) break;
+
+      if (i<sliceLabels.size())
+        // add a dummy p reduction that simply sorts the data
+        m_partialReductions.emplace_back(new PresortData(sliceLabels));
+      sliceLabels.order(SortedVector::none);
+    }
   m_partialReductions.push_back(red);
 
   // build new slicelabel vector
   auto origOrder=sliceLabels.order();
-  sliceLabels.order(SortedVector::none);
   for (auto& i: m_partialReductions)
     {
       SortedVector labels;
@@ -164,7 +200,7 @@ void Handle::addPartialReduction(const std::shared_ptr<PartialReduction>& red)
       sliceLabels=move(labels);
     }
   // restore original order
-  sliceLabels.order(origOrder);
+  //  sliceLabels.order(origOrder);
 }
 
 void Handle::clearPartialReductions()
