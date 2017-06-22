@@ -57,8 +57,8 @@ namespace ravel
   {
     for (size_t i=0; i<N; ++i, src+=stride, dest+=stride)
       {
-        *dest=identity<Scan>(op);
-        for (size_t j=0; j<=i && j<window; ++j)
+        *dest=*src;
+        for (size_t j=1; j<=i && j<window; ++j)
           {
             double v=*(src-j*stride);
             if (isfinite(v))

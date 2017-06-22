@@ -172,7 +172,11 @@ function radioreducePushed(input)
     }
     else if (input.value==="clear")
     {
-        h.clearPartialReductions();
+        var lhsHandle=findCorrespondingHandle(input.ravel.lhs, h);
+        if (lhsHandle) lhsHandle.clearPartialReductions();
+        
+        var rhsHandle=findCorrespondingHandle(input.ravel.rhs, h);
+        if (rhsHandle) rhsHandle.clearPartialReductions();
         input.ravel.synchroniseMaster();
         if (h.collapsed()) h.toggleCollapsed();
     }
@@ -180,6 +184,8 @@ function radioreducePushed(input)
     {
         var menu=document.getElementById(input.value+"Modal");
         menu.setAttribute("style","visibility: visible; top:"+mouseY+"px; left:"+(mouseX+50)+"px;");
+        // default scan window should be the number of slicelabels
+        document.getElementById("scanSize").setAttribute("value",h.sliceLabels.size());
         menu.handle=h;
         menu.ravel=input.ravel;
     }
