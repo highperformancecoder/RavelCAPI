@@ -245,7 +245,7 @@ function toggleAxisMenus(menuID, ravel) {
                 {"value": "change", "tooltiptext": "change/difference"},
                 {"value": "clear", "tooltiptext": "clear"},
             ];
-        makeSelect(row, ravel, i, "reduce", "sum", reductionSelector);
+        makeSelect(row, ravel, i, "reduce", "clear", reductionSelector);
 
         var sortSelector=
             [
