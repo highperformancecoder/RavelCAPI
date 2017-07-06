@@ -27,6 +27,8 @@ namespace ravel
 
   void Bin::operator()(double* dest, const double* src, size_t stride, size_t N) const
   {
+    if (binSize==0)
+      return;
     for (size_t i=0; i<N; i+=binSize, dest+=stride)
       {
         *dest=identity<Bin>(op);
@@ -51,7 +53,7 @@ namespace ravel
 
   std::vector<size_t> Bin::indices(size_t N) const
   {
-    std::vector<size_t> r(N? (N-1)/binSize+1: 0);
+    std::vector<size_t> r((N&&binSize)? (N-1)/binSize+1: 0);
     for (size_t i=0; i<r.size(); ++i)
         r[i]=i*binSize+binSize/2;
     if (r.back()>=N) r.back()=N-1;
