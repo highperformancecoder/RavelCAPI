@@ -97,6 +97,8 @@
       <tr>
         <td>
           Database:
+        </td>
+        <td>
           <span id="tableSelector1lhsWrap">
             <select id="tableSelector1lhs"
            onchange="setTable(this.value,ravel1.lhs);
@@ -116,13 +118,12 @@
                               hideAxisMenus('ravel1Axes'); plotData(ravel1)">
             </select>
           </span>
-          <input type="button"
-                 onclick="toggleAxisMenus('ravel1Axes',ravel1.master)"
-                 value="toggle axis menus">
         </td>
         <td>
-          <span id="tableSelector2lhsWrap">
           Database:
+        </td>
+        <span id="tableSelector2lhsWrap">
+          <td>
             <select id="tableSelector2lhs"
                     onchange="setTable(this.value,ravel2.lhs);
                               hideAxisMenus('ravel1Axes'); plotData(ravel2)">
@@ -141,24 +142,48 @@
                               hideAxisMenus('ravel2Axes'); plotData(ravel2)">
             </select>
           </span>
-          <input type="button"
-                 onclick="toggleAxisMenus('ravel2Axes',ravel2.master)"
-                 value="toggle axis menus">
-            Slaved:<input type="checkbox" checked id="slaved">
         </td>
       </tr>
       <tr>
+        <td/>
         <td>
           <table id="ravel1Axes"></table>
         </td>
+        <td/>
         <td>
           <table id="ravel2Axes"></table>
         </td>
-      <tr>
-        <td valign="top" width="50%">
-           <canvas width="300" height="300" id="ravel1" tabindex="10"></canvas>
-        </td>
-        <td valign="top" width="50%">
+          </tr>
+          <tr>
+            <td>
+              <table>
+                <tr><td>
+                    <input type="button"
+                           onclick="toggleAxisMenus('ravel1Axes',ravel1.master)"
+                           value="toggle axis menus"/>
+                </td></tr>
+                <tr><td><input type="radio" name="ravel1Selector" value="master"/>Master</td></tr>
+                <tr><td><input type="radio" name="ravel1Selector" value="left"/>LHS</td></tr>
+                <tr><td><input type="radio" name="ravel1Selector" value="right"/>RHS</td></tr>
+              </table>
+            </td>
+            <td valign="top" width="50%">
+              <canvas width="300" height="300" id="ravel1" tabindex="10"></canvas>
+            </td>
+            <td>
+              <table>
+                <tr><td>
+                    <input type="button"
+                           onclick="toggleAxisMenus('ravel2Axes',ravel2.master)"
+                           value="toggle axis menus"/>
+                </td></tr>
+                <tr><td><input type="radio" name="ravel2Selector" value="master"/>Master</td></tr>
+                <tr><td><input type="radio" name="ravel2Selector" value="left"/>LHS</td></tr>
+                <tr><td><input type="radio" name="ravel2Selector" value="right"/>RHS</td></tr>
+                <tr><td><input type="checkbox" checked id="slaved"/>Slaved</td></tr>
+              </table>
+            </td>
+            <td valign="top" width="50%">
             <canvas width="300" height="300" id="ravel2" tabindex="11"></canvas>
        </td>
       </tr>
