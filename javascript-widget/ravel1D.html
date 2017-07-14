@@ -48,6 +48,9 @@
     margin: 0 auto;
     }
 
+    .ravelCanvas {
+    position: absolute;
+    }
   </style>
   
   <body onunload="onunload()">
@@ -155,20 +158,27 @@
         </td>
           </tr>
           <tr>
-            <td>
+            <td style="height:300px">
               <table>
                 <tr><td>
                     <input type="button"
                            onclick="toggleAxisMenus('ravel1Axes',ravel1.master)"
                            value="toggle axis menus"/>
                 </td></tr>
-                <tr><td><input type="radio" name="ravel1Selector" value="master"/>Master</td></tr>
-                <tr><td><input type="radio" name="ravel1Selector" value="left"/>LHS</td></tr>
-                <tr><td><input type="radio" name="ravel1Selector" value="right"/>RHS</td></tr>
+                <tr><td><input type="radio" name="ravel1Selector"
+                               onchange="switchRavel(ravel1,'','ravel1')"/>Master</td></tr>
+                <tr><td><input type="radio" name="ravel1Selector"
+                               onchange="switchRavel(ravel1,'lhs','ravel1')"/>LHS</td></tr>
+                <tr><td><input type="radio" name="ravel1Selector"
+                               onchange="switchRavel(ravel1,'rhs','ravel1')"/>RHS</td></tr>
               </table>
             </td>
-            <td valign="top" width="50%">
-              <canvas width="300" height="300" id="ravel1" tabindex="10"></canvas>
+            <td valign="top">
+                <canvas width="300" height="300" class="ravelCanvas" id="ravel1" tabindex="10"></canvas>
+                <canvas width="300" height="300" class="ravelCanvas" id="ravel1lhs" style="visibility:hidden" tabindex="20"></canvas>
+                <canvas width="300" height="300" class="ravelCanvas"
+              id="ravel1rhs" style="visibility:hidden"
+                      tabindex="30"></canvas>
             </td>
             <td>
               <table>
@@ -177,14 +187,19 @@
                            onclick="toggleAxisMenus('ravel2Axes',ravel2.master)"
                            value="toggle axis menus"/>
                 </td></tr>
-                <tr><td><input type="radio" name="ravel2Selector" value="master"/>Master</td></tr>
-                <tr><td><input type="radio" name="ravel2Selector" value="left"/>LHS</td></tr>
-                <tr><td><input type="radio" name="ravel2Selector" value="right"/>RHS</td></tr>
+                <tr><td><input type="radio" name="ravel2Selector"
+                               onchange="switchRavel(ravel2,'','ravel2')"/>Master</td></tr>
+                <tr><td><input type="radio" name="ravel2Selector"
+                               onchange="switchRavel(ravel2,'lhs','ravel2')"/>LHS</td></tr>
+                <tr><td><input type="radio" name="ravel2Selector"
+                               onchange="switchRavel(ravel2,'rhs','ravel2')"/>RHS</td></tr>
                 <tr><td><input type="checkbox" checked id="slaved"/>Slaved</td></tr>
               </table>
             </td>
-            <td valign="top" width="50%">
-            <canvas width="300" height="300" id="ravel2" tabindex="11"></canvas>
+            <td valign="top">
+              <canvas width="300" height="300" class="ravelCanvas" id="ravel2" tabindex="11"></canvas>
+              <canvas width="300" height="300" class="ravelCanvas" id="ravel2lhs" style="visibility:hidden" tabindex="21"></canvas>
+              <canvas width="300" height="300" class="ravelCanvas" id="ravel2rhs" style="visibility:hidden" tabindex="31"></canvas>
        </td>
       </tr>
     </table>
@@ -193,14 +208,13 @@
       <option value="scatter">line chart</option>
       <option value="bar" selected="1">bar chart</option>
     </select>
-    <input id="y1min" oninput="plotAllData()" value="min left">
-    <input id="y1max" oninput="plotAllData()" value="max left">
-    <input id="y2min" oninput="plotAllData()" value="min right">
-    <input id="y2max" oninput="plotAllData()" value="max right">
-    <input type="checkbox" checked id="allDomain" value="0" onchange="plotAllData()">Whole domain
+    <input id="y1min" oninput="plotAllData()" value="min left"/>
+    <input id="y1max" oninput="plotAllData()" value="max left"/>
+    <input id="y2min" oninput="plotAllData()" value="min right"/>
+    <input id="y2max" oninput="plotAllData()" value="max right"/>
+    <input type="checkbox" checked id="allDomain" value="0" onchange="plotAllData()"/>Whole domain
 
     <div id="plot" style="width:1000px;height:400px;"></div>
-    <canvas id="hiddenCanvas" style="display:none"></canvas>
     <center>
       <small>
         Ravel version <div id="ravelVersion"></div>

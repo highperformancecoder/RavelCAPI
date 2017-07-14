@@ -191,6 +191,17 @@ function radioreducePushed(input)
     }
 }
 
+function switchRavel(masterRavel,sub,canvasId)
+{
+    document.getElementById(canvasId).setAttribute("style","visibility:hidden");
+    document.getElementById(canvasId+"lhs").setAttribute("style","visibility:hidden");
+    document.getElementById(canvasId+"rhs").setAttribute("style","visibility:hidden");
+    document.getElementById(canvasId+sub).setAttribute("style","visibility:visible");
+    masterRavel.master.redraw();
+    masterRavel.lhs.redraw();
+    masterRavel.rhs.redraw();
+}
+
 function hideAxisMenus(menuID) {
     var menu=document.getElementById(menuID);
     while (menu.hasChildNodes())
@@ -279,8 +290,8 @@ function toggleFilter(checkBox)
 
 function Ravel1D(canvas) {
     var master=this.master=newRavel(canvas);
-    var lhs=this.lhs=newRavel("hiddenCanvas");
-    var rhs=this.rhs=newRavel("hiddenCanvas");
+    var lhs=this.lhs=newRavel(canvas+"lhs");
+    var rhs=this.rhs=newRavel(canvas+"rhs");
     master.lhs=lhs;
     master.rhs=rhs;
     master.setRank(1);
