@@ -25,7 +25,7 @@ FLAGS+=-I. -Isrc -Isrc/tcl
 # object files making up libravel
 OBJS=ravel.o dataCube.o ravelCairo.o cairoShimCairo.o \
 	filterCairo.o splitMerge.o sortedVector.o rawData.o partialReduction.o
-LIBS+=libravel.a
+LIBS+=libravel.a libravel.so
 LIBS:=-L$(HOME)/usr/lib64 $(LIBS)
 MODELS=ravelTest
 EXES=logos
@@ -77,6 +77,9 @@ $(MODELS:=.app): %.app: %
 
 libravel.a: $(OBJS)
 	ar r $@ $^
+
+libravel.so: $(OBJS) capi.o
+	$(LINK) $(FLAGS) -shared $^ -o $@
 
 ifneq ($(MAKECMDGOALS),clean)
 include $(MODELS:=.d) 
