@@ -53,9 +53,9 @@ extern "C"
   **/
   void ravel_sliceLabels(void* ravel, size_t axis, const char* labels[]);
   /// return XML represention of
-  const char* ravel_toXML();
+  const char* ravel_toXML(void* ravel);
   /// populate with XML data
-  void ravel_fromXML(const char*);
+  void ravel_fromXML(void* ravel, const char*);
 
   /// create a new dataCube object
   void* ravelDC_new();
