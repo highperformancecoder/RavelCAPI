@@ -147,7 +147,7 @@ namespace
 
   public:
     PresortData(const SortedVector& sv) {
-      assert(sv.isPermvalid());
+      assert(sv.isPermValid());
       for (size_t i=0; i<sv.size(); ++i)
         m_indices.push_back(sv.idx(i));
     }

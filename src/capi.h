@@ -7,8 +7,15 @@
 #include <cairo/cairo.h>
 #include <stdlib.h>
 
+#define RAVEL_VERSION 1
+
 extern "C"
 {
+  /// returns the major version number of this API. This gets bumped
+  /// whenever a method is removed or signature changes, but not when
+  /// a method is added
+  int ravel_version();
+  
   /// create a new Ravel control widget
   void* ravel_new(size_t rank);
   /// dispose of ravel created by ravel_new()
@@ -18,8 +25,14 @@ extern "C"
   /// @{ handle mouse events
   void ravel_onMouseDown(void* ravel, double x, double y);
   void ravel_onMouseUp(void* ravel, double x, double y);
-  void ravel_onMouseMotion(void* ravel, double x, double y);
-  void ravel_onMouseLeave(void* ravel, double x, double y);
+  /// handle mouse motion with button pressed
+  /// @ return true if it needs to be rerendered
+  bool ravel_onMouseMotion(void* ravel, double x, double y);
+  /// hande mouse motion without pressed button (tooltips etc)
+  /// @ return true if it needs to be rerendered
+  bool ravel_onMouseOver(void* ravel, double x, double y);
+  /// handle mouse movements leaving the ravel
+  void ravel_onMouseLeave(void* ravel);
   /// @}
   /// resize a ravel
   void ravel_rescale(void* ravel, double radius);
