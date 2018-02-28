@@ -1,11 +1,21 @@
 # root directory for ecolab include files and libraries
+ifdef MXE
+ECOLAB_HOME=$(HOME)/usr/mxe/ecolab
+else
 ifeq ($(shell ls $(HOME)/usr/ecolab/include/ecolab.h),$(HOME)/usr/ecolab/include/ecolab.h)
 ECOLAB_HOME=$(HOME)/usr/ecolab
 else
 ECOLAB_HOME=/usr/local/ecolab
 endif
+endif
 
 include $(ECOLAB_HOME)/include/Makefile
+
+ifdef MXE
+DL=dll
+else
+DL=so
+endif
 
 ACTIONS+=xml_pack xml_unpack random_init
 FLAGS+=-std=c++11 #-Wno-error=offsetof
@@ -38,7 +48,7 @@ aegis-all: all
 endif
 
 #chmod command is to counteract AEGIS removing execute privelege from scripts
-all: $(MODELS) $(EXES)  libravel.so Ravel/Installer/ravelDoc.wxi src/ravelVersion.h
+all: $(MODELS) $(EXES)  libravel.$(DL) Ravel/Installer/ravelDoc.wxi src/ravelVersion.h
 	-$(CHMOD) a+x *.tcl
 
 ifeq ($(OS),Darwin)
@@ -78,7 +88,7 @@ $(MODELS:=.app): %.app: %
 libravel.a: $(OBJS)
 	ar r $@ $^
 
-libravel.so: $(OBJS) capi.o
+libravel.$(DL): $(OBJS) capi.o
 	$(LINK) $(FLAGS) -shared $^ $(LIBS) -o $@
 
 ifneq ($(MAKECMDGOALS),clean)

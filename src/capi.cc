@@ -6,11 +6,18 @@ using namespace ravel;
 #include <memory>
 using namespace std;
 
+#undef DLLEXPORT
+#ifdef WIN32
+#define DLLEXPORT __declspec(dllexport)
+#else
+#define DLLEXPORT
+#endif
+
 extern "C"
 {
-  int ravel_version() {return RAVEL_VERSION;}
+  DLLEXPORT int ravel_version() {return RAVEL_VERSION;}
 
-  void* ravel_new(size_t rank)
+  DLLEXPORT void* ravel_new(size_t rank)
   {
     unique_ptr<RavelCairo<cairo_t*>> r(new RavelCairo<cairo_t*>);
     r->handleIds.clear();
@@ -22,12 +29,12 @@ extern "C"
     return r.release();
   }
 
-  void ravel_delete(void* ravel)
+  DLLEXPORT void ravel_delete(void* ravel)
   {
     delete static_cast<RavelCairo<cairo_t*>*>(ravel);
   }
 
-  void ravel_render(void* ravel, cairo_t* cairo)
+  DLLEXPORT void ravel_render(void* ravel, cairo_t* cairo)
   {
     if (ravel)
       {
@@ -38,7 +45,7 @@ extern "C"
   }
   
 
-  void ravel_onMouseDown(void* ravel, double x, double y)
+  DLLEXPORT void ravel_onMouseDown(void* ravel, double x, double y)
   {
     if (ravel)
       {
@@ -48,7 +55,7 @@ extern "C"
   }
 
   
-  void ravel_onMouseUp(void* ravel, double x, double y)
+  DLLEXPORT void ravel_onMouseUp(void* ravel, double x, double y)
   {
     if (ravel)
       {
@@ -57,7 +64,7 @@ extern "C"
       }
   }
 
-  bool ravel_onMouseMotion(void* ravel, double x, double y)
+  DLLEXPORT bool ravel_onMouseMotion(void* ravel, double x, double y)
   {
     if (ravel)
       {
@@ -67,7 +74,7 @@ extern "C"
     return false;
   }
 
-  bool ravel_onMouseOver(void* ravel, double x, double y)
+  DLLEXPORT bool ravel_onMouseOver(void* ravel, double x, double y)
   {
     if (ravel)
       {
@@ -77,7 +84,7 @@ extern "C"
     return false;
   }
 
-  void ravel_onMouseLeave(void* ravel)
+  DLLEXPORT void ravel_onMouseLeave(void* ravel)
   {
     if (ravel)
       {
@@ -86,7 +93,7 @@ extern "C"
       }
   }
 
-  void ravel_rescale(void* ravel, double radius)
+  DLLEXPORT void ravel_rescale(void* ravel, double radius)
   {
     if (ravel)
       {
