@@ -1,5 +1,6 @@
 #include "capi.h"
 #include "ravelCairo.h"
+#include "dataCube.h"
 #include <ecolab_epilogue.h>
 using namespace ravel;
 
@@ -15,19 +16,18 @@ using classdesc::xml_unpack_t;
 #define DLLEXPORT
 #endif
 
-namespace
+struct CAPIRavel: public RavelCairo<cairo_t*>
 {
-  struct CAPIRavel: public RavelCairo<cairo_t*>
-  {
-    ostringstream os;
-  };
-}
+  ostringstream os;
+};
+
+struct CAPIRavelDC: public DataCube {};
 
 extern "C"
 {
   DLLEXPORT int ravel_version() {return RAVEL_VERSION;}
 
-  DLLEXPORT void* ravel_new(size_t rank)
+  DLLEXPORT CAPIRavel* ravel_new(size_t rank)
   {
     unique_ptr<CAPIRavel> r(new CAPIRavel);
     r->handleIds.clear();
@@ -39,157 +39,120 @@ extern "C"
     return r.release();
   }
 
-  DLLEXPORT void ravel_delete(void* ravel)
+  DLLEXPORT void ravel_delete(CAPIRavel* ravel)
   {
-    delete static_cast<RavelCairo<cairo_t*>*>(ravel);
+    delete ravel;
   }
 
-  DLLEXPORT void ravel_render(void* ravel, cairo_t* cairo)
+  DLLEXPORT void ravel_render(CAPIRavel* ravel, cairo_t* cairo)
   {
     if (ravel)
       {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
-        r.setG(cairo);
-        r.render();
+        ravel->setG(cairo);
+        ravel->render();
       }
   }
   
 
-  DLLEXPORT void ravel_onMouseDown(void* ravel, double x, double y)
+  DLLEXPORT void ravel_onMouseDown(CAPIRavel* ravel, double x, double y)
   {
     if (ravel)
-      {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
-        r.onMouseDown(x,y);
-      }
+      ravel->onMouseDown(x,y);
   }
 
   
-  DLLEXPORT void ravel_onMouseUp(void* ravel, double x, double y)
+  DLLEXPORT void ravel_onMouseUp(CAPIRavel* ravel, double x, double y)
   {
     if (ravel)
-      {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
-        r.onMouseUp(x,y);
-      }
+      ravel->onMouseUp(x,y);
   }
 
-  DLLEXPORT bool ravel_onMouseMotion(void* ravel, double x, double y)
+  DLLEXPORT bool ravel_onMouseMotion(CAPIRavel* ravel, double x, double y)
   {
     if (ravel)
-      {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
-        return r.onMouseMotion(x,y);
-      }
+      return ravel->onMouseMotion(x,y);
     return false;
   }
 
-  DLLEXPORT bool ravel_onMouseOver(void* ravel, double x, double y)
+  DLLEXPORT bool ravel_onMouseOver(CAPIRavel* ravel, double x, double y)
   {
     if (ravel)
-      {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
-        return r.onMouseOver(x,y);
-      }
+      return ravel->onMouseOver(x,y);
     return false;
   }
 
-  DLLEXPORT void ravel_onMouseLeave(void* ravel)
+  DLLEXPORT void ravel_onMouseLeave(CAPIRavel* ravel)
   {
     if (ravel)
-      {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
-        r.onMouseLeave();
-      }
+      ravel->onMouseLeave();
   }
 
-  DLLEXPORT void ravel_rescale(void* ravel, double radius)
+  DLLEXPORT void ravel_rescale(CAPIRavel* ravel, double radius)
   {
     if (ravel)
-      {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
-        r.rescale(radius);
-      }
+      ravel->rescale(radius);
   }
 
-  DLLEXPORT double ravel_radius(void* ravel)
+  DLLEXPORT double ravel_radius(CAPIRavel* ravel)
   {
     if (ravel)
-      {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
-        return r.radius();
-      }
+      return ravel->radius();
     return 0;
   }
 
-  DLLEXPORT size_t ravel_rank(void* ravel)
+  DLLEXPORT size_t ravel_rank(CAPIRavel* ravel)
   {
     if (ravel)
-      {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
-        return r.rank();
-      }
+      return ravel->rank();
     return 0;
   }
 
-  DLLEXPORT void ravel_outputHandleIds(void* ravel, size_t ids[])
+  DLLEXPORT void ravel_outputHandleIds(CAPIRavel* ravel, size_t ids[])
   {
     if (ravel)
-      {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
-        for (size_t i=0; i<r.rank(); ++i)
-          ids[i]=r.handleIds[i];
-      }
+      for (size_t i=0; i<ravel->rank(); ++i)
+        ids[i]=ravel->handleIds[i];
   }
   
-  DLLEXPORT size_t ravel_numSliceLabels(void* ravel, size_t axis)
+  DLLEXPORT size_t ravel_numSliceLabels(CAPIRavel* ravel, size_t axis)
   {
     if (ravel)
-      {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
-        if (axis<r.handles.size())
-          return r.handles[axis].sliceLabels.size();
-      }
+      if (axis<ravel->handles.size())
+        return ravel->handles[axis].sliceLabels.size();
     return 0;
   }
 
-  DLLEXPORT void ravel_sliceLabels(void* ravel, size_t axis, const char* labels[])
+  DLLEXPORT void ravel_sliceLabels(CAPIRavel* ravel, size_t axis, const char* labels[])
   {
-    if (ravel)
+    if (ravel && axis<ravel->handles.size())
       {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
-        if (axis<r.handles.size())
-          {
-            auto& h=r.handles[axis];
-            for (size_t i=0; i<h.sliceLabels.size(); ++i)
-              labels[i]=h.sliceLabels[i].c_str();
-          }
+        auto& h=ravel->handles[axis];
+        for (size_t i=0; i<h.sliceLabels.size(); ++i)
+          labels[i]=h.sliceLabels[i].c_str();
       }
   }
 
-  DLLEXPORT const char* ravel_toXML(void* ravel)
+  DLLEXPORT const char* ravel_toXML(CAPIRavel* ravel)
   {
     if (ravel)
       {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
         ostringstream os;
         xml_pack_t x(os);
-        xml_pack(x,"",static_cast<Ravel&>(r));
-        os.swap(r.os); //stash the string result
-        return r.os.str().c_str();
+        xml_pack(x,"",static_cast<Ravel&>(*ravel));
+        os.swap(ravel->os); //stash the string result
+        return ravel->os.str().c_str();
       }
     return "";
   }
   
   /// populate with XML data
-  DLLEXPORT void ravel_fromXML(void* ravel, const char* data)
+  DLLEXPORT void ravel_fromXML(CAPIRavel* ravel, const char* data)
   {
     if (ravel)
       {
-        auto& r=*static_cast<CAPIRavel*>(ravel);
         istringstream is(data);
         xml_unpack_t x(is);
-        xml_unpack(x,"",static_cast<Ravel&>(r));
+        xml_unpack(x,"",static_cast<Ravel&>(*ravel));
       }
   }
 
