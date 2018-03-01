@@ -12,6 +12,15 @@
 struct CAPIRavel;
 struct CAPIRavelDC;
 
+/// describe the structure of a CSV file. -1 means figure it out from the data
+struct CAPIRavelDataSpec
+{
+  int nRowAxes=-1; ///< No. rows describing axes
+  int nColAxes=-1; ///< No. cols describing axes
+  int nCommentLines=-1; ///< No. comment header lines
+  char separator=','; ///< field separator character
+};
+
 extern "C"
 {
   /// returns the major version number of this API. This gets bumped
@@ -64,8 +73,10 @@ extern "C"
   CAPIRavelDC* ravelDC_new();
   /// delete a datacube object
   void ravelDC_delete(CAPIRavelDC*);
-  /// open a flat CSV file format (last column is the data)
-  void ravelDC_openFile(CAPIRavelDC* dc, const char* fileName);
+  /// initialise a ravel from a loaded datacube
+  void ravelDC_initRavel(CAPIRavelDC* dc,CAPIRavel* ravel);
+  /// open a CSV file. Format is described by \a spec. -1 means figure it out from the data
+  void ravelDC_openFile(CAPIRavelDC* dc, const char* fileName, CAPIRavelDataSpec spec);
   /** return a hyperslice corresponding to the ravel's configuration
       The returned data is a dense multidimensional array with the
       dimensions returned as the \a dim parameter, which must be the

@@ -21,7 +21,11 @@ struct CAPIRavel: public RavelCairo<cairo_t*>
   ostringstream os;
 };
 
-struct CAPIRavelDC: public DataCube {};
+struct CAPIRavelDC: public DataCube
+{
+  // not using this callback
+  void setDataElement(size_t, size_t, double) override {}
+};
 
 extern "C"
 {
@@ -153,6 +157,43 @@ extern "C"
         istringstream is(data);
         xml_unpack_t x(is);
         xml_unpack(x,"",static_cast<Ravel&>(*ravel));
+      }
+  }
+
+  CAPIRavelDC* ravelDC_new()
+  {return new CAPIRavelDC;}
+  void ravelDC_delete(CAPIRavelDC* dc)
+  {delete dc;}
+  
+  void ravelDC_initRavel(CAPIRavelDC* dc,CAPIRavel* ravel)
+  {
+    if (dc && ravel)
+      dc->initRavel(*ravel);
+  }
+  
+  void ravelDC_openFile(CAPIRavelDC* dc, const char* fileName, CAPIRavelDataSpec spec)
+  {
+    if (dc)
+      {
+        DataSpec dSpec;
+        if (spec.nRowAxes<0 || spec.nColAxes<0 || spec.nCommentLines < 0)
+          {
+            ifstream input(fileName);
+            CSVFTokeniser tok(input, spec.separator);
+            dSpec=dc->initDataSpec(tok);
+          }
+        if (spec.nRowAxes>=0) dSpec.nRowAxes=spec.nRowAxes;
+        if (spec.nColAxes>=0) dSpec.nColAxes=spec.nColAxes;
+        if (spec.nCommentLines>=0)
+          {
+            dSpec.commentRows.clear();
+            for (unsigned i=0; i<spec.nCommentLines; ++i)
+              dSpec.commentRows.insert(i);
+          }
+        
+        ifstream input(fileName);
+        CSVFTokeniser tok(input, spec.separator);
+        dc->loadData(tok,dSpec);
       }
   }
 

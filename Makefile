@@ -94,6 +94,7 @@ libravel.$(DL): $(OBJS) capi.o
 ifneq ($(MAKECMDGOALS),clean)
 include $(MODELS:=.d) 
 include $(OBJS:.o=.d)
+include capi.d
 endif
 
 clean:
