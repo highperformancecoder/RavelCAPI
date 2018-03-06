@@ -1,6 +1,7 @@
 #include "capi.h"
 #include "ravelCairo.h"
 #include "dataCube.h"
+#include "ravelVersion.h"
 #include <ecolab_epilogue.h>
 using namespace ravel;
 
@@ -27,28 +28,52 @@ struct CAPIRavelDC: public DataCube
   void setDataElement(size_t, size_t, double) override {}
 };
 
+static string lastErr;
+
+#define CONSUME_EXCEPTION(ret)                     \
+  catch (const std::exception& ex)                 \
+    {                                              \
+      try {lastErr=ex.what();}                     \
+      catch(...) {}                                \
+      return ret;                                  \
+    }                                              \
+  catch (...)                                      \
+    {                                              \
+      try {lastErr="unknown exception caught";}    \
+      catch(...) {}                                \
+      return ret;                                  \
+    }
+
+
 extern "C"
 {
-  DLLEXPORT int ravel_version() {return RAVEL_VERSION;}
+  DLLEXPORT int ravel_capi_version() noexcept {return RAVEL_CAPI_VERSION;}
+  DLLEXPORT const char* ravel_lastErr() noexcept  {return lastErr.c_str();}
+  DLLEXPORT const char* ravel_version() noexcept  {return RAVEL_VERSION;}
 
-  DLLEXPORT CAPIRavel* ravel_new(size_t rank)
+  DLLEXPORT CAPIRavel* ravel_new(size_t rank) noexcept 
   {
-    unique_ptr<CAPIRavel> r(new CAPIRavel);
-    r->handleIds.clear();
-    for (size_t i=0; i<rank; ++i)
-      r->handleIds.push_back(i);
-    // TODO - temporaily here to get basic functionality up
-    r->addHandle();
-    r->addHandle();
-    return r.release();
+    try
+      {
+        unique_ptr<CAPIRavel> r(new CAPIRavel);
+        r->handleIds.clear();
+        for (size_t i=0; i<rank; ++i)
+          r->handleIds.push_back(i);
+        // TODO - temporaily here to get basic functionality up
+        r->addHandle();
+        r->addHandle();
+        r->handles[0].description="hello";
+        return r.release();
+      }
+    CONSUME_EXCEPTION(nullptr);
   }
 
-  DLLEXPORT void ravel_delete(CAPIRavel* ravel)
+  DLLEXPORT void ravel_delete(CAPIRavel* ravel) noexcept 
   {
     delete ravel;
   }
 
-  DLLEXPORT void ravel_render(CAPIRavel* ravel, cairo_t* cairo)
+  DLLEXPORT void ravel_render(CAPIRavel* ravel, cairo_t* cairo) noexcept 
   {
     if (ravel)
       {
@@ -58,67 +83,67 @@ extern "C"
   }
   
 
-  DLLEXPORT void ravel_onMouseDown(CAPIRavel* ravel, double x, double y)
+  DLLEXPORT void ravel_onMouseDown(CAPIRavel* ravel, double x, double y) noexcept 
   {
     if (ravel)
       ravel->onMouseDown(x,y);
   }
 
   
-  DLLEXPORT void ravel_onMouseUp(CAPIRavel* ravel, double x, double y)
+  DLLEXPORT void ravel_onMouseUp(CAPIRavel* ravel, double x, double y) noexcept 
   {
     if (ravel)
       ravel->onMouseUp(x,y);
   }
 
-  DLLEXPORT bool ravel_onMouseMotion(CAPIRavel* ravel, double x, double y)
+  DLLEXPORT bool ravel_onMouseMotion(CAPIRavel* ravel, double x, double y) noexcept 
   {
     if (ravel)
       return ravel->onMouseMotion(x,y);
     return false;
   }
 
-  DLLEXPORT bool ravel_onMouseOver(CAPIRavel* ravel, double x, double y)
+  DLLEXPORT bool ravel_onMouseOver(CAPIRavel* ravel, double x, double y) noexcept 
   {
     if (ravel)
       return ravel->onMouseOver(x,y);
     return false;
   }
 
-  DLLEXPORT void ravel_onMouseLeave(CAPIRavel* ravel)
+  DLLEXPORT void ravel_onMouseLeave(CAPIRavel* ravel) noexcept 
   {
     if (ravel)
       ravel->onMouseLeave();
   }
 
-  DLLEXPORT void ravel_rescale(CAPIRavel* ravel, double radius)
+  DLLEXPORT void ravel_rescale(CAPIRavel* ravel, double radius) noexcept 
   {
     if (ravel)
       ravel->rescale(radius);
   }
 
-  DLLEXPORT double ravel_radius(CAPIRavel* ravel)
+  DLLEXPORT double ravel_radius(CAPIRavel* ravel) noexcept 
   {
     if (ravel)
       return ravel->radius();
     return 0;
   }
 
-  DLLEXPORT size_t ravel_rank(CAPIRavel* ravel)
+  DLLEXPORT size_t ravel_rank(CAPIRavel* ravel) noexcept 
   {
     if (ravel)
       return ravel->rank();
     return 0;
   }
 
-  DLLEXPORT void ravel_outputHandleIds(CAPIRavel* ravel, size_t ids[])
+  DLLEXPORT void ravel_outputHandleIds(CAPIRavel* ravel, size_t ids[]) noexcept 
   {
     if (ravel)
       for (size_t i=0; i<ravel->rank(); ++i)
         ids[i]=ravel->handleIds[i];
   }
   
-  DLLEXPORT size_t ravel_numSliceLabels(CAPIRavel* ravel, size_t axis)
+  DLLEXPORT size_t ravel_numSliceLabels(CAPIRavel* ravel, size_t axis) noexcept 
   {
     if (ravel)
       if (axis<ravel->handles.size())
@@ -126,7 +151,7 @@ extern "C"
     return 0;
   }
 
-  DLLEXPORT void ravel_sliceLabels(CAPIRavel* ravel, size_t axis, const char* labels[])
+  DLLEXPORT void ravel_sliceLabels(CAPIRavel* ravel, size_t axis, const char* labels[]) noexcept 
   {
     if (ravel && axis<ravel->handles.size())
       {
@@ -136,65 +161,85 @@ extern "C"
       }
   }
 
-  DLLEXPORT const char* ravel_toXML(CAPIRavel* ravel)
+  DLLEXPORT const char* ravel_toXML(CAPIRavel* ravel) noexcept 
   {
     if (ravel)
-      {
-        ostringstream os;
-        xml_pack_t x(os);
-        xml_pack(x,"",static_cast<Ravel&>(*ravel));
-        os.swap(ravel->os); //stash the string result
-        return ravel->os.str().c_str();
-      }
+      try
+        {
+          ostringstream os;
+          xml_pack_t x(os);
+          xml_pack(x,"",static_cast<Ravel&>(*ravel));
+          os.swap(ravel->os); //stash the string result
+          return ravel->os.str().c_str();
+        }
+    CONSUME_EXCEPTION("");
     return "";
   }
   
   /// populate with XML data
-  DLLEXPORT void ravel_fromXML(CAPIRavel* ravel, const char* data)
+  DLLEXPORT bool ravel_fromXML(CAPIRavel* ravel, const char* data) noexcept 
   {
     if (ravel)
+      try
       {
         istringstream is(data);
         xml_unpack_t x(is);
         xml_unpack(x,"",static_cast<Ravel&>(*ravel));
       }
+    CONSUME_EXCEPTION(false);
+    return true;
   }
 
-  CAPIRavelDC* ravelDC_new()
-  {return new CAPIRavelDC;}
-  void ravelDC_delete(CAPIRavelDC* dc)
-  {delete dc;}
-  
-  void ravelDC_initRavel(CAPIRavelDC* dc,CAPIRavel* ravel)
+  DLLEXPORT CAPIRavelDC* ravelDC_new() noexcept 
   {
-    if (dc && ravel)
-      dc->initRavel(*ravel);
+    try
+      {
+        return new CAPIRavelDC;
+      }
+    CONSUME_EXCEPTION(nullptr);
   }
   
-  void ravelDC_openFile(CAPIRavelDC* dc, const char* fileName, CAPIRavelDataSpec spec)
+  DLLEXPORT void ravelDC_delete(CAPIRavelDC* dc) noexcept 
+  {delete dc;}
+  
+  DLLEXPORT bool ravelDC_initRavel(CAPIRavelDC* dc,CAPIRavel* ravel) noexcept 
+  {
+    if (dc && ravel)
+      try
+        {
+          dc->initRavel(*ravel);
+        }
+    CONSUME_EXCEPTION(false);
+    return true;
+  }
+  
+  DLLEXPORT bool ravelDC_openFile(CAPIRavelDC* dc, const char* fileName, CAPIRavelDataSpec spec) noexcept 
   {
     if (dc)
-      {
-        DataSpec dSpec;
-        if (spec.nRowAxes<0 || spec.nColAxes<0 || spec.nCommentLines < 0)
-          {
-            ifstream input(fileName);
-            CSVFTokeniser tok(input, spec.separator);
-            dSpec=dc->initDataSpec(tok);
-          }
-        if (spec.nRowAxes>=0) dSpec.nRowAxes=spec.nRowAxes;
-        if (spec.nColAxes>=0) dSpec.nColAxes=spec.nColAxes;
-        if (spec.nCommentLines>=0)
-          {
-            dSpec.commentRows.clear();
-            for (unsigned i=0; i<spec.nCommentLines; ++i)
-              dSpec.commentRows.insert(i);
-          }
-        
-        ifstream input(fileName);
-        CSVFTokeniser tok(input, spec.separator);
-        dc->loadData(tok,dSpec);
-      }
+      try
+        {
+          DataSpec dSpec;
+          if (spec.nRowAxes<0 || spec.nColAxes<0 || spec.nCommentLines < 0)
+            {
+              ifstream input(fileName);
+              CSVFTokeniser tok(input, spec.separator);
+              dSpec=dc->initDataSpec(tok);
+            }
+          if (spec.nRowAxes>=0) dSpec.nRowAxes=spec.nRowAxes;
+          if (spec.nColAxes>=0) dSpec.nColAxes=spec.nColAxes;
+          if (spec.nCommentLines>=0)
+            {
+              dSpec.commentRows.clear();
+              for (unsigned i=0; i<spec.nCommentLines; ++i)
+                dSpec.commentRows.insert(i);
+            }
+          
+          ifstream input(fileName);
+          CSVFTokeniser tok(input, spec.separator);
+         dc->loadData(tok,dSpec);
+        }
+    CONSUME_EXCEPTION(false);
+    return true;
   }
 
 }

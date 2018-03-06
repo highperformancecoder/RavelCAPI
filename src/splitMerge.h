@@ -3,6 +3,7 @@
 #define SPLITMERGE_H
 #include <string>
 #include <vector>
+#include <classdesc_access.h>
 
 namespace ravel
 {
@@ -13,6 +14,7 @@ namespace ravel
     std::vector<std::string> elem;
     // ignoring any constant leadin, find the split point
     size_t splitPoint() const;
+    CLASSDESC_ACCESS(SplitMerge);
   public:
     /// get the contents of cell located at (row, col)
     virtual std::string get(size_t row, size_t col) const=0;

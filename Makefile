@@ -11,12 +11,6 @@ endif
 
 include $(ECOLAB_HOME)/include/Makefile
 
-ifdef MXE
-DL=dll
-else
-DL=so
-endif
-
 ACTIONS+=xml_pack xml_unpack random_init
 FLAGS+=-std=c++11 #-Wno-error=offsetof
 
@@ -41,6 +35,12 @@ MODELS=ravelTest
 EXES=logos 
 
 DLLS=libgcc_s_dw2-1.dll libstdc++-6.dll libcairo-2.dll libgobject-2.0-0.dll libgsl-0.dll libpango-1.0-0.dll libpangocairo-1.0-0.dll tcl85.dll tk85.dll libz-1.dll libpixman-1-0.dll libpng15-15.dll libglib-2.0-0.dll libintl-8.dll libiconv-2.dll libffi-6.dll libgslcblas-0.dll libgmodule-2.0-0.dll libpangowin32-1.0-0.dll Tktable211.dll
+
+ifdef MXE
+DL=dll
+else
+DL=so
+endif
 
 ifdef AEGIS
 aegis-all: all
@@ -81,6 +81,7 @@ $(EXES): %: %.o libravel.a
 	$(LINK) $(FLAGS) $*.o $(LIBS) -o $@
 
 
+
 #make MacOS application bundles
 $(MODELS:=.app): %.app: %
 	$(ECOLAB_HOME)/utils/mkmacapp $<
@@ -98,7 +99,7 @@ include capi.d
 endif
 
 clean:
-	$(BASIC_CLEAN)
+	$(BASIC_CLEAN) libravel.*
 	cd src; $(BASIC_CLEAN)
 	cd src/shims; $(BASIC_CLEAN)
 	cd src/tcl; $(BASIC_CLEAN)
@@ -150,3 +151,6 @@ install-web: doc/javascriptAPI/index.html doc/ravelDoc/index.html
 
 electron:
 	$(MAKE) -C javascript-widget electron
+
+clang-check:
+	$(MAKE) CPLUSPLUS="/usr/bin/clang++ -I/usr/lib64/clang/4.0.1/include"

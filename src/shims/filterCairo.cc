@@ -130,12 +130,12 @@ void FilterCairo<G>::onMouseDown(double, double y)
 
 #ifdef USE_GDI
 #include <windows.h>
-template class FilterCairo<HDC>;
+namespace ravel {template class FilterCairo<HDC>;}
 
 #else
 #define CAIRO_WIN32_STATIC_BUILD
 #include <cairo.h>
 #undef CAIRO_WIN32_STATIC_BUILD
 
-template class FilterCairo<cairo_t*>;
+namespace ravel {template class FilterCairo<cairo_t*>;}
 #endif
