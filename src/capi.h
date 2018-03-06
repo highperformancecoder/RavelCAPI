@@ -4,6 +4,7 @@
 
 #ifndef CAPI_H
 #define CAPI_H
+#include "capiRenderer.h"
 #include <cairo/cairo.h>
 #include <stdlib.h>
 
@@ -21,7 +22,9 @@ struct CAPIRavelDataSpec
   char separator=','; ///< field separator character
 };
 
+#ifdef __cplusplus
 extern "C"
+#endif
 {
   /// returns the major version number of this API. This gets bumped
   /// whenever a method is removed or signature changes, but not when
@@ -38,16 +41,16 @@ extern "C"
   /// dispose of ravel created by ravel_new()
   void ravel_delete(CAPIRavel* ravel) noexcept;
   /// render ravel widget into a Cairo context
-  void ravel_render(CAPIRavel* ravel, cairo_t* cairo) noexcept;
+  void ravel_render(CAPIRavel* ravel, CAPIRenderer* cairo) noexcept;
   /// @{ handle mouse events
   void ravel_onMouseDown(CAPIRavel* ravel, double x, double y) noexcept;
   void ravel_onMouseUp(CAPIRavel* ravel, double x, double y) noexcept;
   /// handle mouse motion with button pressed
   /// @ return true if it needs to be rerendered
-  bool ravel_onMouseMotion(CAPIRavel* ravel, double x, double y) noexcept;
+  int ravel_onMouseMotion(CAPIRavel* ravel, double x, double y) noexcept;
   /// hande mouse motion without pressed button (tooltips etc)
   /// @ return true if it needs to be rerendered
-  bool ravel_onMouseOver(CAPIRavel* ravel, double x, double y) noexcept;
+  int ravel_onMouseOver(CAPIRavel* ravel, double x, double y) noexcept;
   /// handle mouse movements leaving the ravel
   void ravel_onMouseLeave(CAPIRavel* ravel) noexcept;
   /// @}
@@ -72,16 +75,16 @@ extern "C"
   /// return XML represention of
   const char* ravel_toXML(CAPIRavel* ravel) noexcept;
   /// populate with XML data. @return true on success
-  bool ravel_fromXML(CAPIRavel* ravel, const char*) noexcept;
+  int ravel_fromXML(CAPIRavel* ravel, const char*) noexcept;
 
   /// create a new dataCube object
   CAPIRavelDC* ravelDC_new() noexcept;
   /// delete a datacube object
   void ravelDC_delete(CAPIRavelDC*) noexcept;
   /// initialise a ravel from a loaded datacube. @return true on success
-  bool ravelDC_initRavel(CAPIRavelDC* dc,CAPIRavel* ravel) noexcept;
+  int ravelDC_initRavel(CAPIRavelDC* dc,CAPIRavel* ravel) noexcept;
   /// open a CSV file. Format is described by \a spec. -1 means figure it out from the data
-  bool ravelDC_openFile(CAPIRavelDC* dc, const char* fileName, CAPIRavelDataSpec spec) noexcept;
+  int ravelDC_openFile(CAPIRavelDC* dc, const char* fileName, CAPIRavelDataSpec spec) noexcept;
   /** return a hyperslice corresponding to the ravel's configuration
       The returned data is a dense multidimensional array with the
       dimensions returned as the \a dim parameter, which must be the

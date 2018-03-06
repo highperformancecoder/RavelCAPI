@@ -7,6 +7,10 @@ using std::string;
 using std::cout;
 using std::endl;
 
+// build cairoRenderer to ensure everything is type correct
+#include "cairoRenderer.h"
+ravel::CairoRenderer cs(nullptr);
+
 namespace
 {
   string name(const Test& t)

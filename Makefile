@@ -27,7 +27,7 @@ VPATH+=src src/shims src/tcl
 FLAGS+=-I. -Isrc -Isrc/tcl
 
 # object files making up libravel
-OBJS=ravel.o dataCube.o ravelCairo.o cairoShimCairo.o \
+OBJS=ravel.o dataCube.o ravelCairo.o cairoShimCairo.o cairoShimCAPIRenderer.o \
 	filterCairo.o splitMerge.o sortedVector.o rawData.o partialReduction.o
 LIBS+=libravel.a
 LIBS:=-L$(HOME)/usr/lib64 $(LIBS)
@@ -89,7 +89,7 @@ $(MODELS:=.app): %.app: %
 libravel.a: $(OBJS)
 	ar r $@ $^
 
-libravel.$(DL): $(OBJS) capi.o
+libravel.$(DL): capi.o libravel.a
 	$(LINK) $(FLAGS) -shared $^ $(LIBS) -o $@
 
 ifneq ($(MAKECMDGOALS),clean)

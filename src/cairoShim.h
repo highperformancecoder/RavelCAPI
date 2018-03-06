@@ -23,10 +23,10 @@ namespace ravel
     CairoShim(const CairoShim&)=delete;
     void operator=(const CairoShim&)=delete;
   public:
+    // template parameter G = cairo_t* or HDC
     CairoShim(G);
     ~CairoShim();
 
-    // template parameter G = cairo_t* or HDC
     void moveTo(double x, double y);
     void lineTo(double x, double y);
     void relMoveTo(double x, double y);

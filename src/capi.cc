@@ -17,10 +17,14 @@ using classdesc::xml_unpack_t;
 #define DLLEXPORT
 #endif
 
-struct CAPIRavel: public RavelCairo<cairo_t*>
+struct CAPIRavel: public RavelCairo<CAPIRenderer*>
 {
   ostringstream os;
 };
+
+// canary failure if CAPIRenderer interface changes.
+// If it does, RAVEL_CAPI_VERSION needs to be bumped, and this assert fixed
+static_assert(sizeof(CAPIRenderer)==22*sizeof(void*));
 
 struct CAPIRavelDC: public DataCube
 {
@@ -73,7 +77,7 @@ extern "C"
     delete ravel;
   }
 
-  DLLEXPORT void ravel_render(CAPIRavel* ravel, cairo_t* cairo) noexcept 
+  DLLEXPORT void ravel_render(CAPIRavel* ravel, CAPIRenderer* cairo) noexcept 
   {
     if (ravel)
       {
@@ -96,14 +100,14 @@ extern "C"
       ravel->onMouseUp(x,y);
   }
 
-  DLLEXPORT bool ravel_onMouseMotion(CAPIRavel* ravel, double x, double y) noexcept 
+  DLLEXPORT int ravel_onMouseMotion(CAPIRavel* ravel, double x, double y) noexcept 
   {
     if (ravel)
       return ravel->onMouseMotion(x,y);
     return false;
   }
 
-  DLLEXPORT bool ravel_onMouseOver(CAPIRavel* ravel, double x, double y) noexcept 
+  DLLEXPORT int ravel_onMouseOver(CAPIRavel* ravel, double x, double y) noexcept 
   {
     if (ravel)
       return ravel->onMouseOver(x,y);
@@ -177,7 +181,7 @@ extern "C"
   }
   
   /// populate with XML data
-  DLLEXPORT bool ravel_fromXML(CAPIRavel* ravel, const char* data) noexcept 
+  DLLEXPORT int ravel_fromXML(CAPIRavel* ravel, const char* data) noexcept 
   {
     if (ravel)
       try
@@ -202,7 +206,7 @@ extern "C"
   DLLEXPORT void ravelDC_delete(CAPIRavelDC* dc) noexcept 
   {delete dc;}
   
-  DLLEXPORT bool ravelDC_initRavel(CAPIRavelDC* dc,CAPIRavel* ravel) noexcept 
+  DLLEXPORT int ravelDC_initRavel(CAPIRavelDC* dc,CAPIRavel* ravel) noexcept 
   {
     if (dc && ravel)
       try
@@ -213,7 +217,7 @@ extern "C"
     return true;
   }
   
-  DLLEXPORT bool ravelDC_openFile(CAPIRavelDC* dc, const char* fileName, CAPIRavelDataSpec spec) noexcept 
+  DLLEXPORT int ravelDC_openFile(CAPIRavelDC* dc, const char* fileName, CAPIRavelDataSpec spec) noexcept 
   {
     if (dc)
       try
