@@ -60,6 +60,7 @@ namespace ravel
   {
     /// extract next line of data
     virtual std::vector<boost::any> getLine()=0;
+    virtual ~Tokeniser() {}
   };
 
   struct CSVFTokeniser: public Tokeniser

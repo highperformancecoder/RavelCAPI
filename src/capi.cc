@@ -30,6 +30,7 @@ struct CAPIRavelDC: public DataCube
 {
   // not using this callback
   void setDataElement(size_t, size_t, double) override {}
+  RawData slice;
 };
 
 static string lastErr;
@@ -63,10 +64,6 @@ extern "C"
         r->handleIds.clear();
         for (size_t i=0; i<rank; ++i)
           r->handleIds.push_back(i);
-        // TODO - temporaily here to get basic functionality up
-        r->addHandle();
-        r->addHandle();
-        r->handles[0].description="hello";
         return r.release();
       }
     CONSUME_EXCEPTION(nullptr);
@@ -244,6 +241,25 @@ extern "C"
         }
     CONSUME_EXCEPTION(false);
     return true;
+  }
+
+  DLLEXPORT int ravelDC_hyperSlice
+  (CAPIRavelDC* dc, CAPIRavel *ravel, size_t dims[], double **data) noexcept
+  {
+    *data=nullptr;
+    try
+      {
+        dc->hyperSlice(dc->slice,*ravel);
+        if (ravel->rank()==dc->slice.rank())
+          {
+            *data=&dc->slice[0];
+            for (size_t i=0; i<dc->slice.rank(); ++i)
+              dims[i]=dc->slice.dim(i);
+            return true;
+          }
+      }
+    CONSUME_EXCEPTION(false);
+    return false;
   }
 
 }
