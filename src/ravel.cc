@@ -302,19 +302,6 @@ void Ravel::rescale(double r)
     handles[i].scaleHome(scale);
 }
 
-//int Ravel::handleIfMouseOver(double x, double y) const
-//{
-//  for (unsigned h=0; h<handles.size(); ++h)
-//    {
-//      double rsq=sqr(handles[h].x())+sqr(handles[h].y());
-//      double dotp=x*handles[h].x() + y*handles[h].y();
-//	  if (dotp>0 && dotp <= 1.1*rsq && /*1.1 allows for arrow */
-//          rsq*(sqr(x)+sqr(y))-sqr(dotp) < 100*rsq)
-//        return h;
-//    }
-//  return -1; // no handle found within tolerance
-//}
-
 int Ravel::handleIfMouseOver(double a_x, double a_y, int exclude) const
 {
   // determine tolerances based on angles
