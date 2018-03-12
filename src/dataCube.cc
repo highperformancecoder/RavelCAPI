@@ -509,8 +509,14 @@ void DataCube::initRavel(ravel::Ravel& ravel) const
     ravel.addHandle(dimNames[i], dimLabels()[i]);
   // if some axes are read in as rows, then set the xHandle to the
   // first of these, otherwise take the second
-  if (dimNames.size()>1)
-    ravel.handleIds=vector<size_t>{leastRowAxis<dimNames.size()? leastRowAxis: 1, 0};
+  if (dimNames.size()>1 && ravel.rank()>=1)
+    {
+      auto i=find(ravel.handleIds.begin(), ravel.handleIds.end(), leastRowAxis);
+      if (i!=ravel.handleIds.end())
+        swap(*i,ravel.handleIds.front());
+      else
+        ravel.handleIds.front()=leastRowAxis;
+    }
   ravel.redistributeHandles();
 }
 
