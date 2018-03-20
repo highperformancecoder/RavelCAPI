@@ -19,7 +19,7 @@ using classdesc::xml_unpack_t;
 
 struct CAPIRavel: public RavelCairo<CAPIRenderer*>
 {
-  ostringstream os;
+  string xml;
 };
 
 // canary failure if CAPIRenderer interface changes.
@@ -169,9 +169,9 @@ extern "C"
         {
           ostringstream os;
           xml_pack_t x(os);
-          xml_pack(x,"",static_cast<Ravel&>(*ravel));
-          os.swap(ravel->os); //stash the string result
-          return ravel->os.str().c_str();
+          xml_pack(x,"ravel",static_cast<Ravel&>(*ravel));
+          ravel->xml=os.str();
+          return ravel->xml.c_str();
         }
     CONSUME_EXCEPTION("");
     return "";
@@ -185,7 +185,7 @@ extern "C"
       {
         istringstream is(data);
         xml_unpack_t x(is);
-        xml_unpack(x,"",static_cast<Ravel&>(*ravel));
+        xml_unpack(x,"ravel",static_cast<Ravel&>(*ravel));
       }
     CONSUME_EXCEPTION(false);
     return true;
