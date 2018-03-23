@@ -77,6 +77,9 @@ extern "C"
       free these.
   **/
   void ravel_sliceLabels(CAPIRavel* ravel, size_t axis, const char* labels[]) NOEXCEPT;
+  /// enable/disable the filter calipers on axis \a axis
+  void ravel_displayFilterCaliper(CAPIRavel* ravel, size_t axis, bool display) NOEXCEPT;
+  
   /// return XML represention of
   const char* ravel_toXML(CAPIRavel* ravel) NOEXCEPT;
   /// populate with XML data. @return true on success

@@ -162,6 +162,14 @@ extern "C"
       }
   }
 
+  DLLEXPORT void ravel_displayFilterCaliper(CAPIRavel* ravel, size_t axis, bool display) noexcept 
+  {
+    if (ravel && axis<ravel->handles.size())
+      ravel->handles[axis].displayFilterCaliper=display;
+  }
+
+  
+  
   DLLEXPORT const char* ravel_toXML(CAPIRavel* ravel) noexcept 
   {
     if (ravel)
