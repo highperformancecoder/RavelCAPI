@@ -28,6 +28,7 @@ SUITE(RavelCairo)
       Surface surf(cairo_image_surface_create(CAIRO_FORMAT_ARGB32,300,300));
       cairo_surface_set_device_offset(surf.surface(), 150,150);
       setG(surf.cairo());
+      handleIds={0,1};
       addHandle("x",{"a","b","c"});
       addHandle("y",{"a","b","c"});
       addHandle("z",{"a","b","c"});

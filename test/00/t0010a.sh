@@ -38,6 +38,7 @@ source assert.tcl
 Ravel ravel
 ravel.x 0
 ravel.y 0
+ravel.handleIds {0 1}
 ravel.addHandle x {a b c}
 ravel.addHandle y {a b c}
 ravel.addHandle z {a b c}
