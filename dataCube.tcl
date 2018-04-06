@@ -232,8 +232,32 @@ bind .csvForm.table <Button-3> {
     }
 }
 
+
+proc ravelContext {x y X Y} {
+    set h [dc.ravel.handleIfMouseOverOpLabel $x $y]
+    if {$h>=0} {
+        set hh [dc.ravel.handles.@elem $h]
+        .ravelFilter.context delete 1 end
+        .ravelFilter.context add command -label "Σ" -command "$hh.reductionOp sum; redraw"
+        .ravelFilter.context add command -label "Π" -command "$hh.reductionOp prod; redraw"
+        .ravelFilter.context add command -label "av" -command "$hh.reductionOp av; redraw"
+        .ravelFilter.context add command -label "σ" -command "$hh.reductionOp stddev; redraw"
+        .ravelFilter.context add command -label "min" -command "$hh.reductionOp min; redraw"
+        .ravelFilter.context add command -label "max" -command "$hh.reductionOp max; redraw"
+        tk_popup .ravelFilter.context $X $Y
+    } else {
+        set h [dc.ravel.handleIfMouseOver [expr $x-[dc.ravel.x]] [expr $y-[dc.ravel.y]] -1]
+        if {$h<0} return
+        set hh [dc.ravel.handles.@elem $h]
+        .ravelFilter.context delete 1 end
+        .ravelFilter.context add command -label "enable calipers" -command "$hh.displayFilterCaliper 1; redraw"
+        tk_popup .ravelFilter.context $X $Y
+    }
+}
+
 .user1 configure -text Ravel -command {
     toplevel .ravelFilter
+    menu .ravelFilter.context
     dc.width 300
     dc.height 300
     image create photo filterImage -width [dc.width] -height [dc.height]
@@ -253,4 +277,5 @@ bind .csvForm.table <Button-3> {
     bind .ravelFilter.ravel <ButtonRelease-1> {dc.ravel.onMouseUp %x %y; redraw}
     bind .ravelFilter.ravel <B1-Motion> {dc.ravel.onMouseMotion %x %y; dc.render}
     bind .ravelFilter.ravel <Motion> {dc.ravel.onMouseOver %x %y; dc.render}
+    bind .ravelFilter.ravel <ButtonPress-3> {ravelContext %x %y %X %Y}
 }
