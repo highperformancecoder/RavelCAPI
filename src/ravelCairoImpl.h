@@ -143,6 +143,8 @@ namespace ravel
                             h.minSliceLabel());
                 drawCaliper(gc,sf,hx,hy,h.maxSliceX()/sf,h.maxSliceY()/sf,
                             h.maxSliceLabel());
+                h.setMinSliceLabelExtents(gc);
+                h.setMaxSliceLabelExtents(gc);
               }
           }
         
@@ -157,6 +159,7 @@ namespace ravel
         else
           gc.moveTo(ap.x/sf, ap.y/sf);
         gc.showText(h.description);
+        h.setDescLabelExtents(gc);
 
         if (toolTipHandle==int(i))
           {
@@ -187,6 +190,7 @@ namespace ravel
             gc.moveTo(h.opX()/sf-gc.textWidth(), h.opY()/sf);
           
             gc.showText(opLabels[h.reductionOp]);
+            h.setOpLabelExtents(gc);
           }
 
         // slice control
@@ -208,7 +212,7 @@ namespace ravel
             double x=(h.sliceX()/sf+2)/scale, y=(h.sliceY()/sf-2)/scale;
             // do moveTo in rotated frame to allow for HTML canvas behaviour
             gc.moveTo(x*cos(angle)+y*sin(angle), y*cos(angle)-x*sin(angle));
-            gc.showText(h.sliceLabel().c_str());
+            gc.showText(h.sliceLabel());
             gc.restore();
           }
       }
@@ -240,29 +244,28 @@ namespace ravel
   }
 
   template <class G>
-  static bool ptInText(G& gc, const std::string& text, const AnchorPoint& a, double x, double y, double sf)
+  static bool ptInText(G& gc, const AnchorPoint& a, double x, double y, double sf)
   {
-    gc.setTextExtents(text);
     switch (a.anchor)
       {
       case AnchorPoint::se:
-        if (x<=a.x && x>=a.x-sf*gc.textWidth() &&
-            y<=a.y && y>=a.y-sf*gc.textHeight())
+        if (x<=a.x && x>=a.x-sf*a.width &&
+            y<=a.y && y>=a.y-sf*a.height)
           return true;
         break;
       case AnchorPoint::sw:
-        if (x>=a.x && x<=a.x+sf*gc.textWidth() &&
-            y<=a.y && y>=a.y-sf*gc.textHeight())
+        if (x>=a.x && x<=a.x+sf*a.width &&
+            y<=a.y && y>=a.y-sf*a.height)
           return true;
         break;
       case AnchorPoint::ne:
-        if (x>=a.x && x<=a.x+sf*gc.textWidth() &&
-            y>=a.y && y<=a.y+sf*gc.textHeight())
+        if (x>=a.x && x<=a.x+sf*a.width &&
+            y>=a.y && y<=a.y+sf*a.height)
           return true;
         break;
       case AnchorPoint::nw:
-        if (x<=a.x && x>=a.x-sf*gc.textWidth() &&
-            y>=a.y && y<=a.y+sf*gc.textHeight())
+        if (x<=a.x && x>=a.x-sf*a.width &&
+            y>=a.y && y<=a.y+sf*a.height)
           return true;
         break;
       }
@@ -276,11 +279,8 @@ namespace ravel
     x-=this->x; y-=this->y;
     double sf=0.01*radius();
     for (unsigned h=0; h<handles.size(); ++h)
-      {
-        const Handle& hnd=handles[h];
-        if (ptInText(gc,hnd.description,hnd.labelAnchor(),x,y,sf))
-          return h;
-      }
+      if (ptInText(gc,handles[h].labelAnchor(),x,y,sf))
+        return h;
     return -1;
   }
 
@@ -291,13 +291,8 @@ namespace ravel
     x-=this->x; y-=this->y;
     double sf=0.01*radius();
     for (unsigned h=0; h<handles.size(); ++h)
-      {
-        const Handle& hnd=handles[h];
-        if (ptInText(gc,opLabels[hnd.reductionOp],
-                     AnchorPoint{hnd.opX(),hnd.opY(), AnchorPoint::se},
-                     x,y,sf))
-          return h;
-      }
+      if (ptInText(gc,handles[h].opLabelAnchor(),x,y,sf))
+        return h;
     return -1;
   }
 
@@ -310,24 +305,23 @@ namespace ravel
     for (unsigned h=0; h<handles.size(); ++h)
       {
         const Handle& hnd=handles[h];
-        AnchorPoint minap{hnd.minSliceX(),hnd.minSliceY(), AnchorPoint::sw},
-          maxap{hnd.maxSliceX(),hnd.maxSliceY(), AnchorPoint::sw};
-          // if its the x axis, we need to rotate (x,y) by 90 degrees
-          if (h==handleIds[0])
-            {
-              std::swap(x,y);
-              x*=-1;
-              std::swap(minap.x,minap.y);
-              minap.x*=-1;
-              std::swap(maxap.x,maxap.y);
-              maxap.x*=-1;
-            }
-          if (hnd.displayFilterCaliper)
-            {
-              if (ptInText(gc,hnd.minSliceLabel(), minap, x,y,sf) ||
-                  ptInText(gc,hnd.maxSliceLabel(), maxap, x,y,sf)              )
-                return h;
-            }
+        if (hnd.displayFilterCaliper)
+          {
+            AnchorPoint minap=hnd.minCaliperLabelAnchor(),
+              maxap=hnd.maxCaliperLabelAnchor();
+            // if its the x axis, we need to rotate (x,y) by 90 degrees
+            if (h==handleIds[0])
+              {
+                std::swap(x,y);
+                x*=-1;
+                std::swap(minap.x,minap.y);
+                minap.x*=-1;
+                std::swap(maxap.x,maxap.y);
+                maxap.x*=-1;
+              }
+            if (ptInText(gc,minap, x,y,sf) || ptInText(gc,maxap, x,y,sf))
+              return h;
+          }
       }
     return -1;
   }

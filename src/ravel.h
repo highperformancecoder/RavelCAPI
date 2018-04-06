@@ -26,7 +26,7 @@ namespace ravel
   // represents an anchor point for text, including alignment
   struct AnchorPoint
   {
-    double x,y;
+    double x,y,width,height;
     enum Anchor {ne,nw,se,sw};
     Anchor anchor;
   };
@@ -38,6 +38,15 @@ namespace ravel
 
     double m_x, m_y, home_x, home_y;
     bool m_collapsed=false;
+    /** @{
+        cached text extents for the handle description, op and caliper labels
+        see ticket #957284
+    */
+    mutable double descLabelWidth=0, descLabelHeight=0;
+    mutable double opLabelWidth=0, opLabelHeight=0;
+    mutable double minSliceWidth=0, minSliceHeight=0;
+    mutable double maxSliceWidth=0, maxSliceHeight=0;
+    /// @}
     friend class Ravel;
     void setHome(double x, double y) {home_x=x; home_y=y; snap();}
     void scaleHome(double scale) {home_x*=scale; home_y*=scale; snap();}
@@ -110,9 +119,38 @@ namespace ravel
     double opY() const;
     /// @}
 
-    /// return the anchor point for the axis label
+    /// @{ the text data for the description, operation and slice labels
     AnchorPoint labelAnchor() const;
+    AnchorPoint opLabelAnchor() const;
+    AnchorPoint minCaliperLabelAnchor() const;
+    AnchorPoint maxCaliperLabelAnchor() const;
+    /// @}
 
+    /// @{ cache text extents
+    template <class GC>
+    void setLabelExtents(GC& g, const std::string& label, double& width, double& height) const {
+      g.setTextExtents(label);
+      width=g.textWidth();
+      height=g.textHeight();
+    }
+    template <class GC>
+    void setDescLabelExtents(GC& g) const
+    {setLabelExtents(g,description,descLabelWidth,descLabelHeight);}
+    
+    template <class GC>
+    void setOpLabelExtents(GC& g) const
+    {setLabelExtents(g,opLabels[reductionOp],opLabelWidth,opLabelHeight);}
+
+    template <class GC>
+    void setMinSliceLabelExtents(GC& g) const
+    {setLabelExtents(g,minSliceLabel(),minSliceWidth,minSliceHeight);}
+    
+    template <class GC>
+    void setMaxSliceLabelExtents(GC& g) const
+    {setLabelExtents(g,maxSliceLabel(),maxSliceWidth,maxSliceHeight);}
+    /// @}
+  
+    
     /// set coordinates of a slice control, relative to ravel
     /// origin, which snap to the nearest available slice, recorded in \a index
     void setSliceCoordinates(size_t& index,double x, double y);

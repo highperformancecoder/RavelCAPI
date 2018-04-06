@@ -50,11 +50,27 @@ AnchorPoint Handle::labelAnchor() const
   double off=0.03*sqrt(sqr(x())+sqr(y()));
   if ((y()>0 && fabs(x()) < fabs(y())) || (!collapsed() && x() > fabs(y())))
     // in bottom quadrant, or near x axis anchor at south east
-    return AnchorPoint{x()-off,y()-off,AnchorPoint::se};
+    return AnchorPoint{x()-off,y()-off,descLabelWidth,descLabelHeight,AnchorPoint::se};
   else 
-    return AnchorPoint{x()+off,y()-off,AnchorPoint::sw};
+    return AnchorPoint{x()+off,y()-off,descLabelWidth,descLabelHeight,AnchorPoint::sw};
 }
 
+AnchorPoint Handle::opLabelAnchor() const
+{
+  return AnchorPoint{opX(),opY(), opLabelWidth, opLabelHeight, AnchorPoint::se};
+}
+
+AnchorPoint Handle::minCaliperLabelAnchor() const
+{
+  return AnchorPoint{minSliceX(),minSliceY(), minSliceWidth, minSliceHeight,
+      AnchorPoint::sw};
+}
+
+AnchorPoint Handle::maxCaliperLabelAnchor() const
+{
+  return AnchorPoint{maxSliceX(),maxSliceY(), maxSliceWidth, maxSliceHeight,
+      AnchorPoint::sw};
+}
 
 void Handle::setSliceCoordinates(size_t& a_sliceIndex,double x, double y)
 {
