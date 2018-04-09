@@ -396,12 +396,17 @@ void DataCube::populateArray(Ravel& ravel)
   // prepare empty row/column masks
   xHandle.mask.clear(); yHandle.mask.clear();
 
+  size_t xoffs=xHandle.displayFilterCaliper? xHandle.sliceMin: 0;
+  size_t yoffs=yHandle.displayFilterCaliper? yHandle.sliceMin: 0;
+  size_t xmax=sliceData.dim(0)+xoffs;
+  size_t ymax=sliceData.dim(1)+yoffs;
+  
   // set up masks to eliminate empty rows/cols
   set<size_t> validX, validY;
-  for (size_t i=0; i<sliceData.dim(0); ++i)
-    for (size_t j=0; j<sliceData.dim(1); ++j)
-      if (!isnan(sliceData[xHandle.sliceLabels.idx(i)*sliceData.stride(0)
-                                 + yHandle.sliceLabels.idx(j)*sliceData.stride(1)]))
+  for (size_t i=xoffs; i<xmax; ++i)
+    for (size_t j=yoffs; j<ymax; ++j)
+      if (!isnan(sliceData[(xHandle.sliceLabels.idx(i)-xoffs)*sliceData.stride(0)
+                           + (yHandle.sliceLabels.idx(j)-yoffs)*sliceData.stride(1)]))
         {validX.insert(i); validY.insert(j);}
 
   for (size_t i=0; i<xHandle.sliceLabels.size(); ++i)
@@ -409,14 +414,14 @@ void DataCube::populateArray(Ravel& ravel)
   for (size_t i=0; i<yHandle.sliceLabels.size(); ++i)
     if (!validY.count(i)) yHandle.mask.insert(i);
 
-  for (size_t i=0, i1=0; i<sliceData.dim(0); ++i)
+  for (size_t i=xoffs, i1=0; i<xmax; ++i)
     if (validX.count(i))
       {
-        for (size_t j=0, j1=0; j<sliceData.dim(1); ++j)
+        for (size_t j=yoffs, j1=0; j<ymax; ++j)
           if (validY.count(j))
             {
-              double v=sliceData[xHandle.sliceLabels.idx(i)*sliceData.stride(0)
-                                 + yHandle.sliceLabels.idx(j)*sliceData.stride(1)];
+              double v=sliceData[(xHandle.sliceLabels.idx(i)-xoffs)*sliceData.stride(0)
+                                 + (yHandle.sliceLabels.idx(j)-yoffs)*sliceData.stride(1)];
               if (!isnan(v))
                 filterDataElement(i1,j1,v);
               j1++;

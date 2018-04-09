@@ -77,7 +77,7 @@ namespace ravel
     SortedVector sliceLabels;
     size_t numSliceLabels() const {return sliceLabels.size();}
     /// current slice, filter bounds
-    size_t sliceIndex, sliceMin=0, sliceMax=std::numeric_limits<size_t>::max();
+    size_t sliceIndex, sliceMin=0, sliceMax=std::numeric_limits<size_t>::max()-1;
     /// move slice index by \a p, taking into acount the bounds
     void moveSliceIdx(int p) {
       if (long(sliceIndex)+p >= 0 && long(sliceIndex) + p < long(sliceLabels.size()))

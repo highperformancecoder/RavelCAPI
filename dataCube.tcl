@@ -24,6 +24,11 @@ proc redraw {} {
     global t dataCube
     # clear everything in the spreadsheet
     array unset dataCube
+    set handles [dc.ravel.handleIds]
+    dc.ravel.handles.@elem [lindex handles 0]
+    dc.ravel.handles.@elem [lindex handles 1]
+    $t configure -cols [dc.ravel.handles([lindex handles 0]).sliceLabels.size]
+    $t configure -rows [dc.ravel.handles([lindex handles 1]).sliceLabels.size]
     dc.populateArray dataCube
 #    $t delete rows 0 [$t cget -rows]
     dc.render
@@ -250,9 +255,17 @@ proc ravelContext {x y X Y} {
         if {$h<0} return
         set hh [dc.ravel.handles.@elem $h]
         .ravelFilter.context delete 1 end
-        .ravelFilter.context add command -label "enable calipers" -command "$hh.displayFilterCaliper 1; redraw"
+        global calipers
+        set calipers [$hh.displayFilterCaliper]
+        .ravelFilter.context add checkbutton -label "enable calipers" -variable calipers -command "setCalipers $hh"
         tk_popup .ravelFilter.context $X $Y
     }
+}
+
+proc setCalipers h {
+    global calipers
+    $h.displayFilterCaliper $calipers
+    redraw
 }
 
 .user1 configure -text Ravel -command {
