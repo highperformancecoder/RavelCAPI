@@ -235,6 +235,9 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
         }
     }
 
+  if (tmpData.empty())
+    throw RavelError("apparently empty data file loaded");
+  
   m_dimLabels.clear();
 
 
