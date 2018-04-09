@@ -17,7 +17,7 @@
 
 namespace ravel
 {
-  enum class PartialReductionType {bin,scan,change,presort};
+  enum class PartialReductionType {bin,scan,change,presort,applyCalipers};
   struct PartialReduction:
     public classdesc::PolyBase<PartialReductionType>,
                            classdesc::PolyXML<PartialReduction>
@@ -74,6 +74,16 @@ namespace ravel
     enum Op {subtract, divide, percent, relative};
     Op op;
     Change(Op op=subtract, std::size_t offset=1): op(op), offset(offset) {}
+    void operator()(double*, const double*, size_t, size_t) const override;
+    std::vector<size_t> indices(size_t) const override;
+  };
+
+  struct ApplyCalipers: public classdesc::Poly<ApplyCalipers,PartialReduction>
+  {
+    PartialReductionType type() const override
+    {return PartialReductionType::applyCalipers;}
+    std::size_t minIdx, maxIdx;
+    ApplyCalipers(std::size_t minIdx, std::size_t maxIdx): minIdx(minIdx), maxIdx(maxIdx) {}
     void operator()(double*, const double*, size_t, size_t) const override;
     std::vector<size_t> indices(size_t) const override;
   };

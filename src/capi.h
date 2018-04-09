@@ -67,6 +67,8 @@ extern "C"
   /// return the handle IDs of the output handles, in order x,y,z, etc.
   /// ids must be ravel_rank() in size
   void ravel_outputHandleIds(CAPIRavel* ravel, size_t ids[]) NOEXCEPT;
+  /// number of handles (aka axes)
+  unsigned ravel_numHandles(CAPIRavel* ravel) NOEXCEPT;
   /// number of slice labels along axis \a axis
   size_t ravel_numSliceLabels(CAPIRavel* ravel, size_t axis) NOEXCEPT;
   /** returns the sliceLabels along axis \a axis 

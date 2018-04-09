@@ -289,15 +289,30 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
   bool noReductions=true;
   RawData partReducedData;
   for (auto& h: ravel.handles)
-    for (auto& pred: h.partialReductions())
-      if (noReductions)
+    {
+      // apply any caliper restrictions to data
+      if (h.displayFilterCaliper && (h.sliceMin>0 || h.sliceMax<h.sliceLabels.size()))
         {
-          // avoid copying data first time around
-          partReducedData=rawData.partialReduce(rawData.axis(h.description),*pred);
-          noReductions=false;
+          ApplyCalipers ac(h.sliceMin, h.sliceMax);
+          if (noReductions)
+            {
+              // avoid copying data first time around
+              partReducedData=rawData.partialReduce(rawData.axis(h.description),ac);
+              noReductions=false;
+            }
+          else
+            partReducedData=partReducedData.partialReduce(partReducedData.axis(h.description),ac);
         }
-      else
-        partReducedData=partReducedData.partialReduce(partReducedData.axis(h.description),*pred);
+      for (auto& pred: h.partialReductions())
+        if (noReductions)
+          {
+            // avoid copying data first time around
+            partReducedData=rawData.partialReduce(rawData.axis(h.description),*pred);
+            noReductions=false;
+          }
+        else
+          partReducedData=partReducedData.partialReduce(partReducedData.axis(h.description),*pred);
+    }
   if (noReductions)
     hyperSliceAfterPartialReductions(sliceData, ravel, rawData);
   else

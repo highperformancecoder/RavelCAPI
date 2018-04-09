@@ -144,11 +144,21 @@ extern "C"
         ids[i]=ravel->handleIds[i];
   }
   
+  DLLEXPORT unsigned ravel_numHandles(CAPIRavel* ravel) NOEXCEPT
+  {return ravel? ravel->handles.size(): 0;}
+
   DLLEXPORT size_t ravel_numSliceLabels(CAPIRavel* ravel, size_t axis) noexcept 
   {
     if (ravel)
       if (axis<ravel->handles.size())
-        return ravel->handles[axis].sliceLabels.size();
+        {
+          auto& h=ravel->handles[axis];
+          size_t N=h.sliceLabels.size();
+          if (h.displayFilterCaliper)
+            return min(N, min(N,h.sliceMax+1)-h.sliceMin);
+          else
+            return N;
+        }
     return 0;
   }
 
@@ -157,8 +167,12 @@ extern "C"
     if (ravel && axis<ravel->handles.size())
       {
         auto& h=ravel->handles[axis];
-        for (size_t i=0; i<h.sliceLabels.size(); ++i)
-          labels[i]=h.sliceLabels[i].c_str();
+        if (h.displayFilterCaliper)
+          for (size_t i=0, j=h.sliceMin; j<min(h.sliceLabels.size(), h.sliceMax+1); ++i, ++j)
+            labels[i]=h.sliceLabels[j].c_str();
+        else
+          for (size_t i=0; i<h.sliceLabels.size(); ++i)
+            labels[i]=h.sliceLabels[i].c_str();
       }
   }
 
