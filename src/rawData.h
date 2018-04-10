@@ -19,12 +19,6 @@
 
 namespace ravel
 {
-  struct InvalidKey: public std::exception
-  {
-    InvalidKey() {}
-    const char* what() const noexcept {return "invalid key";}
-  };
-
   typedef std::vector<std::pair<std::string,std::vector<std::string>>> 
     LabelsVector;
   struct AxisSlice
@@ -37,6 +31,19 @@ namespace ravel
     }
   };
   typedef std::vector<AxisSlice> Key;
+
+  struct InvalidKey: public std::exception
+  {
+    std::string key="invalid key:";
+    InvalidKey() {}
+    InvalidKey(const std::string& k) {key+=k;}
+    InvalidKey(const Key& k) {
+      key+="(";
+      for (auto& i: k) key+=i.axis+":"+i.slice+",";
+      key+=")";
+    }
+    const char* what() const noexcept {return key.c_str();}
+  };
 
   class RawDataIdx
   {

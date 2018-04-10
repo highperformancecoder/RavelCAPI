@@ -32,7 +32,7 @@ RawDataIdx::RawDataIdx(const RawDataIdx& x, const std::vector<std::string>& axes
   for (auto& i: axes)
     {
       auto k=x.indicesByName.find(i);
-      if (k==x.indicesByName.end()) throw InvalidKey();
+      if (k==x.indicesByName.end()) throw InvalidKey(i);
       auto& idx=x.indices[k->second];
 
       indicesByName[i]=indices.size();
@@ -95,10 +95,10 @@ size_t RawDataIdx::idx(const Key& key) const
     {
       auto j=indicesByName.find(i.axis);
       if (j==indicesByName.end())
-        throw InvalidKey();
+        throw InvalidKey(key);
       auto k=indices[j->second].idx.find(i.slice);
       if (k==indices[j->second].idx.end())
-        throw InvalidKey();
+        throw InvalidKey(key);
       idx+=k->second;
     }
   return idx;
@@ -108,7 +108,7 @@ const RawDataIdx::Idx& RawDataIdx::index(const string& axis) const
 {
   auto i=indicesByName.find(axis);
   if (i==indicesByName.end())
-    throw InvalidKey();
+    throw InvalidKey(axis);
   return indices[i->second];
 }
 
@@ -121,7 +121,7 @@ RawDataIdx RawDataIdx::slice
   for (auto& axis: axes)
     {
       auto i=indicesByName.find(axis);
-      if (i==indicesByName.end()) throw InvalidKey();
+      if (i==indicesByName.end()) throw InvalidKey(axis);
       r.indicesByName[axis]=r.indices.size();
       r.indices.push_back(indices[i->second]);
       r.m_size*=r.indices.back().idx.size();

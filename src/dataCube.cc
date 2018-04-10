@@ -237,6 +237,11 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
 
   if (tmpData.empty())
     throw RavelError("apparently empty data file loaded");
+
+  // check for uniqueness of dimension names
+  set<string> uniqDimNames(dimNames.begin(), dimNames.end());
+  if (uniqDimNames.size()<dimNames.size())
+    throw RavelError("non-unique dimension names provided - are you missing a header?");
   
   m_dimLabels.clear();
 
@@ -261,6 +266,8 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
 
   m_sortBy.resize(m_dimLabels.size());
   leastRowAxis = spec.nColAxes - spec.commentCols.size();
+  // if each data point lies on its own line, then we have overestimated leastRowAxis
+  if (leastRowAxis==dimNames.size()) --leastRowAxis;
 }
 
 void setupSortByPerm(DataCube::SortBy sortBy, size_t axis, size_t otherAxis,
