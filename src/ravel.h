@@ -208,7 +208,7 @@ namespace ravel
   public:
 
     /// coordinates of Ravel origin
-    double x,y;
+    double x=0,y=0;
     Op::ReductionOp nextRedOp=Op::sum;
     /// prevent changes to handle vector, but each handle is fully writable
     class Handles: private std::vector<Handle> 
