@@ -1,0 +1,4556 @@
+country, quarter, value$
+"Australia", "1967-Q4", 1.8
+"Australia", "1968-Q1", 1.9
+"Australia", "1968-Q2", 1.9
+"Australia", "1968-Q3", 1.8
+"Australia", "1968-Q4", 1.7
+"Australia", "1969-Q1", 1.8
+"Australia", "1969-Q2", 1.8
+"Australia", "1969-Q3", 1.7
+"Australia", "1969-Q4", 1.9
+"Australia", "1970-Q1", 1.6
+"Australia", "1970-Q2", 1.7
+"Australia", "1970-Q3", 1.7
+"Australia", "1970-Q4", 1.6
+"Australia", "1971-Q1", 1.7
+"Australia", "1971-Q2", 1.9
+"Australia", "1971-Q3", 1.9
+"Australia", "1971-Q4", 2.2
+"Australia", "1972-Q1", 2.4
+"Australia", "1972-Q2", 2.4
+"Australia", "1972-Q3", 2.9
+"Australia", "1972-Q4", 2.8
+"Australia", "1973-Q1", 2.6
+"Australia", "1973-Q2", 2.3
+"Australia", "1973-Q3", 2.1
+"Australia", "1973-Q4", 2.1
+"Australia", "1974-Q1", 2.1
+"Australia", "1974-Q2", 2.1
+"Australia", "1974-Q3", 2.7
+"Australia", "1974-Q4", 4.0
+"Australia", "1975-Q1", 4.8
+"Australia", "1975-Q2", 4.8
+"Australia", "1975-Q3", 4.7
+"Australia", "1975-Q4", 5.4
+"Australia", "1976-Q1", 4.9
+"Australia", "1976-Q2", 4.5
+"Australia", "1976-Q3", 4.8
+"Australia", "1976-Q4", 4.9
+"Australia", "1977-Q1", 5.2
+"Australia", "1977-Q2", 5.6
+"Australia", "1977-Q3", 5.8
+"Australia", "1977-Q4", 5.9
+"Australia", "1978-Q1", 6.6
+"Australia", "1978-Q2", 6.263078
+"Australia", "1978-Q3", 6.315743
+"Australia", "1978-Q4", 6.295003
+"Australia", "1979-Q1", 6.333507
+"Australia", "1979-Q2", 6.323567
+"Australia", "1979-Q3", 6.184192
+"Australia", "1979-Q4", 6.17396
+"Australia", "1980-Q1", 6.048161
+"Australia", "1980-Q2", 6.23707
+"Australia", "1980-Q3", 6.110481
+"Australia", "1980-Q4", 5.975318
+"Australia", "1981-Q1", 5.780103
+"Australia", "1981-Q2", 5.51028
+"Australia", "1981-Q3", 5.818088
+"Australia", "1981-Q4", 5.956833
+"Australia", "1982-Q1", 6.222385
+"Australia", "1982-Q2", 6.569216
+"Australia", "1982-Q3", 7.124563
+"Australia", "1982-Q4", 8.795985
+"Australia", "1983-Q1", 9.65216
+"Australia", "1983-Q2", 10.23251
+"Australia", "1983-Q3", 10.36909
+"Australia", "1983-Q4", 9.713341
+"Australia", "1984-Q1", 9.382799
+"Australia", "1984-Q2", 9.135207
+"Australia", "1984-Q3", 8.795859
+"Australia", "1984-Q4", 8.638035
+"Australia", "1985-Q1", 8.556499
+"Australia", "1985-Q2", 8.442018
+"Australia", "1985-Q3", 8.154243
+"Australia", "1985-Q4", 7.869841
+"Australia", "1986-Q1", 7.933728
+"Australia", "1986-Q2", 7.788263
+"Australia", "1986-Q3", 8.226896
+"Australia", "1986-Q4", 8.345164
+"Australia", "1987-Q1", 8.293167
+"Australia", "1987-Q2", 8.161909
+"Australia", "1987-Q3", 7.983856
+"Australia", "1987-Q4", 7.933578
+"Australia", "1988-Q1", 7.523725
+"Australia", "1988-Q2", 7.628427
+"Australia", "1988-Q3", 6.922505
+"Australia", "1988-Q4", 6.773477
+"Australia", "1989-Q1", 6.604721
+"Australia", "1989-Q2", 6.16398
+"Australia", "1989-Q3", 6.036088
+"Australia", "1989-Q4", 5.868758
+"Australia", "1990-Q1", 6.229981
+"Australia", "1990-Q2", 6.472065
+"Australia", "1990-Q3", 7.221888
+"Australia", "1990-Q4", 7.87536
+"Australia", "1991-Q1", 8.732803
+"Australia", "1991-Q2", 9.643769
+"Australia", "1991-Q3", 9.860147
+"Australia", "1991-Q4", 10.20346
+"Australia", "1992-Q1", 10.42683
+"Australia", "1992-Q2", 10.66599
+"Australia", "1992-Q3", 10.83057
+"Australia", "1992-Q4", 11.10747
+"Australia", "1993-Q1", 10.8911
+"Australia", "1993-Q2", 10.88175
+"Australia", "1993-Q3", 10.90468
+"Australia", "1993-Q4", 10.83863
+"Australia", "1994-Q1", 10.46066
+"Australia", "1994-Q2", 9.915887
+"Australia", "1994-Q3", 9.459801
+"Australia", "1994-Q4", 9.021998
+"Australia", "1995-Q1", 8.753018
+"Australia", "1995-Q2", 8.395209
+"Australia", "1995-Q3", 8.37453
+"Australia", "1995-Q4", 8.375109
+"Australia", "1996-Q1", 8.399884
+"Australia", "1996-Q2", 8.438324
+"Australia", "1996-Q3", 8.582073
+"Australia", "1996-Q4", 8.621325
+"Australia", "1997-Q1", 8.600101
+"Australia", "1997-Q2", 8.488958
+"Australia", "1997-Q3", 8.346249
+"Australia", "1997-Q4", 7.984796
+"Australia", "1998-Q1", 7.843651
+"Australia", "1998-Q2", 7.722229
+"Australia", "1998-Q3", 7.77533
+"Australia", "1998-Q4", 7.378954
+"Australia", "1999-Q1", 7.081152
+"Australia", "1999-Q2", 6.861847
+"Australia", "1999-Q3", 6.883328
+"Australia", "1999-Q4", 6.626046
+"Australia", "2000-Q1", 6.669539
+"Australia", "2000-Q2", 6.271945
+"Australia", "2000-Q3", 5.996909
+"Australia", "2000-Q4", 6.157544
+"Australia", "2001-Q1", 6.375507
+"Australia", "2001-Q2", 6.841066
+"Australia", "2001-Q3", 6.873919
+"Australia", "2001-Q4", 6.961308
+"Australia", "2002-Q1", 6.650852
+"Australia", "2002-Q2", 6.382853
+"Australia", "2002-Q3", 6.276542
+"Australia", "2002-Q4", 6.143695
+"Australia", "2003-Q1", 6.05746
+"Australia", "2003-Q2", 6.036668
+"Australia", "2003-Q3", 5.894444
+"Australia", "2003-Q4", 5.708356
+"Australia", "2004-Q1", 5.538242
+"Australia", "2004-Q2", 5.425604
+"Australia", "2004-Q3", 5.469831
+"Australia", "2004-Q4", 5.128647
+"Australia", "2005-Q1", 5.086622
+"Australia", "2005-Q2", 5.044584
+"Australia", "2005-Q3", 4.954368
+"Australia", "2005-Q4", 5.02449
+"Australia", "2006-Q1", 5.028229
+"Australia", "2006-Q2", 4.837932
+"Australia", "2006-Q3", 4.685586
+"Australia", "2006-Q4", 4.531584
+"Australia", "2007-Q1", 4.524817
+"Australia", "2007-Q2", 4.302204
+"Australia", "2007-Q3", 4.268681
+"Australia", "2007-Q4", 4.362241
+"Australia", "2008-Q1", 4.076447
+"Australia", "2008-Q2", 4.234746
+"Australia", "2008-Q3", 4.200014
+"Australia", "2008-Q4", 4.439116
+"Australia", "2009-Q1", 5.293501
+"Australia", "2009-Q2", 5.70186
+"Australia", "2009-Q3", 5.697945
+"Australia", "2009-Q4", 5.545611
+"Australia", "2010-Q1", 5.333557
+"Australia", "2010-Q2", 5.27676
+"Australia", "2010-Q3", 5.127365
+"Australia", "2010-Q4", 5.064663
+"Australia", "2011-Q1", 4.971413
+"Australia", "2011-Q2", 4.964658
+"Australia", "2011-Q3", 5.18528
+"Australia", "2011-Q4", 5.170619
+"Australia", "2012-Q1", 5.160476
+"Australia", "2012-Q2", 5.131368
+"Australia", "2012-Q3", 5.24835
+"Australia", "2012-Q4", 5.328444
+"Australia", "2013-Q1", 5.482628
+"Australia", "2013-Q2", 5.65413
+"Australia", "2013-Q3", 5.678814
+"Australia", "2013-Q4", 5.802311
+"Australia", "2014-Q1", 5.899862
+"Australia", "2014-Q2", 5.955614
+"Australia", "2014-Q3", 6.175684
+"Australia", "2014-Q4", 6.222715
+"Australia", "2015-Q1", 6.224501
+"Australia", "2015-Q2", 6.058895
+"Australia", "2015-Q3", 6.195989
+"Australia", "2015-Q4", 5.829678
+"Australia", "2016-Q1", 5.821179
+"Australia", "2016-Q2", 5.737503
+"Australia", "2016-Q3", 5.674047
+"Australia", "2016-Q4", 5.714679
+"Austria", "1993-Q1", 3.833333
+"Austria", "1993-Q2", 3.966667
+"Austria", "1993-Q3", 4.033333
+"Austria", "1993-Q4", 4.0
+"Austria", "1994-Q1", 3.9
+"Austria", "1994-Q2", 3.833333
+"Austria", "1994-Q3", 3.8
+"Austria", "1994-Q4", 3.8
+"Austria", "1995-Q1", 3.933333
+"Austria", "1995-Q2", 4.1
+"Austria", "1995-Q3", 4.366667
+"Austria", "1995-Q4", 4.566667
+"Austria", "1996-Q1", 4.766667
+"Austria", "1996-Q2", 4.8
+"Austria", "1996-Q3", 4.7
+"Austria", "1996-Q4", 4.6
+"Austria", "1997-Q1", 4.666667
+"Austria", "1997-Q2", 4.7
+"Austria", "1997-Q3", 4.8
+"Austria", "1997-Q4", 4.866667
+"Austria", "1998-Q1", 4.933333
+"Austria", "1998-Q2", 4.833333
+"Austria", "1998-Q3", 4.666667
+"Austria", "1998-Q4", 4.4
+"Austria", "1999-Q1", 4.233333
+"Austria", "1999-Q2", 4.2
+"Austria", "1999-Q3", 4.033333
+"Austria", "1999-Q4", 4.1
+"Austria", "2000-Q1", 4.233333
+"Austria", "2000-Q2", 3.7
+"Austria", "2000-Q3", 3.833333
+"Austria", "2000-Q4", 3.766667
+"Austria", "2001-Q1", 3.633333
+"Austria", "2001-Q2", 4.0
+"Austria", "2001-Q3", 4.1
+"Austria", "2001-Q4", 4.3
+"Austria", "2002-Q1", 4.5
+"Austria", "2002-Q2", 4.233333
+"Austria", "2002-Q3", 4.4
+"Austria", "2002-Q4", 4.433333
+"Austria", "2003-Q1", 4.533333
+"Austria", "2003-Q2", 4.8
+"Austria", "2003-Q3", 4.8
+"Austria", "2003-Q4", 5.033333
+"Austria", "2004-Q1", 5.633333
+"Austria", "2004-Q2", 5.366667
+"Austria", "2004-Q3", 5.466667
+"Austria", "2004-Q4", 5.5
+"Austria", "2005-Q1", 5.433333
+"Austria", "2005-Q2", 5.733333
+"Austria", "2005-Q3", 5.7
+"Austria", "2005-Q4", 5.733333
+"Austria", "2006-Q1", 5.733333
+"Austria", "2006-Q2", 5.233333
+"Austria", "2006-Q3", 5.0
+"Austria", "2006-Q4", 4.933333
+"Austria", "2007-Q1", 4.933333
+"Austria", "2007-Q2", 5.1
+"Austria", "2007-Q3", 4.966667
+"Austria", "2007-Q4", 4.466667
+"Austria", "2008-Q1", 4.2
+"Austria", "2008-Q2", 3.9
+"Austria", "2008-Q3", 4.033333
+"Austria", "2008-Q4", 4.4
+"Austria", "2009-Q1", 4.766667
+"Austria", "2009-Q2", 5.333333
+"Austria", "2009-Q3", 5.7
+"Austria", "2009-Q4", 5.5
+"Austria", "2010-Q1", 5.033333
+"Austria", "2010-Q2", 4.833333
+"Austria", "2010-Q3", 4.833333
+"Austria", "2010-Q4", 4.5
+"Austria", "2011-Q1", 4.8
+"Austria", "2011-Q2", 4.5
+"Austria", "2011-Q3", 4.133333
+"Austria", "2011-Q4", 4.8
+"Austria", "2012-Q1", 4.6
+"Austria", "2012-Q2", 4.933333
+"Austria", "2012-Q3", 5.2
+"Austria", "2012-Q4", 5.0
+"Austria", "2013-Q1", 5.333333
+"Austria", "2013-Q2", 5.133333
+"Austria", "2013-Q3", 5.4
+"Austria", "2013-Q4", 5.5
+"Austria", "2014-Q1", 5.6
+"Austria", "2014-Q2", 5.533333
+"Austria", "2014-Q3", 5.666667
+"Austria", "2014-Q4", 5.666667
+"Austria", "2015-Q1", 5.533333
+"Austria", "2015-Q2", 5.833333
+"Austria", "2015-Q3", 5.633333
+"Austria", "2015-Q4", 5.933333
+"Austria", "2016-Q1", 6.033333
+"Austria", "2016-Q2", 6.066667
+"Austria", "2016-Q3", 6.133333
+"Austria", "2016-Q4", 5.733333
+"Belgium", "1983-Q1", 10.5
+"Belgium", "1983-Q2", 10.66667
+"Belgium", "1983-Q3", 10.83333
+"Belgium", "1983-Q4", 10.96667
+"Belgium", "1984-Q1", 10.86667
+"Belgium", "1984-Q2", 10.8
+"Belgium", "1984-Q3", 10.86667
+"Belgium", "1984-Q4", 10.76667
+"Belgium", "1985-Q1", 10.53333
+"Belgium", "1985-Q2", 10.1
+"Belgium", "1985-Q3", 9.9
+"Belgium", "1985-Q4", 9.933333
+"Belgium", "1986-Q1", 10.1
+"Belgium", "1986-Q2", 10.1
+"Belgium", "1986-Q3", 9.933333
+"Belgium", "1986-Q4", 10.06667
+"Belgium", "1987-Q1", 10.03333
+"Belgium", "1987-Q2", 9.933333
+"Belgium", "1987-Q3", 9.7
+"Belgium", "1987-Q4", 9.566667
+"Belgium", "1988-Q1", 9.4
+"Belgium", "1988-Q2", 9.066667
+"Belgium", "1988-Q3", 8.666667
+"Belgium", "1988-Q4", 8.2
+"Belgium", "1989-Q1", 7.8
+"Belgium", "1989-Q2", 7.5
+"Belgium", "1989-Q3", 7.2
+"Belgium", "1989-Q4", 6.966667
+"Belgium", "1990-Q1", 6.733333
+"Belgium", "1990-Q2", 6.6
+"Belgium", "1990-Q3", 6.5
+"Belgium", "1990-Q4", 6.4
+"Belgium", "1991-Q1", 6.4
+"Belgium", "1991-Q2", 6.4
+"Belgium", "1991-Q3", 6.4
+"Belgium", "1991-Q4", 6.6
+"Belgium", "1992-Q1", 6.733333
+"Belgium", "1992-Q2", 7.0
+"Belgium", "1992-Q3", 7.133333
+"Belgium", "1992-Q4", 7.5
+"Belgium", "1993-Q1", 7.933333
+"Belgium", "1993-Q2", 8.366667
+"Belgium", "1993-Q3", 8.866667
+"Belgium", "1993-Q4", 9.333333
+"Belgium", "1994-Q1", 9.666667
+"Belgium", "1994-Q2", 9.8
+"Belgium", "1994-Q3", 9.8
+"Belgium", "1994-Q4", 9.733334
+"Belgium", "1995-Q1", 9.666667
+"Belgium", "1995-Q2", 9.6
+"Belgium", "1995-Q3", 9.666667
+"Belgium", "1995-Q4", 9.8
+"Belgium", "1996-Q1", 9.866667
+"Belgium", "1996-Q2", 9.666667
+"Belgium", "1996-Q3", 9.433333
+"Belgium", "1996-Q4", 9.233334
+"Belgium", "1997-Q1", 9.1
+"Belgium", "1997-Q2", 9.133333
+"Belgium", "1997-Q3", 9.3
+"Belgium", "1997-Q4", 9.333333
+"Belgium", "1998-Q1", 9.433333
+"Belgium", "1998-Q2", 9.433333
+"Belgium", "1998-Q3", 9.366667
+"Belgium", "1998-Q4", 9.133333
+"Belgium", "1999-Q1", 9.033334
+"Belgium", "1999-Q2", 8.866667
+"Belgium", "1999-Q3", 8.3
+"Belgium", "1999-Q4", 7.766667
+"Belgium", "2000-Q1", 7.1
+"Belgium", "2000-Q2", 6.833333
+"Belgium", "2000-Q3", 6.833333
+"Belgium", "2000-Q4", 6.633333
+"Belgium", "2001-Q1", 6.1
+"Belgium", "2001-Q2", 6.5
+"Belgium", "2001-Q3", 6.3
+"Belgium", "2001-Q4", 7.4
+"Belgium", "2002-Q1", 7.333333
+"Belgium", "2002-Q2", 7.3
+"Belgium", "2002-Q3", 7.466667
+"Belgium", "2002-Q4", 7.966667
+"Belgium", "2003-Q1", 8.133333
+"Belgium", "2003-Q2", 8.1
+"Belgium", "2003-Q3", 8.066667
+"Belgium", "2003-Q4", 8.333333
+"Belgium", "2004-Q1", 8.6
+"Belgium", "2004-Q2", 7.766667
+"Belgium", "2004-Q3", 8.866667
+"Belgium", "2004-Q4", 8.3
+"Belgium", "2005-Q1", 8.466666
+"Belgium", "2005-Q2", 8.533334
+"Belgium", "2005-Q3", 8.466666
+"Belgium", "2005-Q4", 8.4
+"Belgium", "2006-Q1", 8.6
+"Belgium", "2006-Q2", 8.666667
+"Belgium", "2006-Q3", 7.9
+"Belgium", "2006-Q4", 7.866667
+"Belgium", "2007-Q1", 7.833333
+"Belgium", "2007-Q2", 8.0
+"Belgium", "2007-Q3", 7.066667
+"Belgium", "2007-Q4", 7.033333
+"Belgium", "2008-Q1", 6.933333
+"Belgium", "2008-Q2", 6.666667
+"Belgium", "2008-Q3", 7.5
+"Belgium", "2008-Q4", 6.833333
+"Belgium", "2009-Q1", 7.733333
+"Belgium", "2009-Q2", 7.866667
+"Belgium", "2009-Q3", 8.0
+"Belgium", "2009-Q4", 8.066667
+"Belgium", "2010-Q1", 8.5
+"Belgium", "2010-Q2", 8.5
+"Belgium", "2010-Q3", 8.466666
+"Belgium", "2010-Q4", 7.8
+"Belgium", "2011-Q1", 7.066667
+"Belgium", "2011-Q2", 6.933333
+"Belgium", "2011-Q3", 7.566667
+"Belgium", "2011-Q4", 7.066667
+"Belgium", "2012-Q1", 7.066667
+"Belgium", "2012-Q2", 7.333333
+"Belgium", "2012-Q3", 7.566667
+"Belgium", "2012-Q4", 8.233334
+"Belgium", "2013-Q1", 8.333333
+"Belgium", "2013-Q2", 8.466666
+"Belgium", "2013-Q3", 8.566667
+"Belgium", "2013-Q4", 8.5
+"Belgium", "2014-Q1", 8.6
+"Belgium", "2014-Q2", 8.533334
+"Belgium", "2014-Q3", 8.6
+"Belgium", "2014-Q4", 8.466666
+"Belgium", "2015-Q1", 8.6
+"Belgium", "2015-Q2", 8.666667
+"Belgium", "2015-Q3", 8.1
+"Belgium", "2015-Q4", 8.6
+"Belgium", "2016-Q1", 8.166667
+"Belgium", "2016-Q2", 8.266666
+"Belgium", "2016-Q3", 7.833333
+"Belgium", "2016-Q4", 7.6
+"Canada", "1955-Q1", 4.8
+"Canada", "1955-Q2", 4.433333
+"Canada", "1955-Q3", 4.066667
+"Canada", "1955-Q4", 3.833333
+"Canada", "1956-Q1", 3.7
+"Canada", "1956-Q2", 3.366667
+"Canada", "1956-Q3", 3.033333
+"Canada", "1956-Q4", 3.1
+"Canada", "1957-Q1", 3.933333
+"Canada", "1957-Q2", 4.133333
+"Canada", "1957-Q3", 4.933333
+"Canada", "1957-Q4", 6.0
+"Canada", "1958-Q1", 6.666667
+"Canada", "1958-Q2", 7.266667
+"Canada", "1958-Q3", 7.366667
+"Canada", "1958-Q4", 7.233333
+"Canada", "1959-Q1", 6.233333
+"Canada", "1959-Q2", 5.9
+"Canada", "1959-Q3", 5.6
+"Canada", "1959-Q4", 5.766667
+"Canada", "1960-Q1", 6.333333
+"Canada", "1960-Q2", 6.9
+"Canada", "1960-Q3", 7.4
+"Canada", "1960-Q4", 7.566667
+"Canada", "1961-Q1", 7.633333
+"Canada", "1961-Q2", 7.533333
+"Canada", "1961-Q3", 6.966667
+"Canada", "1961-Q4", 6.2
+"Canada", "1962-Q1", 6.066667
+"Canada", "1962-Q2", 5.733333
+"Canada", "1962-Q3", 5.8
+"Canada", "1962-Q4", 5.866667
+"Canada", "1963-Q1", 5.866667
+"Canada", "1963-Q2", 5.633333
+"Canada", "1963-Q3", 5.333333
+"Canada", "1963-Q4", 5.1
+"Canada", "1964-Q1", 4.866667
+"Canada", "1964-Q2", 4.766667
+"Canada", "1964-Q3", 4.566667
+"Canada", "1964-Q4", 4.433333
+"Canada", "1965-Q1", 4.133333
+"Canada", "1965-Q2", 4.166667
+"Canada", "1965-Q3", 3.766667
+"Canada", "1965-Q4", 3.4
+"Canada", "1966-Q1", 3.366667
+"Canada", "1966-Q2", 3.1
+"Canada", "1966-Q3", 3.433333
+"Canada", "1966-Q4", 3.4
+"Canada", "1967-Q1", 3.7
+"Canada", "1967-Q2", 3.733333
+"Canada", "1967-Q3", 3.666667
+"Canada", "1967-Q4", 4.166667
+"Canada", "1968-Q1", 4.433333
+"Canada", "1968-Q2", 4.533333
+"Canada", "1968-Q3", 4.533333
+"Canada", "1968-Q4", 4.466667
+"Canada", "1969-Q1", 4.266667
+"Canada", "1969-Q2", 4.366667
+"Canada", "1969-Q3", 4.4
+"Canada", "1969-Q4", 4.6
+"Canada", "1970-Q1", 4.866667
+"Canada", "1970-Q2", 5.766667
+"Canada", "1970-Q3", 6.166667
+"Canada", "1970-Q4", 6.1
+"Canada", "1971-Q1", 6.233333
+"Canada", "1971-Q2", 6.266667
+"Canada", "1971-Q3", 6.1
+"Canada", "1971-Q4", 6.133333
+"Canada", "1972-Q1", 5.966667
+"Canada", "1972-Q2", 6.066667
+"Canada", "1972-Q3", 6.366667
+"Canada", "1972-Q4", 6.466667
+"Canada", "1973-Q1", 5.866667
+"Canada", "1973-Q2", 5.4
+"Canada", "1973-Q3", 5.4
+"Canada", "1973-Q4", 5.533333
+"Canada", "1974-Q1", 5.233333
+"Canada", "1974-Q2", 5.2
+"Canada", "1974-Q3", 5.266667
+"Canada", "1974-Q4", 5.666667
+"Canada", "1975-Q1", 6.7
+"Canada", "1975-Q2", 6.833333
+"Canada", "1975-Q3", 6.966667
+"Canada", "1975-Q4", 7.133333
+"Canada", "1976-Q1", 6.933333
+"Canada", "1976-Q2", 6.866667
+"Canada", "1976-Q3", 7.166667
+"Canada", "1976-Q4", 7.366667
+"Canada", "1977-Q1", 7.733333
+"Canada", "1977-Q2", 7.866667
+"Canada", "1977-Q3", 8.233334
+"Canada", "1977-Q4", 8.4
+"Canada", "1978-Q1", 8.366667
+"Canada", "1978-Q2", 8.466666
+"Canada", "1978-Q3", 8.466666
+"Canada", "1978-Q4", 8.2
+"Canada", "1979-Q1", 8.0
+"Canada", "1979-Q2", 7.633333
+"Canada", "1979-Q3", 7.066667
+"Canada", "1979-Q4", 7.233333
+"Canada", "1980-Q1", 7.566667
+"Canada", "1980-Q2", 7.733333
+"Canada", "1980-Q3", 7.533333
+"Canada", "1980-Q4", 7.233333
+"Canada", "1981-Q1", 7.4
+"Canada", "1981-Q2", 7.2
+"Canada", "1981-Q3", 7.466667
+"Canada", "1981-Q4", 8.433333
+"Canada", "1982-Q1", 8.933333
+"Canada", "1982-Q2", 10.43333
+"Canada", "1982-Q3", 12.16667
+"Canada", "1982-Q4", 12.93333
+"Canada", "1983-Q1", 12.6
+"Canada", "1983-Q2", 12.46667
+"Canada", "1983-Q3", 11.76667
+"Canada", "1983-Q4", 11.2
+"Canada", "1984-Q1", 11.26667
+"Canada", "1984-Q2", 11.5
+"Canada", "1984-Q3", 11.36667
+"Canada", "1984-Q4", 11.3
+"Canada", "1985-Q1", 10.93333
+"Canada", "1985-Q2", 10.76667
+"Canada", "1985-Q3", 10.46667
+"Canada", "1985-Q4", 10.36667
+"Canada", "1986-Q1", 9.966666
+"Canada", "1986-Q2", 9.733334
+"Canada", "1986-Q3", 9.6
+"Canada", "1986-Q4", 9.466666
+"Canada", "1987-Q1", 9.5
+"Canada", "1987-Q2", 9.0
+"Canada", "1987-Q3", 8.6
+"Canada", "1987-Q4", 8.133333
+"Canada", "1988-Q1", 7.866667
+"Canada", "1988-Q2", 7.7
+"Canada", "1988-Q3", 7.866667
+"Canada", "1988-Q4", 7.633333
+"Canada", "1989-Q1", 7.533333
+"Canada", "1989-Q2", 7.666667
+"Canada", "1989-Q3", 7.433333
+"Canada", "1989-Q4", 7.5
+"Canada", "1990-Q1", 7.633333
+"Canada", "1990-Q2", 7.666667
+"Canada", "1990-Q3", 8.166667
+"Canada", "1990-Q4", 9.133333
+"Canada", "1991-Q1", 10.16667
+"Canada", "1991-Q2", 10.33333
+"Canada", "1991-Q3", 10.43333
+"Canada", "1991-Q4", 10.33333
+"Canada", "1992-Q1", 10.6
+"Canada", "1992-Q2", 11.0
+"Canada", "1992-Q3", 11.53333
+"Canada", "1992-Q4", 11.73333
+"Canada", "1993-Q1", 11.13333
+"Canada", "1993-Q2", 11.63333
+"Canada", "1993-Q3", 11.43333
+"Canada", "1993-Q4", 11.3
+"Canada", "1994-Q1", 11.03333
+"Canada", "1994-Q2", 10.63333
+"Canada", "1994-Q3", 10.13333
+"Canada", "1994-Q4", 9.766666
+"Canada", "1995-Q1", 9.633333
+"Canada", "1995-Q2", 9.5
+"Canada", "1995-Q3", 9.433333
+"Canada", "1995-Q4", 9.3
+"Canada", "1996-Q1", 9.5
+"Canada", "1996-Q2", 9.433333
+"Canada", "1996-Q3", 9.666667
+"Canada", "1996-Q4", 9.833333
+"Canada", "1997-Q1", 9.433333
+"Canada", "1997-Q2", 9.3
+"Canada", "1997-Q3", 8.866667
+"Canada", "1997-Q4", 8.766666
+"Canada", "1998-Q1", 8.6
+"Canada", "1998-Q2", 8.333333
+"Canada", "1998-Q3", 8.2
+"Canada", "1998-Q4", 8.033334
+"Canada", "1999-Q1", 7.9
+"Canada", "1999-Q2", 7.9
+"Canada", "1999-Q3", 7.5
+"Canada", "1999-Q4", 6.966667
+"Canada", "2000-Q1", 6.866667
+"Canada", "2000-Q2", 6.666667
+"Canada", "2000-Q3", 6.9
+"Canada", "2000-Q4", 6.9
+"Canada", "2001-Q1", 7.0
+"Canada", "2001-Q2", 7.1
+"Canada", "2001-Q3", 7.166667
+"Canada", "2001-Q4", 7.633333
+"Canada", "2002-Q1", 7.933333
+"Canada", "2002-Q2", 7.7
+"Canada", "2002-Q3", 7.5
+"Canada", "2002-Q4", 7.533333
+"Canada", "2003-Q1", 7.4
+"Canada", "2003-Q2", 7.666667
+"Canada", "2003-Q3", 7.766667
+"Canada", "2003-Q4", 7.466667
+"Canada", "2004-Q1", 7.333333
+"Canada", "2004-Q2", 7.166667
+"Canada", "2004-Q3", 7.0
+"Canada", "2004-Q4", 7.133333
+"Canada", "2005-Q1", 6.933333
+"Canada", "2005-Q2", 6.866667
+"Canada", "2005-Q3", 6.7
+"Canada", "2005-Q4", 6.533333
+"Canada", "2006-Q1", 6.466667
+"Canada", "2006-Q2", 6.166667
+"Canada", "2006-Q3", 6.4
+"Canada", "2006-Q4", 6.133333
+"Canada", "2007-Q1", 6.166667
+"Canada", "2007-Q2", 6.1
+"Canada", "2007-Q3", 5.933333
+"Canada", "2007-Q4", 5.933333
+"Canada", "2008-Q1", 5.966667
+"Canada", "2008-Q2", 6.0
+"Canada", "2008-Q3", 6.1
+"Canada", "2008-Q4", 6.566667
+"Canada", "2009-Q1", 7.833333
+"Canada", "2009-Q2", 8.533334
+"Canada", "2009-Q3", 8.6
+"Canada", "2009-Q4", 8.466666
+"Canada", "2010-Q1", 8.233334
+"Canada", "2010-Q2", 8.0
+"Canada", "2010-Q3", 8.1
+"Canada", "2010-Q4", 7.666667
+"Canada", "2011-Q1", 7.7
+"Canada", "2011-Q2", 7.533333
+"Canada", "2011-Q3", 7.333333
+"Canada", "2011-Q4", 7.433333
+"Canada", "2012-Q1", 7.466667
+"Canada", "2012-Q2", 7.3
+"Canada", "2012-Q3", 7.266667
+"Canada", "2012-Q4", 7.266667
+"Canada", "2013-Q1", 7.166667
+"Canada", "2013-Q2", 7.066667
+"Canada", "2013-Q3", 7.1
+"Canada", "2013-Q4", 7.066667
+"Canada", "2014-Q1", 7.0
+"Canada", "2014-Q2", 7.0
+"Canada", "2014-Q3", 7.0
+"Canada", "2014-Q4", 6.7
+"Canada", "2015-Q1", 6.766667
+"Canada", "2015-Q2", 6.8
+"Canada", "2015-Q3", 6.966667
+"Canada", "2015-Q4", 7.066667
+"Canada", "2016-Q1", 7.166667
+"Canada", "2016-Q2", 6.933333
+"Canada", "2016-Q3", 7.0
+"Canada", "2016-Q4", 6.9
+"Czech Republic", "1993-Q1", 4.433333
+"Czech Republic", "1993-Q2", 4.433333
+"Czech Republic", "1993-Q3", 4.233333
+"Czech Republic", "1993-Q4", 4.166667
+"Czech Republic", "1994-Q1", 4.133333
+"Czech Republic", "1994-Q2", 4.3
+"Czech Republic", "1994-Q3", 4.366667
+"Czech Republic", "1994-Q4", 4.333333
+"Czech Republic", "1995-Q1", 4.2
+"Czech Republic", "1995-Q2", 4.166667
+"Czech Republic", "1995-Q3", 4.0
+"Czech Republic", "1995-Q4", 3.733333
+"Czech Republic", "1996-Q1", 3.666667
+"Czech Republic", "1996-Q2", 3.866667
+"Czech Republic", "1996-Q3", 3.9
+"Czech Republic", "1996-Q4", 4.1
+"Czech Republic", "1997-Q1", 4.2
+"Czech Republic", "1997-Q2", 4.6
+"Czech Republic", "1997-Q3", 4.933333
+"Czech Republic", "1997-Q4", 5.4
+"Czech Republic", "1998-Q1", 5.766667
+"Czech Republic", "1998-Q2", 6.066667
+"Czech Republic", "1998-Q3", 6.7
+"Czech Republic", "1998-Q4", 7.3
+"Czech Republic", "1999-Q1", 8.133333
+"Czech Republic", "1999-Q2", 8.666667
+"Czech Republic", "1999-Q3", 8.933333
+"Czech Republic", "1999-Q4", 9.1
+"Czech Republic", "2000-Q1", 9.233334
+"Czech Republic", "2000-Q2", 8.933333
+"Czech Republic", "2000-Q3", 8.566667
+"Czech Republic", "2000-Q4", 8.366667
+"Czech Republic", "2001-Q1", 8.233334
+"Czech Republic", "2001-Q2", 8.133333
+"Czech Republic", "2001-Q3", 8.233334
+"Czech Republic", "2001-Q4", 7.9
+"Czech Republic", "2002-Q1", 7.433333
+"Czech Republic", "2002-Q2", 7.2
+"Czech Republic", "2002-Q3", 7.2
+"Czech Republic", "2002-Q4", 7.3
+"Czech Republic", "2003-Q1", 7.366667
+"Czech Republic", "2003-Q2", 7.733333
+"Czech Republic", "2003-Q3", 7.933333
+"Czech Republic", "2003-Q4", 8.166667
+"Czech Republic", "2004-Q1", 8.4
+"Czech Republic", "2004-Q2", 8.366667
+"Czech Republic", "2004-Q3", 8.233334
+"Czech Republic", "2004-Q4", 8.2
+"Czech Republic", "2005-Q1", 8.066667
+"Czech Republic", "2005-Q2", 7.966667
+"Czech Republic", "2005-Q3", 7.8
+"Czech Republic", "2005-Q4", 7.866667
+"Czech Republic", "2006-Q1", 7.633333
+"Czech Republic", "2006-Q2", 7.266667
+"Czech Republic", "2006-Q3", 7.033333
+"Czech Republic", "2006-Q4", 6.6
+"Czech Republic", "2007-Q1", 5.833333
+"Czech Republic", "2007-Q2", 5.433333
+"Czech Republic", "2007-Q3", 5.133333
+"Czech Republic", "2007-Q4", 4.9
+"Czech Republic", "2008-Q1", 4.566667
+"Czech Republic", "2008-Q2", 4.366667
+"Czech Republic", "2008-Q3", 4.233333
+"Czech Republic", "2008-Q4", 4.466667
+"Czech Republic", "2009-Q1", 5.6
+"Czech Republic", "2009-Q2", 6.5
+"Czech Republic", "2009-Q3", 7.266667
+"Czech Republic", "2009-Q4", 7.4
+"Czech Republic", "2010-Q1", 7.7
+"Czech Republic", "2010-Q2", 7.333333
+"Czech Republic", "2010-Q3", 7.1
+"Czech Republic", "2010-Q4", 6.966667
+"Czech Republic", "2011-Q1", 6.9
+"Czech Republic", "2011-Q2", 6.866667
+"Czech Republic", "2011-Q3", 6.566667
+"Czech Republic", "2011-Q4", 6.5
+"Czech Republic", "2012-Q1", 6.833333
+"Czech Republic", "2012-Q2", 6.9
+"Czech Republic", "2012-Q3", 6.966667
+"Czech Republic", "2012-Q4", 7.166667
+"Czech Republic", "2013-Q1", 7.166667
+"Czech Republic", "2013-Q2", 7.0
+"Czech Republic", "2013-Q3", 6.9
+"Czech Republic", "2013-Q4", 6.766667
+"Czech Republic", "2014-Q1", 6.533333
+"Czech Republic", "2014-Q2", 6.233333
+"Czech Republic", "2014-Q3", 5.9
+"Czech Republic", "2014-Q4", 5.833333
+"Czech Republic", "2015-Q1", 5.766667
+"Czech Republic", "2015-Q2", 5.133333
+"Czech Republic", "2015-Q3", 4.833333
+"Czech Republic", "2015-Q4", 4.533333
+"Czech Republic", "2016-Q1", 4.166667
+"Czech Republic", "2016-Q2", 4.033333
+"Czech Republic", "2016-Q3", 3.966667
+"Czech Republic", "2016-Q4", 3.6
+"Denmark", "1983-Q1", 8.2
+"Denmark", "1983-Q2", 8.433333
+"Denmark", "1983-Q3", 8.466666
+"Denmark", "1983-Q4", 8.4
+"Denmark", "1984-Q1", 8.266666
+"Denmark", "1984-Q2", 8.033334
+"Denmark", "1984-Q3", 7.833333
+"Denmark", "1984-Q4", 7.566667
+"Denmark", "1985-Q1", 7.3
+"Denmark", "1985-Q2", 6.966667
+"Denmark", "1985-Q3", 6.4
+"Denmark", "1985-Q4", 5.8
+"Denmark", "1986-Q1", 5.233333
+"Denmark", "1986-Q2", 4.933333
+"Denmark", "1986-Q3", 4.9
+"Denmark", "1986-Q4", 4.866667
+"Denmark", "1987-Q1", 5.0
+"Denmark", "1987-Q2", 5.0
+"Denmark", "1987-Q3", 5.0
+"Denmark", "1987-Q4", 5.0
+"Denmark", "1988-Q1", 5.166667
+"Denmark", "1988-Q2", 5.433333
+"Denmark", "1988-Q3", 5.8
+"Denmark", "1988-Q4", 6.233333
+"Denmark", "1989-Q1", 6.6
+"Denmark", "1989-Q2", 6.8
+"Denmark", "1989-Q3", 6.9
+"Denmark", "1989-Q4", 7.0
+"Denmark", "1990-Q1", 7.0
+"Denmark", "1990-Q2", 7.066667
+"Denmark", "1990-Q3", 7.233333
+"Denmark", "1990-Q4", 7.366667
+"Denmark", "1991-Q1", 7.5
+"Denmark", "1991-Q2", 7.8
+"Denmark", "1991-Q3", 8.0
+"Denmark", "1991-Q4", 8.166667
+"Denmark", "1992-Q1", 8.266666
+"Denmark", "1992-Q2", 8.366667
+"Denmark", "1992-Q3", 8.666667
+"Denmark", "1992-Q4", 9.133333
+"Denmark", "1993-Q1", 9.6
+"Denmark", "1993-Q2", 9.9
+"Denmark", "1993-Q3", 9.566667
+"Denmark", "1993-Q4", 9.066667
+"Denmark", "1994-Q1", 8.4
+"Denmark", "1994-Q2", 7.833333
+"Denmark", "1994-Q3", 7.5
+"Denmark", "1994-Q4", 7.2
+"Denmark", "1995-Q1", 6.9
+"Denmark", "1995-Q2", 6.8
+"Denmark", "1995-Q3", 6.7
+"Denmark", "1995-Q4", 6.633333
+"Denmark", "1996-Q1", 6.666667
+"Denmark", "1996-Q2", 6.533333
+"Denmark", "1996-Q3", 6.266667
+"Denmark", "1996-Q4", 5.8
+"Denmark", "1997-Q1", 5.466667
+"Denmark", "1997-Q2", 5.233333
+"Denmark", "1997-Q3", 5.166667
+"Denmark", "1997-Q4", 5.1
+"Denmark", "1998-Q1", 4.966667
+"Denmark", "1998-Q2", 4.866667
+"Denmark", "1998-Q3", 4.866667
+"Denmark", "1998-Q4", 4.833333
+"Denmark", "1999-Q1", 5.0
+"Denmark", "1999-Q2", 4.966667
+"Denmark", "1999-Q3", 5.166667
+"Denmark", "1999-Q4", 5.3
+"Denmark", "2000-Q1", 4.666667
+"Denmark", "2000-Q2", 4.433333
+"Denmark", "2000-Q3", 4.1
+"Denmark", "2000-Q4", 4.066667
+"Denmark", "2001-Q1", 4.366667
+"Denmark", "2001-Q2", 4.333333
+"Denmark", "2001-Q3", 4.633333
+"Denmark", "2001-Q4", 4.7
+"Denmark", "2002-Q1", 4.433333
+"Denmark", "2002-Q2", 4.4
+"Denmark", "2002-Q3", 4.933333
+"Denmark", "2002-Q4", 4.8
+"Denmark", "2003-Q1", 5.0
+"Denmark", "2003-Q2", 5.533333
+"Denmark", "2003-Q3", 5.433333
+"Denmark", "2003-Q4", 5.766667
+"Denmark", "2004-Q1", 5.666667
+"Denmark", "2004-Q2", 5.466667
+"Denmark", "2004-Q3", 5.6
+"Denmark", "2004-Q4", 5.333333
+"Denmark", "2005-Q1", 5.233333
+"Denmark", "2005-Q2", 5.066667
+"Denmark", "2005-Q3", 4.733333
+"Denmark", "2005-Q4", 4.166667
+"Denmark", "2006-Q1", 4.166667
+"Denmark", "2006-Q2", 4.1
+"Denmark", "2006-Q3", 3.7
+"Denmark", "2006-Q4", 3.633333
+"Denmark", "2007-Q1", 3.9
+"Denmark", "2007-Q2", 3.6
+"Denmark", "2007-Q3", 4.033333
+"Denmark", "2007-Q4", 3.566667
+"Denmark", "2008-Q1", 3.2
+"Denmark", "2008-Q2", 3.2
+"Denmark", "2008-Q3", 3.466667
+"Denmark", "2008-Q4", 3.966667
+"Denmark", "2009-Q1", 4.933333
+"Denmark", "2009-Q2", 5.733333
+"Denmark", "2009-Q3", 6.3
+"Denmark", "2009-Q4", 7.0
+"Denmark", "2010-Q1", 7.333333
+"Denmark", "2010-Q2", 7.533333
+"Denmark", "2010-Q3", 7.433333
+"Denmark", "2010-Q4", 7.633333
+"Denmark", "2011-Q1", 7.533333
+"Denmark", "2011-Q2", 7.4
+"Denmark", "2011-Q3", 7.633333
+"Denmark", "2011-Q4", 7.666667
+"Denmark", "2012-Q1", 7.6
+"Denmark", "2012-Q2", 7.766667
+"Denmark", "2012-Q3", 7.5
+"Denmark", "2012-Q4", 7.3
+"Denmark", "2013-Q1", 7.2
+"Denmark", "2013-Q2", 6.866667
+"Denmark", "2013-Q3", 6.966667
+"Denmark", "2013-Q4", 6.966667
+"Denmark", "2014-Q1", 6.866667
+"Denmark", "2014-Q2", 6.4
+"Denmark", "2014-Q3", 6.533333
+"Denmark", "2014-Q4", 6.333333
+"Denmark", "2015-Q1", 6.266667
+"Denmark", "2015-Q2", 6.233333
+"Denmark", "2015-Q3", 6.133333
+"Denmark", "2015-Q4", 6.066667
+"Denmark", "2016-Q1", 6.0
+"Denmark", "2016-Q2", 6.1
+"Denmark", "2016-Q3", 6.366667
+"Denmark", "2016-Q4", 6.333333
+"Finland", "1988-Q1", 4.633333
+"Finland", "1988-Q2", 4.333333
+"Finland", "1988-Q3", 4.0
+"Finland", "1988-Q4", 3.7
+"Finland", "1989-Q1", 3.5
+"Finland", "1989-Q2", 3.1
+"Finland", "1989-Q3", 2.9
+"Finland", "1989-Q4", 2.9
+"Finland", "1990-Q1", 3.0
+"Finland", "1990-Q2", 2.933333
+"Finland", "1990-Q3", 3.033333
+"Finland", "1990-Q4", 3.7
+"Finland", "1991-Q1", 4.633333
+"Finland", "1991-Q2", 5.9
+"Finland", "1991-Q3", 7.466667
+"Finland", "1991-Q4", 8.733334
+"Finland", "1992-Q1", 9.866667
+"Finland", "1992-Q2", 11.03333
+"Finland", "1992-Q3", 12.6
+"Finland", "1992-Q4", 13.6
+"Finland", "1993-Q1", 14.7
+"Finland", "1993-Q2", 16.06667
+"Finland", "1993-Q3", 17.06667
+"Finland", "1993-Q4", 17.53333
+"Finland", "1994-Q1", 17.0
+"Finland", "1994-Q2", 17.06667
+"Finland", "1994-Q3", 16.53333
+"Finland", "1994-Q4", 15.7
+"Finland", "1995-Q1", 15.1
+"Finland", "1995-Q2", 14.83333
+"Finland", "1995-Q3", 15.0
+"Finland", "1995-Q4", 15.2
+"Finland", "1996-Q1", 14.73333
+"Finland", "1996-Q2", 14.4
+"Finland", "1996-Q3", 14.86667
+"Finland", "1996-Q4", 14.2
+"Finland", "1997-Q1", 13.4
+"Finland", "1997-Q2", 12.96667
+"Finland", "1997-Q3", 12.33333
+"Finland", "1997-Q4", 12.0
+"Finland", "1998-Q1", 11.73333
+"Finland", "1998-Q2", 11.66667
+"Finland", "1998-Q3", 11.26667
+"Finland", "1998-Q4", 10.83333
+"Finland", "1999-Q1", 10.6
+"Finland", "1999-Q2", 10.33333
+"Finland", "1999-Q3", 10.1
+"Finland", "1999-Q4", 10.1
+"Finland", "2000-Q1", 10.16667
+"Finland", "2000-Q2", 9.8
+"Finland", "2000-Q3", 9.6
+"Finland", "2000-Q4", 9.4
+"Finland", "2001-Q1", 9.266666
+"Finland", "2001-Q2", 9.133333
+"Finland", "2001-Q3", 9.166667
+"Finland", "2001-Q4", 9.133333
+"Finland", "2002-Q1", 9.066667
+"Finland", "2002-Q2", 9.1
+"Finland", "2002-Q3", 9.133333
+"Finland", "2002-Q4", 8.966666
+"Finland", "2003-Q1", 8.933333
+"Finland", "2003-Q2", 9.1
+"Finland", "2003-Q3", 8.933333
+"Finland", "2003-Q4", 8.966666
+"Finland", "2004-Q1", 9.0
+"Finland", "2004-Q2", 8.966666
+"Finland", "2004-Q3", 8.7
+"Finland", "2004-Q4", 8.666667
+"Finland", "2005-Q1", 8.6
+"Finland", "2005-Q2", 8.366667
+"Finland", "2005-Q3", 8.2
+"Finland", "2005-Q4", 8.1
+"Finland", "2006-Q1", 7.966667
+"Finland", "2006-Q2", 7.8
+"Finland", "2006-Q3", 7.6
+"Finland", "2006-Q4", 7.333333
+"Finland", "2007-Q1", 7.1
+"Finland", "2007-Q2", 6.866667
+"Finland", "2007-Q3", 6.8
+"Finland", "2007-Q4", 6.6
+"Finland", "2008-Q1", 6.366667
+"Finland", "2008-Q2", 6.3
+"Finland", "2008-Q3", 6.4
+"Finland", "2008-Q4", 6.666667
+"Finland", "2009-Q1", 7.3
+"Finland", "2009-Q2", 8.0
+"Finland", "2009-Q3", 8.4
+"Finland", "2009-Q4", 8.6
+"Finland", "2010-Q1", 8.6
+"Finland", "2010-Q2", 8.433333
+"Finland", "2010-Q3", 8.3
+"Finland", "2010-Q4", 8.1
+"Finland", "2011-Q1", 8.0
+"Finland", "2011-Q2", 7.8
+"Finland", "2011-Q3", 7.733333
+"Finland", "2011-Q4", 7.633333
+"Finland", "2012-Q1", 7.6
+"Finland", "2012-Q2", 7.7
+"Finland", "2012-Q3", 7.833333
+"Finland", "2012-Q4", 7.866667
+"Finland", "2013-Q1", 8.066667
+"Finland", "2013-Q2", 8.033334
+"Finland", "2013-Q3", 8.133333
+"Finland", "2013-Q4", 8.366667
+"Finland", "2014-Q1", 8.4
+"Finland", "2014-Q2", 8.6
+"Finland", "2014-Q3", 8.8
+"Finland", "2014-Q4", 9.0
+"Finland", "2015-Q1", 9.133333
+"Finland", "2015-Q2", 9.3
+"Finland", "2015-Q3", 9.4
+"Finland", "2015-Q4", 9.366667
+"Finland", "2016-Q1", 9.1
+"Finland", "2016-Q2", 8.933333
+"Finland", "2016-Q3", 8.733334
+"Finland", "2016-Q4", 8.7
+"France", "1983-Q1", 8.1
+"France", "1983-Q2", 8.533334
+"France", "1983-Q3", 9.0
+"France", "1983-Q4", 9.4
+"France", "1984-Q1", 9.7
+"France", "1984-Q2", 9.933333
+"France", "1984-Q3", 10.2
+"France", "1984-Q4", 10.43333
+"France", "1985-Q1", 10.4
+"France", "1985-Q2", 10.4
+"France", "1985-Q3", 10.4
+"France", "1985-Q4", 10.46667
+"France", "1986-Q1", 10.36667
+"France", "1986-Q2", 10.46667
+"France", "1986-Q3", 10.63333
+"France", "1986-Q4", 10.83333
+"France", "1987-Q1", 10.8
+"France", "1987-Q2", 10.66667
+"France", "1987-Q3", 10.56667
+"France", "1987-Q4", 10.5
+"France", "1988-Q1", 10.26667
+"France", "1988-Q2", 10.13333
+"France", "1988-Q3", 10.0
+"France", "1988-Q4", 9.9
+"France", "1989-Q1", 9.733334
+"France", "1989-Q2", 9.666667
+"France", "1989-Q3", 9.6
+"France", "1989-Q4", 9.6
+"France", "1990-Q1", 9.5
+"France", "1990-Q2", 9.4
+"France", "1990-Q3", 9.3
+"France", "1990-Q4", 9.3
+"France", "1991-Q1", 9.266666
+"France", "1991-Q2", 9.433333
+"France", "1991-Q3", 9.7
+"France", "1991-Q4", 10.0
+"France", "1992-Q1", 10.26667
+"France", "1992-Q2", 10.5
+"France", "1992-Q3", 10.8
+"France", "1992-Q4", 11.0
+"France", "1993-Q1", 11.3
+"France", "1993-Q2", 11.7
+"France", "1993-Q3", 12.03333
+"France", "1993-Q4", 12.36667
+"France", "1994-Q1", 12.5
+"France", "1994-Q2", 12.4
+"France", "1994-Q3", 12.2
+"France", "1994-Q4", 12.0
+"France", "1995-Q1", 11.8
+"France", "1995-Q2", 11.86667
+"France", "1995-Q3", 12.0
+"France", "1995-Q4", 12.16667
+"France", "1996-Q1", 12.3
+"France", "1996-Q2", 12.36667
+"France", "1996-Q3", 12.43333
+"France", "1996-Q4", 12.5
+"France", "1997-Q1", 12.5
+"France", "1997-Q2", 12.4
+"France", "1997-Q3", 12.33333
+"France", "1997-Q4", 12.16667
+"France", "1998-Q1", 12.03333
+"France", "1998-Q2", 12.06667
+"France", "1998-Q3", 12.1
+"France", "1998-Q4", 12.0
+"France", "1999-Q1", 11.93333
+"France", "1999-Q2", 11.53333
+"France", "1999-Q3", 11.13333
+"France", "1999-Q4", 10.66667
+"France", "2000-Q1", 10.23333
+"France", "2000-Q2", 9.7
+"France", "2000-Q3", 9.266666
+"France", "2000-Q4", 8.9
+"France", "2001-Q1", 8.7
+"France", "2001-Q2", 8.733334
+"France", "2001-Q3", 8.8
+"France", "2001-Q4", 8.8
+"France", "2002-Q1", 8.766666
+"France", "2002-Q2", 8.633333
+"France", "2002-Q3", 8.6
+"France", "2002-Q4", 8.566667
+"France", "2003-Q1", 8.333333
+"France", "2003-Q2", 8.466666
+"France", "2003-Q3", 8.366667
+"France", "2003-Q4", 8.833333
+"France", "2004-Q1", 8.9
+"France", "2004-Q2", 8.733334
+"France", "2004-Q3", 8.833333
+"France", "2004-Q4", 8.933333
+"France", "2005-Q1", 8.633333
+"France", "2005-Q2", 8.8
+"France", "2005-Q3", 8.933333
+"France", "2005-Q4", 9.066667
+"France", "2006-Q1", 9.1
+"France", "2006-Q2", 8.933333
+"France", "2006-Q3", 8.866667
+"France", "2006-Q4", 8.366667
+"France", "2007-Q1", 8.466666
+"France", "2007-Q2", 8.1
+"France", "2007-Q3", 7.966667
+"France", "2007-Q4", 7.5
+"France", "2008-Q1", 7.166667
+"France", "2008-Q2", 7.333333
+"France", "2008-Q3", 7.433333
+"France", "2008-Q4", 7.8
+"France", "2009-Q1", 8.6
+"France", "2009-Q2", 9.133333
+"France", "2009-Q3", 9.166667
+"France", "2009-Q4", 9.533334
+"France", "2010-Q1", 9.366667
+"France", "2010-Q2", 9.266666
+"France", "2010-Q3", 9.166667
+"France", "2010-Q4", 9.2
+"France", "2011-Q1", 9.166667
+"France", "2011-Q2", 9.1
+"France", "2011-Q3", 9.2
+"France", "2011-Q4", 9.366667
+"France", "2012-Q1", 9.5
+"France", "2012-Q2", 9.666667
+"France", "2012-Q3", 9.766666
+"France", "2012-Q4", 10.13333
+"France", "2013-Q1", 10.33333
+"France", "2013-Q2", 10.4
+"France", "2013-Q3", 10.33333
+"France", "2013-Q4", 10.2
+"France", "2014-Q1", 10.2
+"France", "2014-Q2", 10.16667
+"France", "2014-Q3", 10.4
+"France", "2014-Q4", 10.53333
+"France", "2015-Q1", 10.3
+"France", "2015-Q2", 10.43333
+"France", "2015-Q3", 10.46667
+"France", "2015-Q4", 10.23333
+"France", "2016-Q1", 10.2
+"France", "2016-Q2", 9.933333
+"France", "2016-Q3", 10.06667
+"France", "2016-Q4", 9.6
+"Germany", "1991-Q1", 5.233333
+"Germany", "1991-Q2", 5.333333
+"Germany", "1991-Q3", 5.6
+"Germany", "1991-Q4", 5.9
+"Germany", "1992-Q1", 6.1
+"Germany", "1992-Q2", 6.4
+"Germany", "1992-Q3", 6.766667
+"Germany", "1992-Q4", 7.1
+"Germany", "1993-Q1", 7.4
+"Germany", "1993-Q2", 7.6
+"Germany", "1993-Q3", 7.9
+"Germany", "1993-Q4", 8.2
+"Germany", "1994-Q1", 8.466666
+"Germany", "1994-Q2", 8.533334
+"Germany", "1994-Q3", 8.433333
+"Germany", "1994-Q4", 8.266666
+"Germany", "1995-Q1", 8.133333
+"Germany", "1995-Q2", 8.1
+"Germany", "1995-Q3", 8.266666
+"Germany", "1995-Q4", 8.433333
+"Germany", "1996-Q1", 8.566667
+"Germany", "1996-Q2", 8.766666
+"Germany", "1996-Q3", 9.0
+"Germany", "1996-Q4", 9.3
+"Germany", "1997-Q1", 9.533334
+"Germany", "1997-Q2", 9.7
+"Germany", "1997-Q3", 9.7
+"Germany", "1997-Q4", 9.7
+"Germany", "1998-Q1", 9.666667
+"Germany", "1998-Q2", 9.5
+"Germany", "1998-Q3", 9.3
+"Germany", "1998-Q4", 9.066667
+"Germany", "1999-Q1", 8.833333
+"Germany", "1999-Q2", 8.633333
+"Germany", "1999-Q3", 8.466666
+"Germany", "1999-Q4", 8.3
+"Germany", "2000-Q1", 8.133333
+"Germany", "2000-Q2", 8.0
+"Germany", "2000-Q3", 7.9
+"Germany", "2000-Q4", 7.766667
+"Germany", "2001-Q1", 7.666667
+"Germany", "2001-Q2", 7.666667
+"Germany", "2001-Q3", 7.833333
+"Germany", "2001-Q4", 8.033334
+"Germany", "2002-Q1", 8.166667
+"Germany", "2002-Q2", 8.4
+"Germany", "2002-Q3", 8.733334
+"Germany", "2002-Q4", 9.1
+"Germany", "2003-Q1", 9.5
+"Germany", "2003-Q2", 9.733334
+"Germany", "2003-Q3", 9.8
+"Germany", "2003-Q4", 9.8
+"Germany", "2004-Q1", 10.06667
+"Germany", "2004-Q2", 10.3
+"Germany", "2004-Q3", 10.36667
+"Germany", "2004-Q4", 10.6
+"Germany", "2005-Q1", 10.83333
+"Germany", "2005-Q2", 11.16667
+"Germany", "2005-Q3", 11.16667
+"Germany", "2005-Q4", 10.83333
+"Germany", "2006-Q1", 10.5
+"Germany", "2006-Q2", 10.2
+"Germany", "2006-Q3", 9.9
+"Germany", "2006-Q4", 9.566667
+"Germany", "2007-Q1", 9.033334
+"Germany", "2007-Q2", 8.633333
+"Germany", "2007-Q3", 8.433333
+"Germany", "2007-Q4", 8.2
+"Germany", "2008-Q1", 7.8
+"Germany", "2008-Q2", 7.5
+"Germany", "2008-Q3", 7.2
+"Germany", "2008-Q4", 7.133333
+"Germany", "2009-Q1", 7.5
+"Germany", "2009-Q2", 7.766667
+"Germany", "2009-Q3", 7.833333
+"Germany", "2009-Q4", 7.6
+"Germany", "2010-Q1", 7.366667
+"Germany", "2010-Q2", 7.033333
+"Germany", "2010-Q3", 6.766667
+"Germany", "2010-Q4", 6.6
+"Germany", "2011-Q1", 6.233333
+"Germany", "2011-Q2", 5.9
+"Germany", "2011-Q3", 5.733333
+"Germany", "2011-Q4", 5.533333
+"Germany", "2012-Q1", 5.466667
+"Germany", "2012-Q2", 5.4
+"Germany", "2012-Q3", 5.333333
+"Germany", "2012-Q4", 5.3
+"Germany", "2013-Q1", 5.366667
+"Germany", "2013-Q2", 5.266667
+"Germany", "2013-Q3", 5.2
+"Germany", "2013-Q4", 5.1
+"Germany", "2014-Q1", 5.1
+"Germany", "2014-Q2", 5.0
+"Germany", "2014-Q3", 5.0
+"Germany", "2014-Q4", 4.933333
+"Germany", "2015-Q1", 4.766667
+"Germany", "2015-Q2", 4.666667
+"Germany", "2015-Q3", 4.533333
+"Germany", "2015-Q4", 4.466667
+"Germany", "2016-Q1", 4.333333
+"Germany", "2016-Q2", 4.233333
+"Germany", "2016-Q3", 4.133333
+"Germany", "2016-Q4", 3.933333
+"Greece", "1998-Q2", 10.93333
+"Greece", "1998-Q3", 11.1
+"Greece", "1998-Q4", 11.3
+"Greece", "1999-Q1", 11.4
+"Greece", "1999-Q2", 12.03333
+"Greece", "1999-Q3", 12.03333
+"Greece", "1999-Q4", 12.33333
+"Greece", "2000-Q1", 11.56667
+"Greece", "2000-Q2", 11.46667
+"Greece", "2000-Q3", 11.23333
+"Greece", "2000-Q4", 10.63333
+"Greece", "2001-Q1", 10.5
+"Greece", "2001-Q2", 10.7
+"Greece", "2001-Q3", 10.63333
+"Greece", "2001-Q4", 10.86667
+"Greece", "2002-Q1", 10.7
+"Greece", "2002-Q2", 10.3
+"Greece", "2002-Q3", 10.23333
+"Greece", "2002-Q4", 10.0
+"Greece", "2003-Q1", 9.733334
+"Greece", "2003-Q2", 9.7
+"Greece", "2003-Q3", 9.7
+"Greece", "2003-Q4", 9.9
+"Greece", "2004-Q1", 10.93333
+"Greece", "2004-Q2", 10.56667
+"Greece", "2004-Q3", 10.43333
+"Greece", "2004-Q4", 10.36667
+"Greece", "2005-Q1", 10.13333
+"Greece", "2005-Q2", 10.03333
+"Greece", "2005-Q3", 10.1
+"Greece", "2005-Q4", 9.833333
+"Greece", "2006-Q1", 9.433333
+"Greece", "2006-Q2", 9.033334
+"Greece", "2006-Q3", 8.666667
+"Greece", "2006-Q4", 8.833333
+"Greece", "2007-Q1", 8.9
+"Greece", "2007-Q2", 8.433333
+"Greece", "2007-Q3", 8.2
+"Greece", "2007-Q4", 8.1
+"Greece", "2008-Q1", 8.066667
+"Greece", "2008-Q2", 7.533333
+"Greece", "2008-Q3", 7.566667
+"Greece", "2008-Q4", 8.033334
+"Greece", "2009-Q1", 9.1
+"Greece", "2009-Q2", 9.266666
+"Greece", "2009-Q3", 9.733334
+"Greece", "2009-Q4", 10.43333
+"Greece", "2010-Q1", 11.36667
+"Greece", "2010-Q2", 12.2
+"Greece", "2010-Q3", 13.0
+"Greece", "2010-Q4", 14.3
+"Greece", "2011-Q1", 15.5
+"Greece", "2011-Q2", 16.9
+"Greece", "2011-Q3", 18.5
+"Greece", "2011-Q4", 20.7
+"Greece", "2012-Q1", 22.06667
+"Greece", "2012-Q2", 24.16667
+"Greece", "2012-Q3", 25.66667
+"Greece", "2012-Q4", 26.3
+"Greece", "2013-Q1", 26.83333
+"Greece", "2013-Q2", 27.73333
+"Greece", "2013-Q3", 27.83333
+"Greece", "2013-Q4", 27.63333
+"Greece", "2014-Q1", 27.03333
+"Greece", "2014-Q2", 26.96667
+"Greece", "2014-Q3", 26.23333
+"Greece", "2014-Q4", 25.96667
+"Greece", "2015-Q1", 25.76667
+"Greece", "2015-Q2", 25.1
+"Greece", "2015-Q3", 24.7
+"Greece", "2015-Q4", 24.4
+"Greece", "2016-Q1", 24.0
+"Greece", "2016-Q2", 23.5
+"Greece", "2016-Q3", 23.23333
+"Hungary", "1996-Q1", 10.13333
+"Hungary", "1996-Q2", 10.0
+"Hungary", "1996-Q3", 9.8
+"Hungary", "1996-Q4", 9.433333
+"Hungary", "1997-Q1", 9.133333
+"Hungary", "1997-Q2", 9.033334
+"Hungary", "1997-Q3", 9.0
+"Hungary", "1997-Q4", 9.066667
+"Hungary", "1998-Q1", 9.1
+"Hungary", "1998-Q2", 8.9
+"Hungary", "1998-Q3", 8.566667
+"Hungary", "1998-Q4", 8.066667
+"Hungary", "1999-Q1", 7.166667
+"Hungary", "1999-Q2", 6.933333
+"Hungary", "1999-Q3", 6.733333
+"Hungary", "1999-Q4", 6.666667
+"Hungary", "2000-Q1", 6.566667
+"Hungary", "2000-Q2", 6.4
+"Hungary", "2000-Q3", 6.1
+"Hungary", "2000-Q4", 5.9
+"Hungary", "2001-Q1", 5.666667
+"Hungary", "2001-Q2", 5.6
+"Hungary", "2001-Q3", 5.533333
+"Hungary", "2001-Q4", 5.5
+"Hungary", "2002-Q1", 5.5
+"Hungary", "2002-Q2", 5.533333
+"Hungary", "2002-Q3", 5.633333
+"Hungary", "2002-Q4", 5.7
+"Hungary", "2003-Q1", 5.7
+"Hungary", "2003-Q2", 5.8
+"Hungary", "2003-Q3", 5.7
+"Hungary", "2003-Q4", 5.7
+"Hungary", "2004-Q1", 5.8
+"Hungary", "2004-Q2", 5.9
+"Hungary", "2004-Q3", 6.133333
+"Hungary", "2004-Q4", 6.433333
+"Hungary", "2005-Q1", 6.8
+"Hungary", "2005-Q2", 7.133333
+"Hungary", "2005-Q3", 7.366667
+"Hungary", "2005-Q4", 7.4
+"Hungary", "2006-Q1", 7.433333
+"Hungary", "2006-Q2", 7.333333
+"Hungary", "2006-Q3", 7.5
+"Hungary", "2006-Q4", 7.5
+"Hungary", "2007-Q1", 7.233333
+"Hungary", "2007-Q2", 7.166667
+"Hungary", "2007-Q3", 7.366667
+"Hungary", "2007-Q4", 7.8
+"Hungary", "2008-Q1", 7.7
+"Hungary", "2008-Q2", 7.666667
+"Hungary", "2008-Q3", 7.766667
+"Hungary", "2008-Q4", 8.2
+"Hungary", "2009-Q1", 9.333333
+"Hungary", "2009-Q2", 9.733334
+"Hungary", "2009-Q3", 10.36667
+"Hungary", "2009-Q4", 10.7
+"Hungary", "2010-Q1", 11.3
+"Hungary", "2010-Q2", 11.3
+"Hungary", "2010-Q3", 11.1
+"Hungary", "2010-Q4", 11.03333
+"Hungary", "2011-Q1", 11.3
+"Hungary", "2011-Q2", 11.0
+"Hungary", "2011-Q3", 11.0
+"Hungary", "2011-Q4", 11.0
+"Hungary", "2012-Q1", 11.46667
+"Hungary", "2012-Q2", 11.03333
+"Hungary", "2012-Q3", 10.63333
+"Hungary", "2012-Q4", 10.86667
+"Hungary", "2013-Q1", 11.03333
+"Hungary", "2013-Q2", 10.33333
+"Hungary", "2013-Q3", 9.966666
+"Hungary", "2013-Q4", 9.1
+"Hungary", "2014-Q1", 8.066667
+"Hungary", "2014-Q2", 8.133333
+"Hungary", "2014-Q3", 7.5
+"Hungary", "2014-Q4", 7.3
+"Hungary", "2015-Q1", 7.466667
+"Hungary", "2015-Q2", 6.933333
+"Hungary", "2015-Q3", 6.566667
+"Hungary", "2015-Q4", 6.3
+"Hungary", "2016-Q1", 5.8
+"Hungary", "2016-Q2", 5.166667
+"Hungary", "2016-Q3", 4.933333
+"Iceland", "2003-Q1", 3.5
+"Iceland", "2003-Q2", 3.3
+"Iceland", "2003-Q3", 3.2
+"Iceland", "2003-Q4", 3.1
+"Iceland", "2004-Q1", 3.1
+"Iceland", "2004-Q2", 3.166667
+"Iceland", "2004-Q3", 3.066667
+"Iceland", "2004-Q4", 2.933333
+"Iceland", "2005-Q1", 2.766667
+"Iceland", "2005-Q2", 2.533333
+"Iceland", "2005-Q3", 2.566667
+"Iceland", "2005-Q4", 2.7
+"Iceland", "2006-Q1", 2.666667
+"Iceland", "2006-Q2", 2.833333
+"Iceland", "2006-Q3", 2.9
+"Iceland", "2006-Q4", 2.7
+"Iceland", "2007-Q1", 2.433333
+"Iceland", "2007-Q2", 2.4
+"Iceland", "2007-Q3", 2.4
+"Iceland", "2007-Q4", 2.433333
+"Iceland", "2008-Q1", 2.5
+"Iceland", "2008-Q2", 2.666667
+"Iceland", "2008-Q3", 3.333333
+"Iceland", "2008-Q4", 4.533333
+"Iceland", "2009-Q1", 6.133333
+"Iceland", "2009-Q2", 7.066667
+"Iceland", "2009-Q3", 7.2
+"Iceland", "2009-Q4", 7.366667
+"Iceland", "2010-Q1", 7.5
+"Iceland", "2010-Q2", 7.5
+"Iceland", "2010-Q3", 7.5
+"Iceland", "2010-Q4", 7.766667
+"Iceland", "2011-Q1", 7.666667
+"Iceland", "2011-Q2", 7.3
+"Iceland", "2011-Q3", 6.9
+"Iceland", "2011-Q4", 6.6
+"Iceland", "2012-Q1", 6.4
+"Iceland", "2012-Q2", 6.133333
+"Iceland", "2012-Q3", 5.866667
+"Iceland", "2012-Q4", 5.6
+"Iceland", "2013-Q1", 5.566667
+"Iceland", "2013-Q2", 5.6
+"Iceland", "2013-Q3", 5.433333
+"Iceland", "2013-Q4", 5.3
+"Iceland", "2014-Q1", 5.233333
+"Iceland", "2014-Q2", 5.0
+"Iceland", "2014-Q3", 4.733333
+"Iceland", "2014-Q4", 4.466667
+"Iceland", "2015-Q1", 4.2
+"Iceland", "2015-Q2", 4.033333
+"Iceland", "2015-Q3", 3.866667
+"Iceland", "2015-Q4", 3.5
+"Iceland", "2016-Q1", 3.166667
+"Iceland", "2016-Q2", 2.933333
+"Iceland", "2016-Q3", 2.9
+"Iceland", "2016-Q4", 2.833333
+"Ireland", "1983-Q1", 13.16667
+"Ireland", "1983-Q2", 13.7
+"Ireland", "1983-Q3", 14.13333
+"Ireland", "1983-Q4", 14.6
+"Ireland", "1984-Q1", 15.06667
+"Ireland", "1984-Q2", 15.36667
+"Ireland", "1984-Q3", 15.6
+"Ireland", "1984-Q4", 15.96667
+"Ireland", "1985-Q1", 16.5
+"Ireland", "1985-Q2", 16.73333
+"Ireland", "1985-Q3", 17.0
+"Ireland", "1985-Q4", 16.96667
+"Ireland", "1986-Q1", 16.83333
+"Ireland", "1986-Q2", 16.83333
+"Ireland", "1986-Q3", 16.83333
+"Ireland", "1986-Q4", 16.76667
+"Ireland", "1987-Q1", 16.73333
+"Ireland", "1987-Q2", 16.7
+"Ireland", "1987-Q3", 16.53333
+"Ireland", "1987-Q4", 16.5
+"Ireland", "1988-Q1", 16.5
+"Ireland", "1988-Q2", 16.33333
+"Ireland", "1988-Q3", 16.16667
+"Ireland", "1988-Q4", 15.83333
+"Ireland", "1989-Q1", 15.36667
+"Ireland", "1989-Q2", 15.0
+"Ireland", "1989-Q3", 14.46667
+"Ireland", "1989-Q4", 14.06667
+"Ireland", "1990-Q1", 13.63333
+"Ireland", "1990-Q2", 13.2
+"Ireland", "1990-Q3", 13.26667
+"Ireland", "1990-Q4", 13.56667
+"Ireland", "1991-Q1", 14.1
+"Ireland", "1991-Q2", 14.7
+"Ireland", "1991-Q3", 15.03333
+"Ireland", "1991-Q4", 15.1
+"Ireland", "1992-Q1", 15.2
+"Ireland", "1992-Q2", 15.23333
+"Ireland", "1992-Q3", 15.5
+"Ireland", "1992-Q4", 15.66667
+"Ireland", "1993-Q1", 15.83333
+"Ireland", "1993-Q2", 15.76667
+"Ireland", "1993-Q3", 15.53333
+"Ireland", "1993-Q4", 15.4
+"Ireland", "1994-Q1", 15.13333
+"Ireland", "1994-Q2", 14.66667
+"Ireland", "1994-Q3", 14.13333
+"Ireland", "1994-Q4", 13.46667
+"Ireland", "1995-Q1", 12.7
+"Ireland", "1995-Q2", 12.23333
+"Ireland", "1995-Q3", 12.1
+"Ireland", "1995-Q4", 12.1
+"Ireland", "1996-Q1", 12.0
+"Ireland", "1996-Q2", 11.83333
+"Ireland", "1996-Q3", 11.63333
+"Ireland", "1996-Q4", 11.13333
+"Ireland", "1997-Q1", 10.63333
+"Ireland", "1997-Q2", 10.2
+"Ireland", "1997-Q3", 9.6
+"Ireland", "1997-Q4", 9.0
+"Ireland", "1998-Q1", 8.333333
+"Ireland", "1998-Q2", 7.766667
+"Ireland", "1998-Q3", 7.3
+"Ireland", "1998-Q4", 6.8
+"Ireland", "1999-Q1", 6.3
+"Ireland", "1999-Q2", 5.866667
+"Ireland", "1999-Q3", 5.366667
+"Ireland", "1999-Q4", 5.1
+"Ireland", "2000-Q1", 4.7
+"Ireland", "2000-Q2", 4.5
+"Ireland", "2000-Q3", 4.133333
+"Ireland", "2000-Q4", 3.766667
+"Ireland", "2001-Q1", 3.733333
+"Ireland", "2001-Q2", 3.733333
+"Ireland", "2001-Q3", 4.1
+"Ireland", "2001-Q4", 4.133333
+"Ireland", "2002-Q1", 4.3
+"Ireland", "2002-Q2", 4.366667
+"Ireland", "2002-Q3", 4.3
+"Ireland", "2002-Q4", 5.0
+"Ireland", "2003-Q1", 4.633333
+"Ireland", "2003-Q2", 4.533333
+"Ireland", "2003-Q3", 4.766667
+"Ireland", "2003-Q4", 4.533333
+"Ireland", "2004-Q1", 4.866667
+"Ireland", "2004-Q2", 4.433333
+"Ireland", "2004-Q3", 4.233333
+"Ireland", "2004-Q4", 4.433333
+"Ireland", "2005-Q1", 4.2
+"Ireland", "2005-Q2", 4.633333
+"Ireland", "2005-Q3", 4.466667
+"Ireland", "2005-Q4", 4.3
+"Ireland", "2006-Q1", 4.5
+"Ireland", "2006-Q2", 4.533333
+"Ireland", "2006-Q3", 4.7
+"Ireland", "2006-Q4", 4.366667
+"Ireland", "2007-Q1", 4.566667
+"Ireland", "2007-Q2", 4.666667
+"Ireland", "2007-Q3", 4.6
+"Ireland", "2007-Q4", 4.933333
+"Ireland", "2008-Q1", 5.066667
+"Ireland", "2008-Q2", 5.633333
+"Ireland", "2008-Q3", 6.933333
+"Ireland", "2008-Q4", 8.1
+"Ireland", "2009-Q1", 10.36667
+"Ireland", "2009-Q2", 12.0
+"Ireland", "2009-Q3", 12.66667
+"Ireland", "2009-Q4", 13.16667
+"Ireland", "2010-Q1", 13.13333
+"Ireland", "2010-Q2", 13.7
+"Ireland", "2010-Q3", 13.93333
+"Ireland", "2010-Q4", 14.9
+"Ireland", "2011-Q1", 14.43333
+"Ireland", "2011-Q2", 14.33333
+"Ireland", "2011-Q3", 14.83333
+"Ireland", "2011-Q4", 15.06667
+"Ireland", "2012-Q1", 15.13333
+"Ireland", "2012-Q2", 14.7
+"Ireland", "2012-Q3", 14.76667
+"Ireland", "2012-Q4", 14.3
+"Ireland", "2013-Q1", 13.76667
+"Ireland", "2013-Q2", 13.63333
+"Ireland", "2013-Q3", 12.73333
+"Ireland", "2013-Q4", 12.23333
+"Ireland", "2014-Q1", 12.16667
+"Ireland", "2014-Q2", 11.53333
+"Ireland", "2014-Q3", 11.1
+"Ireland", "2014-Q4", 10.36667
+"Ireland", "2015-Q1", 10.06667
+"Ireland", "2015-Q2", 9.533334
+"Ireland", "2015-Q3", 9.133333
+"Ireland", "2015-Q4", 9.066667
+"Ireland", "2016-Q1", 8.4
+"Ireland", "2016-Q2", 8.333333
+"Ireland", "2016-Q3", 7.866667
+"Ireland", "2016-Q4", 7.333333
+"Italy", "1983-Q1", 7.066667
+"Italy", "1983-Q2", 7.266667
+"Italy", "1983-Q3", 7.433333
+"Italy", "1983-Q4", 7.7
+"Italy", "1984-Q1", 7.866667
+"Italy", "1984-Q2", 7.833333
+"Italy", "1984-Q3", 7.8
+"Italy", "1984-Q4", 7.833333
+"Italy", "1985-Q1", 8.0
+"Italy", "1985-Q2", 8.033334
+"Italy", "1985-Q3", 8.233334
+"Italy", "1985-Q4", 8.4
+"Italy", "1986-Q1", 8.566667
+"Italy", "1986-Q2", 8.766666
+"Italy", "1986-Q3", 9.0
+"Italy", "1986-Q4", 9.133333
+"Italy", "1987-Q1", 9.266666
+"Italy", "1987-Q2", 9.666667
+"Italy", "1987-Q3", 9.8
+"Italy", "1987-Q4", 9.733334
+"Italy", "1988-Q1", 9.7
+"Italy", "1988-Q2", 9.633333
+"Italy", "1988-Q3", 9.6
+"Italy", "1988-Q4", 9.8
+"Italy", "1989-Q1", 9.8
+"Italy", "1989-Q2", 9.8
+"Italy", "1989-Q3", 9.7
+"Italy", "1989-Q4", 9.366667
+"Italy", "1990-Q1", 9.0
+"Italy", "1990-Q2", 8.9
+"Italy", "1990-Q3", 8.8
+"Italy", "1990-Q4", 8.733334
+"Italy", "1991-Q1", 8.633333
+"Italy", "1991-Q2", 8.466666
+"Italy", "1991-Q3", 8.433333
+"Italy", "1991-Q4", 8.6
+"Italy", "1992-Q1", 8.666667
+"Italy", "1992-Q2", 8.666667
+"Italy", "1992-Q3", 9.0
+"Italy", "1992-Q4", 8.9
+"Italy", "1993-Q1", 9.133333
+"Italy", "1993-Q2", 9.8
+"Italy", "1993-Q3", 9.966666
+"Italy", "1993-Q4", 10.43333
+"Italy", "1994-Q1", 10.43333
+"Italy", "1994-Q2", 10.56667
+"Italy", "1994-Q3", 10.4
+"Italy", "1994-Q4", 11.13333
+"Italy", "1995-Q1", 11.23333
+"Italy", "1995-Q2", 11.1
+"Italy", "1995-Q3", 11.16667
+"Italy", "1995-Q4", 11.1
+"Italy", "1996-Q1", 11.0
+"Italy", "1996-Q2", 11.3
+"Italy", "1996-Q3", 11.1
+"Italy", "1996-Q4", 11.2
+"Italy", "1997-Q1", 11.26667
+"Italy", "1997-Q2", 11.4
+"Italy", "1997-Q3", 11.0
+"Italy", "1997-Q4", 11.3
+"Italy", "1998-Q1", 11.1
+"Italy", "1998-Q2", 11.5
+"Italy", "1998-Q3", 11.3
+"Italy", "1998-Q4", 11.43333
+"Italy", "1999-Q1", 11.1
+"Italy", "1999-Q2", 11.06667
+"Italy", "1999-Q3", 10.93333
+"Italy", "1999-Q4", 10.66667
+"Italy", "2000-Q1", 10.56667
+"Italy", "2000-Q2", 10.26667
+"Italy", "2000-Q3", 9.966666
+"Italy", "2000-Q4", 9.6
+"Italy", "2001-Q1", 9.366667
+"Italy", "2001-Q2", 9.133333
+"Italy", "2001-Q3", 9.033334
+"Italy", "2001-Q4", 8.866667
+"Italy", "2002-Q1", 8.533334
+"Italy", "2002-Q2", 8.833333
+"Italy", "2002-Q3", 8.6
+"Italy", "2002-Q4", 8.466666
+"Italy", "2003-Q1", 8.733334
+"Italy", "2003-Q2", 8.466666
+"Italy", "2003-Q3", 8.4
+"Italy", "2003-Q4", 8.2
+"Italy", "2004-Q1", 8.2
+"Italy", "2004-Q2", 8.066667
+"Italy", "2004-Q3", 7.833333
+"Italy", "2004-Q4", 7.866667
+"Italy", "2005-Q1", 7.8
+"Italy", "2005-Q2", 7.733333
+"Italy", "2005-Q3", 7.633333
+"Italy", "2005-Q4", 7.6
+"Italy", "2006-Q1", 7.266667
+"Italy", "2006-Q2", 6.833333
+"Italy", "2006-Q3", 6.633333
+"Italy", "2006-Q4", 6.5
+"Italy", "2007-Q1", 6.033333
+"Italy", "2007-Q2", 5.933333
+"Italy", "2007-Q3", 6.266667
+"Italy", "2007-Q4", 6.333333
+"Italy", "2008-Q1", 6.533333
+"Italy", "2008-Q2", 6.8
+"Italy", "2008-Q3", 6.733333
+"Italy", "2008-Q4", 6.9
+"Italy", "2009-Q1", 7.3
+"Italy", "2009-Q2", 7.433333
+"Italy", "2009-Q3", 7.9
+"Italy", "2009-Q4", 8.233334
+"Italy", "2010-Q1", 8.466666
+"Italy", "2010-Q2", 8.466666
+"Italy", "2010-Q3", 8.133333
+"Italy", "2010-Q4", 8.266666
+"Italy", "2011-Q1", 7.966667
+"Italy", "2011-Q2", 8.033334
+"Italy", "2011-Q3", 8.4
+"Italy", "2011-Q4", 9.2
+"Italy", "2012-Q1", 10.0
+"Italy", "2012-Q2", 10.56667
+"Italy", "2012-Q3", 10.8
+"Italy", "2012-Q4", 11.36667
+"Italy", "2013-Q1", 11.86667
+"Italy", "2013-Q2", 12.06667
+"Italy", "2013-Q3", 12.2
+"Italy", "2013-Q4", 12.36667
+"Italy", "2014-Q1", 12.76667
+"Italy", "2014-Q2", 12.46667
+"Italy", "2014-Q3", 12.6
+"Italy", "2014-Q4", 12.76667
+"Italy", "2015-Q1", 12.3
+"Italy", "2015-Q2", 12.2
+"Italy", "2015-Q3", 11.56667
+"Italy", "2015-Q4", 11.56667
+"Italy", "2016-Q1", 11.6
+"Italy", "2016-Q2", 11.56667
+"Italy", "2016-Q3", 11.6
+"Italy", "2016-Q4", 11.93333
+"Japan", "1955-Q1", 2.466667
+"Japan", "1955-Q2", 2.5
+"Japan", "1955-Q3", 2.6
+"Japan", "1955-Q4", 2.5
+"Japan", "1956-Q1", 2.6
+"Japan", "1956-Q2", 2.3
+"Japan", "1956-Q3", 2.133333
+"Japan", "1956-Q4", 2.166667
+"Japan", "1957-Q1", 2.033333
+"Japan", "1957-Q2", 1.9
+"Japan", "1957-Q3", 1.866667
+"Japan", "1957-Q4", 1.9
+"Japan", "1958-Q1", 1.933333
+"Japan", "1958-Q2", 2.066667
+"Japan", "1958-Q3", 2.166667
+"Japan", "1958-Q4", 2.1
+"Japan", "1959-Q1", 2.433333
+"Japan", "1959-Q2", 2.233333
+"Japan", "1959-Q3", 2.2
+"Japan", "1959-Q4", 1.966667
+"Japan", "1960-Q1", 1.766667
+"Japan", "1960-Q2", 1.666667
+"Japan", "1960-Q3", 1.566667
+"Japan", "1960-Q4", 1.466667
+"Japan", "1961-Q1", 1.433333
+"Japan", "1961-Q2", 1.466667
+"Japan", "1961-Q3", 1.433333
+"Japan", "1961-Q4", 1.433333
+"Japan", "1962-Q1", 1.3
+"Japan", "1962-Q2", 1.3
+"Japan", "1962-Q3", 1.233333
+"Japan", "1962-Q4", 1.333333
+"Japan", "1963-Q1", 1.4
+"Japan", "1963-Q2", 1.2
+"Japan", "1963-Q3", 1.2
+"Japan", "1963-Q4", 1.233333
+"Japan", "1964-Q1", 1.233333
+"Japan", "1964-Q2", 1.166667
+"Japan", "1964-Q3", 1.166667
+"Japan", "1964-Q4", 1.1
+"Japan", "1965-Q1", 1.133333
+"Japan", "1965-Q2", 1.233333
+"Japan", "1965-Q3", 1.266667
+"Japan", "1965-Q4", 1.3
+"Japan", "1966-Q1", 1.366667
+"Japan", "1966-Q2", 1.333333
+"Japan", "1966-Q3", 1.3
+"Japan", "1966-Q4", 1.266667
+"Japan", "1967-Q1", 1.3
+"Japan", "1967-Q2", 1.266667
+"Japan", "1967-Q3", 1.166667
+"Japan", "1967-Q4", 1.266667
+"Japan", "1968-Q1", 1.266667
+"Japan", "1968-Q2", 1.166667
+"Japan", "1968-Q3", 1.2
+"Japan", "1968-Q4", 1.066667
+"Japan", "1969-Q1", 1.133333
+"Japan", "1969-Q2", 1.2
+"Japan", "1969-Q3", 1.133333
+"Japan", "1969-Q4", 1.066667
+"Japan", "1970-Q1", 1.066667
+"Japan", "1970-Q2", 1.133333
+"Japan", "1970-Q3", 1.233333
+"Japan", "1970-Q4", 1.266667
+"Japan", "1971-Q1", 1.166667
+"Japan", "1971-Q2", 1.2
+"Japan", "1971-Q3", 1.233333
+"Japan", "1971-Q4", 1.333333
+"Japan", "1972-Q1", 1.4
+"Japan", "1972-Q2", 1.4
+"Japan", "1972-Q3", 1.433333
+"Japan", "1972-Q4", 1.4
+"Japan", "1973-Q1", 1.233333
+"Japan", "1973-Q2", 1.366667
+"Japan", "1973-Q3", 1.266667
+"Japan", "1973-Q4", 1.133333
+"Japan", "1974-Q1", 1.3
+"Japan", "1974-Q2", 1.3
+"Japan", "1974-Q3", 1.4
+"Japan", "1974-Q4", 1.6
+"Japan", "1975-Q1", 1.766667
+"Japan", "1975-Q2", 1.8
+"Japan", "1975-Q3", 1.9
+"Japan", "1975-Q4", 2.1
+"Japan", "1976-Q1", 2.033333
+"Japan", "1976-Q2", 2.066667
+"Japan", "1976-Q3", 2.0
+"Japan", "1976-Q4", 1.933333
+"Japan", "1977-Q1", 1.966667
+"Japan", "1977-Q2", 2.033333
+"Japan", "1977-Q3", 2.033333
+"Japan", "1977-Q4", 2.0
+"Japan", "1978-Q1", 2.166667
+"Japan", "1978-Q2", 2.266667
+"Japan", "1978-Q3", 2.3
+"Japan", "1978-Q4", 2.2
+"Japan", "1979-Q1", 2.1
+"Japan", "1979-Q2", 2.033333
+"Japan", "1979-Q3", 2.133333
+"Japan", "1979-Q4", 2.066667
+"Japan", "1980-Q1", 1.9
+"Japan", "1980-Q2", 1.966667
+"Japan", "1980-Q3", 2.033333
+"Japan", "1980-Q4", 2.166667
+"Japan", "1981-Q1", 2.2
+"Japan", "1981-Q2", 2.266667
+"Japan", "1981-Q3", 2.166667
+"Japan", "1981-Q4", 2.2
+"Japan", "1982-Q1", 2.233333
+"Japan", "1982-Q2", 2.333333
+"Japan", "1982-Q3", 2.366667
+"Japan", "1982-Q4", 2.466667
+"Japan", "1983-Q1", 2.666667
+"Japan", "1983-Q2", 2.666667
+"Japan", "1983-Q3", 2.7
+"Japan", "1983-Q4", 2.6
+"Japan", "1984-Q1", 2.7
+"Japan", "1984-Q2", 2.733333
+"Japan", "1984-Q3", 2.733333
+"Japan", "1984-Q4", 2.666667
+"Japan", "1985-Q1", 2.566667
+"Japan", "1985-Q2", 2.566667
+"Japan", "1985-Q3", 2.6
+"Japan", "1985-Q4", 2.766667
+"Japan", "1986-Q1", 2.666667
+"Japan", "1986-Q2", 2.766667
+"Japan", "1986-Q3", 2.833333
+"Japan", "1986-Q4", 2.8
+"Japan", "1987-Q1", 2.933333
+"Japan", "1987-Q2", 3.0
+"Japan", "1987-Q3", 2.766667
+"Japan", "1987-Q4", 2.7
+"Japan", "1988-Q1", 2.666667
+"Japan", "1988-Q2", 2.466667
+"Japan", "1988-Q3", 2.533333
+"Japan", "1988-Q4", 2.4
+"Japan", "1989-Q1", 2.333333
+"Japan", "1989-Q2", 2.3
+"Japan", "1989-Q3", 2.2
+"Japan", "1989-Q4", 2.166667
+"Japan", "1990-Q1", 2.133333
+"Japan", "1990-Q2", 2.133333
+"Japan", "1990-Q3", 2.066667
+"Japan", "1990-Q4", 2.066667
+"Japan", "1991-Q1", 2.1
+"Japan", "1991-Q2", 2.1
+"Japan", "1991-Q3", 2.1
+"Japan", "1991-Q4", 2.066667
+"Japan", "1992-Q1", 2.066667
+"Japan", "1992-Q2", 2.1
+"Japan", "1992-Q3", 2.166667
+"Japan", "1992-Q4", 2.266667
+"Japan", "1993-Q1", 2.3
+"Japan", "1993-Q2", 2.433333
+"Japan", "1993-Q3", 2.533333
+"Japan", "1993-Q4", 2.733333
+"Japan", "1994-Q1", 2.866667
+"Japan", "1994-Q2", 2.8
+"Japan", "1994-Q3", 2.966667
+"Japan", "1994-Q4", 2.933333
+"Japan", "1995-Q1", 3.033333
+"Japan", "1995-Q2", 3.066667
+"Japan", "1995-Q3", 3.166667
+"Japan", "1995-Q4", 3.333333
+"Japan", "1996-Q1", 3.366667
+"Japan", "1996-Q2", 3.4
+"Japan", "1996-Q3", 3.333333
+"Japan", "1996-Q4", 3.366667
+"Japan", "1997-Q1", 3.333333
+"Japan", "1997-Q2", 3.333333
+"Japan", "1997-Q3", 3.433333
+"Japan", "1997-Q4", 3.5
+"Japan", "1998-Q1", 3.666667
+"Japan", "1998-Q2", 4.066667
+"Japan", "1998-Q3", 4.266667
+"Japan", "1998-Q4", 4.4
+"Japan", "1999-Q1", 4.6
+"Japan", "1999-Q2", 4.733333
+"Japan", "1999-Q3", 4.7
+"Japan", "1999-Q4", 4.633333
+"Japan", "2000-Q1", 4.833333
+"Japan", "2000-Q2", 4.7
+"Japan", "2000-Q3", 4.666667
+"Japan", "2000-Q4", 4.733333
+"Japan", "2001-Q1", 4.766667
+"Japan", "2001-Q2", 4.9
+"Japan", "2001-Q3", 5.133333
+"Japan", "2001-Q4", 5.366667
+"Japan", "2002-Q1", 5.266667
+"Japan", "2002-Q2", 5.4
+"Japan", "2002-Q3", 5.433333
+"Japan", "2002-Q4", 5.333333
+"Japan", "2003-Q1", 5.333333
+"Japan", "2003-Q2", 5.433333
+"Japan", "2003-Q3", 5.166667
+"Japan", "2003-Q4", 5.033333
+"Japan", "2004-Q1", 4.9
+"Japan", "2004-Q2", 4.733333
+"Japan", "2004-Q3", 4.766667
+"Japan", "2004-Q4", 4.533333
+"Japan", "2005-Q1", 4.533333
+"Japan", "2005-Q2", 4.433333
+"Japan", "2005-Q3", 4.3
+"Japan", "2005-Q4", 4.433333
+"Japan", "2006-Q1", 4.2
+"Japan", "2006-Q2", 4.133333
+"Japan", "2006-Q3", 4.1
+"Japan", "2006-Q4", 4.033333
+"Japan", "2007-Q1", 4.0
+"Japan", "2007-Q2", 3.766667
+"Japan", "2007-Q3", 3.733333
+"Japan", "2007-Q4", 3.833333
+"Japan", "2008-Q1", 3.9
+"Japan", "2008-Q2", 3.966667
+"Japan", "2008-Q3", 4.0
+"Japan", "2008-Q4", 4.066667
+"Japan", "2009-Q1", 4.566667
+"Japan", "2009-Q2", 5.1
+"Japan", "2009-Q3", 5.433333
+"Japan", "2009-Q4", 5.2
+"Japan", "2010-Q1", 5.033333
+"Japan", "2010-Q2", 5.133333
+"Japan", "2010-Q3", 5.066667
+"Japan", "2010-Q4", 5.0
+"Japan", "2011-Q1", 4.733333
+"Japan", "2011-Q2", 4.666667
+"Japan", "2011-Q3", 4.466667
+"Japan", "2011-Q4", 4.466667
+"Japan", "2012-Q1", 4.5
+"Japan", "2012-Q2", 4.4
+"Japan", "2012-Q3", 4.233333
+"Japan", "2012-Q4", 4.166667
+"Japan", "2013-Q1", 4.2
+"Japan", "2013-Q2", 4.033333
+"Japan", "2013-Q3", 3.933333
+"Japan", "2013-Q4", 3.866667
+"Japan", "2014-Q1", 3.633333
+"Japan", "2014-Q2", 3.633333
+"Japan", "2014-Q3", 3.566667
+"Japan", "2014-Q4", 3.5
+"Japan", "2015-Q1", 3.466667
+"Japan", "2015-Q2", 3.366667
+"Japan", "2015-Q3", 3.366667
+"Japan", "2015-Q4", 3.266667
+"Japan", "2016-Q1", 3.233333
+"Japan", "2016-Q2", 3.166667
+"Japan", "2016-Q3", 3.033333
+"Japan", "2016-Q4", 3.066667
+"Korea", "1990-Q1", 2.433333
+"Korea", "1990-Q2", 2.3
+"Korea", "1990-Q3", 2.533333
+"Korea", "1990-Q4", 2.566667
+"Korea", "1991-Q1", 2.5
+"Korea", "1991-Q2", 2.3
+"Korea", "1991-Q3", 2.4
+"Korea", "1991-Q4", 2.466667
+"Korea", "1992-Q1", 2.4
+"Korea", "1992-Q2", 2.433333
+"Korea", "1992-Q3", 2.566667
+"Korea", "1992-Q4", 2.6
+"Korea", "1993-Q1", 2.833333
+"Korea", "1993-Q2", 3.0
+"Korea", "1993-Q3", 2.9
+"Korea", "1993-Q4", 2.833333
+"Korea", "1994-Q1", 2.7
+"Korea", "1994-Q2", 2.533333
+"Korea", "1994-Q3", 2.433333
+"Korea", "1994-Q4", 2.233333
+"Korea", "1995-Q1", 2.133333
+"Korea", "1995-Q2", 2.033333
+"Korea", "1995-Q3", 2.1
+"Korea", "1995-Q4", 2.033333
+"Korea", "1996-Q1", 1.933333
+"Korea", "1996-Q2", 2.033333
+"Korea", "1996-Q3", 2.033333
+"Korea", "1996-Q4", 2.2
+"Korea", "1997-Q1", 2.666667
+"Korea", "1997-Q2", 2.566667
+"Korea", "1997-Q3", 2.433333
+"Korea", "1997-Q4", 2.8
+"Korea", "1998-Q1", 4.966667
+"Korea", "1998-Q2", 7.033333
+"Korea", "1998-Q3", 8.133333
+"Korea", "1998-Q4", 7.966667
+"Korea", "1999-Q1", 7.4
+"Korea", "1999-Q2", 6.966667
+"Korea", "1999-Q3", 6.4
+"Korea", "1999-Q4", 5.3
+"Korea", "2000-Q1", 4.866667
+"Korea", "2000-Q2", 4.2
+"Korea", "2000-Q3", 4.266667
+"Korea", "2000-Q4", 4.233333
+"Korea", "2001-Q1", 4.633333
+"Korea", "2001-Q2", 3.866667
+"Korea", "2001-Q3", 3.766667
+"Korea", "2001-Q4", 3.7
+"Korea", "2002-Q1", 3.533333
+"Korea", "2002-Q2", 3.233333
+"Korea", "2002-Q3", 3.166667
+"Korea", "2002-Q4", 3.1
+"Korea", "2003-Q1", 3.333333
+"Korea", "2003-Q2", 3.5
+"Korea", "2003-Q3", 3.633333
+"Korea", "2003-Q4", 3.833333
+"Korea", "2004-Q1", 3.6
+"Korea", "2004-Q2", 3.6
+"Korea", "2004-Q3", 3.733333
+"Korea", "2004-Q4", 3.766667
+"Korea", "2005-Q1", 3.766667
+"Korea", "2005-Q2", 3.7
+"Korea", "2005-Q3", 3.8
+"Korea", "2005-Q4", 3.666667
+"Korea", "2006-Q1", 3.466667
+"Korea", "2006-Q2", 3.366667
+"Korea", "2006-Q3", 3.5
+"Korea", "2006-Q4", 3.433333
+"Korea", "2007-Q1", 3.233333
+"Korea", "2007-Q2", 3.266667
+"Korea", "2007-Q3", 3.233333
+"Korea", "2007-Q4", 3.2
+"Korea", "2008-Q1", 3.0
+"Korea", "2008-Q2", 3.1
+"Korea", "2008-Q3", 3.233333
+"Korea", "2008-Q4", 3.333333
+"Korea", "2009-Q1", 3.433333
+"Korea", "2009-Q2", 3.833333
+"Korea", "2009-Q3", 3.733333
+"Korea", "2009-Q4", 3.6
+"Korea", "2010-Q1", 4.2
+"Korea", "2010-Q2", 3.433333
+"Korea", "2010-Q3", 3.666667
+"Korea", "2010-Q4", 3.5
+"Korea", "2011-Q1", 3.733333
+"Korea", "2011-Q2", 3.4
+"Korea", "2011-Q3", 3.266667
+"Korea", "2011-Q4", 3.2
+"Korea", "2012-Q1", 3.366667
+"Korea", "2012-Q2", 3.233333
+"Korea", "2012-Q3", 3.133333
+"Korea", "2012-Q4", 3.1
+"Korea", "2013-Q1", 3.2
+"Korea", "2013-Q2", 3.066667
+"Korea", "2013-Q3", 3.133333
+"Korea", "2013-Q4", 3.066667
+"Korea", "2014-Q1", 3.5
+"Korea", "2014-Q2", 3.6
+"Korea", "2014-Q3", 3.466667
+"Korea", "2014-Q4", 3.533333
+"Korea", "2015-Q1", 3.633333
+"Korea", "2015-Q2", 3.766667
+"Korea", "2015-Q3", 3.6
+"Korea", "2015-Q4", 3.466667
+"Korea", "2016-Q1", 3.8
+"Korea", "2016-Q2", 3.666667
+"Korea", "2016-Q3", 3.8
+"Korea", "2016-Q4", 3.566667
+"Luxembourg", "1983-Q1", 3.266667
+"Luxembourg", "1983-Q2", 3.466667
+"Luxembourg", "1983-Q3", 3.6
+"Luxembourg", "1983-Q4", 3.333333
+"Luxembourg", "1984-Q1", 3.266667
+"Luxembourg", "1984-Q2", 2.933333
+"Luxembourg", "1984-Q3", 2.966667
+"Luxembourg", "1984-Q4", 2.933333
+"Luxembourg", "1985-Q1", 2.833333
+"Luxembourg", "1985-Q2", 3.0
+"Luxembourg", "1985-Q3", 2.9
+"Luxembourg", "1985-Q4", 2.8
+"Luxembourg", "1986-Q1", 2.766667
+"Luxembourg", "1986-Q2", 2.7
+"Luxembourg", "1986-Q3", 2.466667
+"Luxembourg", "1986-Q4", 2.333333
+"Luxembourg", "1987-Q1", 2.5
+"Luxembourg", "1987-Q2", 2.566667
+"Luxembourg", "1987-Q3", 2.433333
+"Luxembourg", "1987-Q4", 2.3
+"Luxembourg", "1988-Q1", 2.233333
+"Luxembourg", "1988-Q2", 2.033333
+"Luxembourg", "1988-Q3", 1.933333
+"Luxembourg", "1988-Q4", 1.8
+"Luxembourg", "1989-Q1", 1.7
+"Luxembourg", "1989-Q2", 1.766667
+"Luxembourg", "1989-Q3", 1.866667
+"Luxembourg", "1989-Q4", 1.833333
+"Luxembourg", "1990-Q1", 1.766667
+"Luxembourg", "1990-Q2", 1.7
+"Luxembourg", "1990-Q3", 1.566667
+"Luxembourg", "1990-Q4", 1.6
+"Luxembourg", "1991-Q1", 1.5
+"Luxembourg", "1991-Q2", 1.566667
+"Luxembourg", "1991-Q3", 1.666667
+"Luxembourg", "1991-Q4", 1.8
+"Luxembourg", "1992-Q1", 1.9
+"Luxembourg", "1992-Q2", 2.033333
+"Luxembourg", "1992-Q3", 2.133333
+"Luxembourg", "1992-Q4", 2.2
+"Luxembourg", "1993-Q1", 2.233333
+"Luxembourg", "1993-Q2", 2.433333
+"Luxembourg", "1993-Q3", 2.8
+"Luxembourg", "1993-Q4", 2.966667
+"Luxembourg", "1994-Q1", 3.2
+"Luxembourg", "1994-Q2", 3.3
+"Luxembourg", "1994-Q3", 3.133333
+"Luxembourg", "1994-Q4", 3.0
+"Luxembourg", "1995-Q1", 2.866667
+"Luxembourg", "1995-Q2", 2.8
+"Luxembourg", "1995-Q3", 2.833333
+"Luxembourg", "1995-Q4", 2.9
+"Luxembourg", "1996-Q1", 3.033333
+"Luxembourg", "1996-Q2", 3.066667
+"Luxembourg", "1996-Q3", 2.833333
+"Luxembourg", "1996-Q4", 2.8
+"Luxembourg", "1997-Q1", 2.633333
+"Luxembourg", "1997-Q2", 2.6
+"Luxembourg", "1997-Q3", 2.733333
+"Luxembourg", "1997-Q4", 2.833333
+"Luxembourg", "1998-Q1", 2.8
+"Luxembourg", "1998-Q2", 2.766667
+"Luxembourg", "1998-Q3", 2.633333
+"Luxembourg", "1998-Q4", 2.5
+"Luxembourg", "1999-Q1", 2.4
+"Luxembourg", "1999-Q2", 2.4
+"Luxembourg", "1999-Q3", 2.4
+"Luxembourg", "1999-Q4", 2.4
+"Luxembourg", "2000-Q1", 2.4
+"Luxembourg", "2000-Q2", 2.3
+"Luxembourg", "2000-Q3", 2.266667
+"Luxembourg", "2000-Q4", 2.033333
+"Luxembourg", "2001-Q1", 1.866667
+"Luxembourg", "2001-Q2", 1.866667
+"Luxembourg", "2001-Q3", 1.9
+"Luxembourg", "2001-Q4", 2.0
+"Luxembourg", "2002-Q1", 2.133333
+"Luxembourg", "2002-Q2", 2.433333
+"Luxembourg", "2002-Q3", 2.733333
+"Luxembourg", "2002-Q4", 2.966667
+"Luxembourg", "2003-Q1", 3.3
+"Luxembourg", "2003-Q2", 3.6
+"Luxembourg", "2003-Q3", 3.966667
+"Luxembourg", "2003-Q4", 4.3
+"Luxembourg", "2004-Q1", 4.733333
+"Luxembourg", "2004-Q2", 5.0
+"Luxembourg", "2004-Q3", 5.1
+"Luxembourg", "2004-Q4", 4.966667
+"Luxembourg", "2005-Q1", 4.733333
+"Luxembourg", "2005-Q2", 4.666667
+"Luxembourg", "2005-Q3", 4.533333
+"Luxembourg", "2005-Q4", 4.633333
+"Luxembourg", "2006-Q1", 4.566667
+"Luxembourg", "2006-Q2", 4.5
+"Luxembourg", "2006-Q3", 4.6
+"Luxembourg", "2006-Q4", 4.6
+"Luxembourg", "2007-Q1", 4.4
+"Luxembourg", "2007-Q2", 4.133333
+"Luxembourg", "2007-Q3", 4.033333
+"Luxembourg", "2007-Q4", 4.166667
+"Luxembourg", "2008-Q1", 4.4
+"Luxembourg", "2008-Q2", 4.8
+"Luxembourg", "2008-Q3", 5.066667
+"Luxembourg", "2008-Q4", 5.2
+"Luxembourg", "2009-Q1", 5.4
+"Luxembourg", "2009-Q2", 5.3
+"Luxembourg", "2009-Q3", 5.066667
+"Luxembourg", "2009-Q4", 4.9
+"Luxembourg", "2010-Q1", 4.633333
+"Luxembourg", "2010-Q2", 4.466667
+"Luxembourg", "2010-Q3", 4.433333
+"Luxembourg", "2010-Q4", 4.733333
+"Luxembourg", "2011-Q1", 4.7
+"Luxembourg", "2011-Q2", 4.766667
+"Luxembourg", "2011-Q3", 5.033333
+"Luxembourg", "2011-Q4", 4.833333
+"Luxembourg", "2012-Q1", 4.966667
+"Luxembourg", "2012-Q2", 5.066667
+"Luxembourg", "2012-Q3", 5.066667
+"Luxembourg", "2012-Q4", 5.266667
+"Luxembourg", "2013-Q1", 5.6
+"Luxembourg", "2013-Q2", 5.8
+"Luxembourg", "2013-Q3", 5.933333
+"Luxembourg", "2013-Q4", 6.0
+"Luxembourg", "2014-Q1", 5.966667
+"Luxembourg", "2014-Q2", 5.966667
+"Luxembourg", "2014-Q3", 6.033333
+"Luxembourg", "2014-Q4", 6.166667
+"Luxembourg", "2015-Q1", 6.366667
+"Luxembourg", "2015-Q2", 6.5
+"Luxembourg", "2015-Q3", 6.566667
+"Luxembourg", "2015-Q4", 6.5
+"Luxembourg", "2016-Q1", 6.4
+"Luxembourg", "2016-Q2", 6.3
+"Luxembourg", "2016-Q3", 6.3
+"Luxembourg", "2016-Q4", 6.266667
+"Mexico", "1987-Q1", 4.466667
+"Mexico", "1987-Q2", 4.066667
+"Mexico", "1987-Q3", 3.6
+"Mexico", "1987-Q4", 3.4
+"Mexico", "1988-Q1", 3.5
+"Mexico", "1988-Q2", 3.733333
+"Mexico", "1988-Q3", 3.533333
+"Mexico", "1988-Q4", 3.433333
+"Mexico", "1989-Q1", 3.166667
+"Mexico", "1989-Q2", 2.966667
+"Mexico", "1989-Q3", 2.9
+"Mexico", "1989-Q4", 2.633333
+"Mexico", "1990-Q1", 2.5
+"Mexico", "1990-Q2", 2.833333
+"Mexico", "1990-Q3", 2.9
+"Mexico", "1990-Q4", 2.733333
+"Mexico", "1991-Q1", 2.733333
+"Mexico", "1991-Q2", 2.366667
+"Mexico", "1991-Q3", 2.833333
+"Mexico", "1991-Q4", 2.866667
+"Mexico", "1992-Q1", 2.866667
+"Mexico", "1992-Q2", 2.8
+"Mexico", "1992-Q3", 2.6
+"Mexico", "1992-Q4", 2.9
+"Mexico", "1993-Q1", 3.333333
+"Mexico", "1993-Q2", 3.166667
+"Mexico", "1993-Q3", 3.666667
+"Mexico", "1993-Q4", 3.5
+"Mexico", "1994-Q1", 3.6
+"Mexico", "1994-Q2", 3.433333
+"Mexico", "1994-Q3", 3.566667
+"Mexico", "1994-Q4", 4.0
+"Mexico", "1995-Q1", 5.033333
+"Mexico", "1995-Q2", 6.433333
+"Mexico", "1995-Q3", 7.033333
+"Mexico", "1995-Q4", 6.533333
+"Mexico", "1996-Q1", 6.033333
+"Mexico", "1996-Q2", 5.6
+"Mexico", "1996-Q3", 5.366667
+"Mexico", "1996-Q4", 4.833333
+"Mexico", "1997-Q1", 4.066667
+"Mexico", "1997-Q2", 3.866667
+"Mexico", "1997-Q3", 3.666667
+"Mexico", "1997-Q4", 3.266667
+"Mexico", "1998-Q1", 3.4
+"Mexico", "1998-Q2", 3.233333
+"Mexico", "1998-Q3", 3.2
+"Mexico", "1998-Q4", 3.066667
+"Mexico", "1999-Q1", 2.8
+"Mexico", "1999-Q2", 2.7
+"Mexico", "1999-Q3", 2.366667
+"Mexico", "1999-Q4", 2.366667
+"Mexico", "2000-Q1", 2.2
+"Mexico", "2000-Q2", 2.745935
+"Mexico", "2000-Q3", 2.601958
+"Mexico", "2000-Q4", 2.464741
+"Mexico", "2001-Q1", 2.805978
+"Mexico", "2001-Q2", 2.740413
+"Mexico", "2001-Q3", 2.543731
+"Mexico", "2001-Q4", 2.981952
+"Mexico", "2002-Q1", 3.139209
+"Mexico", "2002-Q2", 3.073558
+"Mexico", "2002-Q3", 2.857083
+"Mexico", "2002-Q4", 2.841613
+"Mexico", "2003-Q1", 2.998102
+"Mexico", "2003-Q2", 3.183627
+"Mexico", "2003-Q3", 3.685819
+"Mexico", "2003-Q4", 3.735867
+"Mexico", "2004-Q1", 3.914457
+"Mexico", "2004-Q2", 3.943343
+"Mexico", "2004-Q3", 3.878943
+"Mexico", "2004-Q4", 3.934365
+"Mexico", "2005-Q1", 3.732309
+"Mexico", "2005-Q2", 3.799951
+"Mexico", "2005-Q3", 3.556763
+"Mexico", "2005-Q4", 3.249462
+"Mexico", "2006-Q1", 3.457856
+"Mexico", "2006-Q2", 3.401988
+"Mexico", "2006-Q3", 3.71663
+"Mexico", "2006-Q4", 3.792795
+"Mexico", "2007-Q1", 3.88621
+"Mexico", "2007-Q2", 3.60131
+"Mexico", "2007-Q3", 3.655392
+"Mexico", "2007-Q4", 3.737847
+"Mexico", "2008-Q1", 3.842188
+"Mexico", "2008-Q2", 3.671896
+"Mexico", "2008-Q3", 3.908699
+"Mexico", "2008-Q4", 4.49256
+"Mexico", "2009-Q1", 4.995813
+"Mexico", "2009-Q2", 5.482656
+"Mexico", "2009-Q3", 5.841582
+"Mexico", "2009-Q4", 5.556356
+"Mexico", "2010-Q1", 5.389565
+"Mexico", "2010-Q2", 5.360482
+"Mexico", "2010-Q3", 5.238627
+"Mexico", "2010-Q4", 5.521349
+"Mexico", "2011-Q1", 5.204258
+"Mexico", "2011-Q2", 5.365379
+"Mexico", "2011-Q3", 5.307983
+"Mexico", "2011-Q4", 5.044379
+"Mexico", "2012-Q1", 5.051133
+"Mexico", "2012-Q2", 4.918286
+"Mexico", "2012-Q3", 4.794177
+"Mexico", "2012-Q4", 5.084465
+"Mexico", "2013-Q1", 5.011438
+"Mexico", "2013-Q2", 5.062158
+"Mexico", "2013-Q3", 4.865232
+"Mexico", "2013-Q4", 4.796414
+"Mexico", "2014-Q1", 4.938349
+"Mexico", "2014-Q2", 4.916949
+"Mexico", "2014-Q3", 4.920472
+"Mexico", "2014-Q4", 4.540407
+"Mexico", "2015-Q1", 4.308517
+"Mexico", "2015-Q2", 4.41657
+"Mexico", "2015-Q3", 4.337758
+"Mexico", "2015-Q4", 4.346163
+"Mexico", "2016-Q1", 4.108376
+"Mexico", "2016-Q2", 3.952355
+"Mexico", "2016-Q3", 3.799738
+"Mexico", "2016-Q4", 3.683916
+"Netherlands", "1983-Q1", 9.5
+"Netherlands", "1983-Q2", 9.5
+"Netherlands", "1983-Q3", 9.5
+"Netherlands", "1983-Q4", 9.5
+"Netherlands", "1984-Q1", 9.433333
+"Netherlands", "1984-Q2", 9.366667
+"Netherlands", "1984-Q3", 9.233334
+"Netherlands", "1984-Q4", 9.033334
+"Netherlands", "1985-Q1", 8.8
+"Netherlands", "1985-Q2", 8.6
+"Netherlands", "1985-Q3", 8.3
+"Netherlands", "1985-Q4", 8.1
+"Netherlands", "1986-Q1", 7.833333
+"Netherlands", "1986-Q2", 7.633333
+"Netherlands", "1986-Q3", 7.533333
+"Netherlands", "1986-Q4", 7.433333
+"Netherlands", "1987-Q1", 7.4
+"Netherlands", "1987-Q2", 7.433333
+"Netherlands", "1987-Q3", 7.5
+"Netherlands", "1987-Q4", 7.5
+"Netherlands", "1988-Q1", 7.5
+"Netherlands", "1988-Q2", 7.4
+"Netherlands", "1988-Q3", 7.333333
+"Netherlands", "1988-Q4", 7.166667
+"Netherlands", "1989-Q1", 7.0
+"Netherlands", "1989-Q2", 6.8
+"Netherlands", "1989-Q3", 6.6
+"Netherlands", "1989-Q4", 6.433333
+"Netherlands", "1990-Q1", 6.266667
+"Netherlands", "1990-Q2", 6.133333
+"Netherlands", "1990-Q3", 6.0
+"Netherlands", "1990-Q4", 5.9
+"Netherlands", "1991-Q1", 5.8
+"Netherlands", "1991-Q2", 5.733333
+"Netherlands", "1991-Q3", 5.7
+"Netherlands", "1991-Q4", 5.633333
+"Netherlands", "1992-Q1", 5.6
+"Netherlands", "1992-Q2", 5.633333
+"Netherlands", "1992-Q3", 5.766667
+"Netherlands", "1992-Q4", 5.933333
+"Netherlands", "1993-Q1", 6.2
+"Netherlands", "1993-Q2", 6.433333
+"Netherlands", "1993-Q3", 6.633333
+"Netherlands", "1993-Q4", 6.733333
+"Netherlands", "1994-Q1", 6.833333
+"Netherlands", "1994-Q2", 7.0
+"Netherlands", "1994-Q3", 7.3
+"Netherlands", "1994-Q4", 7.666667
+"Netherlands", "1995-Q1", 8.1
+"Netherlands", "1995-Q2", 8.366667
+"Netherlands", "1995-Q3", 8.4
+"Netherlands", "1995-Q4", 8.333333
+"Netherlands", "1996-Q1", 8.1
+"Netherlands", "1996-Q2", 7.8
+"Netherlands", "1996-Q3", 7.5
+"Netherlands", "1996-Q4", 7.2
+"Netherlands", "1997-Q1", 6.9
+"Netherlands", "1997-Q2", 6.6
+"Netherlands", "1997-Q3", 6.3
+"Netherlands", "1997-Q4", 5.933333
+"Netherlands", "1998-Q1", 5.6
+"Netherlands", "1998-Q2", 5.3
+"Netherlands", "1998-Q3", 5.0
+"Netherlands", "1998-Q4", 4.7
+"Netherlands", "1999-Q1", 4.5
+"Netherlands", "1999-Q2", 4.333333
+"Netherlands", "1999-Q3", 4.166667
+"Netherlands", "1999-Q4", 4.033333
+"Netherlands", "2000-Q1", 3.866667
+"Netherlands", "2000-Q2", 3.733333
+"Netherlands", "2000-Q3", 3.566667
+"Netherlands", "2000-Q4", 3.366667
+"Netherlands", "2001-Q1", 3.2
+"Netherlands", "2001-Q2", 3.1
+"Netherlands", "2001-Q3", 3.1
+"Netherlands", "2001-Q4", 3.133333
+"Netherlands", "2002-Q1", 3.3
+"Netherlands", "2002-Q2", 3.5
+"Netherlands", "2002-Q3", 3.8
+"Netherlands", "2002-Q4", 4.1
+"Netherlands", "2003-Q1", 4.366667
+"Netherlands", "2003-Q2", 4.7
+"Netherlands", "2003-Q3", 5.0
+"Netherlands", "2003-Q4", 5.266667
+"Netherlands", "2004-Q1", 5.433333
+"Netherlands", "2004-Q2", 5.766667
+"Netherlands", "2004-Q3", 5.666667
+"Netherlands", "2004-Q4", 5.766667
+"Netherlands", "2005-Q1", 5.966667
+"Netherlands", "2005-Q2", 5.966667
+"Netherlands", "2005-Q3", 5.833333
+"Netherlands", "2005-Q4", 5.733333
+"Netherlands", "2006-Q1", 5.433333
+"Netherlands", "2006-Q2", 5.133333
+"Netherlands", "2006-Q3", 4.833333
+"Netherlands", "2006-Q4", 4.666667
+"Netherlands", "2007-Q1", 4.433333
+"Netherlands", "2007-Q2", 4.166667
+"Netherlands", "2007-Q3", 4.1
+"Netherlands", "2007-Q4", 3.966667
+"Netherlands", "2008-Q1", 3.666667
+"Netherlands", "2008-Q2", 3.7
+"Netherlands", "2008-Q3", 3.6
+"Netherlands", "2008-Q4", 3.633333
+"Netherlands", "2009-Q1", 3.8
+"Netherlands", "2009-Q2", 4.2
+"Netherlands", "2009-Q3", 4.6
+"Netherlands", "2009-Q4", 4.866667
+"Netherlands", "2010-Q1", 5.1
+"Netherlands", "2010-Q2", 5.0
+"Netherlands", "2010-Q3", 5.0
+"Netherlands", "2010-Q4", 4.933333
+"Netherlands", "2011-Q1", 4.866667
+"Netherlands", "2011-Q2", 4.733333
+"Netherlands", "2011-Q3", 4.966667
+"Netherlands", "2011-Q4", 5.333333
+"Netherlands", "2012-Q1", 5.5
+"Netherlands", "2012-Q2", 5.7
+"Netherlands", "2012-Q3", 5.9
+"Netherlands", "2012-Q4", 6.233333
+"Netherlands", "2013-Q1", 6.766667
+"Netherlands", "2013-Q2", 7.133333
+"Netherlands", "2013-Q3", 7.533333
+"Netherlands", "2013-Q4", 7.633333
+"Netherlands", "2014-Q1", 7.833333
+"Netherlands", "2014-Q2", 7.566667
+"Netherlands", "2014-Q3", 7.2
+"Netherlands", "2014-Q4", 7.133333
+"Netherlands", "2015-Q1", 7.1
+"Netherlands", "2015-Q2", 6.933333
+"Netherlands", "2015-Q3", 6.8
+"Netherlands", "2015-Q4", 6.733333
+"Netherlands", "2016-Q1", 6.466667
+"Netherlands", "2016-Q2", 6.266667
+"Netherlands", "2016-Q3", 5.833333
+"Netherlands", "2016-Q4", 5.533333
+"New Zealand", "1986-Q1", 4.2
+"New Zealand", "1986-Q2", 4.1
+"New Zealand", "1986-Q3", 4.2
+"New Zealand", "1986-Q4", 4.3
+"New Zealand", "1987-Q1", 4.1
+"New Zealand", "1987-Q2", 4.2
+"New Zealand", "1987-Q3", 4.2
+"New Zealand", "1987-Q4", 4.4
+"New Zealand", "1988-Q1", 5.0
+"New Zealand", "1988-Q2", 5.5
+"New Zealand", "1988-Q3", 6.4
+"New Zealand", "1988-Q4", 6.3
+"New Zealand", "1989-Q1", 7.1
+"New Zealand", "1989-Q2", 7.5
+"New Zealand", "1989-Q3", 7.4
+"New Zealand", "1989-Q4", 7.3
+"New Zealand", "1990-Q1", 7.2
+"New Zealand", "1990-Q2", 7.7
+"New Zealand", "1990-Q3", 8.1
+"New Zealand", "1990-Q4", 8.9
+"New Zealand", "1991-Q1", 9.8
+"New Zealand", "1991-Q2", 10.5
+"New Zealand", "1991-Q3", 11.2
+"New Zealand", "1991-Q4", 11.0
+"New Zealand", "1992-Q1", 11.0
+"New Zealand", "1992-Q2", 10.5
+"New Zealand", "1992-Q3", 10.6
+"New Zealand", "1992-Q4", 10.6
+"New Zealand", "1993-Q1", 10.1
+"New Zealand", "1993-Q2", 10.2
+"New Zealand", "1993-Q3", 9.5
+"New Zealand", "1993-Q4", 9.4
+"New Zealand", "1994-Q1", 9.3
+"New Zealand", "1994-Q2", 8.5
+"New Zealand", "1994-Q3", 8.0
+"New Zealand", "1994-Q4", 7.6
+"New Zealand", "1995-Q1", 6.8
+"New Zealand", "1995-Q2", 6.4
+"New Zealand", "1995-Q3", 6.2
+"New Zealand", "1995-Q4", 6.4
+"New Zealand", "1996-Q1", 6.4
+"New Zealand", "1996-Q2", 6.2
+"New Zealand", "1996-Q3", 6.5
+"New Zealand", "1996-Q4", 6.2
+"New Zealand", "1997-Q1", 6.7
+"New Zealand", "1997-Q2", 6.8
+"New Zealand", "1997-Q3", 7.0
+"New Zealand", "1997-Q4", 7.0
+"New Zealand", "1998-Q1", 7.4
+"New Zealand", "1998-Q2", 7.9
+"New Zealand", "1998-Q3", 7.7
+"New Zealand", "1998-Q4", 7.9
+"New Zealand", "1999-Q1", 7.5
+"New Zealand", "1999-Q2", 7.3
+"New Zealand", "1999-Q3", 7.0
+"New Zealand", "1999-Q4", 6.4
+"New Zealand", "2000-Q1", 6.5
+"New Zealand", "2000-Q2", 6.3
+"New Zealand", "2000-Q3", 6.0
+"New Zealand", "2000-Q4", 5.8
+"New Zealand", "2001-Q1", 5.5
+"New Zealand", "2001-Q2", 5.4
+"New Zealand", "2001-Q3", 5.4
+"New Zealand", "2001-Q4", 5.6
+"New Zealand", "2002-Q1", 5.3
+"New Zealand", "2002-Q2", 5.3
+"New Zealand", "2002-Q3", 5.5
+"New Zealand", "2002-Q4", 5.1
+"New Zealand", "2003-Q1", 5.0
+"New Zealand", "2003-Q2", 4.8
+"New Zealand", "2003-Q3", 4.5
+"New Zealand", "2003-Q4", 4.7
+"New Zealand", "2004-Q1", 4.3
+"New Zealand", "2004-Q2", 4.2
+"New Zealand", "2004-Q3", 3.9
+"New Zealand", "2004-Q4", 3.7
+"New Zealand", "2005-Q1", 3.9
+"New Zealand", "2005-Q2", 3.8
+"New Zealand", "2005-Q3", 3.8
+"New Zealand", "2005-Q4", 3.7
+"New Zealand", "2006-Q1", 4.1
+"New Zealand", "2006-Q2", 3.7
+"New Zealand", "2006-Q3", 3.9
+"New Zealand", "2006-Q4", 3.8
+"New Zealand", "2007-Q1", 3.9
+"New Zealand", "2007-Q2", 3.6
+"New Zealand", "2007-Q3", 3.5
+"New Zealand", "2007-Q4", 3.3
+"New Zealand", "2008-Q1", 3.8
+"New Zealand", "2008-Q2", 3.8
+"New Zealand", "2008-Q3", 4.0
+"New Zealand", "2008-Q4", 4.4
+"New Zealand", "2009-Q1", 5.0
+"New Zealand", "2009-Q2", 5.7
+"New Zealand", "2009-Q3", 6.1
+"New Zealand", "2009-Q4", 6.5
+"New Zealand", "2010-Q1", 5.9
+"New Zealand", "2010-Q2", 6.5
+"New Zealand", "2010-Q3", 6.0
+"New Zealand", "2010-Q4", 6.2
+"New Zealand", "2011-Q1", 6.0
+"New Zealand", "2011-Q2", 6.0
+"New Zealand", "2011-Q3", 5.9
+"New Zealand", "2011-Q4", 6.0
+"New Zealand", "2012-Q1", 6.3
+"New Zealand", "2012-Q2", 6.3
+"New Zealand", "2012-Q3", 6.7
+"New Zealand", "2012-Q4", 6.2
+"New Zealand", "2013-Q1", 5.7
+"New Zealand", "2013-Q2", 6.0
+"New Zealand", "2013-Q3", 5.8
+"New Zealand", "2013-Q4", 5.6
+"New Zealand", "2014-Q1", 5.5
+"New Zealand", "2014-Q2", 5.2
+"New Zealand", "2014-Q3", 5.2
+"New Zealand", "2014-Q4", 5.5
+"New Zealand", "2015-Q1", 5.4
+"New Zealand", "2015-Q2", 5.5
+"New Zealand", "2015-Q3", 5.6
+"New Zealand", "2015-Q4", 4.9
+"New Zealand", "2016-Q1", 5.2
+"New Zealand", "2016-Q2", 5.0
+"New Zealand", "2016-Q3", 4.9
+"New Zealand", "2016-Q4", 5.2
+"Norway", "1989-Q1", 4.933333
+"Norway", "1989-Q2", 5.266667
+"Norway", "1989-Q3", 5.5
+"Norway", "1989-Q4", 5.866667
+"Norway", "1990-Q1", 5.9
+"Norway", "1990-Q2", 5.733333
+"Norway", "1990-Q3", 5.733333
+"Norway", "1990-Q4", 5.766667
+"Norway", "1991-Q1", 5.833333
+"Norway", "1991-Q2", 5.8
+"Norway", "1991-Q3", 6.0
+"Norway", "1991-Q4", 6.466667
+"Norway", "1992-Q1", 6.4
+"Norway", "1992-Q2", 6.533333
+"Norway", "1992-Q3", 6.566667
+"Norway", "1992-Q4", 6.666667
+"Norway", "1993-Q1", 6.666667
+"Norway", "1993-Q2", 6.666667
+"Norway", "1993-Q3", 6.733333
+"Norway", "1993-Q4", 6.366667
+"Norway", "1994-Q1", 6.0
+"Norway", "1994-Q2", 6.133333
+"Norway", "1994-Q3", 5.9
+"Norway", "1994-Q4", 5.966667
+"Norway", "1995-Q1", 5.933333
+"Norway", "1995-Q2", 5.533333
+"Norway", "1995-Q3", 5.266667
+"Norway", "1995-Q4", 5.066667
+"Norway", "1996-Q1", 4.933333
+"Norway", "1996-Q2", 4.833333
+"Norway", "1996-Q3", 4.733333
+"Norway", "1996-Q4", 4.6
+"Norway", "1997-Q1", 4.2
+"Norway", "1997-Q2", 4.133333
+"Norway", "1997-Q3", 3.833333
+"Norway", "1997-Q4", 3.466667
+"Norway", "1998-Q1", 3.266667
+"Norway", "1998-Q2", 3.333333
+"Norway", "1998-Q3", 3.0
+"Norway", "1998-Q4", 2.8
+"Norway", "1999-Q1", 2.766667
+"Norway", "1999-Q2", 2.866667
+"Norway", "1999-Q3", 3.133333
+"Norway", "1999-Q4", 3.4
+"Norway", "2000-Q1", 3.366667
+"Norway", "2000-Q2", 3.066667
+"Norway", "2000-Q3", 3.233333
+"Norway", "2000-Q4", 3.3
+"Norway", "2001-Q1", 3.333333
+"Norway", "2001-Q2", 3.266667
+"Norway", "2001-Q3", 3.466667
+"Norway", "2001-Q4", 3.633333
+"Norway", "2002-Q1", 3.7
+"Norway", "2002-Q2", 3.666667
+"Norway", "2002-Q3", 3.566667
+"Norway", "2002-Q4", 3.8
+"Norway", "2003-Q1", 3.966667
+"Norway", "2003-Q2", 4.233333
+"Norway", "2003-Q3", 4.366667
+"Norway", "2003-Q4", 4.333333
+"Norway", "2004-Q1", 4.166667
+"Norway", "2004-Q2", 4.233333
+"Norway", "2004-Q3", 4.366667
+"Norway", "2004-Q4", 4.4
+"Norway", "2005-Q1", 4.5
+"Norway", "2005-Q2", 4.6
+"Norway", "2005-Q3", 4.6
+"Norway", "2005-Q4", 4.4
+"Norway", "2006-Q1", 3.866667
+"Norway", "2006-Q2", 3.7
+"Norway", "2006-Q3", 3.3
+"Norway", "2006-Q4", 2.866667
+"Norway", "2007-Q1", 2.633333
+"Norway", "2007-Q2", 2.533333
+"Norway", "2007-Q3", 2.533333
+"Norway", "2007-Q4", 2.4
+"Norway", "2008-Q1", 2.433333
+"Norway", "2008-Q2", 2.4
+"Norway", "2008-Q3", 2.533333
+"Norway", "2008-Q4", 2.833333
+"Norway", "2009-Q1", 3.033333
+"Norway", "2009-Q2", 3.133333
+"Norway", "2009-Q3", 3.2
+"Norway", "2009-Q4", 3.266667
+"Norway", "2010-Q1", 3.533333
+"Norway", "2010-Q2", 3.7
+"Norway", "2010-Q3", 3.566667
+"Norway", "2010-Q4", 3.5
+"Norway", "2011-Q1", 3.233333
+"Norway", "2011-Q2", 3.4
+"Norway", "2011-Q3", 3.266667
+"Norway", "2011-Q4", 3.3
+"Norway", "2012-Q1", 3.133333
+"Norway", "2012-Q2", 3.133333
+"Norway", "2012-Q3", 3.1
+"Norway", "2012-Q4", 3.4
+"Norway", "2013-Q1", 3.6
+"Norway", "2013-Q2", 3.466667
+"Norway", "2013-Q3", 3.5
+"Norway", "2013-Q4", 3.5
+"Norway", "2014-Q1", 3.433333
+"Norway", "2014-Q2", 3.3
+"Norway", "2014-Q3", 3.6
+"Norway", "2014-Q4", 3.8
+"Norway", "2015-Q1", 4.1
+"Norway", "2015-Q2", 4.3
+"Norway", "2015-Q3", 4.466667
+"Norway", "2015-Q4", 4.6
+"Norway", "2016-Q1", 4.733333
+"Norway", "2016-Q2", 4.7
+"Norway", "2016-Q3", 4.9
+"Poland", "1997-Q1", 11.53333
+"Poland", "1997-Q2", 10.96667
+"Poland", "1997-Q3", 10.66667
+"Poland", "1997-Q4", 10.23333
+"Poland", "1998-Q1", 9.9
+"Poland", "1998-Q2", 9.9
+"Poland", "1998-Q3", 10.23333
+"Poland", "1998-Q4", 10.8
+"Poland", "1999-Q1", 11.93333
+"Poland", "1999-Q2", 12.93333
+"Poland", "1999-Q3", 13.83333
+"Poland", "1999-Q4", 14.8
+"Poland", "2000-Q1", 15.6
+"Poland", "2000-Q2", 16.23333
+"Poland", "2000-Q3", 16.26667
+"Poland", "2000-Q4", 16.6
+"Poland", "2001-Q1", 17.36667
+"Poland", "2001-Q2", 18.33333
+"Poland", "2001-Q3", 18.5
+"Poland", "2001-Q4", 19.03333
+"Poland", "2002-Q1", 19.33333
+"Poland", "2002-Q2", 20.03333
+"Poland", "2002-Q3", 20.53333
+"Poland", "2002-Q4", 20.3
+"Poland", "2003-Q1", 19.63333
+"Poland", "2003-Q2", 19.53333
+"Poland", "2003-Q3", 20.03333
+"Poland", "2003-Q4", 19.8
+"Poland", "2004-Q1", 19.83333
+"Poland", "2004-Q2", 19.3
+"Poland", "2004-Q3", 18.9
+"Poland", "2004-Q4", 18.53333
+"Poland", "2005-Q1", 18.1
+"Poland", "2005-Q2", 18.36667
+"Poland", "2005-Q3", 18.03333
+"Poland", "2005-Q4", 17.16667
+"Poland", "2006-Q1", 15.4
+"Poland", "2006-Q2", 14.33333
+"Poland", "2006-Q3", 13.5
+"Poland", "2006-Q4", 12.5
+"Poland", "2007-Q1", 10.73333
+"Poland", "2007-Q2", 9.7
+"Poland", "2007-Q3", 9.3
+"Poland", "2007-Q4", 8.666667
+"Poland", "2008-Q1", 7.533333
+"Poland", "2008-Q2", 7.133333
+"Poland", "2008-Q3", 6.8
+"Poland", "2008-Q4", 6.8
+"Poland", "2009-Q1", 7.666667
+"Poland", "2009-Q2", 7.933333
+"Poland", "2009-Q3", 8.3
+"Poland", "2009-Q4", 8.633333
+"Poland", "2010-Q1", 9.9
+"Poland", "2010-Q2", 9.7
+"Poland", "2010-Q3", 9.5
+"Poland", "2010-Q4", 9.533334
+"Poland", "2011-Q1", 9.366667
+"Poland", "2011-Q2", 9.566667
+"Poland", "2011-Q3", 9.7
+"Poland", "2011-Q4", 9.933333
+"Poland", "2012-Q1", 9.8
+"Poland", "2012-Q2", 10.06667
+"Poland", "2012-Q3", 10.26667
+"Poland", "2012-Q4", 10.33333
+"Poland", "2013-Q1", 10.53333
+"Poland", "2013-Q2", 10.6
+"Poland", "2013-Q3", 10.23333
+"Poland", "2013-Q4", 9.966666
+"Poland", "2014-Q1", 9.866667
+"Poland", "2014-Q2", 9.266666
+"Poland", "2014-Q3", 8.533334
+"Poland", "2014-Q4", 8.266666
+"Poland", "2015-Q1", 8.066667
+"Poland", "2015-Q2", 7.533333
+"Poland", "2015-Q3", 7.366667
+"Poland", "2015-Q4", 7.066667
+"Poland", "2016-Q1", 6.533333
+"Poland", "2016-Q2", 6.3
+"Poland", "2016-Q3", 6.2
+"Poland", "2016-Q4", 6.0
+"Portugal", "1983-Q1", 8.166667
+"Portugal", "1983-Q2", 8.766666
+"Portugal", "1983-Q3", 9.333333
+"Portugal", "1983-Q4", 9.3
+"Portugal", "1984-Q1", 9.4
+"Portugal", "1984-Q2", 9.533334
+"Portugal", "1984-Q3", 9.666667
+"Portugal", "1984-Q4", 9.833333
+"Portugal", "1985-Q1", 9.633333
+"Portugal", "1985-Q2", 9.8
+"Portugal", "1985-Q3", 9.966666
+"Portugal", "1985-Q4", 10.03333
+"Portugal", "1986-Q1", 10.1
+"Portugal", "1986-Q2", 9.8
+"Portugal", "1986-Q3", 9.2
+"Portugal", "1986-Q4", 8.933333
+"Portugal", "1987-Q1", 8.633333
+"Portugal", "1987-Q2", 8.2
+"Portugal", "1987-Q3", 7.733333
+"Portugal", "1987-Q4", 7.466667
+"Portugal", "1988-Q1", 7.0
+"Portugal", "1988-Q2", 6.933333
+"Portugal", "1988-Q3", 6.333333
+"Portugal", "1988-Q4", 6.366667
+"Portugal", "1989-Q1", 6.2
+"Portugal", "1989-Q2", 6.066667
+"Portugal", "1989-Q3", 5.966667
+"Portugal", "1989-Q4", 5.8
+"Portugal", "1990-Q1", 5.866667
+"Portugal", "1990-Q2", 5.466667
+"Portugal", "1990-Q3", 5.766667
+"Portugal", "1990-Q4", 5.4
+"Portugal", "1991-Q1", 5.033333
+"Portugal", "1991-Q2", 4.9
+"Portugal", "1991-Q3", 5.2
+"Portugal", "1991-Q4", 5.033333
+"Portugal", "1992-Q1", 4.8
+"Portugal", "1992-Q2", 4.9
+"Portugal", "1992-Q3", 5.033333
+"Portugal", "1992-Q4", 5.233333
+"Portugal", "1993-Q1", 5.7
+"Portugal", "1993-Q2", 6.2
+"Portugal", "1993-Q3", 6.5
+"Portugal", "1993-Q4", 6.833333
+"Portugal", "1994-Q1", 7.3
+"Portugal", "1994-Q2", 7.566667
+"Portugal", "1994-Q3", 7.666667
+"Portugal", "1994-Q4", 7.8
+"Portugal", "1995-Q1", 7.966667
+"Portugal", "1995-Q2", 7.9
+"Portugal", "1995-Q3", 7.8
+"Portugal", "1995-Q4", 8.0
+"Portugal", "1996-Q1", 8.033334
+"Portugal", "1996-Q2", 8.166667
+"Portugal", "1996-Q3", 7.933333
+"Portugal", "1996-Q4", 7.833333
+"Portugal", "1997-Q1", 7.833333
+"Portugal", "1997-Q2", 7.433333
+"Portugal", "1997-Q3", 7.566667
+"Portugal", "1997-Q4", 7.2
+"Portugal", "1998-Q1", 6.766667
+"Portugal", "1998-Q2", 6.133333
+"Portugal", "1998-Q3", 5.9
+"Portugal", "1998-Q4", 5.7
+"Portugal", "1999-Q1", 5.7
+"Portugal", "1999-Q2", 5.8
+"Portugal", "1999-Q3", 5.466667
+"Portugal", "1999-Q4", 5.233333
+"Portugal", "2000-Q1", 5.3
+"Portugal", "2000-Q2", 5.033333
+"Portugal", "2000-Q3", 5.166667
+"Portugal", "2000-Q4", 4.9
+"Portugal", "2001-Q1", 5.033333
+"Portugal", "2001-Q2", 5.2
+"Portugal", "2001-Q3", 5.166667
+"Portugal", "2001-Q4", 5.1
+"Portugal", "2002-Q1", 5.333333
+"Portugal", "2002-Q2", 5.833333
+"Portugal", "2002-Q3", 6.366667
+"Portugal", "2002-Q4", 7.066667
+"Portugal", "2003-Q1", 7.233333
+"Portugal", "2003-Q2", 7.466667
+"Portugal", "2003-Q3", 7.433333
+"Portugal", "2003-Q4", 7.5
+"Portugal", "2004-Q1", 7.266667
+"Portugal", "2004-Q2", 7.666667
+"Portugal", "2004-Q3", 8.0
+"Portugal", "2004-Q4", 8.166667
+"Portugal", "2005-Q1", 8.4
+"Portugal", "2005-Q2", 8.666667
+"Portugal", "2005-Q3", 9.033334
+"Portugal", "2005-Q4", 8.966666
+"Portugal", "2006-Q1", 8.733334
+"Portugal", "2006-Q2", 8.633333
+"Portugal", "2006-Q3", 8.9
+"Portugal", "2006-Q4", 9.233334
+"Portugal", "2007-Q1", 9.3
+"Portugal", "2007-Q2", 9.3
+"Portugal", "2007-Q3", 9.066667
+"Portugal", "2007-Q4", 8.9
+"Portugal", "2008-Q1", 8.566667
+"Portugal", "2008-Q2", 8.633333
+"Portugal", "2008-Q3", 8.866667
+"Portugal", "2008-Q4", 9.033334
+"Portugal", "2009-Q1", 9.766666
+"Portugal", "2009-Q2", 10.53333
+"Portugal", "2009-Q3", 11.16667
+"Portugal", "2009-Q4", 11.26667
+"Portugal", "2010-Q1", 11.46667
+"Portugal", "2010-Q2", 12.13333
+"Portugal", "2010-Q3", 12.26667
+"Portugal", "2010-Q4", 12.13333
+"Portugal", "2011-Q1", 12.3
+"Portugal", "2011-Q2", 12.43333
+"Portugal", "2011-Q3", 12.83333
+"Portugal", "2011-Q4", 13.93333
+"Portugal", "2012-Q1", 14.63333
+"Portugal", "2012-Q2", 15.43333
+"Portugal", "2012-Q3", 16.03333
+"Portugal", "2012-Q4", 16.96667
+"Portugal", "2013-Q1", 17.33333
+"Portugal", "2013-Q2", 16.9
+"Portugal", "2013-Q3", 16.13333
+"Portugal", "2013-Q4", 15.36667
+"Portugal", "2014-Q1", 14.83333
+"Portugal", "2014-Q2", 14.46667
+"Portugal", "2014-Q3", 13.7
+"Portugal", "2014-Q4", 13.53333
+"Portugal", "2015-Q1", 13.46667
+"Portugal", "2015-Q2", 12.5
+"Portugal", "2015-Q3", 12.33333
+"Portugal", "2015-Q4", 12.26667
+"Portugal", "2016-Q1", 12.1
+"Portugal", "2016-Q2", 11.26667
+"Portugal", "2016-Q3", 10.9
+"Portugal", "2016-Q4", 10.43333
+"Slovak Republic", "1998-Q1", 12.13333
+"Slovak Republic", "1998-Q2", 12.33333
+"Slovak Republic", "1998-Q3", 13.06667
+"Slovak Republic", "1998-Q4", 13.36667
+"Slovak Republic", "1999-Q1", 14.76667
+"Slovak Republic", "1999-Q2", 16.1
+"Slovak Republic", "1999-Q3", 17.03333
+"Slovak Republic", "1999-Q4", 18.03333
+"Slovak Republic", "2000-Q1", 18.5
+"Slovak Republic", "2000-Q2", 19.16667
+"Slovak Republic", "2000-Q3", 18.96667
+"Slovak Republic", "2000-Q4", 18.96667
+"Slovak Republic", "2001-Q1", 19.36667
+"Slovak Republic", "2001-Q2", 19.53333
+"Slovak Republic", "2001-Q3", 19.46667
+"Slovak Republic", "2001-Q4", 19.46667
+"Slovak Republic", "2002-Q1", 19.03333
+"Slovak Republic", "2002-Q2", 18.93333
+"Slovak Republic", "2002-Q3", 18.73333
+"Slovak Republic", "2002-Q4", 18.56667
+"Slovak Republic", "2003-Q1", 18.0
+"Slovak Republic", "2003-Q2", 17.36667
+"Slovak Republic", "2003-Q3", 17.5
+"Slovak Republic", "2003-Q4", 17.96667
+"Slovak Republic", "2004-Q1", 18.9
+"Slovak Republic", "2004-Q2", 18.8
+"Slovak Republic", "2004-Q3", 18.03333
+"Slovak Republic", "2004-Q4", 17.7
+"Slovak Republic", "2005-Q1", 17.13333
+"Slovak Republic", "2005-Q2", 16.56667
+"Slovak Republic", "2005-Q3", 16.06667
+"Slovak Republic", "2005-Q4", 15.7
+"Slovak Republic", "2006-Q1", 14.66667
+"Slovak Republic", "2006-Q2", 13.7
+"Slovak Republic", "2006-Q3", 13.06667
+"Slovak Republic", "2006-Q4", 12.36667
+"Slovak Republic", "2007-Q1", 11.5
+"Slovak Republic", "2007-Q2", 11.3
+"Slovak Republic", "2007-Q3", 11.43333
+"Slovak Republic", "2007-Q4", 10.7
+"Slovak Republic", "2008-Q1", 10.3
+"Slovak Republic", "2008-Q2", 10.06667
+"Slovak Republic", "2008-Q3", 9.066667
+"Slovak Republic", "2008-Q4", 8.966666
+"Slovak Republic", "2009-Q1", 10.2
+"Slovak Republic", "2009-Q2", 11.33333
+"Slovak Republic", "2009-Q3", 12.76667
+"Slovak Republic", "2009-Q4", 14.06667
+"Slovak Republic", "2010-Q1", 14.83333
+"Slovak Republic", "2010-Q2", 14.6
+"Slovak Republic", "2010-Q3", 14.43333
+"Slovak Republic", "2010-Q4", 14.03333
+"Slovak Republic", "2011-Q1", 13.73333
+"Slovak Republic", "2011-Q2", 13.46667
+"Slovak Republic", "2011-Q3", 13.6
+"Slovak Republic", "2011-Q4", 14.03333
+"Slovak Republic", "2012-Q1", 13.73333
+"Slovak Republic", "2012-Q2", 13.8
+"Slovak Republic", "2012-Q3", 13.93333
+"Slovak Republic", "2012-Q4", 14.33333
+"Slovak Republic", "2013-Q1", 14.2
+"Slovak Republic", "2013-Q2", 14.26667
+"Slovak Republic", "2013-Q3", 14.26667
+"Slovak Republic", "2013-Q4", 14.2
+"Slovak Republic", "2014-Q1", 13.8
+"Slovak Republic", "2014-Q2", 13.4
+"Slovak Republic", "2014-Q3", 12.96667
+"Slovak Republic", "2014-Q4", 12.56667
+"Slovak Republic", "2015-Q1", 12.2
+"Slovak Republic", "2015-Q2", 11.53333
+"Slovak Republic", "2015-Q3", 11.33333
+"Slovak Republic", "2015-Q4", 10.9
+"Slovak Republic", "2016-Q1", 10.23333
+"Slovak Republic", "2016-Q2", 9.9
+"Slovak Republic", "2016-Q3", 9.533334
+"Slovak Republic", "2016-Q4", 9.0
+"Spain", "1986-Q2", 20.5
+"Spain", "1986-Q3", 20.33333
+"Spain", "1986-Q4", 20.23333
+"Spain", "1987-Q1", 20.06667
+"Spain", "1987-Q2", 19.7
+"Spain", "1987-Q3", 19.7
+"Spain", "1987-Q4", 19.43333
+"Spain", "1988-Q1", 19.2
+"Spain", "1988-Q2", 19.06667
+"Spain", "1988-Q3", 18.66667
+"Spain", "1988-Q4", 17.76667
+"Spain", "1989-Q1", 17.3
+"Spain", "1989-Q2", 16.66667
+"Spain", "1989-Q3", 16.13333
+"Spain", "1989-Q4", 16.1
+"Spain", "1990-Q1", 15.76667
+"Spain", "1990-Q2", 15.56667
+"Spain", "1990-Q3", 15.3
+"Spain", "1990-Q4", 15.3
+"Spain", "1991-Q1", 15.1
+"Spain", "1991-Q2", 15.3
+"Spain", "1991-Q3", 15.76667
+"Spain", "1991-Q4", 15.9
+"Spain", "1992-Q1", 16.13333
+"Spain", "1992-Q2", 16.53333
+"Spain", "1992-Q3", 17.2
+"Spain", "1992-Q4", 18.4
+"Spain", "1993-Q1", 19.56667
+"Spain", "1993-Q2", 20.5
+"Spain", "1993-Q3", 21.4
+"Spain", "1993-Q4", 21.86667
+"Spain", "1994-Q1", 22.23333
+"Spain", "1994-Q2", 22.2
+"Spain", "1994-Q3", 22.03333
+"Spain", "1994-Q4", 21.73333
+"Spain", "1995-Q1", 21.16667
+"Spain", "1995-Q2", 20.56667
+"Spain", "1995-Q3", 20.8
+"Spain", "1995-Q4", 20.63333
+"Spain", "1996-Q1", 20.4
+"Spain", "1996-Q2", 20.03333
+"Spain", "1996-Q3", 19.86667
+"Spain", "1996-Q4", 19.23333
+"Spain", "1997-Q1", 18.66667
+"Spain", "1997-Q2", 18.76667
+"Spain", "1997-Q3", 18.4
+"Spain", "1997-Q4", 17.7
+"Spain", "1998-Q1", 16.83333
+"Spain", "1998-Q2", 16.76667
+"Spain", "1998-Q3", 16.43333
+"Spain", "1998-Q4", 15.63333
+"Spain", "1999-Q1", 14.33333
+"Spain", "1999-Q2", 13.66667
+"Spain", "1999-Q3", 13.46667
+"Spain", "1999-Q4", 13.03333
+"Spain", "2000-Q1", 12.4
+"Spain", "2000-Q2", 12.0
+"Spain", "2000-Q3", 11.83333
+"Spain", "2000-Q4", 11.36667
+"Spain", "2001-Q1", 10.66667
+"Spain", "2001-Q2", 10.56667
+"Spain", "2001-Q3", 10.5
+"Spain", "2001-Q4", 10.53333
+"Spain", "2002-Q1", 11.23333
+"Spain", "2002-Q2", 11.33333
+"Spain", "2002-Q3", 11.73333
+"Spain", "2002-Q4", 11.56667
+"Spain", "2003-Q1", 11.66667
+"Spain", "2003-Q2", 11.46667
+"Spain", "2003-Q3", 11.56667
+"Spain", "2003-Q4", 11.36667
+"Spain", "2004-Q1", 11.2
+"Spain", "2004-Q2", 11.2
+"Spain", "2004-Q3", 11.0
+"Spain", "2004-Q4", 10.53333
+"Spain", "2005-Q1", 9.866667
+"Spain", "2005-Q2", 9.366667
+"Spain", "2005-Q3", 8.633333
+"Spain", "2005-Q4", 8.7
+"Spain", "2006-Q1", 8.733334
+"Spain", "2006-Q2", 8.5
+"Spain", "2006-Q3", 8.333333
+"Spain", "2006-Q4", 8.3
+"Spain", "2007-Q1", 8.166667
+"Spain", "2007-Q2", 7.966667
+"Spain", "2007-Q3", 8.233334
+"Spain", "2007-Q4", 8.6
+"Spain", "2008-Q1", 9.266666
+"Spain", "2008-Q2", 10.36667
+"Spain", "2008-Q3", 11.56667
+"Spain", "2008-Q4", 13.83333
+"Spain", "2009-Q1", 16.7
+"Spain", "2009-Q2", 17.8
+"Spain", "2009-Q3", 18.23333
+"Spain", "2009-Q4", 18.8
+"Spain", "2010-Q1", 19.26667
+"Spain", "2010-Q2", 19.93333
+"Spain", "2010-Q3", 20.06667
+"Spain", "2010-Q4", 20.23333
+"Spain", "2011-Q1", 20.5
+"Spain", "2011-Q2", 20.73333
+"Spain", "2011-Q3", 21.73333
+"Spain", "2011-Q4", 22.63333
+"Spain", "2012-Q1", 23.56667
+"Spain", "2012-Q2", 24.53333
+"Spain", "2012-Q3", 25.3
+"Spain", "2012-Q4", 25.86667
+"Spain", "2013-Q1", 26.26667
+"Spain", "2013-Q2", 26.23333
+"Spain", "2013-Q3", 26.16667
+"Spain", "2013-Q4", 25.76667
+"Spain", "2014-Q1", 25.3
+"Spain", "2014-Q2", 24.66667
+"Spain", "2014-Q3", 24.13333
+"Spain", "2014-Q4", 23.73333
+"Spain", "2015-Q1", 23.16667
+"Spain", "2015-Q2", 22.5
+"Spain", "2015-Q3", 21.63333
+"Spain", "2015-Q4", 20.93333
+"Spain", "2016-Q1", 20.46667
+"Spain", "2016-Q2", 20.1
+"Spain", "2016-Q3", 19.3
+"Spain", "2016-Q4", 18.66667
+"Sweden", "1983-Q1", 3.6
+"Sweden", "1983-Q2", 3.666667
+"Sweden", "1983-Q3", 3.766667
+"Sweden", "1983-Q4", 3.666667
+"Sweden", "1984-Q1", 3.466667
+"Sweden", "1984-Q2", 3.333333
+"Sweden", "1984-Q3", 3.133333
+"Sweden", "1984-Q4", 3.066667
+"Sweden", "1985-Q1", 3.0
+"Sweden", "1985-Q2", 2.966667
+"Sweden", "1985-Q3", 2.8
+"Sweden", "1985-Q4", 2.7
+"Sweden", "1986-Q1", 2.833333
+"Sweden", "1986-Q2", 2.666667
+"Sweden", "1986-Q3", 2.566667
+"Sweden", "1986-Q4", 2.633333
+"Sweden", "1987-Q1", 2.366667
+"Sweden", "1987-Q2", 2.3
+"Sweden", "1987-Q3", 2.166667
+"Sweden", "1987-Q4", 1.9
+"Sweden", "1988-Q1", 1.9
+"Sweden", "1988-Q2", 1.833333
+"Sweden", "1988-Q3", 1.833333
+"Sweden", "1988-Q4", 1.633333
+"Sweden", "1989-Q1", 1.6
+"Sweden", "1989-Q2", 1.566667
+"Sweden", "1989-Q3", 1.433333
+"Sweden", "1989-Q4", 1.566667
+"Sweden", "1990-Q1", 1.433333
+"Sweden", "1990-Q2", 1.533333
+"Sweden", "1990-Q3", 1.766667
+"Sweden", "1990-Q4", 2.166667
+"Sweden", "1991-Q1", 2.433333
+"Sweden", "1991-Q2", 2.733333
+"Sweden", "1991-Q3", 3.366667
+"Sweden", "1991-Q4", 3.866667
+"Sweden", "1992-Q1", 4.566667
+"Sweden", "1992-Q2", 5.266667
+"Sweden", "1992-Q3", 5.966667
+"Sweden", "1992-Q4", 6.5
+"Sweden", "1993-Q1", 7.7
+"Sweden", "1993-Q2", 9.033334
+"Sweden", "1993-Q3", 9.633333
+"Sweden", "1993-Q4", 9.8
+"Sweden", "1994-Q1", 9.733334
+"Sweden", "1994-Q2", 9.366667
+"Sweden", "1994-Q3", 9.233334
+"Sweden", "1994-Q4", 9.0
+"Sweden", "1995-Q1", 8.833333
+"Sweden", "1995-Q2", 8.7
+"Sweden", "1995-Q3", 8.666667
+"Sweden", "1995-Q4", 8.966666
+"Sweden", "1996-Q1", 9.0
+"Sweden", "1996-Q2", 9.5
+"Sweden", "1996-Q3", 9.733334
+"Sweden", "1996-Q4", 9.933333
+"Sweden", "1997-Q1", 10.26667
+"Sweden", "1997-Q2", 10.3
+"Sweden", "1997-Q3", 9.733334
+"Sweden", "1997-Q4", 9.133333
+"Sweden", "1998-Q1", 8.666667
+"Sweden", "1998-Q2", 8.6
+"Sweden", "1998-Q3", 8.0
+"Sweden", "1998-Q4", 7.466667
+"Sweden", "1999-Q1", 7.1
+"Sweden", "1999-Q2", 6.766667
+"Sweden", "1999-Q3", 6.633333
+"Sweden", "1999-Q4", 6.333333
+"Sweden", "2000-Q1", 6.066667
+"Sweden", "2000-Q2", 5.766667
+"Sweden", "2000-Q3", 5.433333
+"Sweden", "2000-Q4", 5.1
+"Sweden", "2001-Q1", 5.9
+"Sweden", "2001-Q2", 5.7
+"Sweden", "2001-Q3", 5.833333
+"Sweden", "2001-Q4", 5.966667
+"Sweden", "2002-Q1", 5.8
+"Sweden", "2002-Q2", 5.8
+"Sweden", "2002-Q3", 6.066667
+"Sweden", "2002-Q4", 6.166667
+"Sweden", "2003-Q1", 6.233333
+"Sweden", "2003-Q2", 6.333333
+"Sweden", "2003-Q3", 6.633333
+"Sweden", "2003-Q4", 7.066667
+"Sweden", "2004-Q1", 7.333333
+"Sweden", "2004-Q2", 7.366667
+"Sweden", "2004-Q3", 7.433333
+"Sweden", "2004-Q4", 7.366667
+"Sweden", "2005-Q1", 7.366667
+"Sweden", "2005-Q2", 7.9
+"Sweden", "2005-Q3", 7.766667
+"Sweden", "2005-Q4", 7.633333
+"Sweden", "2006-Q1", 7.466667
+"Sweden", "2006-Q2", 7.333333
+"Sweden", "2006-Q3", 6.9
+"Sweden", "2006-Q4", 6.533333
+"Sweden", "2007-Q1", 6.433333
+"Sweden", "2007-Q2", 6.066667
+"Sweden", "2007-Q3", 5.966667
+"Sweden", "2007-Q4", 6.066667
+"Sweden", "2008-Q1", 5.866667
+"Sweden", "2008-Q2", 6.0
+"Sweden", "2008-Q3", 6.166667
+"Sweden", "2008-Q4", 6.7
+"Sweden", "2009-Q1", 7.433333
+"Sweden", "2009-Q2", 8.366667
+"Sweden", "2009-Q3", 8.666667
+"Sweden", "2009-Q4", 8.8
+"Sweden", "2010-Q1", 8.933333
+"Sweden", "2010-Q2", 8.766666
+"Sweden", "2010-Q3", 8.5
+"Sweden", "2010-Q4", 8.1
+"Sweden", "2011-Q1", 7.9
+"Sweden", "2011-Q2", 7.8
+"Sweden", "2011-Q3", 7.633333
+"Sweden", "2011-Q4", 7.766667
+"Sweden", "2012-Q1", 7.733333
+"Sweden", "2012-Q2", 7.866667
+"Sweden", "2012-Q3", 8.1
+"Sweden", "2012-Q4", 8.166667
+"Sweden", "2013-Q1", 8.066667
+"Sweden", "2013-Q2", 8.033334
+"Sweden", "2013-Q3", 8.0
+"Sweden", "2013-Q4", 7.966667
+"Sweden", "2014-Q1", 8.033334
+"Sweden", "2014-Q2", 7.933333
+"Sweden", "2014-Q3", 7.866667
+"Sweden", "2014-Q4", 7.8
+"Sweden", "2015-Q1", 7.666667
+"Sweden", "2015-Q2", 7.633333
+"Sweden", "2015-Q3", 7.2
+"Sweden", "2015-Q4", 7.1
+"Sweden", "2016-Q1", 7.1
+"Sweden", "2016-Q2", 6.8
+"Sweden", "2016-Q3", 6.966667
+"Sweden", "2016-Q4", 6.9
+"Switzerland", "1999-Q2", 3.144907
+"Switzerland", "2000-Q2", 2.664994
+"Switzerland", "2001-Q2", 2.490901
+"Switzerland", "2002-Q2", 2.92339
+"Switzerland", "2003-Q2", 4.115555
+"Switzerland", "2004-Q2", 4.316408
+"Switzerland", "2005-Q2", 4.436162
+"Switzerland", "2006-Q2", 3.99981
+"Switzerland", "2007-Q2", 3.650983
+"Switzerland", "2008-Q2", 3.350551
+"Switzerland", "2009-Q2", 4.115744
+"Switzerland", "2010-Q1", 5.139883
+"Switzerland", "2010-Q2", 4.248563
+"Switzerland", "2010-Q3", 4.64642
+"Switzerland", "2010-Q4", 4.147302
+"Switzerland", "2011-Q1", 4.387812
+"Switzerland", "2011-Q2", 3.567093
+"Switzerland", "2011-Q3", 4.165479
+"Switzerland", "2011-Q4", 4.025239
+"Switzerland", "2012-Q1", 4.312083
+"Switzerland", "2012-Q2", 3.734367
+"Switzerland", "2012-Q3", 4.322306
+"Switzerland", "2012-Q4", 4.369371
+"Switzerland", "2013-Q1", 4.63609
+"Switzerland", "2013-Q2", 4.158851
+"Switzerland", "2013-Q3", 4.670435
+"Switzerland", "2013-Q4", 4.09173
+"Switzerland", "2014-Q1", 4.826366
+"Switzerland", "2014-Q2", 4.410178
+"Switzerland", "2014-Q3", 4.828543
+"Switzerland", "2014-Q4", 4.089335
+"Switzerland", "2015-Q1", 4.401613
+"Switzerland", "2015-Q2", 4.169712
+"Switzerland", "2015-Q3", 4.917181
+"Switzerland", "2015-Q4", 4.705447
+"Switzerland", "2016-Q1", 5.081322
+"Switzerland", "2016-Q2", 4.25436
+"Switzerland", "2016-Q3", 4.83017
+"Turkey", "2005-Q1", 8.9
+"Turkey", "2005-Q2", 9.266666
+"Turkey", "2005-Q3", 9.2
+"Turkey", "2005-Q4", 9.4
+"Turkey", "2006-Q1", 9.1
+"Turkey", "2006-Q2", 8.733334
+"Turkey", "2006-Q3", 8.6
+"Turkey", "2006-Q4", 8.433333
+"Turkey", "2007-Q1", 8.5
+"Turkey", "2007-Q2", 8.866667
+"Turkey", "2007-Q3", 8.833333
+"Turkey", "2007-Q4", 9.1
+"Turkey", "2008-Q1", 9.033334
+"Turkey", "2008-Q2", 9.0
+"Turkey", "2008-Q3", 9.7
+"Turkey", "2008-Q4", 11.03333
+"Turkey", "2009-Q1", 12.56667
+"Turkey", "2009-Q2", 13.13333
+"Turkey", "2009-Q3", 12.66667
+"Turkey", "2009-Q4", 11.8
+"Turkey", "2010-Q1", 11.53333
+"Turkey", "2010-Q2", 10.66667
+"Turkey", "2010-Q3", 10.46667
+"Turkey", "2010-Q4", 9.9
+"Turkey", "2011-Q1", 9.3
+"Turkey", "2011-Q2", 9.2
+"Turkey", "2011-Q3", 8.6
+"Turkey", "2011-Q4", 8.2
+"Turkey", "2012-Q1", 8.166667
+"Turkey", "2012-Q2", 7.966667
+"Turkey", "2012-Q3", 8.066667
+"Turkey", "2012-Q4", 8.3
+"Turkey", "2013-Q1", 8.466666
+"Turkey", "2013-Q2", 8.666667
+"Turkey", "2013-Q3", 9.033334
+"Turkey", "2013-Q4", 8.733334
+"Turkey", "2014-Q1", 9.366667
+"Turkey", "2014-Q2", 9.633333
+"Turkey", "2014-Q3", 10.3
+"Turkey", "2014-Q4", 10.4
+"Turkey", "2015-Q1", 10.3
+"Turkey", "2015-Q2", 10.26667
+"Turkey", "2015-Q3", 10.26667
+"Turkey", "2015-Q4", 10.33333
+"Turkey", "2016-Q1", 10.06667
+"Turkey", "2016-Q2", 10.4
+"Turkey", "2016-Q3", 11.33333
+"United Kingdom", "1983-Q1", 10.76667
+"United Kingdom", "1983-Q2", 10.96667
+"United Kingdom", "1983-Q3", 10.9
+"United Kingdom", "1983-Q4", 10.8
+"United Kingdom", "1984-Q1", 10.73333
+"United Kingdom", "1984-Q2", 10.73333
+"United Kingdom", "1984-Q3", 10.93333
+"United Kingdom", "1984-Q4", 11.06667
+"United Kingdom", "1985-Q1", 11.2
+"United Kingdom", "1985-Q2", 11.26667
+"United Kingdom", "1985-Q3", 11.2
+"United Kingdom", "1985-Q4", 11.16667
+"United Kingdom", "1986-Q1", 11.16667
+"United Kingdom", "1986-Q2", 11.3
+"United Kingdom", "1986-Q3", 11.3
+"United Kingdom", "1986-Q4", 11.2
+"United Kingdom", "1987-Q1", 11.0
+"United Kingdom", "1987-Q2", 10.63333
+"United Kingdom", "1987-Q3", 10.13333
+"United Kingdom", "1987-Q4", 9.6
+"United Kingdom", "1988-Q1", 9.066667
+"United Kingdom", "1988-Q2", 8.666667
+"United Kingdom", "1988-Q3", 8.366667
+"United Kingdom", "1988-Q4", 7.866667
+"United Kingdom", "1989-Q1", 7.5
+"United Kingdom", "1989-Q2", 7.1
+"United Kingdom", "1989-Q3", 6.966667
+"United Kingdom", "1989-Q4", 6.8
+"United Kingdom", "1990-Q1", 6.766667
+"United Kingdom", "1990-Q2", 6.733333
+"United Kingdom", "1990-Q3", 6.833333
+"United Kingdom", "1990-Q4", 7.166667
+"United Kingdom", "1991-Q1", 7.766667
+"United Kingdom", "1991-Q2", 8.466666
+"United Kingdom", "1991-Q3", 8.933333
+"United Kingdom", "1991-Q4", 9.1
+"United Kingdom", "1992-Q1", 9.3
+"United Kingdom", "1992-Q2", 9.666667
+"United Kingdom", "1992-Q3", 9.833333
+"United Kingdom", "1992-Q4", 10.2
+"United Kingdom", "1993-Q1", 10.4
+"United Kingdom", "1993-Q2", 10.2
+"United Kingdom", "1993-Q3", 10.1
+"United Kingdom", "1993-Q4", 10.06667
+"United Kingdom", "1994-Q1", 9.766666
+"United Kingdom", "1994-Q2", 9.466666
+"United Kingdom", "1994-Q3", 9.2
+"United Kingdom", "1994-Q4", 8.8
+"United Kingdom", "1995-Q1", 8.7
+"United Kingdom", "1995-Q2", 8.5
+"United Kingdom", "1995-Q3", 8.433333
+"United Kingdom", "1995-Q4", 8.266666
+"United Kingdom", "1996-Q1", 8.133333
+"United Kingdom", "1996-Q2", 8.066667
+"United Kingdom", "1996-Q3", 7.866667
+"United Kingdom", "1996-Q4", 7.566667
+"United Kingdom", "1997-Q1", 7.2
+"United Kingdom", "1997-Q2", 7.0
+"United Kingdom", "1997-Q3", 6.7
+"United Kingdom", "1997-Q4", 6.366667
+"United Kingdom", "1998-Q1", 6.2
+"United Kingdom", "1998-Q2", 6.133333
+"United Kingdom", "1998-Q3", 6.1
+"United Kingdom", "1998-Q4", 6.033333
+"United Kingdom", "1999-Q1", 6.033333
+"United Kingdom", "1999-Q2", 5.966667
+"United Kingdom", "1999-Q3", 5.8
+"United Kingdom", "1999-Q4", 5.766667
+"United Kingdom", "2000-Q1", 5.666667
+"United Kingdom", "2000-Q2", 5.466667
+"United Kingdom", "2000-Q3", 5.233333
+"United Kingdom", "2000-Q4", 5.133333
+"United Kingdom", "2001-Q1", 5.0
+"United Kingdom", "2001-Q2", 4.9
+"United Kingdom", "2001-Q3", 5.0
+"United Kingdom", "2001-Q4", 5.066667
+"United Kingdom", "2002-Q1", 5.1
+"United Kingdom", "2002-Q2", 5.133333
+"United Kingdom", "2002-Q3", 5.166667
+"United Kingdom", "2002-Q4", 5.066667
+"United Kingdom", "2003-Q1", 5.066667
+"United Kingdom", "2003-Q2", 4.933333
+"United Kingdom", "2003-Q3", 4.966667
+"United Kingdom", "2003-Q4", 4.866667
+"United Kingdom", "2004-Q1", 4.7
+"United Kingdom", "2004-Q2", 4.7
+"United Kingdom", "2004-Q3", 4.6
+"United Kingdom", "2004-Q4", 4.7
+"United Kingdom", "2005-Q1", 4.633333
+"United Kingdom", "2005-Q2", 4.666667
+"United Kingdom", "2005-Q3", 4.7
+"United Kingdom", "2005-Q4", 5.1
+"United Kingdom", "2006-Q1", 5.2
+"United Kingdom", "2006-Q2", 5.4
+"United Kingdom", "2006-Q3", 5.4
+"United Kingdom", "2006-Q4", 5.4
+"United Kingdom", "2007-Q1", 5.5
+"United Kingdom", "2007-Q2", 5.266667
+"United Kingdom", "2007-Q3", 5.266667
+"United Kingdom", "2007-Q4", 5.033333
+"United Kingdom", "2008-Q1", 5.133333
+"United Kingdom", "2008-Q2", 5.266667
+"United Kingdom", "2008-Q3", 5.8
+"United Kingdom", "2008-Q4", 6.3
+"United Kingdom", "2009-Q1", 7.033333
+"United Kingdom", "2009-Q2", 7.7
+"United Kingdom", "2009-Q3", 7.8
+"United Kingdom", "2009-Q4", 7.7
+"United Kingdom", "2010-Q1", 7.933333
+"United Kingdom", "2010-Q2", 7.766667
+"United Kingdom", "2010-Q3", 7.7
+"United Kingdom", "2010-Q4", 7.833333
+"United Kingdom", "2011-Q1", 7.733333
+"United Kingdom", "2011-Q2", 7.9
+"United Kingdom", "2011-Q3", 8.266666
+"United Kingdom", "2011-Q4", 8.366667
+"United Kingdom", "2012-Q1", 8.133333
+"United Kingdom", "2012-Q2", 7.933333
+"United Kingdom", "2012-Q3", 7.8
+"United Kingdom", "2012-Q4", 7.8
+"United Kingdom", "2013-Q1", 7.766667
+"United Kingdom", "2013-Q2", 7.7
+"United Kingdom", "2013-Q3", 7.566667
+"United Kingdom", "2013-Q4", 7.166667
+"United Kingdom", "2014-Q1", 6.666667
+"United Kingdom", "2014-Q2", 6.233333
+"United Kingdom", "2014-Q3", 5.933333
+"United Kingdom", "2014-Q4", 5.666667
+"United Kingdom", "2015-Q1", 5.466667
+"United Kingdom", "2015-Q2", 5.533333
+"United Kingdom", "2015-Q3", 5.3
+"United Kingdom", "2015-Q4", 5.0
+"United Kingdom", "2016-Q1", 5.0
+"United Kingdom", "2016-Q2", 4.866667
+"United Kingdom", "2016-Q3", 4.766667
+"United States", "1955-Q1", 4.733333
+"United States", "1955-Q2", 4.4
+"United States", "1955-Q3", 4.1
+"United States", "1955-Q4", 4.233333
+"United States", "1956-Q1", 4.033333
+"United States", "1956-Q2", 4.2
+"United States", "1956-Q3", 4.133333
+"United States", "1956-Q4", 4.133333
+"United States", "1957-Q1", 3.933333
+"United States", "1957-Q2", 4.1
+"United States", "1957-Q3", 4.233333
+"United States", "1957-Q4", 4.933333
+"United States", "1958-Q1", 6.3
+"United States", "1958-Q2", 7.366667
+"United States", "1958-Q3", 7.333333
+"United States", "1958-Q4", 6.366667
+"United States", "1959-Q1", 5.833333
+"United States", "1959-Q2", 5.1
+"United States", "1959-Q3", 5.266667
+"United States", "1959-Q4", 5.6
+"United States", "1960-Q1", 5.133333
+"United States", "1960-Q2", 5.233333
+"United States", "1960-Q3", 5.533333
+"United States", "1960-Q4", 6.266667
+"United States", "1961-Q1", 6.8
+"United States", "1961-Q2", 7.0
+"United States", "1961-Q3", 6.766667
+"United States", "1961-Q4", 6.2
+"United States", "1962-Q1", 5.633333
+"United States", "1962-Q2", 5.533333
+"United States", "1962-Q3", 5.566667
+"United States", "1962-Q4", 5.533333
+"United States", "1963-Q1", 5.766667
+"United States", "1963-Q2", 5.733333
+"United States", "1963-Q3", 5.5
+"United States", "1963-Q4", 5.566667
+"United States", "1964-Q1", 5.466667
+"United States", "1964-Q2", 5.2
+"United States", "1964-Q3", 5.0
+"United States", "1964-Q4", 4.966667
+"United States", "1965-Q1", 4.9
+"United States", "1965-Q2", 4.666667
+"United States", "1965-Q3", 4.366667
+"United States", "1965-Q4", 4.1
+"United States", "1966-Q1", 3.866667
+"United States", "1966-Q2", 3.833333
+"United States", "1966-Q3", 3.766667
+"United States", "1966-Q4", 3.7
+"United States", "1967-Q1", 3.833333
+"United States", "1967-Q2", 3.833333
+"United States", "1967-Q3", 3.8
+"United States", "1967-Q4", 3.9
+"United States", "1968-Q1", 3.733333
+"United States", "1968-Q2", 3.566667
+"United States", "1968-Q3", 3.533333
+"United States", "1968-Q4", 3.4
+"United States", "1969-Q1", 3.4
+"United States", "1969-Q2", 3.433333
+"United States", "1969-Q3", 3.566667
+"United States", "1969-Q4", 3.566667
+"United States", "1970-Q1", 4.166667
+"United States", "1970-Q2", 4.766667
+"United States", "1970-Q3", 5.166667
+"United States", "1970-Q4", 5.833333
+"United States", "1971-Q1", 5.933333
+"United States", "1971-Q2", 5.9
+"United States", "1971-Q3", 6.033333
+"United States", "1971-Q4", 5.933333
+"United States", "1972-Q1", 5.766667
+"United States", "1972-Q2", 5.7
+"United States", "1972-Q3", 5.566667
+"United States", "1972-Q4", 5.366667
+"United States", "1973-Q1", 4.933333
+"United States", "1973-Q2", 4.933333
+"United States", "1973-Q3", 4.8
+"United States", "1973-Q4", 4.766667
+"United States", "1974-Q1", 5.133333
+"United States", "1974-Q2", 5.2
+"United States", "1974-Q3", 5.633333
+"United States", "1974-Q4", 6.6
+"United States", "1975-Q1", 8.266666
+"United States", "1975-Q2", 8.866667
+"United States", "1975-Q3", 8.466666
+"United States", "1975-Q4", 8.3
+"United States", "1976-Q1", 7.733333
+"United States", "1976-Q2", 7.566667
+"United States", "1976-Q3", 7.733333
+"United States", "1976-Q4", 7.766667
+"United States", "1977-Q1", 7.5
+"United States", "1977-Q2", 7.133333
+"United States", "1977-Q3", 6.9
+"United States", "1977-Q4", 6.666667
+"United States", "1978-Q1", 6.333333
+"United States", "1978-Q2", 6.0
+"United States", "1978-Q3", 6.033333
+"United States", "1978-Q4", 5.9
+"United States", "1979-Q1", 5.866667
+"United States", "1979-Q2", 5.7
+"United States", "1979-Q3", 5.866667
+"United States", "1979-Q4", 5.966667
+"United States", "1980-Q1", 6.3
+"United States", "1980-Q2", 7.333333
+"United States", "1980-Q3", 7.666667
+"United States", "1980-Q4", 7.4
+"United States", "1981-Q1", 7.433333
+"United States", "1981-Q2", 7.4
+"United States", "1981-Q3", 7.4
+"United States", "1981-Q4", 8.233334
+"United States", "1982-Q1", 8.833333
+"United States", "1982-Q2", 9.433333
+"United States", "1982-Q3", 9.9
+"United States", "1982-Q4", 10.66667
+"United States", "1983-Q1", 10.36667
+"United States", "1983-Q2", 10.13333
+"United States", "1983-Q3", 9.366667
+"United States", "1983-Q4", 8.533334
+"United States", "1984-Q1", 7.866667
+"United States", "1984-Q2", 7.433333
+"United States", "1984-Q3", 7.433333
+"United States", "1984-Q4", 7.3
+"United States", "1985-Q1", 7.233333
+"United States", "1985-Q2", 7.3
+"United States", "1985-Q3", 7.2
+"United States", "1985-Q4", 7.033333
+"United States", "1986-Q1", 7.033333
+"United States", "1986-Q2", 7.166667
+"United States", "1986-Q3", 6.966667
+"United States", "1986-Q4", 6.833333
+"United States", "1987-Q1", 6.6
+"United States", "1987-Q2", 6.266667
+"United States", "1987-Q3", 6.0
+"United States", "1987-Q4", 5.833333
+"United States", "1988-Q1", 5.7
+"United States", "1988-Q2", 5.466667
+"United States", "1988-Q3", 5.466667
+"United States", "1988-Q4", 5.333333
+"United States", "1989-Q1", 5.2
+"United States", "1989-Q2", 5.233333
+"United States", "1989-Q3", 5.233333
+"United States", "1989-Q4", 5.366667
+"United States", "1990-Q1", 5.3
+"United States", "1990-Q2", 5.333333
+"United States", "1990-Q3", 5.7
+"United States", "1990-Q4", 6.133333
+"United States", "1991-Q1", 6.6
+"United States", "1991-Q2", 6.833333
+"United States", "1991-Q3", 6.866667
+"United States", "1991-Q4", 7.1
+"United States", "1992-Q1", 7.366667
+"United States", "1992-Q2", 7.6
+"United States", "1992-Q3", 7.633333
+"United States", "1992-Q4", 7.366667
+"United States", "1993-Q1", 7.133333
+"United States", "1993-Q2", 7.066667
+"United States", "1993-Q3", 6.8
+"United States", "1993-Q4", 6.633333
+"United States", "1994-Q1", 6.566667
+"United States", "1994-Q2", 6.2
+"United States", "1994-Q3", 6.0
+"United States", "1994-Q4", 5.633333
+"United States", "1995-Q1", 5.466667
+"United States", "1995-Q2", 5.666667
+"United States", "1995-Q3", 5.666667
+"United States", "1995-Q4", 5.566667
+"United States", "1996-Q1", 5.533333
+"United States", "1996-Q2", 5.5
+"United States", "1996-Q3", 5.266667
+"United States", "1996-Q4", 5.333333
+"United States", "1997-Q1", 5.233333
+"United States", "1997-Q2", 5.0
+"United States", "1997-Q3", 4.866667
+"United States", "1997-Q4", 4.666667
+"United States", "1998-Q1", 4.633333
+"United States", "1998-Q2", 4.4
+"United States", "1998-Q3", 4.533333
+"United States", "1998-Q4", 4.433333
+"United States", "1999-Q1", 4.3
+"United States", "1999-Q2", 4.266667
+"United States", "1999-Q3", 4.233333
+"United States", "1999-Q4", 4.066667
+"United States", "2000-Q1", 4.033333
+"United States", "2000-Q2", 3.933333
+"United States", "2000-Q3", 4.0
+"United States", "2000-Q4", 3.9
+"United States", "2001-Q1", 4.233333
+"United States", "2001-Q2", 4.4
+"United States", "2001-Q3", 4.833333
+"United States", "2001-Q4", 5.5
+"United States", "2002-Q1", 5.7
+"United States", "2002-Q2", 5.833333
+"United States", "2002-Q3", 5.733333
+"United States", "2002-Q4", 5.866667
+"United States", "2003-Q1", 5.866667
+"United States", "2003-Q2", 6.133333
+"United States", "2003-Q3", 6.133333
+"United States", "2003-Q4", 5.833333
+"United States", "2004-Q1", 5.7
+"United States", "2004-Q2", 5.6
+"United States", "2004-Q3", 5.433333
+"United States", "2004-Q4", 5.433333
+"United States", "2005-Q1", 5.3
+"United States", "2005-Q2", 5.1
+"United States", "2005-Q3", 4.966667
+"United States", "2005-Q4", 4.966667
+"United States", "2006-Q1", 4.733333
+"United States", "2006-Q2", 4.633333
+"United States", "2006-Q3", 4.633333
+"United States", "2006-Q4", 4.433333
+"United States", "2007-Q1", 4.5
+"United States", "2007-Q2", 4.5
+"United States", "2007-Q3", 4.666667
+"United States", "2007-Q4", 4.8
+"United States", "2008-Q1", 5.0
+"United States", "2008-Q2", 5.333333
+"United States", "2008-Q3", 6.0
+"United States", "2008-Q4", 6.866667
+"United States", "2009-Q1", 8.266666
+"United States", "2009-Q2", 9.3
+"United States", "2009-Q3", 9.633333
+"United States", "2009-Q4", 9.933333
+"United States", "2010-Q1", 9.833333
+"United States", "2010-Q2", 9.633333
+"United States", "2010-Q3", 9.466666
+"United States", "2010-Q4", 9.5
+"United States", "2011-Q1", 9.033334
+"United States", "2011-Q2", 9.066667
+"United States", "2011-Q3", 9.0
+"United States", "2011-Q4", 8.633333
+"United States", "2012-Q1", 8.266666
+"United States", "2012-Q2", 8.2
+"United States", "2012-Q3", 8.033334
+"United States", "2012-Q4", 7.8
+"United States", "2013-Q1", 7.733333
+"United States", "2013-Q2", 7.533333
+"United States", "2013-Q3", 7.266667
+"United States", "2013-Q4", 6.933333
+"United States", "2014-Q1", 6.666667
+"United States", "2014-Q2", 6.2
+"United States", "2014-Q3", 6.1
+"United States", "2014-Q4", 5.7
+"United States", "2015-Q1", 5.533333
+"United States", "2015-Q2", 5.4
+"United States", "2015-Q3", 5.1
+"United States", "2015-Q4", 5.0
+"United States", "2016-Q1", 4.933333
+"United States", "2016-Q2", 4.866667
+"United States", "2016-Q3", 4.9
+"United States", "2016-Q4", 4.7
+"Chile", "1986-Q1", 13.92582
+"Chile", "1986-Q2", 12.02638
+"Chile", "1986-Q3", 11.29888
+"Chile", "1986-Q4", 11.25833
+"Chile", "1987-Q1", 11.06711
+"Chile", "1987-Q2", 11.37379
+"Chile", "1987-Q3", 10.8537
+"Chile", "1987-Q4", 10.35699
+"Chile", "1988-Q1", 10.45924
+"Chile", "1988-Q2", 10.25419
+"Chile", "1988-Q3", 9.619694
+"Chile", "1988-Q4", 8.61362
+"Chile", "1989-Q1", 8.203485
+"Chile", "1989-Q2", 8.199194
+"Chile", "1989-Q3", 7.505675
+"Chile", "1989-Q4", 7.697237
+"Chile", "1990-Q1", 7.407056
+"Chile", "1990-Q2", 7.87294
+"Chile", "1990-Q3", 7.688079
+"Chile", "1990-Q4", 8.041903
+"Chile", "1991-Q1", 8.281322
+"Chile", "1991-Q2", 7.99691
+"Chile", "1991-Q3", 8.601625
+"Chile", "1991-Q4", 7.662006
+"Chile", "1992-Q1", 7.072793
+"Chile", "1992-Q2", 6.376976
+"Chile", "1992-Q3", 6.562159
+"Chile", "1992-Q4", 6.694463
+"Chile", "1993-Q1", 6.594737
+"Chile", "1993-Q2", 6.237105
+"Chile", "1993-Q3", 6.470443
+"Chile", "1993-Q4", 6.920519
+"Chile", "1994-Q1", 7.345977
+"Chile", "1994-Q2", 7.648346
+"Chile", "1994-Q3", 7.86034
+"Chile", "1994-Q4", 8.396791
+"Chile", "1995-Q1", 7.671139
+"Chile", "1995-Q2", 7.408845
+"Chile", "1995-Q3", 7.044301
+"Chile", "1995-Q4", 7.120253
+"Chile", "1996-Q1", 6.874569
+"Chile", "1996-Q2", 6.286848
+"Chile", "1996-Q3", 6.251561
+"Chile", "1996-Q4", 5.880383
+"Chile", "1997-Q1", 6.109884
+"Chile", "1997-Q2", 6.293193
+"Chile", "1997-Q3", 6.189778
+"Chile", "1997-Q4", 5.832487
+"Chile", "1998-Q1", 5.555676
+"Chile", "1998-Q2", 5.850024
+"Chile", "1998-Q3", 6.329685
+"Chile", "1998-Q4", 7.988854
+"Chile", "1999-Q1", 8.832703
+"Chile", "1999-Q2", 10.58026
+"Chile", "1999-Q3", 10.87998
+"Chile", "1999-Q4", 10.13604
+"Chile", "2000-Q1", 9.023242
+"Chile", "2000-Q2", 9.35286
+"Chile", "2000-Q3", 10.46549
+"Chile", "2000-Q4", 9.748359
+"Chile", "2001-Q1", 9.962555
+"Chile", "2001-Q2", 9.867283
+"Chile", "2001-Q3", 10.05698
+"Chile", "2001-Q4", 9.493582
+"Chile", "2002-Q1", 10.03854
+"Chile", "2002-Q2", 9.764581
+"Chile", "2002-Q3", 9.838485
+"Chile", "2002-Q4", 9.561125
+"Chile", "2003-Q1", 9.59406
+"Chile", "2003-Q2", 9.559467
+"Chile", "2003-Q3", 9.68267
+"Chile", "2003-Q4", 9.298513
+"Chile", "2004-Q1", 9.525162
+"Chile", "2004-Q2", 10.35544
+"Chile", "2004-Q3", 10.34953
+"Chile", "2004-Q4", 9.751132
+"Chile", "2005-Q1", 9.371917
+"Chile", "2005-Q2", 9.569829
+"Chile", "2005-Q3", 9.227986
+"Chile", "2005-Q4", 8.718719
+"Chile", "2006-Q1", 8.57651
+"Chile", "2006-Q2", 8.469689
+"Chile", "2006-Q3", 7.472567
+"Chile", "2006-Q4", 6.599161
+"Chile", "2007-Q1", 6.883414
+"Chile", "2007-Q2", 6.522
+"Chile", "2007-Q3", 7.311215
+"Chile", "2007-Q4", 7.887964
+"Chile", "2008-Q1", 7.681211
+"Chile", "2008-Q2", 7.983274
+"Chile", "2008-Q3", 7.409136
+"Chile", "2008-Q4", 8.153271
+"Chile", "2009-Q1", 9.335106
+"Chile", "2009-Q2", 10.21284
+"Chile", "2009-Q3", 9.783311
+"Chile", "2009-Q4", 9.35603
+"Chile", "2010-Q1", 9.135479
+"Chile", "2010-Q2", 8.107675
+"Chile", "2010-Q3", 7.652139
+"Chile", "2010-Q4", 7.713431
+"Chile", "2011-Q1", 7.348921
+"Chile", "2011-Q2", 6.864364
+"Chile", "2011-Q3", 7.150395
+"Chile", "2011-Q4", 7.130131
+"Chile", "2012-Q1", 6.623433
+"Chile", "2012-Q2", 6.300521
+"Chile", "2012-Q3", 6.289698
+"Chile", "2012-Q4", 6.530929
+"Chile", "2013-Q1", 6.228664
+"Chile", "2013-Q2", 5.917788
+"Chile", "2013-Q3", 5.501457
+"Chile", "2013-Q4", 6.114049
+"Chile", "2014-Q1", 6.486062
+"Chile", "2014-Q2", 6.183893
+"Chile", "2014-Q3", 6.416752
+"Chile", "2014-Q4", 6.497707
+"Chile", "2015-Q1", 6.161885
+"Chile", "2015-Q2", 6.243835
+"Chile", "2015-Q3", 6.21725
+"Chile", "2015-Q4", 6.23389
+"Chile", "2016-Q1", 6.296168
+"Chile", "2016-Q2", 6.586787
+"Chile", "2016-Q3", 6.52938
+"Chile", "2016-Q4", 6.542887
+"Estonia", "1997-Q1", 10.2
+"Estonia", "1997-Q2", 9.7
+"Estonia", "1997-Q3", 9.5
+"Estonia", "1997-Q4", 9.2
+"Estonia", "1998-Q1", 9.2
+"Estonia", "1998-Q2", 9.1
+"Estonia", "1998-Q3", 9.1
+"Estonia", "1998-Q4", 9.3
+"Estonia", "1999-Q1", 10.1
+"Estonia", "1999-Q2", 11.1
+"Estonia", "1999-Q3", 11.8
+"Estonia", "1999-Q4", 12.4
+"Estonia", "2000-Q1", 14.36667
+"Estonia", "2000-Q2", 14.13333
+"Estonia", "2000-Q3", 14.13333
+"Estonia", "2000-Q4", 14.26667
+"Estonia", "2001-Q1", 14.1
+"Estonia", "2001-Q2", 13.56667
+"Estonia", "2001-Q3", 12.8
+"Estonia", "2001-Q4", 11.66667
+"Estonia", "2002-Q1", 11.46667
+"Estonia", "2002-Q2", 10.8
+"Estonia", "2002-Q3", 11.3
+"Estonia", "2002-Q4", 11.73333
+"Estonia", "2003-Q1", 11.23333
+"Estonia", "2003-Q2", 10.96667
+"Estonia", "2003-Q3", 9.9
+"Estonia", "2003-Q4", 9.7
+"Estonia", "2004-Q1", 10.1
+"Estonia", "2004-Q2", 9.733334
+"Estonia", "2004-Q3", 10.2
+"Estonia", "2004-Q4", 9.766666
+"Estonia", "2005-Q1", 9.033334
+"Estonia", "2005-Q2", 8.066667
+"Estonia", "2005-Q3", 7.7
+"Estonia", "2005-Q4", 7.2
+"Estonia", "2006-Q1", 6.366667
+"Estonia", "2006-Q2", 6.2
+"Estonia", "2006-Q3", 5.8
+"Estonia", "2006-Q4", 5.433333
+"Estonia", "2007-Q1", 5.0
+"Estonia", "2007-Q2", 4.833333
+"Estonia", "2007-Q3", 4.1
+"Estonia", "2007-Q4", 4.033333
+"Estonia", "2008-Q1", 4.333333
+"Estonia", "2008-Q2", 4.333333
+"Estonia", "2008-Q3", 6.366667
+"Estonia", "2008-Q4", 7.933333
+"Estonia", "2009-Q1", 10.6
+"Estonia", "2009-Q2", 13.06667
+"Estonia", "2009-Q3", 14.83333
+"Estonia", "2009-Q4", 16.0
+"Estonia", "2010-Q1", 18.33333
+"Estonia", "2010-Q2", 18.3
+"Estonia", "2010-Q3", 15.96667
+"Estonia", "2010-Q4", 14.2
+"Estonia", "2011-Q1", 13.66667
+"Estonia", "2011-Q2", 13.1
+"Estonia", "2011-Q3", 11.5
+"Estonia", "2011-Q4", 11.3
+"Estonia", "2012-Q1", 10.66667
+"Estonia", "2012-Q2", 10.2
+"Estonia", "2012-Q3", 9.833333
+"Estonia", "2012-Q4", 9.3
+"Estonia", "2013-Q1", 9.266666
+"Estonia", "2013-Q2", 8.133333
+"Estonia", "2013-Q3", 8.2
+"Estonia", "2013-Q4", 8.666667
+"Estonia", "2014-Q1", 8.033334
+"Estonia", "2014-Q2", 7.3
+"Estonia", "2014-Q3", 7.633333
+"Estonia", "2014-Q4", 6.566667
+"Estonia", "2015-Q1", 6.3
+"Estonia", "2015-Q2", 6.6
+"Estonia", "2015-Q3", 5.6
+"Estonia", "2015-Q4", 6.366667
+"Estonia", "2016-Q1", 6.2
+"Estonia", "2016-Q2", 6.733333
+"Estonia", "2016-Q3", 7.4
+"Israel", "1995-Q1", 7.228455
+"Israel", "1995-Q2", 6.569006
+"Israel", "1995-Q3", 6.703467
+"Israel", "1995-Q4", 6.825059
+"Israel", "1996-Q1", 6.495702
+"Israel", "1996-Q2", 6.313071
+"Israel", "1996-Q3", 6.654221
+"Israel", "1996-Q4", 7.070201
+"Israel", "1997-Q1", 7.222445
+"Israel", "1997-Q2", 7.664562
+"Israel", "1997-Q3", 7.954044
+"Israel", "1997-Q4", 8.72161
+"Israel", "1998-Q1", 8.72161
+"Israel", "1998-Q2", 9.085989
+"Israel", "1998-Q3", 8.202369
+"Israel", "1998-Q4", 8.051729
+"Israel", "1999-Q1", 8.646311
+"Israel", "1999-Q2", 8.978733
+"Israel", "1999-Q3", 8.850125
+"Israel", "1999-Q4", 8.731811
+"Israel", "2000-Q1", 8.583014
+"Israel", "2000-Q2", 8.730902
+"Israel", "2000-Q3", 8.886909
+"Israel", "2000-Q4", 8.840213
+"Israel", "2001-Q1", 8.610055
+"Israel", "2001-Q2", 8.88157
+"Israel", "2001-Q3", 9.51546
+"Israel", "2001-Q4", 10.1992
+"Israel", "2002-Q1", 10.36528
+"Israel", "2002-Q2", 10.33716
+"Israel", "2002-Q3", 10.27996
+"Israel", "2002-Q4", 10.14563
+"Israel", "2003-Q1", 10.65303
+"Israel", "2003-Q2", 10.32521
+"Israel", "2003-Q3", 10.82036
+"Israel", "2003-Q4", 10.8832
+"Israel", "2004-Q1", 10.9159
+"Israel", "2004-Q2", 10.44074
+"Israel", "2004-Q3", 10.12025
+"Israel", "2004-Q4", 9.746686
+"Israel", "2005-Q1", 9.399911
+"Israel", "2005-Q2", 9.02829
+"Israel", "2005-Q3", 8.807969
+"Israel", "2005-Q4", 8.952209
+"Israel", "2006-Q1", 8.693213
+"Israel", "2006-Q2", 8.640979
+"Israel", "2006-Q3", 8.334103
+"Israel", "2006-Q4", 7.822766
+"Israel", "2007-Q1", 7.663089
+"Israel", "2007-Q2", 7.552183
+"Israel", "2007-Q3", 7.181745
+"Israel", "2007-Q4", 6.713046
+"Israel", "2008-Q1", 6.197748
+"Israel", "2008-Q2", 5.995101
+"Israel", "2008-Q3", 5.965548
+"Israel", "2008-Q4", 6.399819
+"Israel", "2009-Q1", 7.469288
+"Israel", "2009-Q2", 7.922165
+"Israel", "2009-Q3", 7.67085
+"Israel", "2009-Q4", 7.204072
+"Israel", "2010-Q1", 6.863624
+"Israel", "2010-Q2", 6.548932
+"Israel", "2010-Q3", 6.644068
+"Israel", "2010-Q4", 6.461596
+"Israel", "2011-Q1", 5.953878
+"Israel", "2011-Q2", 5.463726
+"Israel", "2011-Q3", 5.6
+"Israel", "2011-Q4", 5.4
+"Israel", "2012-Q1", 6.884751
+"Israel", "2012-Q2", 6.940573
+"Israel", "2012-Q3", 6.632474
+"Israel", "2012-Q4", 6.962192
+"Israel", "2013-Q1", 6.738754
+"Israel", "2013-Q2", 6.633962
+"Israel", "2013-Q3", 5.951654
+"Israel", "2013-Q4", 5.709611
+"Israel", "2014-Q1", 5.784703
+"Israel", "2014-Q2", 6.095696
+"Israel", "2014-Q3", 6.14779
+"Israel", "2014-Q4", 5.667279
+"Israel", "2015-Q1", 5.352773
+"Israel", "2015-Q2", 5.188931
+"Israel", "2015-Q3", 5.217515
+"Israel", "2015-Q4", 5.259859
+"Israel", "2016-Q1", 5.182502
+"Israel", "2016-Q2", 4.793639
+"Israel", "2016-Q3", 4.71156
+"Israel", "2016-Q4", 4.425909
+"Slovenia", "1996-Q1", 7.1
+"Slovenia", "1996-Q2", 6.966667
+"Slovenia", "1996-Q3", 6.766667
+"Slovenia", "1996-Q4", 6.8
+"Slovenia", "1997-Q1", 6.733333
+"Slovenia", "1997-Q2", 6.8
+"Slovenia", "1997-Q3", 7.066667
+"Slovenia", "1997-Q4", 7.133333
+"Slovenia", "1998-Q1", 7.333333
+"Slovenia", "1998-Q2", 7.4
+"Slovenia", "1998-Q3", 7.4
+"Slovenia", "1998-Q4", 7.4
+"Slovenia", "1999-Q1", 7.266667
+"Slovenia", "1999-Q2", 7.433333
+"Slovenia", "1999-Q3", 7.5
+"Slovenia", "1999-Q4", 7.266667
+"Slovenia", "2000-Q1", 6.8
+"Slovenia", "2000-Q2", 7.166667
+"Slovenia", "2000-Q3", 6.8
+"Slovenia", "2000-Q4", 6.233333
+"Slovenia", "2001-Q1", 6.066667
+"Slovenia", "2001-Q2", 5.933333
+"Slovenia", "2001-Q3", 6.066667
+"Slovenia", "2001-Q4", 6.7
+"Slovenia", "2002-Q1", 6.566667
+"Slovenia", "2002-Q2", 6.233333
+"Slovenia", "2002-Q3", 6.233333
+"Slovenia", "2002-Q4", 6.366667
+"Slovenia", "2003-Q1", 6.633333
+"Slovenia", "2003-Q2", 6.8
+"Slovenia", "2003-Q3", 6.8
+"Slovenia", "2003-Q4", 6.566667
+"Slovenia", "2004-Q1", 6.5
+"Slovenia", "2004-Q2", 6.3
+"Slovenia", "2004-Q3", 6.2
+"Slovenia", "2004-Q4", 6.333333
+"Slovenia", "2005-Q1", 6.433333
+"Slovenia", "2005-Q2", 6.033333
+"Slovenia", "2005-Q3", 6.566667
+"Slovenia", "2005-Q4", 7.066667
+"Slovenia", "2006-Q1", 6.533333
+"Slovenia", "2006-Q2", 6.166667
+"Slovenia", "2006-Q3", 5.766667
+"Slovenia", "2006-Q4", 5.466667
+"Slovenia", "2007-Q1", 5.266667
+"Slovenia", "2007-Q2", 4.8
+"Slovenia", "2007-Q3", 4.6
+"Slovenia", "2007-Q4", 4.7
+"Slovenia", "2008-Q1", 4.666667
+"Slovenia", "2008-Q2", 4.366667
+"Slovenia", "2008-Q3", 4.266667
+"Slovenia", "2008-Q4", 4.266667
+"Slovenia", "2009-Q1", 4.933333
+"Slovenia", "2009-Q2", 5.8
+"Slovenia", "2009-Q3", 6.433333
+"Slovenia", "2009-Q4", 6.433333
+"Slovenia", "2010-Q1", 6.7
+"Slovenia", "2010-Q2", 7.333333
+"Slovenia", "2010-Q3", 7.333333
+"Slovenia", "2010-Q4", 7.766667
+"Slovenia", "2011-Q1", 8.0
+"Slovenia", "2011-Q2", 7.933333
+"Slovenia", "2011-Q3", 8.2
+"Slovenia", "2011-Q4", 8.7
+"Slovenia", "2012-Q1", 8.066667
+"Slovenia", "2012-Q2", 8.433333
+"Slovenia", "2012-Q3", 9.533334
+"Slovenia", "2012-Q4", 9.5
+"Slovenia", "2013-Q1", 10.5
+"Slovenia", "2013-Q2", 10.63333
+"Slovenia", "2013-Q3", 9.833333
+"Slovenia", "2013-Q4", 9.633333
+"Slovenia", "2014-Q1", 10.2
+"Slovenia", "2014-Q2", 9.6
+"Slovenia", "2014-Q3", 9.666667
+"Slovenia", "2014-Q4", 9.5
+"Slovenia", "2015-Q1", 9.166667
+"Slovenia", "2015-Q2", 9.466666
+"Slovenia", "2015-Q3", 8.966666
+"Slovenia", "2015-Q4", 8.4
+"Slovenia", "2016-Q1", 8.333333
+"Slovenia", "2016-Q2", 8.0
+"Slovenia", "2016-Q3", 7.766667
+"Slovenia", "2016-Q4", 7.566667
+"European Union (28 countries)", "2000-Q1", 9.2
+"European Union (28 countries)", "2000-Q2", 9.066667
+"European Union (28 countries)", "2000-Q3", 8.933333
+"European Union (28 countries)", "2000-Q4", 8.766666
+"European Union (28 countries)", "2001-Q1", 8.7
+"European Union (28 countries)", "2001-Q2", 8.7
+"European Union (28 countries)", "2001-Q3", 8.733334
+"European Union (28 countries)", "2001-Q4", 8.866667
+"European Union (28 countries)", "2002-Q1", 8.966666
+"European Union (28 countries)", "2002-Q2", 9.033334
+"European Union (28 countries)", "2002-Q3", 9.1
+"European Union (28 countries)", "2002-Q4", 9.1
+"European Union (28 countries)", "2003-Q1", 9.1
+"European Union (28 countries)", "2003-Q2", 9.133333
+"European Union (28 countries)", "2003-Q3", 9.2
+"European Union (28 countries)", "2003-Q4", 9.233334
+"European Union (28 countries)", "2004-Q1", 9.3
+"European Union (28 countries)", "2004-Q2", 9.266666
+"European Union (28 countries)", "2004-Q3", 9.2
+"European Union (28 countries)", "2004-Q4", 9.166667
+"European Union (28 countries)", "2005-Q1", 9.066667
+"European Union (28 countries)", "2005-Q2", 9.1
+"European Union (28 countries)", "2005-Q3", 8.933333
+"European Union (28 countries)", "2005-Q4", 8.866667
+"European Union (28 countries)", "2006-Q1", 8.6
+"European Union (28 countries)", "2006-Q2", 8.3
+"European Union (28 countries)", "2006-Q3", 8.1
+"European Union (28 countries)", "2006-Q4", 7.833333
+"European Union (28 countries)", "2007-Q1", 7.5
+"European Union (28 countries)", "2007-Q2", 7.233333
+"European Union (28 countries)", "2007-Q3", 7.133333
+"European Union (28 countries)", "2007-Q4", 6.933333
+"European Union (28 countries)", "2008-Q1", 6.833333
+"European Union (28 countries)", "2008-Q2", 6.866667
+"European Union (28 countries)", "2008-Q3", 7.033333
+"European Union (28 countries)", "2008-Q4", 7.433333
+"European Union (28 countries)", "2009-Q1", 8.333333
+"European Union (28 countries)", "2009-Q2", 8.9
+"European Union (28 countries)", "2009-Q3", 9.2
+"European Union (28 countries)", "2009-Q4", 9.433333
+"European Union (28 countries)", "2010-Q1", 9.666667
+"European Union (28 countries)", "2010-Q2", 9.666667
+"European Union (28 countries)", "2010-Q3", 9.6
+"European Union (28 countries)", "2010-Q4", 9.6
+"European Union (28 countries)", "2011-Q1", 9.5
+"European Union (28 countries)", "2011-Q2", 9.466666
+"European Union (28 countries)", "2011-Q3", 9.7
+"European Union (28 countries)", "2011-Q4", 10.0
+"European Union (28 countries)", "2012-Q1", 10.2
+"European Union (28 countries)", "2012-Q2", 10.4
+"European Union (28 countries)", "2012-Q3", 10.53333
+"European Union (28 countries)", "2012-Q4", 10.76667
+"European Union (28 countries)", "2013-Q1", 10.93333
+"European Union (28 countries)", "2013-Q2", 10.93333
+"European Union (28 countries)", "2013-Q3", 10.86667
+"European Union (28 countries)", "2013-Q4", 10.7
+"European Union (28 countries)", "2014-Q1", 10.56667
+"European Union (28 countries)", "2014-Q2", 10.3
+"European Union (28 countries)", "2014-Q3", 10.13333
+"European Union (28 countries)", "2014-Q4", 9.966666
+"European Union (28 countries)", "2015-Q1", 9.733334
+"European Union (28 countries)", "2015-Q2", 9.566667
+"European Union (28 countries)", "2015-Q3", 9.3
+"European Union (28 countries)", "2015-Q4", 9.033334
+"European Union (28 countries)", "2016-Q1", 8.866667
+"European Union (28 countries)", "2016-Q2", 8.633333
+"European Union (28 countries)", "2016-Q3", 8.466666
+"European Union (28 countries)", "2016-Q4", 8.233334
+"G7", "1991-Q1", 6.13048
+"G7", "1991-Q2", 6.315892
+"G7", "1991-Q3", 6.426266
+"G7", "1991-Q4", 6.587004
+"G7", "1992-Q1", 6.775599
+"G7", "1992-Q2", 6.968053
+"G7", "1992-Q3", 7.123469
+"G7", "1992-Q4", 7.141319
+"G7", "1993-Q1", 7.120183
+"G7", "1993-Q2", 7.218358
+"G7", "1993-Q3", 7.183365
+"G7", "1993-Q4", 7.234216
+"G7", "1994-Q1", 7.238219
+"G7", "1994-Q2", 7.042405
+"G7", "1994-Q3", 6.920753
+"G7", "1994-Q4", 6.719506
+"G7", "1995-Q1", 6.640984
+"G7", "1995-Q2", 6.70415
+"G7", "1995-Q3", 6.748192
+"G7", "1995-Q4", 6.752115
+"G7", "1996-Q1", 6.762063
+"G7", "1996-Q2", 6.776938
+"G7", "1996-Q3", 6.685776
+"G7", "1996-Q4", 6.734991
+"G7", "1997-Q1", 6.67381
+"G7", "1997-Q2", 6.569978
+"G7", "1997-Q3", 6.458393
+"G7", "1997-Q4", 6.382496
+"G7", "1998-Q1", 6.352675
+"G7", "1998-Q2", 6.336863
+"G7", "1998-Q3", 6.374903
+"G7", "1998-Q4", 6.333378
+"G7", "1999-Q1", 6.250251
+"G7", "1999-Q2", 6.19725
+"G7", "1999-Q3", 6.101848
+"G7", "1999-Q4", 5.910927
+"G7", "2000-Q1", 5.847507
+"G7", "2000-Q2", 5.686044
+"G7", "2000-Q3", 5.639173
+"G7", "2000-Q4", 5.531595
+"G7", "2001-Q1", 5.612834
+"G7", "2001-Q2", 5.703885
+"G7", "2001-Q3", 5.939653
+"G7", "2001-Q4", 6.32151
+"G7", "2002-Q1", 6.387226
+"G7", "2002-Q2", 6.496037
+"G7", "2002-Q3", 6.469767
+"G7", "2002-Q4", 6.525888
+"G7", "2003-Q1", 6.582925
+"G7", "2003-Q2", 6.727207
+"G7", "2003-Q3", 6.658934
+"G7", "2003-Q4", 6.514927
+"G7", "2004-Q1", 6.442291
+"G7", "2004-Q2", 6.372588
+"G7", "2004-Q3", 6.298485
+"G7", "2004-Q4", 6.287316
+"G7", "2005-Q1", 6.230586
+"G7", "2005-Q2", 6.178177
+"G7", "2005-Q3", 6.097638
+"G7", "2005-Q4", 6.114021
+"G7", "2006-Q1", 5.922994
+"G7", "2006-Q2", 5.806678
+"G7", "2006-Q3", 5.752775
+"G7", "2006-Q4", 5.557136
+"G7", "2007-Q1", 5.508626
+"G7", "2007-Q2", 5.347386
+"G7", "2007-Q3", 5.397385
+"G7", "2007-Q4", 5.393114
+"G7", "2008-Q1", 5.441094
+"G7", "2008-Q2", 5.600912
+"G7", "2008-Q3", 5.916255
+"G7", "2008-Q4", 6.392932
+"G7", "2009-Q1", 7.343881
+"G7", "2009-Q2", 8.03684
+"G7", "2009-Q3", 8.280766
+"G7", "2009-Q4", 8.381166
+"G7", "2010-Q1", 8.308065
+"G7", "2010-Q2", 8.179271
+"G7", "2010-Q3", 8.026464
+"G7", "2010-Q4", 8.018327
+"G7", "2011-Q1", 7.696077
+"G7", "2011-Q2", 7.670691
+"G7", "2011-Q3", 7.642206
+"G7", "2011-Q4", 7.553429
+"G7", "2012-Q1", 7.441785
+"G7", "2012-Q2", 7.409317
+"G7", "2012-Q3", 7.313559
+"G7", "2012-Q4", 7.28389
+"G7", "2013-Q1", 7.307499
+"G7", "2013-Q2", 7.189761
+"G7", "2013-Q3", 7.038949
+"G7", "2013-Q4", 6.844956
+"G7", "2014-Q1", 6.657369
+"G7", "2014-Q2", 6.393069
+"G7", "2014-Q3", 6.339902
+"G7", "2014-Q4", 6.139079
+"G7", "2015-Q1", 5.987793
+"G7", "2015-Q2", 5.899491
+"G7", "2015-Q3", 5.723349
+"G7", "2015-Q4", 5.613865
+"G7", "2016-Q1", 5.562793
+"G7", "2016-Q2", 5.457921
+"G7", "2016-Q3", 5.451631
+"G7", "2016-Q4", 5.335461
+"OECD - Total", "1998-Q2", 6.772617
+"OECD - Total", "1998-Q3", 6.839504
+"OECD - Total", "1998-Q4", 6.802426
+"OECD - Total", "1999-Q1", 6.673346
+"OECD - Total", "1999-Q2", 6.658057
+"OECD - Total", "1999-Q3", 6.601263
+"OECD - Total", "1999-Q4", 6.437991
+"OECD - Total", "2000-Q1", 6.332379
+"OECD - Total", "2000-Q2", 6.171764
+"OECD - Total", "2000-Q3", 6.105195
+"OECD - Total", "2000-Q4", 5.998462
+"OECD - Total", "2001-Q1", 6.122581
+"OECD - Total", "2001-Q2", 6.190243
+"OECD - Total", "2001-Q3", 6.400643
+"OECD - Total", "2001-Q4", 6.723559
+"OECD - Total", "2002-Q1", 6.803645
+"OECD - Total", "2002-Q2", 6.885284
+"OECD - Total", "2002-Q3", 6.927701
+"OECD - Total", "2002-Q4", 6.967725
+"OECD - Total", "2003-Q1", 7.008377
+"OECD - Total", "2003-Q2", 7.115592
+"OECD - Total", "2003-Q3", 7.077775
+"OECD - Total", "2003-Q4", 6.978289
+"OECD - Total", "2004-Q1", 7.022068
+"OECD - Total", "2004-Q2", 6.932792
+"OECD - Total", "2004-Q3", 6.885095
+"OECD - Total", "2004-Q4", 6.816536
+"OECD - Total", "2005-Q1", 6.690866
+"OECD - Total", "2005-Q2", 6.667712
+"OECD - Total", "2005-Q3", 6.552837
+"OECD - Total", "2005-Q4", 6.500597
+"OECD - Total", "2006-Q1", 6.288979
+"OECD - Total", "2006-Q2", 6.119498
+"OECD - Total", "2006-Q3", 6.036267
+"OECD - Total", "2006-Q4", 5.850657
+"OECD - Total", "2007-Q1", 5.746837
+"OECD - Total", "2007-Q2", 5.572891
+"OECD - Total", "2007-Q3", 5.599203
+"OECD - Total", "2007-Q4", 5.595486
+"OECD - Total", "2008-Q1", 5.591604
+"OECD - Total", "2008-Q2", 5.711208
+"OECD - Total", "2008-Q3", 6.010051
+"OECD - Total", "2008-Q4", 6.552145
+"OECD - Total", "2009-Q1", 7.521304
+"OECD - Total", "2009-Q2", 8.172954
+"OECD - Total", "2009-Q3", 8.404018
+"OECD - Total", "2009-Q4", 8.454094
+"OECD - Total", "2010-Q1", 8.492298
+"OECD - Total", "2010-Q2", 8.353925
+"OECD - Total", "2010-Q3", 8.236357
+"OECD - Total", "2010-Q4", 8.219913
+"OECD - Total", "2011-Q1", 7.972972
+"OECD - Total", "2011-Q2", 7.944949
+"OECD - Total", "2011-Q3", 7.959717
+"OECD - Total", "2011-Q4", 7.934487
+"OECD - Total", "2012-Q1", 7.927463
+"OECD - Total", "2012-Q2", 7.944675
+"OECD - Total", "2012-Q3", 7.938676
+"OECD - Total", "2012-Q4", 8.001969
+"OECD - Total", "2013-Q1", 8.05507
+"OECD - Total", "2013-Q2", 7.97248
+"OECD - Total", "2013-Q3", 7.859316
+"OECD - Total", "2013-Q4", 7.676594
+"OECD - Total", "2014-Q1", 7.585406
+"OECD - Total", "2014-Q2", 7.379516
+"OECD - Total", "2014-Q3", 7.317223
+"OECD - Total", "2014-Q4", 7.12653
+"OECD - Total", "2015-Q1", 6.971456
+"OECD - Total", "2015-Q2", 6.866043
+"OECD - Total", "2015-Q3", 6.68836
+"OECD - Total", "2015-Q4", 6.562915
+"OECD - Total", "2016-Q1", 6.456252
+"OECD - Total", "2016-Q2", 6.342827
+"OECD - Total", "2016-Q3", 6.32601
+"OECD - Total", "2016-Q4", 6.195108
+"Euro area (19 countries)", "1990-Q3", 7.64437
+"Euro area (19 countries)", "1990-Q4", 7.759975
+"Euro area (19 countries)", "1991-Q1", 7.809998
+"Euro area (19 countries)", "1991-Q2", 7.797903
+"Euro area (19 countries)", "1991-Q3", 7.809618
+"Euro area (19 countries)", "1991-Q4", 7.943071
+"Euro area (19 countries)", "1992-Q1", 8.157794
+"Euro area (19 countries)", "1992-Q2", 8.291388
+"Euro area (19 countries)", "1992-Q3", 8.584929
+"Euro area (19 countries)", "1992-Q4", 8.994887
+"Euro area (19 countries)", "1993-Q1", 9.533334
+"Euro area (19 countries)", "1993-Q2", 10.03333
+"Euro area (19 countries)", "1993-Q3", 10.4
+"Euro area (19 countries)", "1993-Q4", 10.7
+"Euro area (19 countries)", "1994-Q1", 10.86667
+"Euro area (19 countries)", "1994-Q2", 10.9
+"Euro area (19 countries)", "1994-Q3", 10.83333
+"Euro area (19 countries)", "1994-Q4", 10.83333
+"Euro area (19 countries)", "1995-Q1", 10.66667
+"Euro area (19 countries)", "1995-Q2", 10.6
+"Euro area (19 countries)", "1995-Q3", 10.63333
+"Euro area (19 countries)", "1995-Q4", 10.7
+"Euro area (19 countries)", "1996-Q1", 10.76667
+"Euro area (19 countries)", "1996-Q2", 10.8
+"Euro area (19 countries)", "1996-Q3", 10.8
+"Euro area (19 countries)", "1996-Q4", 10.8
+"Euro area (19 countries)", "1997-Q1", 10.83333
+"Euro area (19 countries)", "1997-Q2", 10.83333
+"Euro area (19 countries)", "1997-Q3", 10.7
+"Euro area (19 countries)", "1997-Q4", 10.63333
+"Euro area (19 countries)", "1998-Q1", 10.5
+"Euro area (19 countries)", "1998-Q2", 10.73333
+"Euro area (19 countries)", "1998-Q3", 10.56667
+"Euro area (19 countries)", "1998-Q4", 10.4
+"Euro area (19 countries)", "1999-Q1", 10.13333
+"Euro area (19 countries)", "1999-Q2", 9.933333
+"Euro area (19 countries)", "1999-Q3", 9.7
+"Euro area (19 countries)", "1999-Q4", 9.5
+"Euro area (19 countries)", "2000-Q1", 9.3
+"Euro area (19 countries)", "2000-Q2", 9.0
+"Euro area (19 countries)", "2000-Q3", 8.766666
+"Euro area (19 countries)", "2000-Q4", 8.5
+"Euro area (19 countries)", "2001-Q1", 8.3
+"Euro area (19 countries)", "2001-Q2", 8.3
+"Euro area (19 countries)", "2001-Q3", 8.3
+"Euro area (19 countries)", "2001-Q4", 8.366667
+"Euro area (19 countries)", "2002-Q1", 8.466666
+"Euro area (19 countries)", "2002-Q2", 8.6
+"Euro area (19 countries)", "2002-Q3", 8.666667
+"Euro area (19 countries)", "2002-Q4", 8.8
+"Euro area (19 countries)", "2003-Q1", 9.0
+"Euro area (19 countries)", "2003-Q2", 9.066667
+"Euro area (19 countries)", "2003-Q3", 9.066667
+"Euro area (19 countries)", "2003-Q4", 9.133333
+"Euro area (19 countries)", "2004-Q1", 9.266666
+"Euro area (19 countries)", "2004-Q2", 9.266666
+"Euro area (19 countries)", "2004-Q3", 9.233334
+"Euro area (19 countries)", "2004-Q4", 9.266666
+"Euro area (19 countries)", "2005-Q1", 9.133333
+"Euro area (19 countries)", "2005-Q2", 9.2
+"Euro area (19 countries)", "2005-Q3", 9.033334
+"Euro area (19 countries)", "2005-Q4", 8.966666
+"Euro area (19 countries)", "2006-Q1", 8.766666
+"Euro area (19 countries)", "2006-Q2", 8.466666
+"Euro area (19 countries)", "2006-Q3", 8.266666
+"Euro area (19 countries)", "2006-Q4", 8.0
+"Euro area (19 countries)", "2007-Q1", 7.8
+"Euro area (19 countries)", "2007-Q2", 7.5
+"Euro area (19 countries)", "2007-Q3", 7.466667
+"Euro area (19 countries)", "2007-Q4", 7.333333
+"Euro area (19 countries)", "2008-Q1", 7.266667
+"Euro area (19 countries)", "2008-Q2", 7.433333
+"Euro area (19 countries)", "2008-Q3", 7.566667
+"Euro area (19 countries)", "2008-Q4", 8.066667
+"Euro area (19 countries)", "2009-Q1", 9.0
+"Euro area (19 countries)", "2009-Q2", 9.6
+"Euro area (19 countries)", "2009-Q3", 9.9
+"Euro area (19 countries)", "2009-Q4", 10.13333
+"Euro area (19 countries)", "2010-Q1", 10.2
+"Euro area (19 countries)", "2010-Q2", 10.26667
+"Euro area (19 countries)", "2010-Q3", 10.2
+"Euro area (19 countries)", "2010-Q4", 10.13333
+"Euro area (19 countries)", "2011-Q1", 10.03333
+"Euro area (19 countries)", "2011-Q2", 9.966666
+"Euro area (19 countries)", "2011-Q3", 10.23333
+"Euro area (19 countries)", "2011-Q4", 10.6
+"Euro area (19 countries)", "2012-Q1", 10.93333
+"Euro area (19 countries)", "2012-Q2", 11.3
+"Euro area (19 countries)", "2012-Q3", 11.5
+"Euro area (19 countries)", "2012-Q4", 11.8
+"Euro area (19 countries)", "2013-Q1", 12.0
+"Euro area (19 countries)", "2013-Q2", 12.1
+"Euro area (19 countries)", "2013-Q3", 12.0
+"Euro area (19 countries)", "2013-Q4", 11.93333
+"Euro area (19 countries)", "2014-Q1", 11.86667
+"Euro area (19 countries)", "2014-Q2", 11.6
+"Euro area (19 countries)", "2014-Q3", 11.53333
+"Euro area (19 countries)", "2014-Q4", 11.43333
+"Euro area (19 countries)", "2015-Q1", 11.2
+"Euro area (19 countries)", "2015-Q2", 11.03333
+"Euro area (19 countries)", "2015-Q3", 10.7
+"Euro area (19 countries)", "2015-Q4", 10.53333
+"Euro area (19 countries)", "2016-Q1", 10.33333
+"Euro area (19 countries)", "2016-Q2", 10.13333
+"Euro area (19 countries)", "2016-Q3", 9.933333
+"Euro area (19 countries)", "2016-Q4", 9.666667
+"Latvia", "1998-Q2", 14.36667
+"Latvia", "1998-Q3", 14.1
+"Latvia", "1998-Q4", 13.73333
+"Latvia", "1999-Q1", 13.76667
+"Latvia", "1999-Q2", 13.83333
+"Latvia", "1999-Q3", 14.13333
+"Latvia", "1999-Q4", 14.43333
+"Latvia", "2000-Q1", 14.33333
+"Latvia", "2000-Q2", 14.36667
+"Latvia", "2000-Q3", 14.36667
+"Latvia", "2000-Q4", 14.43333
+"Latvia", "2001-Q1", 13.8
+"Latvia", "2001-Q2", 13.1
+"Latvia", "2001-Q3", 13.13333
+"Latvia", "2001-Q4", 13.76667
+"Latvia", "2002-Q1", 12.6
+"Latvia", "2002-Q2", 13.56667
+"Latvia", "2002-Q3", 11.53333
+"Latvia", "2002-Q4", 12.23333
+"Latvia", "2003-Q1", 11.3
+"Latvia", "2003-Q2", 11.8
+"Latvia", "2003-Q3", 12.4
+"Latvia", "2003-Q4", 11.06667
+"Latvia", "2004-Q1", 11.8
+"Latvia", "2004-Q2", 11.4
+"Latvia", "2004-Q3", 11.8
+"Latvia", "2004-Q4", 11.96667
+"Latvia", "2005-Q1", 11.06667
+"Latvia", "2005-Q2", 10.06667
+"Latvia", "2005-Q3", 10.03333
+"Latvia", "2005-Q4", 8.866667
+"Latvia", "2006-Q1", 8.133333
+"Latvia", "2006-Q2", 6.933333
+"Latvia", "2006-Q3", 6.433333
+"Latvia", "2006-Q4", 6.533333
+"Latvia", "2007-Q1", 6.633333
+"Latvia", "2007-Q2", 6.133333
+"Latvia", "2007-Q3", 5.966667
+"Latvia", "2007-Q4", 5.466667
+"Latvia", "2008-Q1", 6.333333
+"Latvia", "2008-Q2", 6.5
+"Latvia", "2008-Q3", 7.766667
+"Latvia", "2008-Q4", 10.46667
+"Latvia", "2009-Q1", 13.56667
+"Latvia", "2009-Q2", 17.23333
+"Latvia", "2009-Q3", 19.46667
+"Latvia", "2009-Q4", 20.2
+"Latvia", "2010-Q1", 20.33333
+"Latvia", "2010-Q2", 20.36667
+"Latvia", "2010-Q3", 19.16667
+"Latvia", "2010-Q4", 18.06667
+"Latvia", "2011-Q1", 16.83333
+"Latvia", "2011-Q2", 17.06667
+"Latvia", "2011-Q3", 15.56667
+"Latvia", "2011-Q4", 15.3
+"Latvia", "2012-Q1", 15.63333
+"Latvia", "2012-Q2", 16.26667
+"Latvia", "2012-Q3", 14.0
+"Latvia", "2012-Q4", 14.2
+"Latvia", "2013-Q1", 12.5
+"Latvia", "2013-Q2", 11.46667
+"Latvia", "2013-Q3", 12.0
+"Latvia", "2013-Q4", 11.46667
+"Latvia", "2014-Q1", 11.43333
+"Latvia", "2014-Q2", 10.7
+"Latvia", "2014-Q3", 10.83333
+"Latvia", "2014-Q4", 10.33333
+"Latvia", "2015-Q1", 9.833333
+"Latvia", "2015-Q2", 9.8
+"Latvia", "2015-Q3", 9.966666
+"Latvia", "2015-Q4", 9.933333
+"Latvia", "2016-Q1", 9.866667
+"Latvia", "2016-Q2", 9.566667
+"Latvia", "2016-Q3", 9.8
+"Latvia", "2016-Q4", 9.666667
