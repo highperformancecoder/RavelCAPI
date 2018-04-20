@@ -20,20 +20,6 @@ using namespace ravel;
 using boost::any;
 using boost::any_cast;
 
-string str(const any& x)
-{
-  if (const double *dx=any_cast<double>(&x))
-    {
-      ostringstream os;
-      os<<*dx;
-      return os.str();
-    }
-  else if (const string* sx = any_cast<string>(&x))
-    return *sx;
-  else
-    return "";
-}
-
 // trim whitespace
 static string trim(const string& x)
 {
@@ -45,6 +31,20 @@ static string trim(const string& x)
         lastNonWhite=i;
       }
   return x.substr(0,lastNonWhite+1).substr(firstNonWhite);
+}
+
+string str(const any& x)
+{
+  if (const double *dx=any_cast<double>(&x))
+    {
+      ostringstream os;
+      os<<*dx;
+      return os.str();
+    }
+  else if (const string* sx = any_cast<string>(&x))
+    return trim(*sx);
+  else
+    return "";
 }
 
 vector<any> CSVFTokeniser::getLine()
