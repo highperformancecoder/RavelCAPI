@@ -143,10 +143,29 @@ extern "C"
       for (size_t i=0; i<ravel->rank(); ++i)
         ids[i]=ravel->handleIds[i];
   }
+
+  DLLEXPORT void ravel_setOutputHandleIds(CAPIRavel* ravel, size_t rank, size_t ids[]) noexcept 
+  {
+    if (ravel)
+      {
+        ravel->handleIds.clear();
+        for (auto i=0; i<rank; ++i)
+          ravel->handleIds.push_back(ids[i]);
+      }
+  }
+
+   
   
   DLLEXPORT unsigned ravel_numHandles(CAPIRavel* ravel) NOEXCEPT
   {return ravel? ravel->handles.size(): 0;}
 
+  DLLEXPORT const char* ravel_handleDescription(CAPIRavel* ravel, size_t handle) noexcept
+  {
+    if (ravel && handle<ravel->handles.size())
+      return ravel->handles[handle].description.c_str();
+    return "";
+  }
+    
   DLLEXPORT size_t ravel_numSliceLabels(CAPIRavel* ravel, size_t axis) noexcept 
   {
     if (ravel)
@@ -213,6 +232,42 @@ extern "C"
     return true;
   }
 
+  DLLEXPORT void ravel_getHandleState(const CAPIRavel* ravel, size_t handle,
+                            CAPIHandleState* hs) noexcept
+  {
+    if (ravel && handle<ravel->handles.size())
+      {
+        const Handle& h=ravel->handles[handle];
+        hs->x=h.x();
+        hs->y=h.y();
+        hs->sliceIndex=h.sliceIndex;
+        hs->sliceMin=h.sliceMin;
+        hs->sliceMax=h.sliceMax;
+        hs->collapsed=h.collapsed();
+        hs->displayFilterCaliper=h.displayFilterCaliper;
+        hs->reductionOp=CAPIHandleState::ReductionOp(h.reductionOp);
+      }
+  }
+    
+    
+  /// set the handle state
+  DLLEXPORT void ravel_setHandleState(CAPIRavel* ravel, size_t handle,
+                            const CAPIHandleState* hs) noexcept
+  {
+    if (ravel && handle<ravel->handles.size())
+      {
+        Handle& h=ravel->handles[handle];
+        h.moveTo(hs->x,hs->y,false);
+        h.sliceIndex=hs->sliceIndex;
+        h.sliceMin=hs->sliceMin;
+        h.sliceMax=hs->sliceMax;
+        if (hs->collapsed!=h.collapsed())
+          h.toggleCollapsed();
+        h.displayFilterCaliper=hs->displayFilterCaliper;
+        h.reductionOp=Op::ReductionOp(hs->reductionOp);
+      }
+  }
+  
   DLLEXPORT CAPIRavelDC* ravelDC_new() noexcept 
   {
     try

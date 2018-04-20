@@ -28,6 +28,15 @@ struct CAPIRavelDataSpec
   char separator=','; ///< field separator character
 };
 
+struct CAPIHandleState
+{
+  double x,y; ///< handle tip coordinates (only angle important, not length)
+  size_t sliceIndex, sliceMin, sliceMax;
+  bool collapsed, displayFilterCaliper;
+  enum ReductionOp {sum, prod, av, stddev, min, max};
+  ReductionOp reductionOp;
+};
+
 #ifdef __cplusplus
 extern "C"
 #endif
@@ -67,8 +76,12 @@ extern "C"
   /// return the handle IDs of the output handles, in order x,y,z, etc.
   /// ids must be ravel_rank() in size
   void ravel_outputHandleIds(CAPIRavel* ravel, size_t ids[]) NOEXCEPT;
+  /// set the output handles. \a ids[] must be of length \a rank.
+  void ravel_setOutputHandleIds(CAPIRavel* ravel, size_t rank, size_t ids[]) NOEXCEPT;
   /// number of handles (aka axes)
   unsigned ravel_numHandles(CAPIRavel* ravel) NOEXCEPT;
+  /// return the description field for handle \a handle.
+  const char* ravel_handleDescription(CAPIRavel* ravel, size_t handle) NOEXCEPT;
   /// number of slice labels along axis \a axis
   size_t ravel_numSliceLabels(CAPIRavel* ravel, size_t axis) NOEXCEPT;
   /** returns the sliceLabels along axis \a axis 
@@ -86,7 +99,11 @@ extern "C"
   const char* ravel_toXML(CAPIRavel* ravel) NOEXCEPT;
   /// populate with XML data. @return true on success
   int ravel_fromXML(CAPIRavel* ravel, const char*) NOEXCEPT;
-
+  /// get the handle state (user modifiable attributes of handle \a handle
+  void ravel_getHandleState(const CAPIRavel* ravel, size_t handle, CAPIHandleState* handleState) NOEXCEPT;
+  /// set the handle state
+  void ravel_setHandleState(CAPIRavel* ravel, size_t handle, const CAPIHandleState* handleState) NOEXCEPT;
+  
   /// create a new dataCube object
   CAPIRavelDC* ravelDC_new() NOEXCEPT;
   /// delete a datacube object
