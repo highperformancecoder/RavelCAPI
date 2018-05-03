@@ -151,6 +151,7 @@ extern "C"
         ravel->handleIds.clear();
         for (auto i=0; i<rank; ++i)
           ravel->handleIds.push_back(ids[i]);
+        ravel->redistributeHandles();
       }
   }
 
