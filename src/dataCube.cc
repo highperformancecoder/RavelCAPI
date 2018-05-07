@@ -270,6 +270,22 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
   if (leastRowAxis==dimNames.size()) --leastRowAxis;
 }
 
+void DataCube::loadData(const RawDataIdx& x, const double data[])
+{
+  rawData=x;
+  memcpy(&rawData[0],data,rawData.size()*sizeof(double));
+  m_dimLabels.clear();
+  dimNames.clear();
+  for (auto& i:x.labelsVector())
+    {
+      dimNames.push_back(i.first);
+      m_dimLabels.push_back(i.second);
+    }
+  m_sortBy.resize(m_dimLabels.size());
+  leastRowAxis=0;
+}
+
+
 void setupSortByPerm(DataCube::SortBy sortBy, size_t axis, size_t otherAxis,
                      const RawData& slice, SortedVector& labels)
   {

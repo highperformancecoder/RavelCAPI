@@ -199,6 +199,8 @@ namespace ravel
     ///@}
     RawData(const RawData& x)=default;
     RawData(RawData&& x)=default;
+    RawData& operator=(const RawDataIdx& x)
+    {RawDataIdx::operator=(x); data.resize(size(),nan(""));}
     RawData& operator=(const RawData& x)=default;
     RawData& operator=(RawData&& x)=default;
 

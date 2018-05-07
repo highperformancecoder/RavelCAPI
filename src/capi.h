@@ -54,6 +54,9 @@ extern "C"
   CAPIRavel* ravel_new(size_t rank) NOEXCEPT;
   /// dispose of ravel created by ravel_new()
   void ravel_delete(CAPIRavel* ravel) NOEXCEPT;
+  /// removes all handles
+  void ravel_clear(CAPIRavel* ravel) NOEXCEPT;
+
   /// render ravel widget into a Cairo context
   void ravel_render(CAPIRavel* ravel, CAPIRenderer* cairo) NOEXCEPT;
   /// @{ handle mouse events
@@ -94,6 +97,10 @@ extern "C"
   void ravel_sliceLabels(CAPIRavel* ravel, size_t axis, const char* labels[]) NOEXCEPT;
   /// enable/disable the filter calipers on axis \a axis
   void ravel_displayFilterCaliper(CAPIRavel* ravel, size_t axis, bool display) NOEXCEPT;
+
+  /// add a handle to the Ravel. \a sliceLabels is of length \a numSliceLabels. Ownership of char pointers not passed.
+  void ravel_addHandle(CAPIRavel* ravel, const char* description,
+                       size_t numSliceLabels, const char* sliceLabels[]) NOEXCEPT;
   
   /// return XML represention of
   const char* ravel_toXML(CAPIRavel* ravel) NOEXCEPT;
@@ -112,6 +119,13 @@ extern "C"
   int ravelDC_initRavel(CAPIRavelDC* dc,CAPIRavel* ravel) NOEXCEPT;
   /// open a CSV file. Format is described by \a spec. -1 means figure it out from the data. @return true on success
   int ravelDC_openFile(CAPIRavelDC* dc, const char* fileName, CAPIRavelDataSpec spec) NOEXCEPT;
+  /// load data into a datacube. \a ravel specifies the dimensions and labels of the datacube.
+  /** on return, the rank of the datacube is the same as the rank of the ravel, ie
+      ravelDC_hyperSlice(dc,ravel,dims,data);
+      ravelDC_loadData(dc,ravel,data);
+      will permanently reduce the datacube to the slice described by \a ravel
+  **/
+  void ravelDC_loadData(CAPIRavelDC* dc, const CAPIRavel* ravel, const double data[]) NOEXCEPT;
   /** return a hyperslice corresponding to the ravel's configuration
       The returned data is a dense multidimensional array with the
       dimensions returned as the \a dim parameter, which must be the

@@ -74,6 +74,11 @@ extern "C"
     delete ravel;
   }
 
+  DLLEXPORT void ravel_clear(CAPIRavel* ravel) noexcept 
+  {
+    if (ravel) ravel->clear();
+  }
+
   DLLEXPORT void ravel_render(CAPIRavel* ravel, CAPIRenderer* cairo) noexcept 
   {
     if (ravel)
@@ -151,7 +156,11 @@ extern "C"
         ravel->handleIds.clear();
         for (auto i=0; i<rank; ++i)
           ravel->handleIds.push_back(ids[i]);
-        ravel->redistributeHandles();
+        try
+          {
+            ravel->redistributeHandles();
+          }
+        CONSUME_EXCEPTION();
       }
   }
 
@@ -202,7 +211,13 @@ extern "C"
       ravel->handles[axis].displayFilterCaliper=display;
   }
 
-  
+  DLLEXPORT void ravel_addHandle(CAPIRavel* ravel, const char* description, size_t numSliceLabels, const char* sliceLabels[]) noexcept
+  {
+    if (ravel)
+        ravel->addHandle
+          (description, vector<string>(sliceLabels,sliceLabels+numSliceLabels));
+  }
+
   
   DLLEXPORT const char* ravel_toXML(CAPIRavel* ravel) noexcept 
   {
@@ -320,6 +335,23 @@ extern "C"
     CONSUME_EXCEPTION(false);
     return true;
   }
+
+  DLLEXPORT void ravelDC_loadData(CAPIRavelDC* dc, const CAPIRavel* ravel, const double data[]) noexcept
+  {
+    if (dc && ravel)
+      {
+        LabelsVector lv;
+        for (auto& h: ravel->handles)
+          {
+            LabelsVector::value_type l;
+            l.first=h.description;
+            l.second.assign(h.sliceLabels.begin(), h.sliceLabels.end());
+            lv.push_back(l);
+          }
+        dc->loadData(RawDataIdx(lv),data);
+      }
+  }
+
 
   DLLEXPORT int ravelDC_hyperSlice
   (CAPIRavelDC* dc, CAPIRavel *ravel, size_t dims[], double **data) noexcept

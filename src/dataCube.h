@@ -153,7 +153,9 @@ namespace ravel
     void loadFile(const std::string& fileName, char separator, const DataSpec& spec);
 
     void loadData(Tokeniser& tok, const DataSpec& spec);
-
+    // initiliase datacube based on x and data. data must contain x.size() elements
+    void loadData(const RawDataIdx& x, const double data[]);
+    
     /// generate an initial data spec based on input tokeniser
     DataSpec initDataSpec(Tokeniser& tok);
 
