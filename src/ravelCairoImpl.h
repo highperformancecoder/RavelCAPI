@@ -113,6 +113,10 @@ namespace ravel
     gc.save();
     double sf=0.01*radius();
     gc.scale(sf,sf);
+    gc.arc(0,0,hubRadius*radius()/sf, 0, 2*M_PI);
+    gc.stroke();
+    gc.moveTo(0.5*radius()/sf,0.5*radius()/sf);
+    gc.showText(std::to_string(rank())+"D");
     for (unsigned i=0; i<handles.size(); ++i)
       {
         const Handle& h=handles[i];

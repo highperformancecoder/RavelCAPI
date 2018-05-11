@@ -88,8 +88,7 @@ namespace ravel
     std::set<unsigned long> mask;
 
     /// interpolates \a x by idx/sliceLabels.size()
-    double sliceCoordInterp(size_t idx, double x) const
-    {return (x*(idx+1))/(sliceLabels.size()+1);}
+    double sliceCoordInterp(size_t idx, double x) const;
 
     /// @{
     /// coordinates of slice control, relative to ravel origin
@@ -194,7 +193,7 @@ namespace ravel
   class Ravel
   {
   public:
-    enum ElementMoving {handle, slicer, filterMin, filterMax};
+    enum ElementMoving {handle, slicer, filterMin, filterMax, hub};
   protected:
     double m_radius;
     CLASSDESC_ACCESS(Ravel);
@@ -275,6 +274,7 @@ namespace ravel
     void redistributeHandles();
     
     Ravel(double radius=1): m_radius(radius) {}
+    static constexpr double hubRadius=0.1;
 
     /// add a handle (and dimension it controls) to system
     /// @return handleId for newly added handle

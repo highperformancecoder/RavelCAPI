@@ -13,6 +13,8 @@
 using namespace ravel;
 using namespace std;
 
+constexpr const double Ravel::hubRadius;
+
 namespace
 {
   inline double sqr(double x) {return x*x;}
@@ -236,8 +238,7 @@ void Ravel::redistributeHandles()
   switch (rank())
     {
     case 1: delta=2*M_PI/(handles.size()); break;
-    case 2: delta=1.5*M_PI/(handles.size()-1); break;
-    default: throw RavelError("high ranks not supported");
+    default: delta=1.5*M_PI/(handles.size()-1); break;
     }
   double angle=delta;
   for (unsigned i=0; i<handles.size(); ++i)
@@ -245,7 +246,6 @@ void Ravel::redistributeHandles()
       handles[i].setHome(radius(),0);
     else if (handleIds.size()>1 && i==handleIds[1])
       handles[i].setHome(0, radius());
-  // TODO handle higher rank (eg 3D) ravels
     else
       {
         // -ve y because y coordinates increase going down the page
@@ -362,6 +362,30 @@ Ravel::ElementMoving Ravel::sliceCtlHandle(int handle, double a_x, double a_y) c
 
 bool Ravel::onMouseMotion(double a_x, double a_y)
 {
+  if (elementMoving == hub &&
+      sqr(a_x-x)+sqr(a_y-y)>=sqr(hubRadius*radius()))
+    {
+      lastHandle=handleIfMouseOver(a_x-x,a_y-y);
+      if (lastHandle>=0)
+        {
+          auto i=find(handleIds.begin(), handleIds.end(), lastHandle);
+          if (i!=handleIds.end())
+            {
+              // hub moved onto handle, initiate slicing, reducing rank
+              handleIds.erase(i);
+              elementMoving=slicer;
+            }
+        }
+    }
+
+  if (lastHandle!=-1 && elementMoving == slicer &&
+      sqr(a_x-x)+sqr(a_y-y)<sqr(hubRadius*radius()))
+    {
+      // slicer moved onto hub, increasing rank
+      handleIds.push_back(lastHandle);
+      elementMoving=hub;
+    }
+  
   if (lastHandle!=-1)
     {
       Handle& h=handles[lastHandle];
@@ -388,9 +412,14 @@ bool Ravel::onMouseMotion(double a_x, double a_y)
 
 void Ravel::onMouseDown(double xx, double yy)
 {
+  moved=false;
+  if (sqr(xx-x)+sqr(yy-y)<sqr(hubRadius*radius()))
+    {
+      elementMoving = hub;
+      return;
+    }
   lastHandle=handleIfMouseOver(xx-x,yy-y);
   elementMoving = sliceCtlHandle(lastHandle, xx-x,yy-y);
-  moved=false;
 }
 
 void Ravel::onMouseUp(double a_x, double a_y)
@@ -431,6 +460,13 @@ string Handle::reductionDescription() const
   r+=description;
   return r;
 }
+
+double Handle::sliceCoordInterp(size_t idx, double x) const
+{
+  return (1-2.5*Ravel::hubRadius)*(x*(idx+1))/(sliceLabels.size()+1) +
+    1.5*Ravel::hubRadius*x;
+}
+
 
 string Ravel::description() const
 {
