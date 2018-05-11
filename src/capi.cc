@@ -182,6 +182,8 @@ extern "C"
       if (axis<ravel->handles.size())
         {
           auto& h=ravel->handles[axis];
+          if (h.collapsed())
+            return 1;
           size_t N=h.sliceLabels.size();
           if (h.displayFilterCaliper)
             return min(N, min(N,h.sliceMax+1)-h.sliceMin);
@@ -196,7 +198,9 @@ extern "C"
     if (ravel && axis<ravel->handles.size())
       {
         auto& h=ravel->handles[axis];
-        if (h.displayFilterCaliper)
+        if (h.collapsed())
+          labels[0]=opLabels[h.reductionOp];
+        else if (h.displayFilterCaliper)
           for (size_t i=0, j=h.sliceMin; j<min(h.sliceLabels.size(), h.sliceMax+1); ++i, ++j)
             labels[i]=h.sliceLabels[j].c_str();
         else

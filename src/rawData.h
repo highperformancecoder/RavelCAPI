@@ -157,17 +157,21 @@ namespace ravel
   void apply(size_t offset, std::vector<RawDataIdx::SizeStride> sizeAndStrides,
              F f)
   {
-    assert(!sizeAndStrides.empty());
-    size_t size=sizeAndStrides.back().size;
-    size_t stride=sizeAndStrides.back().stride; 
-    sizeAndStrides.pop_back();
-    for (size_t i=offset; i<offset+size*stride; i+=stride)
-      if (sizeAndStrides.empty())
-        f(i);
-      else
-        apply(i, sizeAndStrides, f);
+    if (sizeAndStrides.empty())
+      f(offset);
+    else
+      {
+        size_t size=sizeAndStrides.back().size;
+        size_t stride=sizeAndStrides.back().stride; 
+        sizeAndStrides.pop_back();
+        for (size_t i=offset; i<offset+size*stride; i+=stride)
+          if (sizeAndStrides.empty())
+            f(i);
+          else
+            apply(i, sizeAndStrides, f);
+      }
   }
-
+  
   class RawData: public RawDataIdx
   {
     std::vector<double> data;
