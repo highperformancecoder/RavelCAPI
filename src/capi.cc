@@ -288,6 +288,27 @@ extern "C"
       }
   }
   
+  DLLEXPORT void ravel_adjustSlicer(CAPIRavel* ravel, int n) noexcept
+  {
+    if (ravel)
+      if (auto h=ravel->selectedHandle())
+        {
+          auto i=find(ravel->handleIds.begin(), ravel->handleIds.end(), h-&ravel->handles[0]);
+          if (i==ravel->handleIds.end())
+            {
+              if (n<-int(h->sliceIndex)) // off end, stop slicing
+                ravel->handleIds.push_back(h-&ravel->handles[0]);
+              h->moveSliceIdx(n);
+            }
+          else if (n>0) // start slicing
+            {
+              h->sliceIndex=0;
+              h->moveSliceIdx(n);
+              ravel->handleIds.erase(i);
+            }
+        }
+  }
+
   DLLEXPORT CAPIRavelDC* ravelDC_new() noexcept 
   {
     try
