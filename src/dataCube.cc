@@ -23,14 +23,20 @@ using boost::any_cast;
 // trim whitespace
 static string trim(const string& x)
 {
-  size_t firstNonWhite=x.size(), lastNonWhite=0;
-  for (size_t i=0; i<x.size(); ++i)
+  int firstNonWhite=0, lastNonWhite=-1;
+  size_t i=0;
+  for (; i<x.size(); ++i)
     if (!isspace(x[i]))
       {
-        firstNonWhite=min(i,firstNonWhite);
-        lastNonWhite=i;
+        firstNonWhite=i;
+        break;
       }
-  return x.substr(0,lastNonWhite+1).substr(firstNonWhite);
+  for (; i<x.size(); ++i)
+    if (!isspace(x[i]))
+      lastNonWhite=i;
+
+  const char* xs=x.c_str();
+  return string(xs+firstNonWhite,xs+lastNonWhite+1);
 }
 
 string str(const any& x)
@@ -67,9 +73,11 @@ vector<any> CSVFTokeniser::getLine()
           {
             try
               {
-                size_t charsConverted;
+                size_t charsConverted=0;
                 string tt=trim(t);
-                r.push_back(any(stod(tt, &charsConverted)));
+                r.emplace_back();
+                if (!tt.empty() && (tt[0]=='-' || isdigit(tt[0])))
+                  r.back()=any(stod(tt, &charsConverted));
                 if (charsConverted != tt.size())
                   { // didn't parse correctly as a number
                     r.back() = any(t);
@@ -212,21 +220,18 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
                         key.emplace_back(dimNames[i++],cl[col]);
                       assert(key.size()==nColAxes+colLabels.size());
                       
-                      if (!str(line[col]).empty())
+                      // key should unique identify a row of the CSV table
+                      if (const double*v=any_cast<double>(&line[col]))
                         {
-                          // key should unique identify a row of the CSV table
-                          if (tmpData.count(key))
+                          m_maxCol=max(m_maxCol,size_t(col));
+                          m_maxRow=row;
+                          auto r=tmpData.emplace(key,*v);
+                          if (!r.second) 
                             {
                               string err="duplicate row detected:";
                               for (const any& t: line)
                                 err+=" "+str(t);
                               throw RavelError(err);
-                            }
-                          if (const double*v=any_cast<double>(&line[col]))
-                            {
-                              m_maxCol=max(m_maxCol,size_t(col));
-                              m_maxRow=row;
-                              tmpData[key]=*v;
                             }
                         }
                     }

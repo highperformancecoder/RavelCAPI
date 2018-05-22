@@ -75,7 +75,7 @@ ravel.onMouseUp 0 50
 assert {[lindex [ravel.handleIds] 1]==0} ""
 
 # move slicer
-assert {[ravel.handles(2).sliceIndex]==0} ""
+assert {[ravel.handles(2).sliceIndex]==0} {}
 assert {[ravel.handles(2).sliceLabel]=="a"} ""
 set incr [expr [ravel.handles(2).x]/(1+[ravel.handles(2).sliceLabels.size])]
 set fincr [expr 2*\$incr]
@@ -87,7 +87,7 @@ assert {[ravel.handles(2).sliceLabel]=="b"} ""
 
 # checks slicer movement stays within bounds
 ravel.onMouseDown \$fincr \$fincr
-ravel.onMouseUp 1 1
+ravel.onMouseUp \$incr \$incr
 assert {[ravel.handles(2).sliceIndex]==0} ""
 ravel.onMouseDown \$incr \$incr
 ravel.onMouseUp -200 -200
@@ -96,8 +96,8 @@ ravel.handles(2).sliceIndex 1
 
 # now move filter caliper
 ravel.handles(1).displayFilterCaliper 1
-set incr [expr [ravel.handles(1).x]/(1+[ravel.handles(1).sliceLabels.size])]
-set fincr [expr 2*\$incr]
+set incr [ravel.handles(1).minSliceX]
+set fincr [expr 0.5*(\$incr + [ravel.handles(1).maxSliceX])]
 assert {[ravel.handles(1).sliceMin]==0} ""
 assert {[ravel.handles(1).minSliceLabel]=="a"} ""
 ravel.onMouseDown \$incr 0
@@ -107,7 +107,7 @@ assert {[ravel.handles(1).minSliceLabel]=="b"} ""
 
 assert {[ravel.handles(1).sliceMax]>=[expr [ravel.handles(2).sliceLabels.size]-1]} ""
 assert {[ravel.handles(1).maxSliceLabel]=="c"} ""
-ravel.onMouseDown [expr 3*\$incr] 0
+ravel.onMouseDown [ravel.handles(1).maxSliceX] 0
 ravel.onMouseUp \$fincr 0
 assert {[ravel.handles(1).sliceMax]==1} ""
 assert {[ravel.handles(1).maxSliceLabel]=="b"} ""
