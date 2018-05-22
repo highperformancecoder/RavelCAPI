@@ -113,6 +113,7 @@ namespace ravel
     gc.save();
     double sf=0.01*radius();
     gc.scale(sf,sf);
+    gc.newPath();
     gc.arc(0,0,hubRadius*radius()/sf, 0, 2*pi);
     gc.stroke();
     gc.moveTo(0.5*radius()/sf,0.5*radius()/sf);

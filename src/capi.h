@@ -35,6 +35,8 @@ struct CAPIHandleState
   bool collapsed, displayFilterCaliper;
   enum ReductionOp {sum, prod, av, stddev, min, max};
   ReductionOp reductionOp;
+  enum HandleSort {none, forward, reverse, numForward, numReverse, custom};
+  HandleSort order;
 };
 
 #ifdef __cplusplus
@@ -97,6 +99,8 @@ extern "C"
   void ravel_sliceLabels(CAPIRavel* ravel, size_t axis, const char* labels[]) NOEXCEPT;
   /// enable/disable the filter calipers on axis \a axis
   void ravel_displayFilterCaliper(CAPIRavel* ravel, size_t axis, bool display) NOEXCEPT;
+  /// set the ordering on handle \a axis to \a order
+  void ravel_orderLabels(CAPIRavel* ravel, size_t axis, CAPIHandleState::HandleSort order) NOEXCEPT;
 
   /// add a handle to the Ravel. \a sliceLabels is of length \a numSliceLabels. Ownership of char pointers not passed.
   void ravel_addHandle(CAPIRavel* ravel, const char* description,

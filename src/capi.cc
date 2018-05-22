@@ -215,6 +215,14 @@ extern "C"
       ravel->handles[axis].displayFilterCaliper=display;
   }
 
+  DLLEXPORT void ravel_orderLabels(CAPIRavel* ravel, size_t axis, CAPIHandleState::HandleSort order) noexcept 
+  {
+    if (ravel && axis<ravel->handles.size())
+      ravel->handles[axis].sliceLabels.order(HandleSort::Order(order));
+  }
+
+
+  
   DLLEXPORT void ravel_addHandle(CAPIRavel* ravel, const char* description, size_t numSliceLabels, const char* sliceLabels[]) noexcept
   {
     if (ravel)
@@ -266,6 +274,7 @@ extern "C"
         hs->collapsed=h.collapsed();
         hs->displayFilterCaliper=h.displayFilterCaliper;
         hs->reductionOp=CAPIHandleState::ReductionOp(h.reductionOp);
+        hs->order=CAPIHandleState::HandleSort(h.sliceLabels.order());
       }
   }
     
@@ -285,6 +294,7 @@ extern "C"
           h.toggleCollapsed();
         h.displayFilterCaliper=hs->displayFilterCaliper;
         h.reductionOp=Op::ReductionOp(hs->reductionOp);
+        h.sliceLabels.order(HandleSort::Order(hs->order));
       }
   }
   
