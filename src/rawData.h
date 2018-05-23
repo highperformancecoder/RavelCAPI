@@ -184,6 +184,10 @@ namespace ravel
       assert(i<data.size());
       return i;
     }
+
+    template <class F>
+    void orderedApply(size_t offset, std::vector<const SortedVector*> order, F f);
+
     
   public:
     double& operator[](const Key& key) {return data[checkIdx(key)];}
@@ -224,6 +228,13 @@ namespace ravel
 
     /// apply a partial reduction along \a axis
     RawData partialReduce(size_t axis, PartialReduction&) const;
+
+    /// reorder according to the orderings specified in \a orderings
+    /// ownership of objects referred to in orderings is not passed
+    RawData reorder(const std::vector<const SortedVector*>& orderings)
+    {RawData r; reorder(r,orderings); return r;}
+    void reorder(RawData&, const std::vector<const SortedVector*>&);
+    
   };
 
 }

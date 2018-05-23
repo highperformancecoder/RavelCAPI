@@ -299,15 +299,19 @@ void setupSortByPerm(DataCube::SortBy sortBy, size_t axis, size_t otherAxis,
         vector<size_t> perm(labels.size());
         for (unsigned i=0; i<perm.size(); ++i) perm[i]=i;
         size_t offs=slice.offset() + sortBy.rowCol*slice.stride(otherAxis);
-        sort(perm.begin(), perm.end(), [&](size_t i, size_t j){
-            if (sortBy.reverse) swap(i,j);
-            return slice[offs + i*slice.stride(axis)] <
-              slice[offs + j*slice.stride(axis)];
-              });
-        // invert permutation
+        size_t stride=slice.stride(axis);
+        if (sortBy.reverse)
+          sort(perm.begin(), perm.end(), [&](size_t i, size_t j){
+              return slice[offs + i*stride] > slice[offs + j*stride];
+            });
+        else
+          sort(perm.begin(), perm.end(), [&](size_t i, size_t j){
+              return slice[offs + i*stride] < slice[offs + j*stride];
+            });
+        // apply permutation to current
         vector<size_t> perm1(perm.size());
         for (unsigned i=0; i<perm.size(); ++i)
-          perm1[perm[i]]=i;
+          perm1[i]=perm[labels.idx(i)];
         labels.customPermutation(perm1);
       }
 
@@ -316,6 +320,12 @@ void setupSortByPerm(DataCube::SortBy sortBy, size_t axis, size_t otherAxis,
 
 void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
 {
+  // check that axis descriptions are distinct
+  set<string> descSet;
+  for (auto& h: ravel.handles) descSet.insert(h.description);
+  if (descSet.size()!=ravel.handles.size())
+    throw RavelError("not all handles are distinct");
+  
   // apply partial reductions, if any
   bool noReductions=true;
   RawData partReducedData;
@@ -357,6 +367,7 @@ void DataCube::hyperSliceAfterPartialReductions(RawData& sliceData, Ravel& ravel
   for (auto i: ravel.handleIds)
     if (i<ravel.handles.size())
       axes.push_back(ravel.handles[i].description);
+  
   for (auto& h: ravel.handles)
     if (!ravel.isOutputHandle(h))
       {
@@ -385,8 +396,24 @@ void DataCube::hyperSliceAfterPartialReductions(RawData& sliceData, Ravel& ravel
                                                    h.reductionOp,ravel.isOutputHandle(h)));
       }
 
+
+  
   if (noReductions)
     sliceData=move(RawData(rawData,slice));
+
+  bool handlesOrdered=false;
+  vector<const SortedVector*> orderings(ravel.rank());
+  for (size_t i: ravel.handleIds)
+    if (i<ravel.handles.size())
+      {
+        auto& h=ravel.handles[i];
+        if (h.sliceLabels.order()!=HandleSort::none)
+          handlesOrdered=true;
+        orderings[sliceData.axis(h.description)]=&h.sliceLabels;
+      }
+
+  if (handlesOrdered)
+    sliceData=sliceData.reorder(orderings);
 }
 
 void DataCube::populateArray(Ravel& ravel)
@@ -409,11 +436,16 @@ void DataCube::populateArray(Ravel& ravel)
   assert(m_sortBy[xh].rowCol<yHandle.sliceLabels.size() && 
          m_sortBy[yh].rowCol<xHandle.sliceLabels.size());
 
-  if (!xHandle.collapsed())
-    setupSortByPerm(m_sortBy[xh],0,1,sliceData, xHandle.sliceLabels);
-  if (!yHandle.collapsed())
-    setupSortByPerm(m_sortBy[yh],1,0,sliceData, yHandle.sliceLabels);
-
+  // handle by value sorting
+  if (m_sortBy[xh].type==SortBy::byValue || m_sortBy[yh].type==SortBy::byValue)
+    {
+      if (!xHandle.collapsed())
+        setupSortByPerm(m_sortBy[xh],0,1,sliceData, xHandle.sliceLabels);
+      if (!yHandle.collapsed())
+        setupSortByPerm(m_sortBy[yh],1,0,sliceData, yHandle.sliceLabels);
+      sliceData=sliceData.reorder({&xHandle.sliceLabels,&yHandle.sliceLabels});
+    }
+  
   for (size_t i=0; i<sliceData.size(); ++i)
     if (isfinite(sliceData[i]))
       {
@@ -448,8 +480,8 @@ void DataCube::populateArray(Ravel& ravel)
         for (size_t j=yoffs, j1=0; j<ymax; ++j)
           if (validY.count(j))
             {
-              double v=sliceData[(xHandle.sliceLabels.idx(i)-xoffs)*sliceData.stride(0)
-                                 + (yHandle.sliceLabels.idx(j)-yoffs)*sliceData.stride(1)];
+              double v=sliceData[(i-xoffs)*sliceData.stride(0)
+                                 + (j-yoffs)*sliceData.stride(1)];
               if (!isnan(v))
                 filterDataElement(i1,j1,v);
               j1++;

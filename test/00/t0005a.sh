@@ -99,12 +99,17 @@ foreach key [lsort [array names data]] {
   puts "\$key \$data(\$key)"
 }
 
+dc.ravel.handles(2).sliceLabels.order none
+
+
 puts "sortBy 2 1 1"
 dc.sortBy 2 1 1
 dc.populateArray data
 foreach key [lsort [array names data]] {
   puts "\$key \$data(\$key)"
 }
+
+dc.ravel.handles(2).sliceLabels.order none
 
 puts "sortBy 2 1 -1"
 dc.sortBy 2 1 -1
