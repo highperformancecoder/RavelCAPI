@@ -24,7 +24,10 @@ struct CAPIRavel: public RavelCairo<CAPIRenderer*>
 
 // canary failure if CAPIRenderer interface changes.
 // If it does, RAVEL_CAPI_VERSION needs to be bumped, and this assert fixed
-static_assert(sizeof(CAPIRenderer)==22*sizeof(void*),"Unexpected CAPIRenderer size - bump RAVEL_CAPI_VERSION");
+static_assert(sizeof(CAPIRenderer)==23*sizeof(void*),"Unexpected CAPIRenderer size - bump RAVEL_CAPI_VERSION");
+static_assert(sizeof(CAPIRavelDataSpec)==4*sizeof(int),"Unexpected CAPIRavelDataSpec size - bump RAVEL_CAPI_VERSION");
+static_assert(sizeof(CAPIHandleState)==56,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
+
 
 struct CAPIRavelDC: public DataCube
 {

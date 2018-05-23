@@ -46,6 +46,9 @@ namespace ravel
 
   template <> void CairoShim<cairo_t*>::fill()
   {cairo_fill(impl->cairo);}
+  
+  template <> void CairoShim<cairo_t*>::clip()
+  {cairo_clip(impl->cairo);}
 
   template <> void CairoShim<cairo_t*>::stroke()
   {cairo_stroke(impl->cairo);}

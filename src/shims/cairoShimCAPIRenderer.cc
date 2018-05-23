@@ -36,6 +36,9 @@ namespace ravel
 
   template <> void CairoShim<CAPIRenderer*>::fill()
   {impl->fill(impl);}
+  
+  template <> void CairoShim<CAPIRenderer*>::clip()
+  {impl->clip(impl);}
 
   template <> void CairoShim<CAPIRenderer*>::stroke()
   {impl->stroke(impl);}

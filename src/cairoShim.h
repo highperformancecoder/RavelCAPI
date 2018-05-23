@@ -39,6 +39,7 @@ namespace ravel
     void newPath();
     void closePath();
     void fill();
+    void clip();
     void stroke();
     void strokePreserve();
 

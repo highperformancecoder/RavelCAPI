@@ -113,9 +113,18 @@ namespace ravel
     gc.save();
     double sf=0.01*radius();
     gc.scale(sf,sf);
+
+    // draw central circle, and clip its interior out
     gc.newPath();
     gc.arc(0,0,hubRadius*radius()/sf, 0, 2*pi);
-    gc.stroke();
+    gc.strokePreserve();
+    gc.moveTo(-1.5*radius(),-1.5*radius());
+    gc.lineTo(-1.5*radius(),1.5*radius());
+    gc.lineTo(1.5*radius(),1.5*radius());
+    gc.lineTo(1.5*radius(),-1.5*radius());
+    gc.closePath();
+    gc.clip();
+    
     gc.moveTo(0.5*radius()/sf,0.5*radius()/sf);
     gc.showText(std::to_string(rank())+"D");
     for (unsigned i=0; i<handles.size(); ++i)
