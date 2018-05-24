@@ -294,13 +294,13 @@ template <class F>
 void RawData::orderedApply(size_t offset, std::vector<const SortedVector*> order, F f)
 {
   if (order.size()==1)
-    for (size_t i=0; i<order[0]->filteredSize(); ++i)
-      f(offset+order[0]->idx(i+order[0]->sliceMin)*stride(0));
+    for (size_t i=0; i<order[0]->size(); ++i)
+      f(offset+order[0]->idx(i)*stride(0));
   else
     {
       auto& o=*order.back();
       order.pop_back();
-      for (size_t i=o.sliceMin; i<o.sliceMin+o.filteredSize(); ++i)
+      for (size_t i=0; i<o.size(); ++i)
         orderedApply(offset + o.idx(i)*stride(order.size()), order, f);
     }
 }

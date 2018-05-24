@@ -48,11 +48,11 @@ SUITE(RavelCairo)
 
       // move mouse away from a handle
       CHECK(onMouseOver(50,50)); 
-      handles[0].displayFilterCaliper=true;
+      handles[0].displayFilterCaliper(true);
       ::clear(surf);
       render(); // checks that calipers are displayed
       cairo_surface_write_to_png(surf.surface(),"caliperRender.png");
-      handles[0].displayFilterCaliper=false;
+      handles[0].displayFilterCaliper(false);
   
       // collapse a handle
       handles[2].toggleCollapsed();

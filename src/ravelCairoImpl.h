@@ -17,11 +17,6 @@ namespace ravel
 {
   namespace
   {
-    inline double sqr(double x) {return x*x;}
-    // distance squared between two points
-    inline double dsq(double x0, double y0, double x1, double y1)
-    {return sqr(x1-x0)+sqr(y1-y0);}
-
     double palette[][3] = 
       {
         {0,0,0},
@@ -116,7 +111,7 @@ namespace ravel
 
     // draw central circle, and clip its interior out
     gc.newPath();
-    gc.arc(0,0,hubRadius*radius()/sf, 0, 2*pi);
+    gc.arc(0,0,Handle::hubRadius*radius()/sf, 0, 2*pi);
     gc.strokePreserve();
     gc.moveTo(-1.5*radius(),-1.5*radius());
     gc.lineTo(-1.5*radius(),1.5*radius());
@@ -151,7 +146,7 @@ namespace ravel
                 drawArrow(gc);
                 gc.restore();
               }
-            if (h.displayFilterCaliper)
+            if (h.displayFilterCaliper())
               {
                 drawCaliper(gc,sf,hx,hy,h.minSliceX()/sf,h.minSliceY()/sf,
                             h.minSliceLabel());
@@ -319,7 +314,7 @@ namespace ravel
     for (unsigned h=0; h<handles.size(); ++h)
       {
         const Handle& hnd=handles[h];
-        if (hnd.displayFilterCaliper)
+        if (hnd.displayFilterCaliper())
           {
             AnchorPoint minap=hnd.minCaliperLabelAnchor(),
               maxap=hnd.maxCaliperLabelAnchor();

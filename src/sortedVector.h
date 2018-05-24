@@ -20,10 +20,10 @@ namespace ravel
   /// a vector of string that can be placed in a sorted arrangement
   class SortedVector: public HandleSort
   {
+    /// current filter bounds
+    size_t m_sliceMin=0, m_sliceMax=std::numeric_limits<size_t>::max()-1;
   public:
     typedef std::string value_type;
-    /// current filter bounds
-    size_t sliceMin=0, sliceMax=std::numeric_limits<size_t>::max()-1;
    
     SortedVector(size_t sz=0, const std::string& s=""): 
       labels(sz,s) {order(none);}
@@ -41,19 +41,18 @@ namespace ravel
     }
     const std::string& operator[](size_t i) const {
       assert(isPermValid());
-      return labels[indices[i]];
+      return labels[idx(i)];
     }
-    size_t idx(size_t i) const {return indices[i];}
+    size_t idx(size_t i) const {return indices[i+min()];}
     
     class iterator: public std::iterator<std::bidirectional_iterator_tag, std::string>
     {
-      const std::vector<std::string>& v;
-      std::vector<size_t>::const_iterator i;
+      const SortedVector& v;
+      size_t i;
     public:
-      iterator(const std::vector<std::string>& v, 
-               std::vector<size_t>::const_iterator i): v(v), i(i) {}
-      const std::string& operator*() const {return v[*i];}
-      const std::string* operator->() const {return &v[*i];}
+      iterator(const SortedVector& v, size_t i): v(v), i(i) {}
+      const std::string& operator*() const {return v[i];}
+      const std::string* operator->() const {return &v[i];}
       const iterator& operator++() {++i; return *this;}
       iterator operator++(int) {iterator j(*this); ++i; return j;}
       const iterator& operator--() {--i; return *this;}
@@ -63,21 +62,19 @@ namespace ravel
     };
 
     typedef iterator const_iterator;
-    iterator begin() const {return iterator(labels,indices.begin());}
-    iterator end() const {return iterator(labels,indices.end());}
+    iterator begin() const {return iterator(*this,0);}
+    iterator end() const {return iterator(*this,size());}
     typedef size_t size_type;
-    size_t size() const {return labels.size();}
+    size_t size() const {return max()-min()+1;}
     bool empty() const {return size()==0;}
-    /// number of elements after applying filter bounds
-    size_t filteredSize() const {
-      if (sliceMin<size())
-        if (sliceMax<size())
-          return sliceMax-sliceMin+1;
-        else
-          return size()-sliceMin;
-      else
-        return 0;
-    }
+
+    size_t min() const {return m_sliceMin<indices.size()? m_sliceMin: indices.size();}
+    size_t max() const {return m_sliceMax<indices.size()? m_sliceMax: indices.size()-1;}
+    size_t min(size_t m) {if (m<indices.size()) m_sliceMin=m;}
+    size_t max(size_t m) {if (m<indices.size()) m_sliceMax=m;}
+    
+    const std::vector<std::string>& labelsVector() const 
+    {return labels;}
     
     /// elementwise equality.
     bool operator==(const SortedVector& x) {

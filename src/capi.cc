@@ -185,13 +185,7 @@ extern "C"
       if (axis<ravel->handles.size())
         {
           auto& h=ravel->handles[axis];
-          if (h.collapsed())
-            return 1;
-          size_t N=h.sliceLabels.size();
-          if (h.displayFilterCaliper)
-            return min(N, min(N,h.sliceLabels.sliceMax+1)-h.sliceLabels.sliceMin);
-          else
-            return N;
+          return h.collapsed()? 1: h.sliceLabels.size();
         }
     return 0;
   }
@@ -203,9 +197,6 @@ extern "C"
         auto& h=ravel->handles[axis];
         if (h.collapsed())
           labels[0]=opLabels[h.reductionOp];
-        else if (h.displayFilterCaliper)
-          for (size_t i=0, j=h.sliceLabels.sliceMin; j<min(h.sliceLabels.size(), h.sliceLabels.sliceMax+1); ++i, ++j)
-            labels[i]=h.sliceLabels[j].c_str();
         else
           for (size_t i=0; i<h.sliceLabels.size(); ++i)
             labels[i]=h.sliceLabels[i].c_str();
@@ -215,7 +206,7 @@ extern "C"
   DLLEXPORT void ravel_displayFilterCaliper(CAPIRavel* ravel, size_t axis, bool display) noexcept 
   {
     if (ravel && axis<ravel->handles.size())
-      ravel->handles[axis].displayFilterCaliper=display;
+      ravel->handles[axis].displayFilterCaliper(display);
   }
 
   DLLEXPORT void ravel_orderLabels(CAPIRavel* ravel, size_t axis, CAPIHandleState::HandleSort order) noexcept 
@@ -272,10 +263,10 @@ extern "C"
         hs->x=h.x();
         hs->y=h.y();
         hs->sliceIndex=h.sliceIndex;
-        hs->sliceMin=h.sliceLabels.sliceMin;
-        hs->sliceMax=h.sliceLabels.sliceMax;
+        hs->sliceMin=h.sliceMin();
+        hs->sliceMax=h.sliceMax();
         hs->collapsed=h.collapsed();
-        hs->displayFilterCaliper=h.displayFilterCaliper;
+        hs->displayFilterCaliper=h.displayFilterCaliper();
         hs->reductionOp=CAPIHandleState::ReductionOp(h.reductionOp);
         hs->order=CAPIHandleState::HandleSort(h.sliceLabels.order());
       }
@@ -291,11 +282,11 @@ extern "C"
         Handle& h=ravel->handles[handle];
         h.moveTo(hs->x,hs->y,false);
         h.sliceIndex=hs->sliceIndex;
-        h.sliceLabels.sliceMin=hs->sliceMin;
-        h.sliceLabels.sliceMax=hs->sliceMax;
+        h.sliceLabels.min(hs->sliceMin);
+        h.sliceLabels.max(hs->sliceMax);
         if (hs->collapsed!=h.collapsed())
           h.toggleCollapsed();
-        h.displayFilterCaliper=hs->displayFilterCaliper;
+        h.displayFilterCaliper(hs->displayFilterCaliper);
         h.reductionOp=Op::ReductionOp(hs->reductionOp);
         h.sliceLabels.order(HandleSort::Order(hs->order));
       }
