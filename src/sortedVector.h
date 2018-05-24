@@ -22,6 +22,8 @@ namespace ravel
   {
   public:
     typedef std::string value_type;
+    /// current filter bounds
+    size_t sliceMin=0, sliceMax=std::numeric_limits<size_t>::max()-1;
    
     SortedVector(size_t sz=0, const std::string& s=""): 
       labels(sz,s) {order(none);}
@@ -66,7 +68,17 @@ namespace ravel
     typedef size_t size_type;
     size_t size() const {return labels.size();}
     bool empty() const {return size()==0;}
-
+    /// number of elements after applying filter bounds
+    size_t filteredSize() const {
+      if (sliceMin<size())
+        if (sliceMax<size())
+          return sliceMax-sliceMin+1;
+        else
+          return size()-sliceMin;
+      else
+        return 0;
+    }
+    
     /// elementwise equality.
     bool operator==(const SortedVector& x) {
       if (x.size()!=size()) return false;

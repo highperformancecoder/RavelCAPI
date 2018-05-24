@@ -189,7 +189,7 @@ extern "C"
             return 1;
           size_t N=h.sliceLabels.size();
           if (h.displayFilterCaliper)
-            return min(N, min(N,h.sliceMax+1)-h.sliceMin);
+            return min(N, min(N,h.sliceLabels.sliceMax+1)-h.sliceLabels.sliceMin);
           else
             return N;
         }
@@ -204,7 +204,7 @@ extern "C"
         if (h.collapsed())
           labels[0]=opLabels[h.reductionOp];
         else if (h.displayFilterCaliper)
-          for (size_t i=0, j=h.sliceMin; j<min(h.sliceLabels.size(), h.sliceMax+1); ++i, ++j)
+          for (size_t i=0, j=h.sliceLabels.sliceMin; j<min(h.sliceLabels.size(), h.sliceLabels.sliceMax+1); ++i, ++j)
             labels[i]=h.sliceLabels[j].c_str();
         else
           for (size_t i=0; i<h.sliceLabels.size(); ++i)
@@ -272,8 +272,8 @@ extern "C"
         hs->x=h.x();
         hs->y=h.y();
         hs->sliceIndex=h.sliceIndex;
-        hs->sliceMin=h.sliceMin;
-        hs->sliceMax=h.sliceMax;
+        hs->sliceMin=h.sliceLabels.sliceMin;
+        hs->sliceMax=h.sliceLabels.sliceMax;
         hs->collapsed=h.collapsed();
         hs->displayFilterCaliper=h.displayFilterCaliper;
         hs->reductionOp=CAPIHandleState::ReductionOp(h.reductionOp);
@@ -291,8 +291,8 @@ extern "C"
         Handle& h=ravel->handles[handle];
         h.moveTo(hs->x,hs->y,false);
         h.sliceIndex=hs->sliceIndex;
-        h.sliceMin=hs->sliceMin;
-        h.sliceMax=hs->sliceMax;
+        h.sliceLabels.sliceMin=hs->sliceMin;
+        h.sliceLabels.sliceMax=hs->sliceMax;
         if (hs->collapsed!=h.collapsed())
           h.toggleCollapsed();
         h.displayFilterCaliper=hs->displayFilterCaliper;

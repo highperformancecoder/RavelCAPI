@@ -76,13 +76,18 @@ namespace ravel
     /// labels of individual slices along this dimension
     SortedVector sliceLabels;
     size_t numSliceLabels() const {return sliceLabels.size();}
-    /// current slice, filter bounds
-    size_t sliceIndex, sliceMin=0, sliceMax=std::numeric_limits<size_t>::max()-1;
+    /// current slice
+    size_t sliceIndex;
     /// move slice index by \a p, taking into acount the bounds
     void moveSliceIdx(int p) {
       if (long(sliceIndex)+p >= 0 && long(sliceIndex) + p < long(sliceLabels.size()))
         sliceIndex+=p;
     }
+
+    /// current filter bounds
+    size_t sliceMin() const {return sliceLabels.sliceMin;}
+    size_t sliceMax() const {return sliceLabels.sliceMax;}
+  
     
     /// masked sliceLabels where slices are empty of all values
     std::set<unsigned long> mask;
@@ -103,12 +108,12 @@ namespace ravel
 
     /// @{
     /// coordinates of slice filter caliper control
-    double minSliceX() const {return sliceCoordInterp(sliceMin,m_x);}
-    double minSliceY() const {return sliceCoordInterp(sliceMin,m_y);}
+    double minSliceX() const {return sliceCoordInterp(sliceLabels.sliceMin,m_x);}
+    double minSliceY() const {return sliceCoordInterp(sliceLabels.sliceMin,m_y);}
     double maxSliceX() const 
-    {return sliceCoordInterp(std::min(sliceMax,sliceLabels.size()-1),m_x);}
+    {return sliceCoordInterp(std::min(sliceLabels.sliceMax,sliceLabels.size()-1),m_x);}
     double maxSliceY() const 
-    {return sliceCoordInterp(std::min(sliceMax,sliceLabels.size()-1),m_y);}
+    {return sliceCoordInterp(std::min(sliceLabels.sliceMax,sliceLabels.size()-1),m_y);}
     /// @}
 
 

@@ -89,18 +89,18 @@ namespace ravel
       if (ravel.handleIds.size()>1) yh=ravel.handleIds[1];
       if (xh==yh) {xh=0; yh=1;}
       Handle xHandle=ravel.handles[xh];
-      size_t xoffs=xHandle.displayFilterCaliper? xHandle.sliceMin: 0;
+      size_t xoffs=xHandle.displayFilterCaliper? xHandle.sliceLabels.sliceMin: 0;
       size_t xmax=xHandle.sliceLabels.size();
-      if (xHandle.displayFilterCaliper) xmax=std::min(xmax, xHandle.sliceMax+1);
+      if (xHandle.displayFilterCaliper) xmax=std::min(xmax, xHandle.sliceLabels.sliceMax+1);
       for (size_t i=xoffs, j=1; !xHandle.collapsed() && i<xmax; ++i)
         if (xHandle.mask.count(i)==0)
           // first index of tclArray is row index which is the yHandle index
           tclArray(0,j++)=xHandle.sliceLabels[i].c_str();
 
       Handle yHandle=ravel.handles[yh];
-      size_t yoffs=yHandle.displayFilterCaliper? yHandle.sliceMin: 0;
+      size_t yoffs=yHandle.displayFilterCaliper? yHandle.sliceLabels.sliceMin: 0;
       size_t ymax=yHandle.sliceLabels.size();
-      if (yHandle.displayFilterCaliper) ymax=std::min(ymax, yHandle.sliceMax+1);
+      if (yHandle.displayFilterCaliper) ymax=std::min(ymax, yHandle.sliceLabels.sliceMax+1);
       for (size_t i=yoffs, j=1; !yHandle.collapsed() && i<ymax; ++i)
         if (yHandle.mask.count(i)==0)
           tclArray(j++,0)=yHandle.sliceLabels[i].c_str();

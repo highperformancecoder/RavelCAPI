@@ -96,13 +96,13 @@ const std::string& Handle::sliceLabel() const
 const std::string& Handle::minSliceLabel() const 
 {
   return sliceLabels.empty() ? emptyString :
-    sliceLabels[std::min(sliceMin, sliceLabels.size()-1)];
+    sliceLabels[std::min(sliceLabels.sliceMin, sliceLabels.size()-1)];
 } 
 
 const std::string& Handle::maxSliceLabel() const 
 {
   return sliceLabels.empty() ? emptyString :
-    sliceLabels[std::min(sliceMax, sliceLabels.size()-1)];
+    sliceLabels[std::min(sliceLabels.sliceMax, sliceLabels.size()-1)];
 } 
 
 void Handle::moveTo(double x, double y, bool dontCollapse)
@@ -399,10 +399,10 @@ bool Ravel::onMouseMotion(double a_x, double a_y)
           h.setSliceCoordinates(h.sliceIndex, a_x, a_y);
           break;
         case filterMin:
-          h.setSliceCoordinates(h.sliceMin, a_x, a_y);
+          h.setSliceCoordinates(h.sliceLabels.sliceMin, a_x, a_y);
           break;
         case filterMax:
-          h.setSliceCoordinates(h.sliceMax, a_x, a_y);
+          h.setSliceCoordinates(h.sliceLabels.sliceMax, a_x, a_y);
           break;
         }
     }

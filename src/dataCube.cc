@@ -332,9 +332,9 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
   for (auto& h: ravel.handles)
     {
       // apply any caliper restrictions to data
-      if (h.displayFilterCaliper && (h.sliceMin>0 || h.sliceMax<h.sliceLabels.size()))
+      if (h.displayFilterCaliper && (h.sliceLabels.sliceMin>0 || h.sliceLabels.sliceMax<h.sliceLabels.size()))
         {
-          ApplyCalipers ac(h.sliceMin, h.sliceMax);
+          ApplyCalipers ac(h.sliceLabels.sliceMin, h.sliceLabels.sliceMax);
           if (noReductions)
             {
               // avoid copying data first time around
@@ -407,9 +407,17 @@ void DataCube::hyperSliceAfterPartialReductions(RawData& sliceData, Ravel& ravel
     if (i<ravel.handles.size())
       {
         auto& h=ravel.handles[i];
-        if (h.sliceLabels.order()!=HandleSort::none)
-          handlesOrdered=true;
-        orderings[sliceData.axis(h.description)]=&h.sliceLabels;
+        if (h.collapsed())
+          {
+            static SortedVector singleton(1);
+            orderings[sliceData.axis(h.description)]=&singleton;
+          }
+        else
+          {
+            if (h.sliceLabels.order()!=HandleSort::none)
+              handlesOrdered=true;
+            orderings[sliceData.axis(h.description)]=&h.sliceLabels;
+          }
       }
 
   if (handlesOrdered)
@@ -456,8 +464,8 @@ void DataCube::populateArray(Ravel& ravel)
   // prepare empty row/column masks
   xHandle.mask.clear(); yHandle.mask.clear();
 
-  size_t xoffs=xHandle.displayFilterCaliper? xHandle.sliceMin: 0;
-  size_t yoffs=yHandle.displayFilterCaliper? yHandle.sliceMin: 0;
+  size_t xoffs=xHandle.displayFilterCaliper? xHandle.sliceLabels.sliceMin: 0;
+  size_t yoffs=yHandle.displayFilterCaliper? yHandle.sliceLabels.sliceMin: 0;
   size_t xmax=sliceData.dim(0)+xoffs;
   size_t ymax=sliceData.dim(1)+yoffs;
   
