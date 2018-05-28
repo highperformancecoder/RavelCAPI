@@ -312,7 +312,7 @@ void RawData::reorder(RawData& r, const std::vector<const SortedVector*>& o)
   for (size_t i=0; i<rank(); ++i)
     {
       assert(o[i]);
-      assert(dim(i)==o[i]->filteredSize());
+      assert(dim(i)==o[i]->size());
     }
 #endif
   r=static_cast<RawDataIdx&>(*this);
