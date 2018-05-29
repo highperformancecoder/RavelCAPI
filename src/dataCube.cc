@@ -326,16 +326,34 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
   if (descSet.size()!=ravel.handles.size())
     throw RavelError("not all handles are distinct");
   
+  bool handlesOrdered=false;
+  vector<const SortedVector*> orderings(rawData.rank());
+  for (auto& h: ravel.handles)
+    if (h.collapsed())
+      {
+        static SortedVector singleton(1);
+        orderings[rawData.axis(h.description)]=&singleton;
+      }
+    else
+      {
+        if (h.sliceLabels.order()!=HandleSort::none)
+          handlesOrdered=true;
+        orderings[rawData.axis(h.description)]=&h.sliceLabels;
+      }
+
   // apply partial reductions, if any
   bool noReductions=true;
   RawData partReducedData;
+  if (handlesOrdered)
+    partReducedData=rawData.reorder(orderings);
+
   for (auto& h: ravel.handles)
     {
       // apply any caliper restrictions to data
       if (h.displayFilterCaliper())
         {
           ApplyCalipers ac(h.sliceMin(), h.sliceMax());
-          if (noReductions)
+          if (noReductions && !handlesOrdered)
             {
               // avoid copying data first time around
               partReducedData=rawData.partialReduce(rawData.axis(h.description),ac);
@@ -354,7 +372,7 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
         else
           partReducedData=partReducedData.partialReduce(partReducedData.axis(h.description),*pred);
     }
-  if (noReductions)
+  if (noReductions && !handlesOrdered)
     hyperSliceAfterPartialReductions(sliceData, ravel, rawData);
   else
     hyperSliceAfterPartialReductions(sliceData, ravel, partReducedData);
@@ -401,27 +419,6 @@ void DataCube::hyperSliceAfterPartialReductions(RawData& sliceData, Ravel& ravel
   if (noReductions)
     sliceData=move(RawData(rawData,slice));
 
-  bool handlesOrdered=false;
-  vector<const SortedVector*> orderings(ravel.rank());
-  for (size_t i: ravel.handleIds)
-    if (i<ravel.handles.size())
-      {
-        auto& h=ravel.handles[i];
-        if (h.collapsed())
-          {
-            static SortedVector singleton(1);
-            orderings[sliceData.axis(h.description)]=&singleton;
-          }
-        else
-          {
-            if (h.sliceLabels.order()!=HandleSort::none)
-              handlesOrdered=true;
-            orderings[sliceData.axis(h.description)]=&h.sliceLabels;
-          }
-      }
-
-  if (handlesOrdered)
-    sliceData=sliceData.reorder(orderings);
 }
 
 void DataCube::populateArray(Ravel& ravel)

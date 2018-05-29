@@ -186,7 +186,7 @@ namespace ravel
     }
 
     template <class F>
-    void orderedApply(size_t offset, std::vector<const SortedVector*> order, F f);
+    void orderedApply(size_t offset, std::vector<const SortedVector*> order, F f) const;
 
     
   public:
@@ -231,9 +231,9 @@ namespace ravel
 
     /// reorder according to the orderings specified in \a orderings
     /// ownership of objects referred to in orderings is not passed
-    RawData reorder(const std::vector<const SortedVector*>& orderings)
+    RawData reorder(const std::vector<const SortedVector*>& orderings) const
     {RawData r; reorder(r,orderings); return r;}
-    void reorder(RawData&, const std::vector<const SortedVector*>&);
+    void reorder(RawData&, const std::vector<const SortedVector*>&) const;
     
   };
 

@@ -292,7 +292,7 @@ RawData RawData::partialReduce(size_t axis, PartialReduction& p) const
 }
 
 template <class F>
-void RawData::orderedApply(size_t offset, std::vector<const SortedVector*> order, F f)
+void RawData::orderedApply(size_t offset, std::vector<const SortedVector*> order, F f) const
 {
   if (order.size()==1)
     for (size_t i=0; i<order[0]->size(); ++i)
@@ -306,7 +306,7 @@ void RawData::orderedApply(size_t offset, std::vector<const SortedVector*> order
     }
 }
 
-void RawData::reorder(RawData& r, const std::vector<const SortedVector*>& o)
+void RawData::reorder(RawData& r, const std::vector<const SortedVector*>& o) const
 {
 #ifndef NDEBUG
   assert(rank()==o.size());
@@ -316,7 +316,7 @@ void RawData::reorder(RawData& r, const std::vector<const SortedVector*>& o)
       assert(dim(i)==o[i]->size());
     }
 #endif
-  r=static_cast<RawDataIdx&>(*this);
+  r=static_cast<const RawDataIdx&>(*this);
   r.normalise();
   size_t idx=0;
   orderedApply(0,o,[&](size_t i){r[idx++]=data[i];});
