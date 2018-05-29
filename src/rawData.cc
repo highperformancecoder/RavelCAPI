@@ -279,6 +279,7 @@ RawData RawData::partialReduce(size_t axis, PartialReduction& p) const
   for (auto i: p.indices(dim(axis))) labels.push_back(lv[axis].second[i]);
   lv[axis].second.swap(labels);
   RawData r{RawDataIdx(lv)};
+  assert(r.stride(axis)==stride(axis));
   for (size_t i=0,j=0; i<size();
        i+=dim(axis)*stride(axis), j+=r.dim(axis)*stride(axis))
     for (size_t k=0; k<stride(axis) && j+k<r.size() && i+k<size(); ++k)

@@ -119,13 +119,14 @@ namespace ravel
 
   void ApplyCalipers::operator()(double* dest, const double* src, size_t stride, size_t N) const
   {
-    for (size_t i=0, j=minIdx; j<min(maxIdx+1, N); ++i, ++j)
+    auto maxi=min(maxIdx+1, N);
+    for (size_t i=0, j=minIdx; j<maxi; ++i, ++j)
       dest[i*stride]=src[j*stride];
   }
   
   std::vector<size_t> ApplyCalipers::indices(size_t N) const
   {
-    auto maxi=min(maxIdx+1, max(N, minIdx));
+    auto maxi=min(maxIdx+1, N);
     std::vector<size_t> r;
     for (unsigned i=minIdx; i<maxi; ++i)
       r.push_back(i);
