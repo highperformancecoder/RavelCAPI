@@ -327,18 +327,17 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
     throw RavelError("not all handles are distinct");
   
   bool handlesOrdered=false;
-  vector<const SortedVector*> orderings(rawData.rank());
+  vector<SortedVector> orderings(rawData.rank());
   for (auto& h: ravel.handles)
     if (h.collapsed())
-      {
-        static SortedVector singleton(1);
-        orderings[rawData.axis(h.description)]=&singleton;
-      }
+      orderings[rawData.axis(h.description)]={""};
     else
       {
         if (h.sliceLabels.order()!=HandleSort::none)
           handlesOrdered=true;
-        orderings[rawData.axis(h.description)]=&h.sliceLabels;
+        auto& o=orderings[rawData.axis(h.description)]=h.sliceLabels;
+        o.min(0);
+        o.max(o.labelsVector().size()-1);
       }
 
   // apply partial reductions, if any
@@ -448,7 +447,7 @@ void DataCube::populateArray(Ravel& ravel)
         setupSortByPerm(m_sortBy[xh],0,1,sliceData, xHandle.sliceLabels);
       if (!yHandle.collapsed())
         setupSortByPerm(m_sortBy[yh],1,0,sliceData, yHandle.sliceLabels);
-      sliceData=sliceData.reorder({&xHandle.sliceLabels,&yHandle.sliceLabels});
+      sliceData=sliceData.reorder({xHandle.sliceLabels,yHandle.sliceLabels});
     }
   
   for (size_t i=0; i<sliceData.size(); ++i)

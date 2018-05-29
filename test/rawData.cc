@@ -71,11 +71,11 @@ SUITE(RawDataT)
     handles[1].sliceLabels={"b1","b2"};
     handles[2].description="fbar";
     handles[2].sliceLabels={"fb0","fb1"};
-    vector<const SortedVector*> order;
+    vector<SortedVector> order;
     for (auto& h: handles)
       {
         h.sliceLabels.order(HandleSort::reverse);
-        order.push_back(&h.sliceLabels);
+        order.push_back(h.sliceLabels);
       }
     RawData r2=rd.reorder(order);
 
