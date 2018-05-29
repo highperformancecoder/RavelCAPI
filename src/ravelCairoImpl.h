@@ -237,10 +237,14 @@ namespace ravel
     else 
       {
         Handle& h=handles[lastHandle];
+        double dx=xx-x, dy=yy-y;
         // select which caliper we're moving
-        elementMoving = 
-          dsq(xx-x,yy-y,h.minSliceX(),h.minSliceY())<dsq(xx-x,yy-y,h.maxSliceX(),h.maxSliceY())?
-                                                     filterMin: filterMax;
+        if (h.sliceMin()==h.sliceMax()-1)
+          // choose whichever handle is furthest from it's end, to avoid calipers sticking together
+          elementMoving = dsq(dx,dy,h.x(),h.y())<dsq(dx,dy,0,0)? filterMin: filterMax;
+        else
+          elementMoving = dsq(dx,dy,h.minSliceX(),h.minSliceY())<
+            dsq(dx,dy,h.maxSliceX(),h.maxSliceY())? filterMin: filterMax;
       }
   }
 

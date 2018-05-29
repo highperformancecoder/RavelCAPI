@@ -109,8 +109,8 @@ assert {[ravel.handles(1).sliceMax]>=[expr [ravel.handles(2).sliceLabels.size]-1
 assert {[ravel.handles(1).maxSliceLabel]=="c"} ""
 ravel.onMouseDown [ravel.handles(1).maxSliceX] 0
 ravel.onMouseUp \$fincr 0
-assert {[ravel.handles(1).sliceMax]==1} ""
-assert {[ravel.handles(1).maxSliceLabel]=="b"} ""
+assert {[ravel.handles(1).sliceMax]==2} ""
+assert {[ravel.handles(1).maxSliceLabel]=="c"} ""
 
 
 EOF

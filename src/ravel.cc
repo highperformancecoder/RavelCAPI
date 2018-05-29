@@ -184,10 +184,11 @@ bool Ravel::onMouseMotion(double a_x, double a_y)
           {
             size_t sm;
             h.setSliceCoordinates(sm, a_x, a_y);
+            // do not move the calipers on top of each other, as this causes them to stick
             if (elementMoving==filterMin)
-              h.sliceLabels.min(sm);
+              h.sliceLabels.min(sm<h.sliceMax()? sm: h.sliceMax()-1);
             else
-              h.sliceLabels.max(sm);
+              h.sliceLabels.max(sm>h.sliceMin()? sm: h.sliceMin()+1);
             break;
           }
         }

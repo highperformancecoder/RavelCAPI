@@ -77,8 +77,8 @@ void Handle::setSliceCoordinates(size_t& a_sliceIndex,double x, double y)
   if (sliceLabels.empty()) sliceLabels.resize(1);
   if (x_i<1)
     a_sliceIndex=0;
-  else if (x_i>=sliceLabels.size())
-    a_sliceIndex=sliceLabels.size()-1;
+  else if (x_i>=sliceLabels.labelsVector().size())
+    a_sliceIndex=sliceLabels.labelsVector().size()-1;
   else
     a_sliceIndex=size_t(x_i-0.5);
 }
