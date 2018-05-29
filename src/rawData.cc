@@ -315,6 +315,19 @@ void RawData::reorder(RawData& r, const std::vector<SortedVector>& o) const
 #endif
   r=static_cast<const RawDataIdx&>(*this);
   r.normalise();
+  r.idxReorder(o);
   size_t idx=0;
   orderedApply(0,o,[&](size_t i){r[idx++]=data[i];});
+}
+
+void RawDataIdx::idxReorder(const std::vector<SortedVector>& o)
+{
+  assert(o.size()==rank());
+  for (size_t i=0; i<rank(); ++i)
+    {
+      auto& order=o[i];
+      assert(order.size()==indices[i].idx.size());
+      for (auto& j: indices[i].idx)
+        j.second=order.idx(j.second/stride(i))*stride(i);
+    }
 }

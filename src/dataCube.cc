@@ -341,7 +341,6 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
       }
 
   // apply partial reductions, if any
-  bool noReductions=true;
   RawData partReducedData;
   if (handlesOrdered)
     partReducedData=rawData.reorder(orderings);
@@ -352,26 +351,18 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
       if (h.displayFilterCaliper())
         {
           ApplyCalipers ac(h.sliceMin(), h.sliceMax());
-          if (noReductions && !handlesOrdered)
-            {
-              // avoid copying data first time around
-              partReducedData=rawData.partialReduce(rawData.axis(h.description),ac);
-              noReductions=false;
-            }
+          if (partReducedData.size()==0)
+            partReducedData=rawData.partialReduce(rawData.axis(h.description),ac);
           else
             partReducedData=partReducedData.partialReduce(partReducedData.axis(h.description),ac);
         }
       for (auto& pred: h.partialReductions())
-        if (noReductions)
-          {
-            // avoid copying data first time around
-            partReducedData=rawData.partialReduce(rawData.axis(h.description),*pred);
-            noReductions=false;
-          }
+        if (partReducedData.size()==0)
+          partReducedData=rawData.partialReduce(rawData.axis(h.description),*pred);
         else
           partReducedData=partReducedData.partialReduce(partReducedData.axis(h.description),*pred);
     }
-  if (noReductions && !handlesOrdered)
+  if (partReducedData.size()==0)
     hyperSliceAfterPartialReductions(sliceData, ravel, rawData);
   else
     hyperSliceAfterPartialReductions(sliceData, ravel, partReducedData);

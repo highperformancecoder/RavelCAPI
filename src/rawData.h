@@ -138,6 +138,8 @@ namespace ravel
     /// collapse axis \a i down to a single number (result of a
     /// reduction). Returned object has the same rank as the original
     RawDataIdx collapseAxis(size_t i) const;
+    /// reorder indices according to \a orderings
+    void idxReorder(const std::vector<SortedVector>& o);
   };
 
   /** apply functional \a f to a range of elements in a contiguous data range
