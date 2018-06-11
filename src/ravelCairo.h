@@ -45,6 +45,7 @@ namespace ravel
     const Handle* selectedHandle() const {
       return toolTipHandle>=0? &handles[toolTipHandle]: nullptr;
     }
+    int selectedHandleId() const {return toolTipHandle;}
   };
 }
 

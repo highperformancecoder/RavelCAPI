@@ -85,6 +85,8 @@ extern "C"
   void ravel_setOutputHandleIds(CAPIRavel* ravel, size_t rank, size_t ids[]) NOEXCEPT;
   /// number of handles (aka axes)
   unsigned ravel_numHandles(CAPIRavel* ravel) NOEXCEPT;
+  /// current handle mouse is over, or -1 if none
+  int ravel_selectedHandle(CAPIRavel* ravel) NOEXCEPT;
   /// return the description field for handle \a handle.
   const char* ravel_handleDescription(CAPIRavel* ravel, size_t handle) NOEXCEPT;
   /// number of slice labels along axis \a axis
