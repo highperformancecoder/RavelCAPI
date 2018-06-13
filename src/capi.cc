@@ -170,9 +170,12 @@ extern "C"
 
    
   
-  DLLEXPORT unsigned ravel_numHandles(CAPIRavel* ravel) NOEXCEPT
+  DLLEXPORT unsigned ravel_numHandles(CAPIRavel* ravel) noexcept
   {return ravel? ravel->handles.size(): 0;}
 
+  DLLEXPORT  int ravel_selectedHandle(CAPIRavel* ravel) noexcept
+  {return ravel? ravel->selectedHandleId(): -1;}
+  
   DLLEXPORT const char* ravel_handleDescription(CAPIRavel* ravel, size_t handle) noexcept
   {
     if (ravel && handle<ravel->handles.size())
