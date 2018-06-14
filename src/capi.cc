@@ -219,6 +219,27 @@ extern "C"
       ravel->handles[axis].sliceLabels.order(HandleSort::Order(order));
   }
 
+  DLLEXPORT void ravel_applyCustomPermutation
+  (CAPIRavel* ravel, size_t axis, size_t numIndices, const size_t* indices)
+    noexcept
+  {
+    if (ravel && axis<ravel->handles.size())
+      {
+        vector<size_t> perm(indices,indices+numIndices);
+        ravel->handles[axis].sliceLabels.customPermutation(perm);
+      }
+  }
+  
+  DLLEXPORT void ravel_currentPermutation
+  (CAPIRavel* ravel, size_t axis, size_t numIndices, size_t* indices) noexcept
+  {
+    if (ravel && axis<ravel->handles.size())
+      {
+        auto& idx=ravel->handles[axis].sliceLabels.currentPermutation();
+        for (size_t i=0; i<idx.size() && i<numIndices; ++i)
+          indices[i]=idx[i];
+      }
+  }
 
   
   DLLEXPORT void ravel_addHandle(CAPIRavel* ravel, const char* description, size_t numSliceLabels, const char* sliceLabels[]) noexcept

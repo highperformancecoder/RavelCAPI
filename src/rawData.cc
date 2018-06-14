@@ -310,12 +310,15 @@ void RawData::reorder(RawData& r, const std::vector<SortedVector>& o) const
 {
 #ifndef NDEBUG
   assert(rank()==o.size());
-  for (size_t i=0; i<rank(); ++i)
-    assert(dim(i)==o[i].size());
+  //  for (size_t i=0; i<rank(); ++i)
+  //    assert(dim(i)==o[i].size());
 #endif
-  r=static_cast<const RawDataIdx&>(*this);
+  LabelsVector lv=labelsVector();
+  for (size_t i=0; i<lv.size(); ++i)
+    lv[i].second={o[i].begin(),o[i].end()};
+  r=RawDataIdx(lv);
   r.normalise();
-  r.idxReorder(o);
+  //  r.idxReorder(o);
   size_t idx=0;
   orderedApply(0,o,[&](size_t i){r[idx++]=data[i];});
 }

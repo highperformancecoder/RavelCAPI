@@ -58,7 +58,7 @@ namespace ravel
     
     CLASSDESC_ACCESS(Handle);
   public:
-    static constexpr double hubRadius=0.1;
+    static constexpr double hubRadius=0.07;
 
     /// @{
     /// x & y coordinates of handle tip, relative to Ravel origin

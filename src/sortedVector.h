@@ -94,10 +94,11 @@ namespace ravel
       return order()==reverse || order()==numReverse;
     }
 
-    /// apply a custom permuatation
+    /// apply a custom permuatation (may be less than number of labels)
     void customPermutation(const std::vector<size_t>&);
+    const std::vector<size_t>& currentPermutation() const {return indices;}
 
-    /// check permutation is valid
+    /// check permutation is valid (no duplicated indices, etc)
     bool isPermValid() const;
 
   private:

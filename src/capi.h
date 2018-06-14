@@ -104,6 +104,13 @@ extern "C"
   /// set the ordering on handle \a axis to \a order
   void ravel_orderLabels(CAPIRavel* ravel, size_t axis, CAPIHandleState::HandleSort order) NOEXCEPT;
 
+  /// apply a custom permutation of axis labels (which may be less than the number of labels)
+  /// indices is an array of length numIndices
+  void ravel_applyCustomPermutation(CAPIRavel* ravel, size_t axis, size_t numIndices, const size_t* indices) NOEXCEPT;
+  /// get the current permutation of axis labels. numIndices is the size of the target array, which should be >=numSliceLabels.
+  /// elements beyond numSliceLabels are undefined
+  void ravel_currentPermutation(CAPIRavel* ravel, size_t axis, size_t numIndices, size_t* indices) NOEXCEPT;
+  
   /// add a handle to the Ravel. \a sliceLabels is of length \a numSliceLabels. Ownership of char pointers not passed.
   void ravel_addHandle(CAPIRavel* ravel, const char* description,
                        size_t numSliceLabels, const char* sliceLabels[]) NOEXCEPT;

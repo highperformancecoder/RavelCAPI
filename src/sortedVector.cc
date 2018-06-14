@@ -68,7 +68,7 @@ namespace ravel
   
   void SortedVector::customPermutation(const std::vector<size_t>& p)
   {
-    m_order=none;
+    m_order=custom;
     indices=p;
     assert(isPermValid());
   }
@@ -76,6 +76,6 @@ namespace ravel
   bool SortedVector::isPermValid() const
   {
     set<size_t> s(indices.begin(), indices.end());
-    return indices.size()==labels.size() && (indices.empty() || *s.rbegin()==indices.size()-1);
+    return indices.size()==s.size() && (s.empty() || *s.rbegin()<labels.size());
   }
 }
