@@ -20,9 +20,9 @@ namespace ravel
   /// a vector of string that can be placed in a sorted arrangement
   class SortedVector: public HandleSort
   {
+  public:
     /// current filter bounds
     size_t m_sliceMin=0, m_sliceMax=std::numeric_limits<size_t>::max()-1;
-  public:
     typedef std::string value_type;
    
     SortedVector(size_t sz=0, const std::string& s=""): 

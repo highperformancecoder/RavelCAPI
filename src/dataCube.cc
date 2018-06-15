@@ -278,7 +278,8 @@ void DataCube::loadData(Tokeniser& tok, const DataSpec& spec)
 void DataCube::loadData(const RawDataIdx& x, const double data[])
 {
   rawData=x;
-  memcpy(&rawData[0],data,rawData.size()*sizeof(double));
+  if (rawData.size()>0)
+    memcpy(&rawData[0],data,rawData.size()*sizeof(double));
   m_dimLabels.clear();
   dimNames.clear();
   for (auto& i:x.labelsVector())

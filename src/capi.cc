@@ -288,8 +288,8 @@ extern "C"
         hs->x=h.x();
         hs->y=h.y();
         hs->sliceIndex=h.sliceIndex;
-        hs->sliceMin=h.sliceMin();
-        hs->sliceMax=h.sliceMax();
+        hs->sliceMin=h.sliceLabels.m_sliceMin;
+        hs->sliceMax=h.sliceLabels.m_sliceMax;
         hs->collapsed=h.collapsed();
         hs->displayFilterCaliper=h.displayFilterCaliper();
         hs->reductionOp=CAPIHandleState::ReductionOp(h.reductionOp);
@@ -306,7 +306,7 @@ extern "C"
       {
         Handle& h=ravel->handles[handle];
         h.moveTo(hs->x,hs->y,false);
-        h.sliceIndex=hs->sliceIndex;
+        h.sliceIndex=hs->sliceIndex<h.sliceLabels.size()? hs->sliceIndex: 0;
         h.sliceLabels.min(hs->sliceMin);
         h.sliceLabels.max(hs->sliceMax);
         if (hs->collapsed!=h.collapsed())

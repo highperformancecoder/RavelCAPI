@@ -85,7 +85,7 @@ void Handle::setSliceCoordinates(size_t& a_sliceIndex,double x, double y)
 
 const std::string& Handle::sliceLabel() const 
 {
-  return sliceLabels.empty() ? emptyString : sliceLabels[sliceIndex];
+  return sliceIndex<sliceLabels.size() ? sliceLabels[sliceIndex]: emptyString;
 }
 
 const std::string& Handle::minSliceLabel() const 
