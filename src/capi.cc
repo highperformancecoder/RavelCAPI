@@ -176,11 +176,18 @@ extern "C"
   DLLEXPORT  int ravel_selectedHandle(CAPIRavel* ravel) noexcept
   {return ravel? ravel->selectedHandleId(): -1;}
   
-  DLLEXPORT const char* ravel_handleDescription(CAPIRavel* ravel, size_t handle) noexcept
+  DLLEXPORT const char* ravel_handleDescription(CAPIRavel* ravel, int handle) noexcept
   {
-    if (ravel && handle<ravel->handles.size())
+    if (ravel && handle>=0 && handle<ravel->handles.size())
       return ravel->handles[handle].description.c_str();
     return "";
+  }
+    
+  DLLEXPORT void ravel_setHandleDescription
+  (CAPIRavel* ravel, int handle, const char* description) noexcept
+  {
+    if (ravel && handle>=0 && handle<ravel->handles.size())
+      ravel->handles[handle].description=description;
   }
     
   DLLEXPORT size_t ravel_numSliceLabels(CAPIRavel* ravel, size_t axis) noexcept 

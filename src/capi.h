@@ -88,7 +88,9 @@ extern "C"
   /// current handle mouse is over, or -1 if none
   int ravel_selectedHandle(CAPIRavel* ravel) NOEXCEPT;
   /// return the description field for handle \a handle.
-  const char* ravel_handleDescription(CAPIRavel* ravel, size_t handle) NOEXCEPT;
+  const char* ravel_handleDescription(CAPIRavel* ravel, int handle) NOEXCEPT;
+  /// set the description field for \a handle
+  void ravel_setHandleDescription(CAPIRavel* ravel, int handle, const char* description) NOEXCEPT;
   /// number of slice labels along axis \a axis
   size_t ravel_numSliceLabels(CAPIRavel* ravel, size_t axis) NOEXCEPT;
   /** returns the sliceLabels along axis \a axis 
