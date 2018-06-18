@@ -75,9 +75,14 @@ extern "C"
   /// @}
   /// resize a ravel
   void ravel_rescale(CAPIRavel* ravel, double radius) NOEXCEPT;
+  /// radius of ravel in screen coordinates
   double ravel_radius(CAPIRavel* ravel) NOEXCEPT;
+  /// rank (no. output handles)
   size_t ravel_rank(CAPIRavel* ravel) NOEXCEPT;
-
+  /// descriptive text of the operation of the Ravel (plain English for now)
+  /// String buffer remains valid until next Ravel CAPI call.
+  const char* ravel_description(CAPIRavel* ravel) NOEXCEPT;
+  
   /// return the handle IDs of the output handles, in order x,y,z, etc.
   /// ids must be ravel_rank() in size
   void ravel_outputHandleIds(CAPIRavel* ravel, size_t ids[]) NOEXCEPT;
@@ -117,7 +122,7 @@ extern "C"
   void ravel_addHandle(CAPIRavel* ravel, const char* description,
                        size_t numSliceLabels, const char* sliceLabels[]) NOEXCEPT;
   
-  /// return XML represention of
+  /// return XML represention of ravel. String buffer remains valid until next Ravel CAPI call.
   const char* ravel_toXML(CAPIRavel* ravel) NOEXCEPT;
   /// populate with XML data. @return true on success
   int ravel_fromXML(CAPIRavel* ravel, const char*) NOEXCEPT;
