@@ -102,7 +102,9 @@ void Ravel::rescale(double r)
 int Ravel::handleIfMouseOver(double a_x, double a_y, int exclude) const
 {
   // determine tolerances based on angles
-  double cosTol=cos(0.75*M_PI/(handles.size()-1));
+  double cosTol=cos(0.25*M_PI);
+  if (handles.size()>2)
+    cosTol=cos(0.75*M_PI/(handles.size()-1));
   double r=sqrt(sqr(a_x)+sqr(a_y));
   for (unsigned h=0; h<handles.size(); ++h)
     {
@@ -135,9 +137,14 @@ Ravel::ElementMoving Ravel::sliceCtlHandle(int handle, double a_x, double a_y) c
                        sqr(0.01*Handle::caliperLength*radius()))
                 return filterMax;
             }
+          if (sqr(a_x-h.x())+sqr(a_y-h.y())<
+              sqr(Handle::hubRadius)*(sqr(h.x())+sqr(h.y())))
+            return Ravel::handle;
         }
+      else
+        return Ravel::handle; // collapsed handle can be active all over
     }
-  return Ravel::handle;
+  return none;
 }
 
 

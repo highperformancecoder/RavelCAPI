@@ -11,7 +11,7 @@ namespace ravel
   class Ravel
   {
   public:
-    enum ElementMoving {handle, slicer, filterMin, filterMax, hub};
+    enum ElementMoving {none, handle, slicer, filterMin, filterMax, hub};
   protected:
     double m_radius;
     CLASSDESC_ACCESS(Ravel);
