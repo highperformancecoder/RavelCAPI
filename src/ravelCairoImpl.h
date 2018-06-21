@@ -94,6 +94,11 @@ namespace ravel
       gc.lineTo(Handle::caliperLength,0);
       gc.setLineWidth(1/sf);
       gc.stroke();
+      gc.moveTo(Handle::caliperLength,0);
+      if (abs(hx)>2*abs(hy) || abs(hy)>2*abs(hx))
+        gc.rotate(-0.25*pi-atan2(-hx,hy));
+      else
+        gc.rotate(-atan2(-hx,hy));
       gc.scale(0.5,0.5);
       gc.showText(label);
       gc.restore();
@@ -211,10 +216,10 @@ namespace ravel
           
             gc.save();
             double angle;
-            if (h.y()>0)
-              angle=-atan2(h.x(),h.y());
+            if (abs(h.x())>2*abs(h.y()) || abs(h.y())>2*abs(h.x()))
+              angle=-0.25*pi;
             else
-              angle=pi-atan2(h.x(),h.y());
+              angle=0;
             double scale=.75;
             gc.rotate(angle);
             gc.scale(scale,scale);
