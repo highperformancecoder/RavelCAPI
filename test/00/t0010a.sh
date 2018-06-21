@@ -51,7 +51,7 @@ ravel.rescale 100
 assert {[ravel.radius]==100} ""
 
 # swap handles using mouse
-ravel.onMouseDown 50 0
+ravel.onMouseDown 100 0
 assert {[lindex [ravel.handleIds] 0]==0} ""
 assert {[ravel.onMouseMotion 0 50]==1} ""
 assert {[lindex [ravel.handleIds] 0]==0} "mouse move"
@@ -59,18 +59,18 @@ ravel.onMouseUp 0 50
 assert {[lindex [ravel.handleIds] 0]==1} ""
 
 # swap with third handle - exercises different code path
-ravel.onMouseDown 50 0
+ravel.onMouseDown 100 0
 ravel.onMouseUp -50 -50
 assert {[lindex [ravel.handleIds] 0]==2} ""
 # and revert
-ravel.onMouseDown -50 -50
+ravel.onMouseDown -70 -70
 ravel.onMouseUp 50 0
 assert {[lindex [ravel.handleIds] 0]==1} ""
-ravel.onMouseDown 0 50
+ravel.onMouseDown 0 100
 ravel.onMouseUp -50 -50
 assert {[lindex [ravel.handleIds] 1]==2} ""
 # and revert
-ravel.onMouseDown -50 -50
+ravel.onMouseDown -70 -70
 ravel.onMouseUp 0 50
 assert {[lindex [ravel.handleIds] 1]==0} ""
 
