@@ -89,16 +89,21 @@ namespace ravel
     {
       gc.save();
       gc.translate(sx,sy);
-      gc.rotate(atan2(-hx,hy));
+      double angle=atan2(-hx,hy);
+      gc.rotate(angle);
       gc.moveTo(0,0);
-      gc.lineTo(Handle::caliperLength,0);
+      double cutoff=atan(0.5);
+      double offset=Handle::caliperLength;
+      if (hx<-2*hy)
+        offset*=-1;
+      gc.lineTo(offset,0);
       gc.setLineWidth(1/sf);
       gc.stroke();
-      gc.moveTo(Handle::caliperLength,0);
+      gc.moveTo(offset,0);
       if (abs(hx)>2*abs(hy) || abs(hy)>2*abs(hx))
-        gc.rotate(-0.25*pi-atan2(-hx,hy));
+        gc.rotate(-0.25*pi-angle);
       else
-        gc.rotate(-atan2(-hx,hy));
+        gc.rotate(-angle);
       gc.scale(0.5,0.5);
       gc.showText(label);
       gc.restore();
@@ -137,7 +142,7 @@ namespace ravel
         drawLine(gc, hx,hy);
 
         // draw indicators of sorting order, and filter calipers
-        if (isOutputHandle(i) && !h.collapsed())
+        if (!h.collapsed())
           {
             if (h.sliceLabels.order()!=HandleSort::none)
               {
