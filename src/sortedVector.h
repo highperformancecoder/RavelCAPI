@@ -70,8 +70,8 @@ namespace ravel
 
     size_t min() const {return m_sliceMin<indices.size()? m_sliceMin: indices.size();}
     size_t max() const {return m_sliceMax<indices.size()? m_sliceMax: indices.size()-1;}
-    size_t min(size_t m) {if (m<indices.size()) m_sliceMin=m;}
-    size_t max(size_t m) {if (m<indices.size()) m_sliceMax=m;}
+    size_t min(size_t m) {if (m<indices.size()) m_sliceMin=m; return m_sliceMin;}
+    size_t max(size_t m) {if (m<indices.size()) m_sliceMax=m; return m_sliceMin;}
     
     const std::vector<std::string>& labelsVector() const 
     {return labels;}

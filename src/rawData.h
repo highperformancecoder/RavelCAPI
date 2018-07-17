@@ -210,7 +210,7 @@ namespace ravel
     RawData(const RawData& x)=default;
     RawData(RawData&& x)=default;
     RawData& operator=(const RawDataIdx& x)
-    {RawDataIdx::operator=(x); data.resize(size(),nan(""));}
+    {RawDataIdx::operator=(x); data.resize(size(),nan("")); return *this;}
     RawData& operator=(const RawData& x)=default;
     RawData& operator=(RawData&& x)=default;
 

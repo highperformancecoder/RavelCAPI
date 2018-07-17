@@ -119,6 +119,25 @@ namespace ravel
     double sf=0.01*radius();
     gc.scale(sf,sf);
 
+    const double slicerRadius=4; // radius of slicer control
+    // draw half moons on output handles to indicate inactive slicers
+    for (auto i: handleIds)
+      if (i<handles.size())
+        {
+          auto& h=handles[i];
+          gc.save();
+          gc.setSourceRGB(palette[i][0],palette[i][1],palette[i][2]);
+          gc.newPath();
+          gc.arc(0,0,Handle::hubRadius*radius()/sf, 2*pi, 0);
+          gc.clip();
+          // draw half-moons in hub to indicate slicer not active
+          gc.newPath();
+          gc.arc(Handle::hubRadius*h.x()/sf, Handle::hubRadius*h.y()/sf, slicerRadius, 0, 2*pi);
+          gc.fill();
+          gc.restore();
+        }
+ 
+      
     // draw central circle, and clip its interior out
     gc.newPath();
     gc.arc(0,0,Handle::hubRadius*radius()/sf, 0, 2*pi);
@@ -216,7 +235,7 @@ namespace ravel
         if (!h.collapsed() && !isOutputHandle(i))
           {
             gc.newPath();
-            gc.arc(h.sliceX()/sf, h.sliceY()/sf, 4, 0, 2*pi);
+            gc.arc(h.sliceX()/sf, h.sliceY()/sf, slicerRadius, 0, 2*pi);
             gc.fill();
           
             gc.save();
@@ -234,7 +253,7 @@ namespace ravel
             gc.showText(h.sliceLabel());
             gc.restore();
           }
-      }
+     }
     gc.restore();
   }
 

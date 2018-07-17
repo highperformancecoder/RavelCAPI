@@ -268,4 +268,5 @@ bool Handle::displayFilterCaliper(bool d)
       sliceLabels.min(0);
       sliceLabels.max(std::numeric_limits<size_t>::max()-1);
     }
+  return d;
 }
