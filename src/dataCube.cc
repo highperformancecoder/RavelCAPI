@@ -363,10 +363,14 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
         else
           partReducedData=partReducedData.partialReduce(partReducedData.axis(h.description),*pred);
     }
-  if (partReducedData.size()==0)
+  if (partReducedData.rank()==0)
     hyperSliceAfterPartialReductions(sliceData, ravel, rawData);
   else
     hyperSliceAfterPartialReductions(sliceData, ravel, partReducedData);
+#ifndef NDEBUG
+  for (size_t i=0; i<ravel.handleIds.size(); ++i)
+    assert(ravel.handles[ravel.handleIds[i]].sliceLabels.size()==sliceData.dim(i));
+#endif
 }
   
 void DataCube::hyperSliceAfterPartialReductions(RawData& sliceData, Ravel& ravel,const RawData& rawData) const
