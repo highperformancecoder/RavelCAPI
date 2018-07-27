@@ -430,7 +430,8 @@ extern "C"
         dc->hyperSlice(dc->slice,*ravel);
         if (ravel->rank()==dc->slice.rank())
           {
-            *data=&dc->slice[0];
+            if (dc->slice.size()>0)
+              *data=&dc->slice[0];
             for (size_t i=0; i<dc->slice.rank(); ++i)
               dims[i]=dc->slice.dim(i);
             return true;
