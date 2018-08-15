@@ -118,6 +118,8 @@ int Ravel::handleIfMouseOver(double a_x, double a_y, int exclude) const
 
 Ravel::ElementMoving Ravel::sliceCtlHandle(int handle, double a_x, double a_y) const
 {
+  if (sqr(a_x-x)+sqr(a_y-y)<sqr(Handle::hubRadius*radius()))
+    return hub;
   if (handle > -1)
     {
       const Handle& h=handles[handle];
@@ -273,3 +275,26 @@ string Ravel::description() const
     }
   return r;
 }
+
+const char* Ravel::explain(double xx, double yy) const
+{
+  int h=handleIfMouseOver(xx,yy);
+  switch (sliceCtlHandle(h,xx,yy))
+    {
+    case hub:
+      return "drag slicer to start slicing hypercube";
+    case handle:
+      assert(h>=0);
+      if (handles[h].collapsed())
+        return "drag outwards to drill down into data";
+      else
+        return "rotate to pivot hypercube or drag inwards to roll up data";
+    case slicer:
+      return "drag to change slice";
+    case filterMin: case filterMax:
+      return "adjust calipers to dice data";
+    default:
+      return "";
+    }
+}
+

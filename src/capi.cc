@@ -153,6 +153,23 @@ extern "C"
     return ravel->temp.c_str();
   }
 
+  DLLEXPORT void ravel_setExplain(CAPIRavel* ravel, const char* explain, double x, double y) noexcept
+  {
+    if (ravel)
+      ravel->setExplain(explain,x,y);
+  }
+
+  void ravel_resetExplain(CAPIRavel* ravel) noexcept
+  {
+    if (ravel)
+      ravel->explain.clear();
+  }
+
+  const char* ravel_explain(CAPIRavel* ravel, double x, double y) noexcept
+  {
+    return ravel->Ravel::explain(x,y);
+  }
+  
   DLLEXPORT void ravel_outputHandleIds(CAPIRavel* ravel, size_t ids[]) noexcept 
   {
     if (ravel)

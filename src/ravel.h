@@ -132,6 +132,8 @@ namespace ravel
     /// descriptive text of the operation of the Ravel (plain English for now)
     std::string description() const;
 
+    /// return an explanatory message about the item at (x,y)
+    const char* explain(double x, double y) const;
   };
 
 }

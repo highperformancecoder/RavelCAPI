@@ -82,6 +82,16 @@ extern "C"
   /// descriptive text of the operation of the Ravel (plain English for now)
   /// String buffer remains valid until next Ravel CAPI call.
   const char* ravel_description(CAPIRavel* ravel) NOEXCEPT;
+
+  /// sets an explanatory message displayed as a tooltip @param
+  /// explain a message, if empty, then a default explanatory message
+  /// for the item at (x,y) is used
+  /// @param x,y location to display the tooltip
+  void ravel_setExplain(CAPIRavel* ravel, const char* explain, double x, double y) NOEXCEPT;
+  /// resets the explain message
+  void ravel_resetExplain(CAPIRavel* ravel) NOEXCEPT;
+  /// obtain default explanatory message for item at (x,y)
+  const char* ravel_explain(CAPIRavel* ravel, double x, double y) NOEXCEPT;
   
   /// return the handle IDs of the output handles, in order x,y,z, etc.
   /// ids must be ravel_rank() in size

@@ -254,7 +254,28 @@ namespace ravel
             gc.restore();
           }
      }
+
+    // display explanatory message
     gc.restore();
+    if (!explain.empty())
+      {
+        gc.save();
+        gc.setTextExtents(explain);
+        double w=gc.textWidth(), h=gc.textHeight();
+        gc.moveTo(explainX-0.05*w,explainY+0.1*h);
+        gc.relLineTo(1.1*w,0);
+        gc.relLineTo(0,-1.2*h);
+        gc.relLineTo(-1.1*w,0);
+        gc.closePath();
+        gc.setSourceRGB(0,0,0);
+        gc.strokePreserve();
+        gc.setSourceRGB(1,1,1);
+        gc.fill();
+        gc.setSourceRGB(0,0,0);
+        gc.moveTo(explainX,explainY);
+        gc.showText(explain);
+        gc.restore();
+      }
   }
 
   template <class G>
