@@ -159,13 +159,13 @@ extern "C"
       ravel->setExplain(explain,x,y);
   }
 
-  void ravel_resetExplain(CAPIRavel* ravel) noexcept
+  DLLEXPORT void ravel_resetExplain(CAPIRavel* ravel) noexcept
   {
     if (ravel)
       ravel->explain.clear();
   }
 
-  const char* ravel_explain(CAPIRavel* ravel, double x, double y) noexcept
+  DLLEXPORT const char* ravel_explain(CAPIRavel* ravel, double x, double y) noexcept
   {
     return ravel->Ravel::explain(x,y);
   }
