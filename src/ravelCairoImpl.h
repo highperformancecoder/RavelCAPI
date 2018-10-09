@@ -160,6 +160,7 @@ namespace ravel
                                            
         drawLine(gc, hx,hy);
 
+        bool sliced=!isOutputHandle(i);
         // draw indicators of sorting order, and filter calipers
         if (!h.collapsed())
           {
@@ -177,10 +178,12 @@ namespace ravel
               }
             if (h.displayFilterCaliper())
               {
-                drawCaliper(gc,sf,hx,hy,h.minSliceX()/sf,h.minSliceY()/sf,
-                            h.minSliceLabel());
-                drawCaliper(gc,sf,hx,hy,h.maxSliceX()/sf,h.maxSliceY()/sf,
-                            h.maxSliceLabel());
+                if (!sliced || h.sliceIndex!=h.sliceMin())
+                  drawCaliper(gc,sf,hx,hy,h.minSliceX()/sf,h.minSliceY()/sf,
+                              h.minSliceLabel());
+                if (!sliced || h.sliceIndex!=h.sliceMax())
+                  drawCaliper(gc,sf,hx,hy,h.maxSliceX()/sf,h.maxSliceY()/sf,
+                              h.maxSliceLabel());
                 h.setMinSliceLabelExtents(gc);
                 h.setMaxSliceLabelExtents(gc);
               }
@@ -232,7 +235,7 @@ namespace ravel
           }
 
         // slice control
-        if (!h.collapsed() && !isOutputHandle(i))
+        if (!h.collapsed() && sliced)
           {
             gc.newPath();
             gc.arc(h.sliceX()/sf, h.sliceY()/sf, slicerRadius, 0, 2*pi);
@@ -281,20 +284,23 @@ namespace ravel
   template <class G>
   void RavelCairo<G>::onMouseDown(double xx, double yy)
   {
-    lastHandle=handleIfMouseOverCaliperLabel(xx,yy);
-    if (lastHandle==-1)
-      Ravel::onMouseDown(xx,yy);
-    else 
+    Ravel::onMouseDown(xx,yy);
+    if (elementMoving==none)
       {
-        Handle& h=handles[lastHandle];
-        double dx=xx-x, dy=yy-y;
-        // select which caliper we're moving
-        if (h.sliceMin()==h.sliceMax()-1)
-          // choose whichever handle is furthest from it's end, to avoid calipers sticking together
-          elementMoving = dsq(dx,dy,h.x(),h.y())<dsq(dx,dy,0,0)? filterMin: filterMax;
-        else
-          elementMoving = dsq(dx,dy,h.minSliceX(),h.minSliceY())<
-            dsq(dx,dy,h.maxSliceX(),h.maxSliceY())? filterMin: filterMax;
+        // check if caliper selected
+        lastHandle=handleIfMouseOverCaliperLabel(xx,yy);
+        if (lastHandle>-1)
+          {
+            Handle& h=handles[lastHandle];
+            double dx=xx-x, dy=yy-y;
+            // select which caliper we're moving
+            if (h.sliceMin()==h.sliceMax()-1)
+              // choose whichever handle is furthest from it's end, to avoid calipers sticking together
+              elementMoving = dsq(dx,dy,h.x(),h.y())<dsq(dx,dy,0,0)? filterMin: filterMax;
+            else
+              elementMoving = dsq(dx,dy,h.minSliceX(),h.minSliceY())<
+                dsq(dx,dy,h.maxSliceX(),h.maxSliceY())? filterMin: filterMax;
+          }
       }
   }
 
