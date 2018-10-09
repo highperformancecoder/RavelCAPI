@@ -72,13 +72,13 @@ void Handle::setSliceCoordinates(size_t& a_sliceIndex,double x, double y)
 {
   // compute x coordinate along handle closest to (x,y), as fraction
   // of handle length times number of slicelabels
-  double x_i=(sliceLabels.labelsVector().size()+1)*
+  double x_i=(sliceLabels.currentPermutation().size()+1)*
     (m_x*x+m_y*y)/(m_x*m_x+m_y*m_y);
   if (sliceLabels.empty()) sliceLabels.resize(1);
   if (x_i<1)
     a_sliceIndex=0;
-  else if (x_i>=sliceLabels.labelsVector().size())
-    a_sliceIndex=sliceLabels.labelsVector().size()-1;
+  else if (x_i>=sliceLabels.currentPermutation().size())
+    a_sliceIndex=sliceLabels.currentPermutation().size()-1;
   else
     a_sliceIndex=size_t(x_i-0.5);
 }
@@ -256,7 +256,7 @@ string Handle::reductionDescription() const
 
 double Handle::sliceCoordInterp(size_t idx, double x) const
 {
-  return (1-2.5*hubRadius)*(x*(idx+1))/(sliceLabels.labelsVector().size()+1) +
+  return (1-2.5*hubRadius)*(x*(idx+1))/(sliceLabels.currentPermutation().size()+1) +
     1.5*hubRadius*x;
 }
 
