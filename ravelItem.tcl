@@ -11,7 +11,7 @@ set rr [.tl.ravel create ravel 0 0  -ravelName ravel -tag ravel]
 
 .tl.ravel bind $rr <ButtonPress-1> "ravel.onMouseDown %x %y" 
 .tl.ravel bind $rr <B1-Motion> "ravel.onMouseMotion %x %y; redraw" 
-.tl.ravel bind $rr <ButtonRelease-1> "ravel.onMouseUp %x %y; redraw" 
+.tl.ravel bind $rr <ButtonRelease-1> "ravel.onMouseUp %x %y; ravel.redistributeHandles; redraw" 
 .tl.ravel bind $rr <ButtonPress-3> "opMenu %x %y %X %Y" 
 .tl.ravel bind $rr <Motion> "ravel.onMouseOver %x %y; redraw"
 

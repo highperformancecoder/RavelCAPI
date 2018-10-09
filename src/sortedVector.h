@@ -40,7 +40,7 @@ namespace ravel
       order(order());
     }
     const std::string& operator[](size_t i) const {
-      assert(isPermValid());
+      //assert(isPermValid());
       return labels[idx(i)];
     }
     size_t idx(size_t i) const {return indices[i+min()];}

@@ -21,18 +21,47 @@ void Ravel::redistributeHandles()
     case 1: delta=2*M_PI/(handles.size()); break;
     default: delta=1.5*M_PI/(handles.size()-1); break;
     }
-  double angle=delta;
+  vector<unsigned> handlesToSet;
+  set<unsigned> angleAlreadySet;
   for (unsigned i=0; i<handles.size(); ++i)
-    if (handleIds.size()>0 && i==handleIds[0])
-      handles[i].setHome(radius(),0);
-    else if (handleIds.size()>1 && i==handleIds[1])
-      handles[i].setHome(0, radius());
-    else
-      {
-        // -ve y because y coordinates increase going down the page
-        handles[i].setHome(radius()*cos(angle), -radius()*sin(angle));
-        angle+=delta;
-      }
+    {
+      auto& h=handles[i];
+      if (handleIds.size()>0 && i==handleIds[0])
+        {
+          h.setHome(radius(),0); // first output handle is east facing
+          assert(!angleAlreadySet.count(0));
+          angleAlreadySet.insert(0);
+        }
+      else if (handleIds.size()>1 && i==handleIds[1])
+        {
+          assert(!angleAlreadySet.count(handles.size()-1));
+          h.setHome(0, radius()); // second output handle is south facing
+          angleAlreadySet.insert(handles.size()-1);
+        }
+      else 
+        {
+          double a=atan2(-h.y(),h.x());
+          if (a<0) a+=2*M_PI;
+          a/=delta;
+          unsigned ia=a;
+          if ((rank()==0 || ia>0) && (rank()<=1 || ia<handles.size()-1) &&
+              !angleAlreadySet.count(ia) && fabs(a-ia)<0.1*delta)
+            angleAlreadySet.insert(ia); // leave handle where it is
+          else
+            handlesToSet.push_back(i);
+        }
+    }
+
+  // now move handles not in correct position
+  double iangle=1;
+  for (auto i: handlesToSet)
+    {
+      while (angleAlreadySet.count(iangle)) iangle++;
+      double angle=delta * iangle;
+      iangle++;
+      // -ve y because y coordinates increase going down the page
+      handles[i].setHome(radius()*cos(angle), -radius()*sin(angle));
+    }
 }
 
 
