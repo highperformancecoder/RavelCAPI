@@ -106,7 +106,7 @@ namespace ravel
     size_t m_maxRow=0, m_maxCol=0;
 
     CLASSDESC_ACCESS(DataCube);
-    void hyperSliceAfterPartialReductions(RawData&,Ravel&,const RawData&) const;
+    void hyperSliceAfterPartialReductions(RawData&,const Ravel&,const RawData&) const;
   public:
     // dimension names starting with column titles, followed by the
     // row axes, which are not inferred from the input data
@@ -163,9 +163,9 @@ namespace ravel
     void initRavel(Ravel&) const;
 
     /// return the hypersliced data corresponding the Ravel settings
-    RawData hyperSlice(Ravel& r) const
+    RawData hyperSlice(const Ravel& r) const
     {RawData sd; hyperSlice(sd,r); return sd;}
-    void hyperSlice(RawData&,Ravel&) const;
+    void hyperSlice(RawData&,const Ravel&) const;
     
     /// populate the data array managed by the subclass of this, using
     /// the setDataElement() method. The array is assumed to be cleared

@@ -76,7 +76,7 @@ namespace ravel
     /// return number of output handles 
     size_t rank() const {return handleIds.size();}
     /// indices of the handles representing x, y, z etc coordinates
-    std::vector<size_t> handleIds{1,0};
+    std::vector<size_t> handleIds;
     
     /// returns true if the ith handle is an output handle
     bool isOutputHandle(size_t i) const {

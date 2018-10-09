@@ -49,7 +49,7 @@ namespace ravel
     /// if string is set, then message is displayed as a tooltip
     std::string explain;
     /// x,y coordinates of displayed message
-    double explainX, explainY;
+    double explainX=0, explainY=0;
     void setExplain(const std::string& e, double x, double y) {
       explainX=x; explainY=y;
       explain=e.empty()? Ravel::explain(x,y): e;

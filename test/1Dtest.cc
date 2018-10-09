@@ -35,7 +35,6 @@ SUITE(Datacube)
     {
       Ravel ravel;
       initRavel(ravel);
-      ravel.handleIds={0};
       auto rd=hyperSlice(ravel);
     }
 }

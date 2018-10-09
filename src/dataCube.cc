@@ -319,7 +319,7 @@ void setupSortByPerm(DataCube::SortBy sortBy, size_t axis, size_t otherAxis,
   }
 
 
-void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
+void DataCube::hyperSlice(RawData& sliceData, const Ravel& ravel) const
 {
   // check that axis descriptions are distinct
   set<string> descSet;
@@ -369,11 +369,17 @@ void DataCube::hyperSlice(RawData& sliceData, Ravel& ravel) const
     hyperSliceAfterPartialReductions(sliceData, ravel, partReducedData);
 #ifndef NDEBUG
   for (size_t i=0; i<ravel.handleIds.size(); ++i)
-    assert(ravel.handles[ravel.handleIds[i]].sliceLabels.size()==sliceData.dim(i));
+    {
+      auto& h=ravel.handles[ravel.handleIds[i]];
+      if (h.collapsed())
+        assert(sliceData.dim(i)==1);
+      else
+        assert(h.sliceLabels.size()==sliceData.dim(i));
+    }
 #endif
 }
   
-void DataCube::hyperSliceAfterPartialReductions(RawData& sliceData, Ravel& ravel,const RawData& rawData) const
+void DataCube::hyperSliceAfterPartialReductions(RawData& sliceData, const Ravel& ravel,const RawData& rawData) const
 {
   vector<string> axes;
   Key sliceLabels;
@@ -583,6 +589,11 @@ void DataCube::initRavel(ravel::Ravel& ravel) const
   ravel.clear();
   for (size_t i=0; i<dimNames.size(); ++i)
     ravel.addHandle(dimNames[i], dimLabels()[i]);
+  // set some default output handles
+  if (ravel.handles.size()>=2)
+    ravel.handleIds={1,0};
+  else if (ravel.handles.size()==1)
+    ravel.handleIds={0};
   // if some axes are read in as rows, then set the xHandle to the
   // first of these, otherwise take the second
   if (dimNames.size()>1 && ravel.rank()>=1)
