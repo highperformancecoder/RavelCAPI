@@ -31,9 +31,40 @@ namespace ravel
     order(order());
   }
 
-
+  namespace {
+    // retain min/max labels to reset the calipers to a sensible value
+    struct PreserveCalipers
+    {
+      string minLabel, maxLabel;
+      SortedVector& sv;
+      PreserveCalipers(SortedVector& sv): sv(sv) {
+        if (sv.size()>0)
+          {
+            minLabel=sv[0];
+            maxLabel=sv[sv.size()-1];
+          }
+      }
+      ~PreserveCalipers() {
+        if (sv.min()>0 || sv.max()<sv.size()-1)
+          {
+            // reset calipers to previous labels
+            sv.m_sliceMin=0, sv.m_sliceMax=std::numeric_limits<size_t>::max()-1;
+            for (size_t i=0; i<sv.size(); ++i)
+              {
+                if (sv[i]==minLabel)
+                  sv.m_sliceMin=i;
+                if (sv[i]==maxLabel)
+                  sv.m_sliceMax=i;
+              }
+            if (sv.m_sliceMax<sv.m_sliceMin) swap(sv.m_sliceMin,sv.m_sliceMax);
+          }
+      }
+    };
+  }
+  
   SortedVector::Order SortedVector::order(Order o)
   {
+    PreserveCalipers pc(*this);
     m_order=o;
     indices.resize(labels.size());
     for (size_t i=0; i<indices.size(); ++i) indices[i]=i;
@@ -68,6 +99,7 @@ namespace ravel
   
   void SortedVector::customPermutation(const std::vector<size_t>& p)
   {
+    PreserveCalipers pc(*this);
     m_order=custom;
     indices=p;
     assert(isPermValid());
