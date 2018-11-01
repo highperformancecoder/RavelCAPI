@@ -101,6 +101,12 @@ namespace ravel
     /// check permutation is valid (no duplicated indices, etc)
     bool isPermValid() const;
 
+    bool calipersUnrestricted() const 
+    {return size()==indices.size();}
+
+    // set calipers to point to labels \a l1, \a l2.
+    void setCalipers(const std::string& l1, const std::string& l2);
+    
   private:
     CLASSDESC_ACCESS(SortedVector);
     Order m_order;

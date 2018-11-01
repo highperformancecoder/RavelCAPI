@@ -21,6 +21,8 @@ namespace ecolab
     ravel::SortedVector::Order (ravel::SortedVector::*m)
       (ravel::SortedVector::Order)=&ravel::SortedVector::order;
     TCL_obj(targ,desc+".order",arg,m);
+    TCL_obj(targ,desc+".m_sliceMin",arg.m_sliceMin);
+    TCL_obj(targ,desc+".m_sliceMax",arg.m_sliceMax);
   }
   template <>
   void TCL_obj(TCL_obj_t& targ, const string& desc, const ravel::SortedVector& arg)

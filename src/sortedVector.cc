@@ -38,26 +38,15 @@ namespace ravel
       string minLabel, maxLabel;
       SortedVector& sv;
       PreserveCalipers(SortedVector& sv): sv(sv) {
-        if (sv.size()>0)
+        if (!sv.calipersUnrestricted())
           {
             minLabel=sv[0];
             maxLabel=sv[sv.size()-1];
           }
       }
       ~PreserveCalipers() {
-        if (sv.min()>0 || sv.max()<sv.size()-1)
-          {
-            // reset calipers to previous labels
-            sv.m_sliceMin=0, sv.m_sliceMax=std::numeric_limits<size_t>::max()-1;
-            for (size_t i=0; i<sv.size(); ++i)
-              {
-                if (sv[i]==minLabel)
-                  sv.m_sliceMin=i;
-                if (sv[i]==maxLabel)
-                  sv.m_sliceMax=i;
-              }
-            if (sv.m_sliceMax<sv.m_sliceMin) swap(sv.m_sliceMin,sv.m_sliceMax);
-          }
+        if (!minLabel.empty() || !maxLabel.empty())
+          sv.setCalipers(minLabel,maxLabel);
       }
     };
   }
@@ -110,4 +99,19 @@ namespace ravel
     set<size_t> s(indices.begin(), indices.end());
     return indices.size()==s.size() && (s.empty() || *s.rbegin()<labels.size());
   }
+
+  void SortedVector::setCalipers(const string& l1, const string& l2)
+  {
+    m_sliceMin=0;
+    m_sliceMax=std::numeric_limits<size_t>::max()-1;
+    for (size_t i=0; i<indices.size(); ++i)
+      {
+        if (labels[indices[i]]==l1)
+          m_sliceMin=i;
+        if (labels[indices[i]]==l2)
+          m_sliceMax=i;
+      }
+    if (m_sliceMax<m_sliceMin) swap(m_sliceMin,m_sliceMax);
+  }
+
 }
