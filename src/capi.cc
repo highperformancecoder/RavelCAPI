@@ -244,6 +244,13 @@ extern "C"
       ravel->handles[axis].displayFilterCaliper(display);
   }
 
+  DLLEXPORT void ravel_setCalipers(CAPIRavel* ravel, size_t axis,
+                                   const char* l1, const char* l2) noexcept
+  {
+    if (ravel && axis<ravel->handles.size())
+      ravel->handles[axis].sliceLabels.setCalipers(l1,l2);
+  }
+  
   DLLEXPORT void ravel_orderLabels(CAPIRavel* ravel, size_t axis, CAPIHandleState::HandleSort order) noexcept 
   {
     if (ravel && axis<ravel->handles.size())
@@ -337,6 +344,7 @@ extern "C"
       {
         Handle& h=ravel->handles[handle];
         h.moveTo(hs->x,hs->y,false);
+        h.sliceLabels.order(HandleSort::Order(hs->order));
         h.sliceIndex=hs->sliceIndex<h.sliceLabels.size()? hs->sliceIndex: 0;
         h.sliceLabels.min(hs->sliceMin);
         h.sliceLabels.max(hs->sliceMax);
@@ -344,7 +352,6 @@ extern "C"
           h.toggleCollapsed();
         h.displayFilterCaliper(hs->displayFilterCaliper);
         h.reductionOp=Op::ReductionOp(hs->reductionOp);
-        h.sliceLabels.order(HandleSort::Order(hs->order));
       }
   }
   
