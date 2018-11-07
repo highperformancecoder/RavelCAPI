@@ -93,7 +93,7 @@ namespace ravel
       gc.rotate(angle);
       gc.moveTo(0,0);
       double cutoff=atan(0.5);
-      double offset=Handle::caliperLength;
+      double offset=-Handle::caliperLength;
       if (hx<-2*hy)
         offset*=-1;
       gc.lineTo(offset,0);
@@ -105,6 +105,8 @@ namespace ravel
       else
         gc.rotate(-angle);
       gc.scale(0.5,0.5);
+      gc.setTextExtents(label);
+      gc.relMoveTo(-gc.textWidth(),0);
       gc.showText(label);
       gc.restore();
     }

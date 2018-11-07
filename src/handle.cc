@@ -11,9 +11,7 @@
 using namespace ravel;
 using namespace std;
 
-constexpr const unsigned Handle::caliperLength;
-constexpr const double Handle::hubRadius;
-constexpr const double Handle::slicerRadius;
+constexpr const double Handle::caliperLength,  Handle::hubRadius, Handle::slicerRadius;
 
 
 namespace

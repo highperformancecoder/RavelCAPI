@@ -60,7 +60,7 @@ namespace ravel
   public:
     static constexpr double hubRadius=0.07;
     /// caliper length as a percentage of radius
-    static constexpr unsigned caliperLength=7;
+    static constexpr double caliperLength=7;
     // slicer radius as a percentage of radius
     static constexpr double slicerRadius=4;
 
