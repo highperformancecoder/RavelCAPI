@@ -13,6 +13,7 @@ using namespace std;
 
 constexpr const unsigned Handle::caliperLength;
 constexpr const double Handle::hubRadius;
+constexpr const double Handle::slicerRadius;
 
 
 namespace

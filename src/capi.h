@@ -118,6 +118,8 @@ extern "C"
   void ravel_sliceLabels(CAPIRavel* ravel, size_t axis, const char* labels[]) NOEXCEPT;
   /// enable/disable the filter calipers on axis \a axis
   void ravel_displayFilterCaliper(CAPIRavel* ravel, size_t axis, bool display) NOEXCEPT;
+  /// set the slicer to \a sliceLabel, if it exists
+  void ravel_setSlicer(CAPIRavel* ravel, size_t axis, const char* sliceLabel) NOEXCEPT;
   /// set calipers to \a l1, l2
   void ravel_setCalipers(CAPIRavel* ravel, size_t axis, const char* l1, const char* l2) NOEXCEPT;
   /// set the ordering on handle \a axis to \a order

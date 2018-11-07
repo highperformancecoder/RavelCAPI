@@ -244,6 +244,16 @@ extern "C"
       ravel->handles[axis].displayFilterCaliper(display);
   }
 
+  DLLEXPORT void ravel_setSlicer(CAPIRavel* ravel, size_t axis,
+                                   const char* sliceLabel) noexcept
+  {
+    if (ravel && axis<ravel->handles.size())
+      {
+        auto& h=ravel->handles[axis];
+        h.setSlicer(sliceLabel);
+      }
+  }
+  
   DLLEXPORT void ravel_setCalipers(CAPIRavel* ravel, size_t axis,
                                    const char* l1, const char* l2) noexcept
   {

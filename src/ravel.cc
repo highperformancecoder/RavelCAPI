@@ -156,16 +156,16 @@ Ravel::ElementMoving Ravel::sliceCtlHandle(int handle, double a_x, double a_y) c
         {
           if (!isOutputHandle(handle))
             {
-              if (dsq(a_x, a_y, h.sliceX(), h.sliceY()) < 100)
+              if (dsq(a_x, a_y, h.sliceX(), h.sliceY()) < sqr(0.015*radius()*Handle::slicerRadius))
                 return slicer;
             }
-          else if (h.displayFilterCaliper())
+          if (h.displayFilterCaliper())
             {
               if (dsq(a_x, a_y, h.minSliceX(), h.minSliceY()) < 
-                  sqr(0.01*Handle::caliperLength*radius()))
+                  sqr(0.02*Handle::caliperLength*radius()))
                 return filterMin;
               else if (dsq(a_x, a_y, h.maxSliceX(), h.maxSliceY()) < 
-                       sqr(0.01*Handle::caliperLength*radius()))
+                       sqr(0.02*Handle::caliperLength*radius()))
                 return filterMax;
             }
           if (sqr(a_x-h.x())+sqr(a_y-h.y())<
@@ -216,19 +216,36 @@ bool Ravel::onMouseMotion(double a_x, double a_y)
           break;
         case slicer:
           h.setSliceCoordinates(h.sliceIndex, a_x, a_y);
+          h.sliceIndex-=h.sliceMin();
           break;
         case filterMin:
-        case filterMax:
           {
             size_t sm;
             h.setSliceCoordinates(sm, a_x, a_y);
+            ssize_t delta=ssize_t(sm)-ssize_t(h.sliceMin());
             // do not move the calipers on top of each other, as this causes them to stick
-            if (elementMoving==filterMin)
-              h.sliceLabels.min(sm<h.sliceMax()? sm: h.sliceMax()-1);
+            // we need to adjust sliceIndex as well, as it is relative to min()
+            if (delta<ssize_t(h.sliceIndex))
+              {
+                h.sliceIndex -= delta;
+                h.sliceLabels.min(sm);
+              }
             else
-              h.sliceLabels.max(sm>h.sliceMin()? sm: h.sliceMin()+1);
+              {
+                h.sliceIndex=0;
+                h.sliceLabels.min(sm<h.sliceMax()? sm: h.sliceMax()-1);
+              }
             break;
           }
+         case filterMax:
+           {
+             size_t sm;
+             h.setSliceCoordinates(sm, a_x, a_y);
+             h.sliceLabels.max(sm>h.sliceMin()? sm: h.sliceMin()+1);
+             if (h.sliceLabels.size()-1<h.sliceIndex)
+               h.sliceIndex=h.sliceLabels.size()-1; // move slicer onto max label
+             break;
+           }
         }
     }
   moved=true;

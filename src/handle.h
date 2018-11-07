@@ -59,6 +59,11 @@ namespace ravel
     CLASSDESC_ACCESS(Handle);
   public:
     static constexpr double hubRadius=0.07;
+    /// caliper length as a percentage of radius
+    static constexpr unsigned caliperLength=7;
+    // slicer radius as a percentage of radius
+    static constexpr double slicerRadius=4;
+
 
     /// @{
     /// x & y coordinates of handle tip, relative to Ravel origin
@@ -97,8 +102,8 @@ namespace ravel
 
     /// @{
     /// coordinates of slice control, relative to ravel origin
-    double sliceX() const {return sliceCoordInterp(sliceIndex,m_x);}
-    double sliceY() const {return sliceCoordInterp(sliceIndex,m_y);}
+    double sliceX() const {return sliceCoordInterp(sliceIndex+sliceMin(),m_x);}
+    double sliceY() const {return sliceCoordInterp(sliceIndex+sliceMin(),m_y);}
     /// @}
 
     /// @{
@@ -107,9 +112,6 @@ namespace ravel
     bool displayFilterCaliper(bool d);
     ///@}
     
-    /// caliper length as a percentage of radius
-    static const unsigned caliperLength=7;
-
     /// @{
     /// coordinates of slice filter caliper control
     double minSliceX() const {return sliceCoordInterp(sliceMin(),m_x);}
