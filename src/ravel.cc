@@ -159,6 +159,9 @@ Ravel::ElementMoving Ravel::sliceCtlHandle(int handle, double a_x, double a_y) c
               if (dsq(a_x, a_y, h.sliceX(), h.sliceY()) < sqr(0.015*radius()*Handle::slicerRadius))
                 return slicer;
             }
+          if (sqr(a_x-h.x())+sqr(a_y-h.y())<
+              sqr(Handle::hubRadius)*(sqr(h.x())+sqr(h.y())))
+            return Ravel::handle;
           if (h.displayFilterCaliper())
             {
               if (dsq(a_x, a_y, h.minSliceX(), h.minSliceY()) < 
@@ -168,9 +171,6 @@ Ravel::ElementMoving Ravel::sliceCtlHandle(int handle, double a_x, double a_y) c
                        sqr(0.02*Handle::caliperLength*radius()))
                 return filterMax;
             }
-          if (sqr(a_x-h.x())+sqr(a_y-h.y())<
-              sqr(Handle::hubRadius)*(sqr(h.x())+sqr(h.y())))
-            return Ravel::handle;
         }
       else
         return Ravel::handle; // collapsed handle can be active all over
