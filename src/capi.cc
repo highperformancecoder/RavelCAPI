@@ -184,11 +184,7 @@ extern "C"
         ravel->handleIds.clear();
         for (auto i=0; i<rank; ++i)
           ravel->handleIds.push_back(ids[i]);
-        try
-          {
-            ravel->redistributeHandles();
-          }
-        CONSUME_EXCEPTION();
+        ravel_redistributeHandles(ravel);
       }
   }
 
@@ -384,6 +380,14 @@ extern "C"
               ravel->handleIds.erase(i);
             }
         }
+  }
+
+  DLLEXPORT void ravel_redistributeHandles(CAPIRavel* ravel) noexcept
+  {
+    if (ravel)
+      try
+        {ravel->redistributeHandles();}
+      CONSUME_EXCEPTION();
   }
 
   DLLEXPORT CAPIRavelDC* ravelDC_new() noexcept 

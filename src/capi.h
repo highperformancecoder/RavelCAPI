@@ -146,6 +146,9 @@ extern "C"
   void ravel_setHandleState(CAPIRavel* ravel, size_t handle, const CAPIHandleState* handleState) NOEXCEPT;
   /// adjust handle slicer mouse is over up or down by n points
   void ravel_adjustSlicer(CAPIRavel* ravel, int) NOEXCEPT; 
+
+  /// redistribute handles according to current state
+  void ravel_redistributeHandles(CAPIRavel* ravel) NOEXCEPT;
   
   /// create a new dataCube object
   CAPIRavelDC* ravelDC_new() NOEXCEPT;
