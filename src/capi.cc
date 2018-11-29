@@ -270,7 +270,12 @@ extern "C"
     if (ravel && axis<ravel->handles.size())
       {
         vector<size_t> perm(indices,indices+numIndices);
-        ravel->handles[axis].sliceLabels.customPermutation(perm);
+        auto& h=ravel->handles[axis];
+        h.sliceLabels.customPermutation(perm);
+        if (h.sliceIndex>h.sliceMax())
+          h.sliceIndex=h.sliceMax();
+        else if (h.sliceIndex<h.sliceMin())
+          h.sliceIndex=h.sliceMin();
       }
   }
   

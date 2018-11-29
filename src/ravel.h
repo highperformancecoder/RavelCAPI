@@ -22,6 +22,10 @@ namespace ravel
     bool moved=false; // indicates if a mouse motion even has been
                       // received since onMouseDown
 
+    // check that the first two output handles are in east/south
+    // directions, and redistributehandles if not
+    void checkRedistributeHandles();
+
   public:
 
     /// coordinates of Ravel origin

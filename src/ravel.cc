@@ -13,6 +13,34 @@
 using namespace ravel;
 using namespace std;
 
+void Ravel::checkRedistributeHandles()
+{
+  if (handleIds.size()>0)
+    {
+      auto& h=handles[handleIds[0]];
+      if (abs(h.y())>0.01*radius() || h.x()<=0)
+        {
+          redistributeHandles();
+          return;
+        }
+    }
+   if (handleIds.size()>1)
+    {
+      auto& h=handles[handleIds[1]];
+      if (h.y()>=0 || abs(h.x())>0.01*radius())
+        {
+          redistributeHandles();
+          return;
+        }
+    }
+   // check that slicer is within bounds
+   for (auto& h: handles)
+     if (h.sliceIndex>h.sliceMax())
+       h.sliceIndex=h.sliceMax();
+     else if (h.sliceIndex<h.sliceMin())
+       h.sliceIndex=h.sliceMin();
+}
+
 void Ravel::redistributeHandles()
 {
   double delta;
@@ -271,6 +299,7 @@ void Ravel::onMouseUp(double a_x, double a_y)
   if (lastHandle!=-1 && elementMoving==handle)
     snapHandle(lastHandle);
   lastHandle=-1;
+  checkRedistributeHandles();
 }
 
 
