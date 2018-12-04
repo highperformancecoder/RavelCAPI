@@ -240,7 +240,7 @@ RawData::RawData(const RawData& x, const RawDataIdx& slice): RawDataIdx(slice)
   if (rank()==0)
     {
       if (x.size()>0)
-        data[0]=x[0];
+        data[0]=x[slice.offset()];
     }
   else
     {
