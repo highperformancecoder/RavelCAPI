@@ -77,7 +77,7 @@ assert {[lindex [ravel.handleIds] 1]==0} ""
 # move slicer
 assert {[ravel.handles(2).sliceIndex]==0} {}
 assert {[ravel.handles(2).sliceLabel]=="a"} ""
-set incr [expr [ravel.handles(2).x]/(1+[ravel.handles(2).sliceLabels.size])]
+set incr [ravel.handles(2).sliceX]
 set fincr [expr 2*\$incr]
 ravel.onMouseDown \$incr \$incr
 ravel.onMouseMotion \$fincr \$fincr
@@ -86,6 +86,7 @@ assert {[ravel.handles(2).sliceIndex]==1} ""
 assert {[ravel.handles(2).sliceLabel]=="b"} ""
 
 # checks slicer movement stays within bounds
+set fincr [ravel.handles(2).sliceX]
 ravel.onMouseDown \$fincr \$fincr
 ravel.onMouseUp \$incr \$incr
 assert {[ravel.handles(2).sliceIndex]==0} ""
