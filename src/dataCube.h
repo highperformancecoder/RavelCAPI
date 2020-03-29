@@ -108,6 +108,8 @@ namespace ravel
     CLASSDESC_ACCESS(DataCube);
     void hyperSliceAfterPartialReductions(RawData&,const Ravel&,const RawData&) const;
   public:
+    virtual ~DataCube() {}
+    
     // dimension names starting with column titles, followed by the
     // row axes, which are not inferred from the input data
     std::vector<std::string> dimNames;  

@@ -23,6 +23,7 @@ namespace ravel
                            classdesc::PolyXML<PartialReduction>
     
   {
+    virtual ~PartialReduction() {}
     /// transform data along a slice
     virtual void operator()(double* dest, const double* src, size_t stride, size_t num) const=0;
     /// return indices corresponding to slice labels in the transformed axis

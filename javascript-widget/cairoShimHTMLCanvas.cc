@@ -145,6 +145,12 @@ namespace ravel
     newPath();
   }
 
+  template <> void CairoShim<val*>::clip()
+  {
+    impl->canvas.call<void>("clip");
+    newPath();
+  }
+
   template <> void CairoShim<val*>::stroke()
   {impl->canvas.call<void>("stroke");newPath();}
   

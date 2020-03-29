@@ -23,12 +23,13 @@ WEBINSTALLEXAMPLES=$(WEBINSTALLROOT)/examples
 	$(CLASSDESC) -nodef -onbase -typeName -I $(CDINCLUDE) -I $(ECOLAB_HOME)/include -i $< \
 	  -respect_private  $(RPACTIONS) >>$@
 
-VPATH+=src src/shims src/tcl
+VPATH+=src src/shims src/tcl src/capi
 FLAGS+=-I. -Isrc -Isrc/tcl
 
 # object files making up libravel
-OBJS=ravel.o handle.o dataCube.o ravelCairo.o cairoShimCairo.o cairoShimCAPIRenderer.o \
-	filterCairo.o splitMerge.o sortedVector.o rawData.o partialReduction.o
+OBJS=ravel.o handle.o dataCube.o ravelCairo.o cairoShimCairo.o \
+	cairoShimCAPIRenderer.o filterCairo.o splitMerge.o \
+	sortedVector.o rawData.o partialReduction.o
 LIBS+=libravel.a
 LIBS:=-L$(HOME)/usr/lib64 $(LIBS)
 MODELS=ravelTest

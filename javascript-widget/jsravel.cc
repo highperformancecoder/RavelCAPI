@@ -164,10 +164,10 @@ namespace {
     std::string reductionDescription() const {return h->reductionDescription();}  
     size_t getSliceIndex() const {return h->sliceIndex;}
     size_t setSliceIndex(size_t x) {return h->sliceIndex=x;}
-    size_t getSliceMin() const {return h->sliceMin;}
-    size_t setSliceMin(size_t x) {return h->sliceMin=x;}
-    size_t getSliceMax() const {return h->sliceMax;}
-    size_t setSliceMax(size_t x) {return h->sliceMax=x;}
+    size_t getSliceMin() const {return h->sliceMin();}
+    //size_t setSliceMin(size_t x) {return h->sliceMin=x;}
+    size_t getSliceMax() const {return h->sliceMax();}
+    //size_t setSliceMax(size_t x) {return h->sliceMax=x;}
     void setSlicer(const std::string& label) {h->setSlicer(label);}
     const std::string& sliceLabel() const {return h->sliceLabel();}
     const std::string& sliceLabelAt(size_t i) const {return h->sliceLabels[i];}
@@ -175,8 +175,8 @@ namespace {
     const std::string& maxSliceLabel() const {return h->maxSliceLabel();}
     bool collapsed() const {return h->collapsed();}
     void toggleCollapsed() {h->toggleCollapsed();}
-    bool getDisplayFilterCaliper() const {return h->displayFilterCaliper;}
-    void setDisplayFilterCaliper(bool x) {h->displayFilterCaliper=x;}
+    bool getDisplayFilterCaliper() const {return h->displayFilterCaliper();}
+    void setDisplayFilterCaliper(bool x) {h->displayFilterCaliper(x);}
 
     /// return an array of true/false according to whether there is
     /// data present for the slicelabel at that array index
@@ -378,9 +378,9 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("getSliceIndex",&JSHandle::getSliceIndex)
     .function("setSliceIndex",&JSHandle::setSliceIndex)
     .function("getSliceMin",&JSHandle::getSliceMin)
-    .function("setSliceMin",&JSHandle::setSliceMin)
+    //.function("setSliceMin",&JSHandle::setSliceMin)
     .function("getSliceMax",&JSHandle::getSliceMax)
-    .function("setSliceMax",&JSHandle::setSliceMax)
+    //.function("setSliceMax",&JSHandle::setSliceMax)
     .function("setSlicer",&JSHandle::setSlicer)
     .function("sliceLabel",&JSHandle::sliceLabel)
     .function("sliceLabelAt",&JSHandle::sliceLabelAt)

@@ -197,7 +197,9 @@ namespace ravel
     void clearPartialReductions();
   };
 
-    }
+}
+
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
 #ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-local-typedefs"
@@ -207,5 +209,6 @@ namespace ravel
 
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
+#endif
 #endif
 #endif
