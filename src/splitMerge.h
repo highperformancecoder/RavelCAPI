@@ -3,7 +3,11 @@
 #define SPLITMERGE_H
 #include <string>
 #include <vector>
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
 #include <classdesc_access.h>
+#else
+#define CLASSDESC_ACCESS(x)
+#endif
 
 namespace ravel
 {

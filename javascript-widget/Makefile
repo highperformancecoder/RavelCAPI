@@ -8,6 +8,12 @@ CFLAGS+=-s TOTAL_MEMORY=67108864
 # 0 here means emit catch blocks, 1 don't emit catch blocks, 2 selectively emit catch blocks
 CFLAGS+=-s DISABLE_EXCEPTION_CATCHING=0
 
+# en/disable wasm
+CFLAGS+=-s WASM=1
+
+# JSRavel's API
+#CFLAGS+=-s EXPORTED_FUNCTIONS="['Module.RavelCanvasDataCube']"
+
 # the separated memory init file seems to cause a problem with missing
 # constructors
 ifdef DEBUG
@@ -43,7 +49,7 @@ endif
 
 
 clean:
-	-rm -f $(JSMODULES) *.bc *.mem *.d
+	-rm -f $(JSMODULES) *.bc *.mem *.d $(RAVELOBJS)
 
 install-slickgrid:
 	cd SlickGrid; ncftpput -F -m -S .tmp -f ../hpcoders.conf $(WEBINSTALL)/SlickGrid slick.core.* slick.grid.*

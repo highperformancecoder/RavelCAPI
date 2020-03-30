@@ -60,13 +60,17 @@
     <script type="text/javascript" src="ravel-slickGrid.js"></script>
     <script type="text/javascript" src="ravel.js"></script>
     <script>
-      var ravel=newRavel("ravel");
-      ravel.onRedraw=function() {processData(ravel);}
-      populateTableSelector("tableSelector");
-      function onunload() {
-        if (ravel) ravel.delete();
+      var ravel;
+      Module.onRuntimeInitialized = function() {
+//          console.log(Module.imports("Emscripten"));
+          ravel=newRavel("ravel");
+          ravel.onRedraw=function() {processData(ravel);}
+          populateTableSelector("tableSelector");
+          document.getElementById("ravelVersion").innerHTML=ravel.version();
       }
-      document.getElementById("ravelVersion").innerHTML=ravel.version();
+      function onunload() {
+          if (ravel) ravel.delete();
+      }
     </script>
 
    
