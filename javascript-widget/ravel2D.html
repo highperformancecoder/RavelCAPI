@@ -62,8 +62,8 @@
     <script>
       var ravel;
       Module.onRuntimeInitialized = function() {
-//          console.log(Module.imports("Emscripten"));
           ravel=newRavel("ravel");
+          ravel.setRank(2);
           ravel.onRedraw=function() {processData(ravel);}
           populateTableSelector("tableSelector");
           document.getElementById("ravelVersion").innerHTML=ravel.version();
