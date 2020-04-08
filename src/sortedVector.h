@@ -14,7 +14,9 @@ namespace ravel
   /// enum describing the sorting properties of handle
   struct HandleSort
   {
-	  enum Order {none, forward, reverse, numForward, numReverse, custom };
+    // num* and time* deprecated here
+    enum Order {none, forward, reverse, numForward, numReverse, timeForward, timeReverse, custom };
+    enum OrderType {string, time, value};
   };
 
   /// a vector of string that can be placed in a sorted arrangement
@@ -89,9 +91,11 @@ namespace ravel
     /// current ordering applied to the vector
     Order order() const {return m_order;}
     Order order(Order o);
+    Order order(Order o, OrderType type, const std::string& format={});
+    
     /// returns true if reverse ordering is in effect
     bool orderReversed() const {
-      return order()==reverse || order()==numReverse;
+      return order()==reverse || order()==numReverse || order()==timeReverse;
     }
 
     /// apply a custom permuatation (may be less than number of labels)

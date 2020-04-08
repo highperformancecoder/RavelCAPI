@@ -257,10 +257,18 @@ extern "C"
       ravel->handles[axis].sliceLabels.setCalipers(l1,l2);
   }
   
-  DLLEXPORT void ravel_orderLabels(CAPIRavel* ravel, size_t axis, CAPIHandleState::HandleSort order) noexcept 
+  DLLEXPORT void ravel_orderLabels(CAPIRavel* ravel, size_t axis, CAPIHandleState::HandleSort order, CAPIHandleState::HandleSortType type, const char* format) noexcept 
   {
+    HandleSort::Order o;
+    switch (order)
+      {
+      case CAPIHandleState::forward: o=HandleSort::forward; break;
+      case CAPIHandleState::reverse: o=HandleSort::reverse; break;
+      default: o=HandleSort::none; break;
+      }
+
     if (ravel && axis<ravel->handles.size())
-      ravel->handles[axis].sliceLabels.order(HandleSort::Order(order));
+      ravel->handles[axis].sliceLabels.order(o, HandleSort::OrderType(type), format);
   }
 
   DLLEXPORT void ravel_applyCustomPermutation
@@ -342,7 +350,21 @@ extern "C"
         hs->collapsed=h.collapsed();
         hs->displayFilterCaliper=h.displayFilterCaliper();
         hs->reductionOp=CAPIHandleState::ReductionOp(h.reductionOp);
-        hs->order=CAPIHandleState::HandleSort(h.sliceLabels.order());
+        switch (h.sliceLabels.order())
+          {
+          case HandleSort::none:
+            hs->order=CAPIHandleState::none;
+            break;
+          case HandleSort::forward: case HandleSort::numForward: case HandleSort::timeForward:
+            hs->order=CAPIHandleState::forward;
+            break;
+          case HandleSort::reverse: case HandleSort::numReverse: case HandleSort::timeReverse:
+            hs->order=CAPIHandleState::reverse;
+            break;
+          case HandleSort::custom:
+            hs->order=CAPIHandleState::custom;
+            break;
+          }
       }
   }
     

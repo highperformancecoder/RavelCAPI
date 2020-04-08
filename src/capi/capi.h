@@ -8,7 +8,7 @@
 #include <cairo/cairo.h>
 #include <stdlib.h>
 
-#define RAVEL_CAPI_VERSION 2
+#define RAVEL_CAPI_VERSION 3
 
 #if defined(__cplusplus) && __cplusplus >= 201103L
 #define NOEXCEPT noexcept
@@ -35,7 +35,8 @@ struct CAPIHandleState
   bool collapsed, displayFilterCaliper;
   enum ReductionOp {sum, prod, av, stddev, min, max};
   ReductionOp reductionOp;
-  enum HandleSort {none, forward, reverse, numForward, numReverse, custom};
+  enum HandleSort {none, forward, reverse, custom};
+  enum HandleSortType {string, time, value};
   HandleSort order;
 };
 
@@ -123,7 +124,7 @@ extern "C"
   /// set calipers to \a l1, l2
   void ravel_setCalipers(CAPIRavel* ravel, size_t axis, const char* l1, const char* l2) NOEXCEPT;
   /// set the ordering on handle \a axis to \a order
-  void ravel_orderLabels(CAPIRavel* ravel, size_t axis, CAPIHandleState::HandleSort order) NOEXCEPT;
+  void ravel_orderLabels(CAPIRavel* ravel, size_t axis, CAPIHandleState::HandleSort order, CAPIHandleState::HandleSortType, const char* format) NOEXCEPT;
 
   /// apply a custom permutation of axis labels (which may be less than the number of labels)
   /// indices is an array of length numIndices

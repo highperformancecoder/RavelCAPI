@@ -32,7 +32,7 @@ trap "fail" 1 2 3 15
 # use \$ in place of $ to refer to variable contents
 # exit 0 to indicate pass, and exit 1 to indicate failure
 cat >input.tcl <<EOF
-source "$here/assert.tcl"
+source "$here/test/assert.tcl"
 Ravel ravel
 ravel.addHandle "x" {1990 1991 1992 1993}
 set h [ravel.handles.@elem 0]
