@@ -233,6 +233,7 @@
       Module.onRuntimeInitialized = function() {
           ravel1=new Ravel1D("ravel1");
           ravel2=new Ravel1D("ravel2");
+          document.getElementById("ravelVersion").innerHTML=ravel1.master.version();
           // if we're the desktop app running under electron, customise    stuff here
           if (typeof(process) != 'undefined'
               && process.versions && process.versions.electron)
@@ -251,7 +252,6 @@
         if (ravel1) {ravel1.delete();}
         if (ravel2) {ravel2.delete();}
       }
-      document.getElementById("ravelVersion").innerHTML=ravel1.master.version();
    </script>
     
   </body>
