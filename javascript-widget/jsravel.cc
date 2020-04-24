@@ -18,6 +18,15 @@ namespace ravel
 }
 
 namespace {
+  /// turn a container into an array
+  template <class I>
+  val arrayFromContainer(I begin, I end) {
+    val r=val::array();
+    for (size_t i=0; begin!=end; ++i, ++begin)
+      r.set(i,*begin);
+    return r;
+  }
+  
   struct JSDataCube: public DataCube
   {
     /// assign a Javascript function to this value
@@ -96,17 +105,21 @@ namespace {
       try {return operator[](k);}
       catch (const std::exception& ex) {return nan("");} //invalid key
     }
+
+    emscripten::val labelsVector() const {
+      auto lv=RawData::labelsVector();
+      auto v=emscripten::val::array();
+      for (auto& i: lv)
+        {
+          auto vi=emscripten::val::object();
+          vi.set("axis", i.first);
+          vi.set("slice",arrayFromContainer(i.second.begin(), i.second.end()));
+          v.call<void>("push",vi);
+        }
+      return v;
+    }
   };
 
-  /// turn a container into an array
-  template <class I>
-  val arrayFromContainer(I begin, I end) {
-    val r=val::array();
-    for (size_t i=0; begin!=end; ++i, ++begin)
-      r.set(i,*begin);
-    return r;
-  }
-  
   // implements a function calling interface around SortedVector, as a sort of fake reference handling type, which current embind does not support
   class JSSortedVector
   {
@@ -477,12 +490,16 @@ EMSCRIPTEN_BINDINGS(Ravel) {
   class_<RawDataIdx>("RawDataIdx")
     .function("size",&RawData::size)
     .function("rank",&RawData::rank)
+    .function("dim",&RawDataIdx::dim)
+    .function("axis",&RawDataIdx::axis)
+    .function("offset",&RawDataIdx::offset)
     ;
 
   class_<RawData,base<RawDataIdx>>("RawDataBase");
 
   class_<JSRawData,base<RawData>>("RawData")
     .function("val",&JSRawData::val)
+    .function("labelsVector",&JSRawData::labelsVector)
     ;
 }
 
