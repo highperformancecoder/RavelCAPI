@@ -119,6 +119,9 @@ void Ravel::moveHandleTo(unsigned handle, double xx, double yy)
       if (!h.collapsed())
         h.reductionOp=nextRedOp;
       h.moveTo(xx-x,yy-y, /*false*/ !moved /* only collapse if moving*/);
+      // if collapsed, remove handle from output handles
+      if (h.collapsed())
+        handleIds.erase(remove(handleIds.begin(),handleIds.end(),handle),handleIds.end());
     }
 }
 
