@@ -268,7 +268,11 @@ extern "C"
       }
 
     if (ravel && axis<ravel->handles.size())
-      ravel->handles[axis].sliceLabels.order(o, HandleSort::OrderType(type), format);
+      try
+        {
+          ravel->handles[axis].sliceLabels.order(o, HandleSort::OrderType(type), format);
+        }
+    CONSUME_EXCEPTION()
   }
 
   DLLEXPORT void ravel_applyCustomPermutation
