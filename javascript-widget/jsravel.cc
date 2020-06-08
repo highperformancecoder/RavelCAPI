@@ -137,6 +137,7 @@ namespace {
     HandleSort::Order getOrder() const {return v->order();}
     /// sets order to \a o
     HandleSort::Order setOrder(HandleSort::Order o) {return v->order(o);}
+    HandleSort::Order setOrder(HandleSort::Order o, HandleSort::OrderType t, const std::string& format={}) {return v->order(o,t,format);}
    /// returns true if order is numerically or lexicograpgically reverse
     bool orderReversed() const {return v->orderReversed();}
     void customPermutation(const val& x)
@@ -342,7 +343,14 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .value("forward",HandleSort::forward)
     .value("reverse",HandleSort::reverse)
     .value("numForward",HandleSort::numForward)
-    .value("numReverse",HandleSort::numReverse);
+    .value("numReverse",HandleSort::numReverse)
+    .value("timeForward",HandleSort::timeForward)
+    .value("timeReverse",HandleSort::timeReverse);
+
+  enum_<HandleSort::OrderType>("OrderType")
+    .value("string",HandleSort::string)
+    .value("time",HandleSort::time)
+    .value("value",HandleSort::value);
 
   enum_<Bin::Op>("BinOp")
     .value("add",Bin::add)
@@ -370,7 +378,8 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("size",&JSSortedVector::size)
     .function("empty",&JSSortedVector::empty)
     .function("getOrder",&JSSortedVector::getOrder)
-    .function("setOrder",&JSSortedVector::setOrder)
+    .function("setOrder",select_overload<HandleSort::Order(HandleSort::Order)>(&JSSortedVector::setOrder))
+    .function("setOrder",select_overload<HandleSort::Order(HandleSort::Order,HandleSort::OrderType,const std::string&)>(&JSSortedVector::setOrder))
     .function("orderReversed",&JSSortedVector::orderReversed)
     .function("customPermutation",&JSSortedVector::customPermutation)
     .function("isPermValid",&JSSortedVector::isPermValid)
