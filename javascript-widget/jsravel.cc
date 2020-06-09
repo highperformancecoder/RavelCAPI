@@ -444,6 +444,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("onMouseOver",&RavelCairo<val*>::onMouseOver)
     .function("onMouseLeave",&RavelCairo<val*>::onMouseLeave)
     .function("render",&RavelCairo<val*>::render)
+    .function("selectedHandleId",&RavelCairo<val*>::selectedHandleId)
     ;
 
   JSRavelBindings<RavelCairo<val*>>("RavelCanvasBase");
