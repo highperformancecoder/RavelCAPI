@@ -94,10 +94,12 @@ namespace ravel
       customOrderStrings.clear();
       for (auto& i: m_customOrder)
         customOrderStrings.push_back(i.c_str());
+      customOrderStrings.push_back(nullptr);
       customOrder=customOrderStrings.data();
       minLabel=m_minLabel.c_str();
       maxLabel=m_maxLabel.c_str();
       sliceLabel=m_sliceLabel.c_str();
+      description=m_description.c_str();
     }
   };
     
@@ -109,7 +111,7 @@ namespace ravel
   {
     if (state.description) description=state.description;
     if (state.customOrder)
-      for (auto i=state.customOrder; i; ++i)
+      for (auto i=state.customOrder; *i; ++i)
         customOrder.push_back(*i);
     if (state.minLabel) minLabel=state.minLabel;
     if (state.maxLabel) minLabel=state.maxLabel;
@@ -184,10 +186,12 @@ namespace ravel
   inline RavelState::RavelState(const CAPIRavelState& state):
     radius(state.radius), sortByValue(state.sortByValue)
   {
-    for (auto hs=state.handleStates; hs; ++hs)
-      handleStates.emplace_back(**hs);
-    for (auto o=state.outputHandles; o; ++o)
-      outputHandles.emplace_back(*o);
+    if (state.handleStates)
+      for (auto hs=state.handleStates; *hs; ++hs)
+        handleStates.emplace_back(**hs);
+    if (state.outputHandles)
+      for (auto o=state.outputHandles; *o; ++o)
+        outputHandles.emplace_back(*o);
   }
 
 }

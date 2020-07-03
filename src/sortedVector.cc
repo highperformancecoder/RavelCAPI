@@ -277,7 +277,7 @@ namespace ravel
   {
     PreserveCalipers pc(*this);
     map<std::string, size_t> labelToIndex;
-    for (size_t i=0; i<size(); ++i)
+    for (size_t i=0; i<labels.size(); ++i)
       labelToIndex[labels[i]]=i;
     m_order=custom;
     indices.clear();
