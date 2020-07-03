@@ -29,7 +29,8 @@ struct CAPIRavel: public RavelCairo<CAPIRenderer*>
 static_assert(sizeof(CAPIRenderer)==23*sizeof(void*),"Unexpected CAPIRenderer size - bump RAVEL_CAPI_VERSION");
 static_assert(sizeof(CAPIRavelDataSpec)==4*sizeof(int),"Unexpected CAPIRavelDataSpec size - bump RAVEL_CAPI_VERSION");
 #ifndef WIN32
-//static_assert(sizeof(ravel::CAPIHandleState)==56,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
+static_assert(sizeof(ravel::CAPIHandleState)==72,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
+static_assert(sizeof(ravel::CAPIRavelState)==32,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
 #endif
 
 struct CAPIRavelDC: public DataCube
