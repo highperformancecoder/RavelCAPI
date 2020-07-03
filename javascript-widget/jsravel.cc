@@ -151,6 +151,9 @@ namespace {
         r.set(i,(*v)[i]);
       return r;
     }
+    void setCalipers(const std::string& label1, const std::string& label2) {
+      v->setCalipers(label1, label2);
+    }
   };
 
   
@@ -408,7 +411,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("isPermValid",&JSSortedVector::isPermValid)
     .function("get",&JSSortedVector::get)
     .function("set",&JSSortedVector::set)
-    .function("setCalipers",&SortedVector::setCalipers)
+    .function("setCalipers",&JSSortedVector::setCalipers)
     ;
   
   class_<JSHandle>("Handle")
