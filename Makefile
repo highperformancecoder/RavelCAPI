@@ -155,3 +155,13 @@ electron:
 
 clang-check:
 	$(MAKE) CPLUSPLUS="/usr/bin/clang++ -I/usr/lib64/clang/4.0.1/include"
+
+lcov:
+	$(MAKE) clean
+	-$(MAKE) GCOV=1 tests
+	lcov -i -c -d . --no-external -o lcovi.info
+	-$(MAKE) GCOV=1 sure
+	lcov -c -d .  --no-external -o lcovt.info
+	lcov -a lcovi.info -a lcovt.info -o lcov.info
+	lcov -r lcov.info "*.cd" -o lcovr.info 
+	genhtml -o coverage lcovr.info

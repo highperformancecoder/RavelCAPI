@@ -117,5 +117,4 @@ SUITE(RavelState)
       CHECK(deepEq(r1,r2));
     }
 
-  
 }

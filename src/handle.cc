@@ -291,9 +291,9 @@ HandleState Handle::getHandleState() const
 
 void Handle::setHandleState(const HandleState& hs)
 {
-  moveTo(hs.x, hs.y, false);
   if (hs.collapsed!=collapsed())
     toggleCollapsed();
+  moveTo(hs.x, hs.y, false);
   displayFilterCaliper(hs.displayFilterCaliper);
   reductionOp=Op::ReductionOp(hs.reductionOp);
 
