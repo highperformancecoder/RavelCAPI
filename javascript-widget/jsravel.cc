@@ -256,13 +256,15 @@ namespace {
     JSRavelBindings(const char* name): class_<JSRavel<Ravel>,base<Ravel>>(name)
       {
         this->constructor<>()
-        .property("handle",&JSRavel<Ravel>::handle)
-        .function("setRank",&JSRavel<Ravel>::setRank)
-        .function("addHandle",&JSRavel<Ravel>::addHandle)
-        .function("getHandleIds",&JSRavel<Ravel>::getHandleIds)
-        .function("setHandleIds",&JSRavel<Ravel>::setHandleIds)
-        .function("handleId",&JSRavel<Ravel>::handleId)
-        .function("version",&JSRavel<Ravel>::version)
+          .property("handle",&JSRavel<Ravel>::handle)
+          .function("setRank",&JSRavel<Ravel>::setRank)
+          .function("addHandle",&JSRavel<Ravel>::addHandle)
+          .function("getHandleIds",&JSRavel<Ravel>::getHandleIds)
+          .function("setHandleIds",&JSRavel<Ravel>::setHandleIds)
+          .function("handleId",&JSRavel<Ravel>::handleId)
+          .function("version",&JSRavel<Ravel>::version)
+          .function("getState",&Ravel::getState)
+          .function("setState",&Ravel::setState)
         ;
       }
   };
@@ -370,6 +372,27 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     ;
 
 
+  class_<HandleState>("HandleState")
+    .property("description",&HandleState::description)
+    .property("x",&HandleState::x)
+    .property("y",&HandleState::y)
+    .property("collapsed",&HandleState::collapsed)
+    .property("displayFilterCaliper",&HandleState::displayFilterCaliper)
+    .property("reductionOp",&HandleState::reductionOp)
+    .property("order",&HandleState::order)
+    .property("customOrder",&HandleState::customOrder)
+    .property("minLabel",&HandleState::minLabel)
+    .property("maxLabel",&HandleState::maxLabel)
+    .property("sliceLabel",&HandleState::sliceLabel)
+    ;
+
+  class_<RavelState>("RavelState")
+    .property("radius",&RavelState::radius)
+    .property("sortByValue",&RavelState::sortByValue)
+    .property("handleStates",&RavelState::handleStates)
+    .property("outputHandles",&RavelState::outputHandles)
+    ;
+
   class_<JSSortedVector>("SortedVector")
     .function("resize",&JSSortedVector::resize)
     .function("clear",&JSSortedVector::clear)
@@ -385,6 +408,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("isPermValid",&JSSortedVector::isPermValid)
     .function("get",&JSSortedVector::get)
     .function("set",&JSSortedVector::set)
+    .function("setCalipers",&SortedVector::setCalipers)
     ;
   
   class_<JSHandle>("Handle")
@@ -417,6 +441,8 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("addBinReduction",&JSHandle::addBinReduction)
     .function("addScanReduction",&JSHandle::addScanReduction)
     .function("addChangeReduction",&JSHandle::addChangeReduction)
+    .function("getHandleState",&Handle::getHandleState)
+    .function("setHandleState",&Handle::setHandleState)
     ;
   
   class_<Ravel>("RavelBase")
@@ -511,6 +537,10 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("val",&JSRawData::val)
     .function("labelsVector",&JSRawData::labelsVector)
     ;
+
+  register_vector<std::string>("vector<string>");
+  register_vector<HandleState>("vector<HandleState>");
+  
 }
 
 
