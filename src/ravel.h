@@ -138,6 +138,9 @@ namespace ravel
 
     /// return an explanatory message about the item at (x,y)
     const char* explain(double x, double y) const;
+
+    RavelState getState() const;
+    void setState(const RavelState&);
   };
 
 }

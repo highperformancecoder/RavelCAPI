@@ -376,3 +376,39 @@ const char* Ravel::explain(double xx, double yy) const
     }
 }
 
+RavelState Ravel::getState() const
+{
+  RavelState state;
+  state.radius=radius();
+
+  for (auto& h: handles)
+    state.handleStates.emplace_back(h.getHandleState());
+
+  for (auto i: handleIds)
+    state.outputHandles.push_back(handles[i].description);
+  return state;
+}
+
+void Ravel::setState(const RavelState& rs)
+{
+  rescale(rs.radius);
+  // TODO support sortByValue within Ravel
+  map<string, Handle*> handleByDescription;
+  for (auto& h: handles)
+    handleByDescription[h.description]=&h;
+        
+  for (auto& hs: rs.handleStates)
+    {
+      auto h=handleByDescription.find(hs.description);
+      if (h!=handleByDescription.end())
+        h->second->setHandleState(hs);
+    }
+  
+  handleIds.clear();
+  for (auto& i: rs.outputHandles)
+    {
+      auto h=handleByDescription.find(i);
+      if (h!=handleByDescription.end())
+        handleIds.push_back(h->second-&handles[0]); //index of handle in handles vector
+    }
+}

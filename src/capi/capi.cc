@@ -20,6 +20,8 @@ using classdesc::xml_unpack_t;
 struct CAPIRavel: public RavelCairo<CAPIRenderer*>
 {
   string temp;
+  ravel::RavelStateX ravelState;
+  ravel::HandleStateX handleState;
 };
 
 // canary failure if CAPIRenderer interface changes.
@@ -27,7 +29,7 @@ struct CAPIRavel: public RavelCairo<CAPIRenderer*>
 static_assert(sizeof(CAPIRenderer)==23*sizeof(void*),"Unexpected CAPIRenderer size - bump RAVEL_CAPI_VERSION");
 static_assert(sizeof(CAPIRavelDataSpec)==4*sizeof(int),"Unexpected CAPIRavelDataSpec size - bump RAVEL_CAPI_VERSION");
 #ifndef WIN32
-static_assert(sizeof(CAPIHandleState)==56,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
+//static_assert(sizeof(ravel::CAPIHandleState)==56,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
 #endif
 
 struct CAPIRavelDC: public DataCube
@@ -257,20 +259,12 @@ extern "C"
       ravel->handles[axis].sliceLabels.setCalipers(l1,l2);
   }
   
-  DLLEXPORT void ravel_orderLabels(CAPIRavel* ravel, size_t axis, CAPIHandleState::HandleSort order, CAPIHandleState::HandleSortType type, const char* format) noexcept 
+  DLLEXPORT void ravel_orderLabels(CAPIRavel* ravel, size_t axis, ravel::HandleSort::Order order, ravel::HandleSort::OrderType type, const char* format) noexcept 
   {
-    HandleSort::Order o;
-    switch (order)
-      {
-      case CAPIHandleState::forward: o=HandleSort::forward; break;
-      case CAPIHandleState::reverse: o=HandleSort::reverse; break;
-      default: o=HandleSort::none; break;
-      }
-
     if (ravel && axis<ravel->handles.size())
       try
         {
-          ravel->handles[axis].sliceLabels.order(o, HandleSort::OrderType(type), format);
+          ravel->handles[axis].sliceLabels.order(order, type, format);
         }
     CONSUME_EXCEPTION()
   }
@@ -340,56 +334,39 @@ extern "C"
     return true;
   }
 
-  DLLEXPORT void ravel_getHandleState(const CAPIRavel* ravel, size_t handle,
-                            CAPIHandleState* hs) noexcept
+  DLLEXPORT CAPIHandleState* ravel_getHandleState(CAPIRavel* ravel, size_t handle) noexcept
   {
     if (ravel && handle<ravel->handles.size())
       {
-        const Handle& h=ravel->handles[handle];
-        hs->x=h.x();
-        hs->y=h.y();
-        hs->sliceIndex=h.sliceIndex;
-        hs->sliceMin=h.sliceLabels.m_sliceMin;
-        hs->sliceMax=h.sliceLabels.m_sliceMax;
-        hs->collapsed=h.collapsed();
-        hs->displayFilterCaliper=h.displayFilterCaliper();
-        hs->reductionOp=CAPIHandleState::ReductionOp(h.reductionOp);
-        switch (h.sliceLabels.order())
-          {
-          case HandleSort::none:
-            hs->order=CAPIHandleState::none;
-            break;
-          case HandleSort::forward: case HandleSort::numForward: case HandleSort::timeForward:
-            hs->order=CAPIHandleState::forward;
-            break;
-          case HandleSort::reverse: case HandleSort::numReverse: case HandleSort::timeReverse:
-            hs->order=CAPIHandleState::reverse;
-            break;
-          case HandleSort::custom:
-            hs->order=CAPIHandleState::custom;
-            break;
-          }
+        ravel->handleState=ravel->handles[handle].getHandleState();
+        return &ravel->handleState;
       }
+    return nullptr;
   }
     
     
-  /// set the handle state
-  DLLEXPORT void ravel_setHandleState(CAPIRavel* ravel, size_t handle,
+ DLLEXPORT void ravel_setHandleState(CAPIRavel* ravel, size_t handle,
                             const CAPIHandleState* hs) noexcept
   {
-    if (ravel && handle<ravel->handles.size())
+    if (ravel && handle<ravel->handles.size() && hs)
+      ravel->handles[handle].setHandleState(*hs);
+  }
+  
+  DLLEXPORT CAPIRavelState* ravel_getRavelState(CAPIRavel* ravel) noexcept
+  {
+    if (ravel)
       {
-        Handle& h=ravel->handles[handle];
-        h.moveTo(hs->x,hs->y,false);
-        h.sliceLabels.order(HandleSort::Order(hs->order));
-        h.sliceIndex=hs->sliceIndex<h.sliceLabels.size()? hs->sliceIndex: 0;
-        h.sliceLabels.min(hs->sliceMin);
-        h.sliceLabels.max(hs->sliceMax);
-        if (hs->collapsed!=h.collapsed())
-          h.toggleCollapsed();
-        h.displayFilterCaliper(hs->displayFilterCaliper);
-        h.reductionOp=Op::ReductionOp(hs->reductionOp);
+        ravel->ravelState=ravel->getState();
+        return &ravel->ravelState;
       }
+    return nullptr;
+  }
+    
+    
+  DLLEXPORT void ravel_setRavelState(CAPIRavel* ravel, const CAPIRavelState* rs) noexcept
+  {
+    if (ravel && rs)
+      ravel->setState(*rs);
   }
   
   DLLEXPORT void ravel_adjustSlicer(CAPIRavel* ravel, int n) noexcept

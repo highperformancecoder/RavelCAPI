@@ -8,17 +8,10 @@
 #include <TCL_obj_stl.h>
 #endif
 #include "cda.h"
+#include "ravelState.h"
 
 namespace ravel
 {
-  /// enum describing the sorting properties of handle
-  struct HandleSort
-  {
-    // num* and time* deprecated here
-    enum Order {none, forward, reverse, numForward, numReverse, timeForward, timeReverse, custom };
-    enum OrderType {string, time, value};
-  };
-
   /// a vector of string that can be placed in a sorted arrangement
   class SortedVector: public HandleSort
   {
@@ -98,8 +91,9 @@ namespace ravel
       return order()==reverse || order()==numReverse || order()==timeReverse;
     }
 
-    /// apply a custom permuatation (may be less than number of labels)
+    /// apply a custom permutation (may be less than number of labels)
     void customPermutation(const std::vector<size_t>&);
+    void customPermutation(const std::vector<std::string>&);
     const std::vector<size_t>& currentPermutation() const {return indices;}
 
     /// check permutation is valid (no duplicated indices, etc)

@@ -2,16 +2,12 @@
 #define HANDLE_H
 #include "sortedVector.h"
 #include "partialReduction.h"
+#include "ravelState.h"
 #include <algorithm>
 #include <memory>
 #include <set>
 namespace ravel
 {
-  struct Op
-  {
-    enum ReductionOp {sum, prod, av, stddev, min, max};
-  };
-
   // wasteful, but declaring this here ensures one can line up the
   // number of labels with the number of ReductionOps
   static const char* opLabels[]={"Σ","Π","av","σ","min","max"};
@@ -195,6 +191,9 @@ namespace ravel
     void addPartialReduction(PartialReduction*x)
     {addPartialReduction(std::shared_ptr<PartialReduction>(x));}
     void clearPartialReductions();
+
+    HandleState getHandleState() const;
+    void setHandleState(const HandleState&);
   };
 
 }

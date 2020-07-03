@@ -269,3 +269,40 @@ bool Handle::displayFilterCaliper(bool d)
     }
   return d;
 }
+
+HandleState Handle::getHandleState() const
+{
+  HandleState hs;
+  hs.x=x();
+  hs.y=y();
+  hs.description=description;
+  hs.sliceLabel=sliceLabel();
+  hs.minLabel=minSliceLabel();
+  hs.maxLabel=maxSliceLabel();
+  hs.collapsed=collapsed();
+  hs.displayFilterCaliper=displayFilterCaliper();
+  hs.reductionOp=reductionOp;
+  hs.order=sliceLabels.order();
+  if (hs.order==HandleSort::custom)
+    for (auto& i: sliceLabels)
+      hs.customOrder.push_back(i);
+  return hs;
+}
+
+void Handle::setHandleState(const HandleState& hs)
+{
+  moveTo(hs.x, hs.y, false);
+  if (hs.collapsed!=collapsed())
+    toggleCollapsed();
+  displayFilterCaliper(hs.displayFilterCaliper);
+  reductionOp=Op::ReductionOp(hs.reductionOp);
+
+  if (hs.order==HandleSort::custom)
+    sliceLabels.customPermutation(hs.customOrder);
+  else
+    sliceLabels.order(hs.order);
+
+  setSlicer(hs.sliceLabel);
+  sliceLabels.setCalipers(hs.minLabel, hs.maxLabel);
+}
+

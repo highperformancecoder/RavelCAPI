@@ -5,10 +5,11 @@
 #ifndef CAPI_H
 #define CAPI_H
 #include "capiRenderer.h"
+#include "ravelState.h"
 #include <cairo/cairo.h>
 #include <stdlib.h>
 
-#define RAVEL_CAPI_VERSION 3
+#define RAVEL_CAPI_VERSION 4
 
 #if defined(__cplusplus) && __cplusplus >= 201103L
 #define NOEXCEPT noexcept
@@ -26,18 +27,6 @@ struct CAPIRavelDataSpec
   int nColAxes=-1; ///< No. cols describing axes
   int nCommentLines=-1; ///< No. comment header lines
   char separator=','; ///< field separator character
-};
-
-struct CAPIHandleState
-{
-  double x,y; ///< handle tip coordinates (only angle important, not length)
-  size_t sliceIndex, sliceMin, sliceMax;
-  bool collapsed, displayFilterCaliper;
-  enum ReductionOp {sum, prod, av, stddev, min, max};
-  ReductionOp reductionOp;
-  enum HandleSort {none, forward, reverse, custom};
-  enum HandleSortType {string, time, value};
-  HandleSort order;
 };
 
 #ifdef __cplusplus
@@ -124,7 +113,7 @@ extern "C"
   /// set calipers to \a l1, l2
   void ravel_setCalipers(CAPIRavel* ravel, size_t axis, const char* l1, const char* l2) NOEXCEPT;
   /// set the ordering on handle \a axis to \a order
-  void ravel_orderLabels(CAPIRavel* ravel, size_t axis, CAPIHandleState::HandleSort order, CAPIHandleState::HandleSortType, const char* format) NOEXCEPT;
+  void ravel_orderLabels(CAPIRavel* ravel, size_t axis, ravel::HandleSort::Order order, ravel::HandleSort::OrderType, const char* format) NOEXCEPT;
 
   /// apply a custom permutation of axis labels (which may be less than the number of labels)
   /// indices is an array of length numIndices
@@ -141,10 +130,18 @@ extern "C"
   const char* ravel_toXML(CAPIRavel* ravel) NOEXCEPT;
   /// populate with XML data. @return true on success
   int ravel_fromXML(CAPIRavel* ravel, const char*) NOEXCEPT;
-  /// get the handle state (user modifiable attributes of handle \a handle
-  void ravel_getHandleState(const CAPIRavel* ravel, size_t handle, CAPIHandleState* handleState) NOEXCEPT;
+  /// get the handle state (user modifiable attributes of handle \a
+  /// handle). The returned object is valid until the next call to
+  /// this function.
+  ravel::CAPIHandleState* ravel_getHandleState(CAPIRavel* ravel, size_t handle) NOEXCEPT;
   /// set the handle state
-  void ravel_setHandleState(CAPIRavel* ravel, size_t handle, const CAPIHandleState* handleState) NOEXCEPT;
+  void ravel_setHandleState(CAPIRavel* ravel, size_t handle, const ravel::CAPIHandleState* handleState) NOEXCEPT;
+  /// get the ravel state (user modifiable attributes of handle \a
+  /// handle). The returned object is valid until the next call to
+  /// this function.
+  ravel::CAPIRavelState* ravel_getRavelState(CAPIRavel* ravel) NOEXCEPT;
+  /// set the ravel state
+  void ravel_setRavelState(CAPIRavel* ravel, const ravel::CAPIRavelState* handleState) NOEXCEPT;
   /// adjust handle slicer mouse is over up or down by n points
   void ravel_adjustSlicer(CAPIRavel* ravel, int) NOEXCEPT; 
 

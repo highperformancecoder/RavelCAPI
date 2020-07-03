@@ -273,6 +273,22 @@ namespace ravel
     assert(isPermValid());
   }
 
+  void SortedVector::customPermutation(const std::vector<std::string>& v)
+  {
+    PreserveCalipers pc(*this);
+    map<std::string, size_t> labelToIndex;
+    for (size_t i=0; i<size(); ++i)
+      labelToIndex[labels[i]]=i;
+    m_order=custom;
+    indices.clear();
+    for (auto i: v)
+      {
+        auto j=labelToIndex.find(i);
+        if (j!=labelToIndex.end())
+          indices.push_back(j->second);
+      }
+  }
+  
   bool SortedVector::isPermValid() const
   {
     set<size_t> s(indices.begin(), indices.end());
