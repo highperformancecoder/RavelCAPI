@@ -2,6 +2,10 @@
 #include "dataCube.h"
 #include "ravelCairoImpl.h"
 #include "ravelVersion.h"
+
+#include "ravelState.h"
+#include "ravelState.jcd"
+#include <classdesc_epilogue.h>
 #include <string>
 #include <emscripten/emscripten.h>
 #include <emscripten/bind.h>
@@ -251,6 +255,13 @@ namespace {
     void setHandleIds(const val& x) {Ravel::handleIds=vecFromJSArray<size_t>(x);}
     size_t handleId(size_t i) const {return Ravel::handleIds[i];}
     string version() const {return RAVEL_VERSION;}
+
+    std::string getState() const {return classdesc::json(Ravel::getState());}
+    void setState(const std::string jsonState) {
+      RavelState state;
+      classdesc::json(state, jsonState);
+      Ravel::setState(state);
+    }
   };
 
   template <class Ravel>
@@ -266,8 +277,8 @@ namespace {
           .function("setHandleIds",&JSRavel<Ravel>::setHandleIds)
           .function("handleId",&JSRavel<Ravel>::handleId)
           .function("version",&JSRavel<Ravel>::version)
-          .function("getState",&Ravel::getState)
-          .function("setState",&Ravel::setState)
+          .function("getState",&JSRavel<Ravel>::getState)
+          .function("setState",&JSRavel<Ravel>::setState)
         ;
       }
   };

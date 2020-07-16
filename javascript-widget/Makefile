@@ -1,6 +1,6 @@
-.SUFFIXES: .cc .bc .js .d
-CFLAGS=-I. -I../src --std=c++11 --bind -I$(HOME)/usr/emscripten/include
-LIBS=-L$(HOME)/usr/emscripten/lib
+.SUFFIXES: .cc .bc .js .d .jcd
+CFLAGS=-I. -I../src -I$(HOME)/usr/include --std=c++11 --bind -I$(HOME)/usr/emscripten/include
+LIBS=-L$(HOME)/usr/emscripten/lib -ljson_spirit
 
 # different emscripten options here
 #CFLAGS+=-s ALLOW_MEMORY_GROWTH=1
@@ -32,10 +32,12 @@ $(warning $(RAVELOBJS))
 WEBINSTALLROOT=public_html/ravelation
 WEBINSTALL=$(WEBINSTALLROOT)/examples
 
+VPATH=../src
+
 all: $(JSMODULES)
 
 $(JSMODULES): %.js: %.bc $(JSRAVELOBJS) $(RAVELOBJS)
-	em++ $(CFLAGS) $(OPT) $^ -o $@
+	em++ $(CFLAGS) $(OPT) $(LIBS) $^ -o $@
 
 .cc.bc:
 	em++ $(CFLAGS) $(OPT) -c $< -o $@
@@ -43,6 +45,9 @@ $(JSMODULES): %.js: %.bc $(JSRAVELOBJS) $(RAVELOBJS)
 .cc.d: 
 	em++ $(CFLAGS) -MM -MG $< >$@
 	sed -i -e 's/\.o:/.bc:/' $@
+
+.h.jcd:
+	classdesc -nodef -onbase -typeName -respect_private json_pack json_unpack <$< >$@
 
 ifneq ($(MAKECMDGOALS),clean)
 -include $(RAVELOBJS:.bc=.d) $(JSRAVELOBJS:.bc=.d) $(JSMODULES:.js=.d) 

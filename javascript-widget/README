@@ -1,0 +1,11 @@
+* Building json_spirit for emscripten
+
+  - unpack json_spirit
+  - cmake
+  - ccmake
+    - set compilers to em++ and emcc
+    - create a link to /usr/include/boost to ~/usr/emscripten/include
+    - change BOOST_INCLUDE to ~/usr/emscripten/include
+  - make
+  - mv json_spirit/libjson_spirit.a to ~/usr/emscripten/
+  - cp json_spirit/*.h to ~/usr/emscripten/include
