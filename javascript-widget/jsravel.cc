@@ -216,6 +216,12 @@ namespace {
     {h->addPartialReduction(new Scan(op,window));}
     void addChangeReduction(Change::Op op, size_t offset)
     {h->addPartialReduction(new Change(op,offset));}
+    std::string getHandleState() const {return classdesc::json(h->getHandleState());}
+    void setHandleState(const std::string& s) {
+      HandleState state;
+      classdesc::json(state,s);
+      h->setHandleState(state);
+    }
   };
 
   template <class Ravel>
@@ -455,8 +461,8 @@ EMSCRIPTEN_BINDINGS(Ravel) {
     .function("addBinReduction",&JSHandle::addBinReduction)
     .function("addScanReduction",&JSHandle::addScanReduction)
     .function("addChangeReduction",&JSHandle::addChangeReduction)
-    .function("getHandleState",&Handle::getHandleState)
-    .function("setHandleState",&Handle::setHandleState)
+    .function("getHandleState",&JSHandle::getHandleState)
+    .function("setHandleState",&JSHandle::setHandleState)
     ;
   
   class_<Ravel>("RavelBase")
