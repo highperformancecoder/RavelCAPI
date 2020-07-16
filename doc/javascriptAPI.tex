@@ -147,6 +147,10 @@ emscripten implementation:
   \item[handleId(i)] returns the output handle index for the ith output
     handle. Equivalent to getHandleIds()[i].
   \item[version()] report the version of this ravel software
+  \item[getState()] returns a JSON string representing the current
+    state of the Ravel
+  \item[setState(state)] set the state of the Ravel per the JSON
+    string {\em state}  
   \item[radius()] Returns the size of the ravel in pixels, from the origin
     to the handle tips.
   \item[rescale(radius)] Resize the ravel to have a radius {\tt radius}.
@@ -388,8 +392,12 @@ countries", otherwise is equivalent to getDescription().
   slice labels are not unique, then the action is indeterminate
 \item[mask()] returns an array of boolean values. If a mask[i] is
   true, then no data items corresponding to slice i exist in the
-  data. 
-  \end{description}
+  data.
+\item[getHandleState()] returns a JSON string representing the state
+  of the handle.
+\item[setHandleState(state)] sets the handle's state according to the
+  JSON string {\em state}.
+\end{description}
 \end{description}
 
 \subsection{Module.SortedVector}
