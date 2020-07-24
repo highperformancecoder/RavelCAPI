@@ -4,14 +4,8 @@
 */
 
 function findPos(obj) {
-    var curleft = curtop = 0;
-    if (obj.offsetParent) {
-        do {
-	    curleft += obj.offsetLeft;
-	    curtop += obj.offsetTop;
-        } while (obj = obj.offsetParent);
-    }
-    return [curleft,curtop];
+    var bbox = obj.getBoundingClientRect();
+    return [bbox.x,bbox.y];
 }
 
 var newRavel = function(canvasId) {
