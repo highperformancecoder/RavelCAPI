@@ -5,7 +5,7 @@
 
 function findPos(obj) {
     var bbox = obj.getBoundingClientRect();
-    return [bbox.x,bbox.y];
+    return [bbox.x+window.scrollX,bbox.y+window.scrollY];
 }
 
 var newRavel = function(canvasId) {

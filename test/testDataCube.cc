@@ -94,4 +94,25 @@ SUITE(DataCube)
 
    }
 #endif
+
+
+  TEST_FIXTURE(DC, orderedCollapse)
+    {
+      ifstream f("input.csv");
+      CSVFTokeniser tok(f,',');
+      auto spec=initDataSpec(tok);
+      loadFile("input.csv",',',spec);
+
+      Ravel ravel;
+      initRavel(ravel);
+
+      ravel.handleIds={0};
+      ravel.handles[1].setSlicer("a");
+      ravel.handles[2].toggleCollapsed();
+      auto hs=hyperSlice(ravel);
+      CHECK_EQUAL(1,hs.rank());
+      CHECK_EQUAL(2,hs.dim(0));
+      CHECK_EQUAL(3,hs[0]);
+      CHECK_EQUAL(7,hs[1]);
+    }
 }
