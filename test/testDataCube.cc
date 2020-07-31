@@ -107,11 +107,27 @@ SUITE(DataCube)
       initRavel(ravel);
 
       ravel.handleIds={0};
-      ravel.handles[1].setSlicer("a");
-      ravel.handles[2].toggleCollapsed();
+      ravel.handles[1].toggleCollapsed();
+      ravel.handles[2].setSlicer("a");
       auto hs=hyperSlice(ravel);
       CHECK_EQUAL(1,hs.rank());
       CHECK_EQUAL(2,hs.dim(0));
+      CHECK_EQUAL(3,hs[0]);
+      CHECK_EQUAL(7,hs[1]);
+      ravel.handles[2].sliceLabels.customPermutation({1,0,2});
+      ravel.handles[2].setSlicer("a");
+      CHECK_EQUAL("a",ravel.handles[2].sliceLabel());
+      hs=hyperSlice(ravel);
+      CHECK_EQUAL(3,hs[0]);
+      CHECK_EQUAL(7,hs[1]);
+      ravel.handles[2].sliceLabels.order(HandleSort::forward);
+      ravel.handles[2].setSlicer("a");
+      hs=hyperSlice(ravel);
+      CHECK_EQUAL(3,hs[0]);
+      CHECK_EQUAL(7,hs[1]);
+      ravel.handles[2].sliceLabels.order(HandleSort::reverse);
+      ravel.handles[2].setSlicer("a");
+      hs=hyperSlice(ravel);
       CHECK_EQUAL(3,hs[0]);
       CHECK_EQUAL(7,hs[1]);
     }

@@ -330,16 +330,13 @@ void DataCube::hyperSlice(RawData& sliceData, const Ravel& ravel) const
   bool handlesOrdered=false;
   vector<SortedVector> orderings(rawData.rank());
   for (auto& h: ravel.handles)
-    if (h.collapsed())
-      orderings[rawData.axis(h.description)]={""};
-    else
-      {
-        if (h.sliceLabels.order()!=HandleSort::none)
-          handlesOrdered=true;
-        auto& o=orderings[rawData.axis(h.description)]=h.sliceLabels;
-        o.min(0);
-        o.max(o.labelsVector().size()-1);
-      }
+    {
+      if (h.sliceLabels.order()!=HandleSort::none && !h.collapsed())
+        handlesOrdered=true;
+      auto& o=orderings[rawData.axis(h.description)]=h.sliceLabels;
+      o.min(0);
+      o.max(o.labelsVector().size()-1);
+    }
 
   // apply partial reductions, if any
   RawData partReducedData;
