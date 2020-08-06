@@ -284,8 +284,11 @@ HandleState Handle::getHandleState() const
   hs.reductionOp=reductionOp;
   hs.order=sliceLabels.order();
   if (hs.order==HandleSort::custom)
-    for (auto& i: sliceLabels)
-      hs.customOrder.push_back(i);
+    {
+      auto& lv=sliceLabels.labelsVector();
+      for (auto i: sliceLabels.currentPermutation())
+        hs.customOrder.push_back(lv[i]);
+    }
   return hs;
 }
 
