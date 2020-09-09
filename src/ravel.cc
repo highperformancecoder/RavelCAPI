@@ -277,6 +277,8 @@ bool Ravel::onMouseMotion(double a_x, double a_y)
                h.sliceIndex=h.sliceLabels.size()-1; // move slicer onto max label
              break;
            }
+        case none: case hub:
+          break;
         }
     }
   moved=true;
@@ -303,6 +305,7 @@ void Ravel::onMouseUp(double a_x, double a_y)
     snapHandle(lastHandle);
   lastHandle=-1;
   checkRedistributeHandles();
+  elementMoving=none;
 }
 
 
