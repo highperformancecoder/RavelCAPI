@@ -23,7 +23,7 @@ WEBINSTALLEXAMPLES=$(WEBINSTALLROOT)/examples
 	$(CLASSDESC) -nodef -onbase -typeName -I $(CDINCLUDE) -I $(ECOLAB_HOME)/include -i $< \
 	  -respect_private  $(RPACTIONS) >>$@
 
-VPATH+=src src/shims src/tcl src/capi
+VPATH+=src src/shims src/tcl src/capi RavelCAPI
 FLAGS+=-I. -Isrc -Isrc/tcl -IRavelCAPI
 
 # object files making up libravel

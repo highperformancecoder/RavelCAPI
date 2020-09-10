@@ -20,8 +20,8 @@ using classdesc::xml_unpack_t;
 struct CAPIRavel: public RavelCairo<CAPIRenderer*>
 {
   string temp;
-  ravel::RavelStateX ravelState;
-  ravel::HandleStateX handleState;
+  RavelStateX ravelState;
+  RavelHandleStateX handleState;
 };
 
 // canary failure if CAPIRenderer interface changes.
@@ -29,8 +29,8 @@ struct CAPIRavel: public RavelCairo<CAPIRenderer*>
 static_assert(sizeof(CAPIRenderer)==23*sizeof(void*),"Unexpected CAPIRenderer size - bump RAVEL_CAPI_VERSION");
 static_assert(sizeof(CAPIRavelDataSpec)==4*sizeof(int),"Unexpected CAPIRavelDataSpec size - bump RAVEL_CAPI_VERSION");
 #ifndef WIN32
-static_assert(sizeof(ravel::CAPIHandleState)==72,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
-static_assert(sizeof(ravel::CAPIRavelState)==32,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
+static_assert(sizeof(CAPIRavelHandleState)==72,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
+static_assert(sizeof(CAPIRavelState)==32,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
 #endif
 
 struct CAPIRavelDC: public DataCube
@@ -55,7 +55,6 @@ static string lastErr;
       catch(...) {}                                \
       return ret;                                  \
     }
-
 
 extern "C"
 {
@@ -260,12 +259,13 @@ extern "C"
       ravel->handles[axis].sliceLabels.setCalipers(l1,l2);
   }
   
-  DLLEXPORT void ravel_orderLabels(CAPIRavel* ravel, size_t axis, ravel::HandleSort::Order order, ravel::HandleSort::OrderType type, const char* format) noexcept 
+  DLLEXPORT void ravel_orderLabels(CAPIRavel* ravel, size_t axis, RavelOrder order, RavelOrderType type, const char* format) noexcept 
   {
     if (ravel && axis<ravel->handles.size())
       try
         {
-          ravel->handles[axis].sliceLabels.order(order, type, format);
+          ravel->handles[axis].sliceLabels.order
+            (toEnum<HandleSort::Order>(order), toEnum<HandleSort::OrderType>(type), format);
         }
     CONSUME_EXCEPTION()
   }
@@ -335,7 +335,7 @@ extern "C"
     return true;
   }
 
-  DLLEXPORT CAPIHandleState* ravel_getHandleState(CAPIRavel* ravel, size_t handle) noexcept
+  DLLEXPORT CAPIRavelHandleState* ravel_getHandleState(CAPIRavel* ravel, size_t handle) noexcept
   {
     if (ravel && handle<ravel->handles.size())
       {
@@ -347,7 +347,7 @@ extern "C"
     
     
  DLLEXPORT void ravel_setHandleState(CAPIRavel* ravel, size_t handle,
-                            const CAPIHandleState* hs) noexcept
+                            const CAPIRavelHandleState* hs) noexcept
   {
     if (ravel && handle<ravel->handles.size() && hs)
       ravel->handles[handle].setHandleState(*hs);
