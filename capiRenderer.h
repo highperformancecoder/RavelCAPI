@@ -43,4 +43,6 @@ struct CAPIRenderer
   void (*save)(struct CAPIRenderer*);
   void (*restore)(struct CAPIRenderer*);
 };
+
+typedef struct CAPIRenderer CAPIRenderer;
 #endif
