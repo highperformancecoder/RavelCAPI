@@ -1,4 +1,4 @@
-#include "capi.h"
+#include "ravelCAPI.h"
 #include "ravelCairo.h"
 #include "dataCube.h"
 #include "ravelVersion.h"

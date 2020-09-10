@@ -4,3 +4,6 @@
 [submodule "plotly.js"]
 	path = javascript-widget/plotly.js
 	url = git@github.com:plotly/plotly.js.git
+[submodule "RavelCAPI"]
+	path = RavelCAPI
+	url = git@github.com:highperformancecoder/RavelCAPI.git

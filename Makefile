@@ -24,7 +24,7 @@ WEBINSTALLEXAMPLES=$(WEBINSTALLROOT)/examples
 	  -respect_private  $(RPACTIONS) >>$@
 
 VPATH+=src src/shims src/tcl src/capi
-FLAGS+=-I. -Isrc -Isrc/tcl
+FLAGS+=-I. -Isrc -Isrc/tcl -IRavelCAPI
 
 # object files making up libravel
 OBJS=ravel.o handle.o dataCube.o ravelCairo.o cairoShimCairo.o \
