@@ -8,7 +8,7 @@ else
 FLAGS+=-O3 -DNDEBUG
 endif
 
-OBJS=ravelState.o
+OBJS=ravelState.o dynamicRavelCAPI.o
 
 all: testCAPI.o libravelCAPI.a
 
