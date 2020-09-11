@@ -179,7 +179,7 @@ extern "C"
         ids[i]=ravel->handleIds[i];
   }
 
-  DLLEXPORT void ravel_setOutputHandleIds(CAPIRavel* ravel, size_t rank, size_t ids[]) noexcept 
+  DLLEXPORT void ravel_setOutputHandleIds(CAPIRavel* ravel, size_t rank, const size_t ids[]) noexcept 
   {
     if (ravel)
       {
