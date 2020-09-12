@@ -223,6 +223,14 @@ extern "C"
     return 0;
   }
 
+  DLLEXPORT size_t ravel_numAllSliceLabels(CAPIRavel* ravel, size_t axis) noexcept 
+  {
+    if (ravel)
+      if (axis<ravel->handles.size())
+        return ravel->handles[axis].sliceLabels.labelsVector().size();
+    return 0;
+  }
+
   DLLEXPORT void ravel_sliceLabels(CAPIRavel* ravel, size_t axis, const char* labels[]) noexcept 
   {
     if (ravel && axis<ravel->handles.size())
@@ -233,6 +241,21 @@ extern "C"
         else
           for (size_t i=0; i<h.sliceLabels.size(); ++i)
             labels[i]=h.sliceLabels[i].c_str();
+      }
+  }
+
+  DLLEXPORT void ravel_allSliceLabels(CAPIRavel* ravel, size_t axis, enum RavelOrder order, const char* labels[]) noexcept 
+  {
+    if (ravel && axis<ravel->handles.size())
+      {
+        auto& h=ravel->handles[axis];
+        // temporarily remove calipers and set sort order
+        auto state=h.getHandleState();
+        h.sliceLabels.min(0);
+        h.sliceLabels.max(std::numeric_limits<size_t>::max()-1);
+        h.sliceLabels.order(toEnum<HandleSort::Order>(order));
+        ravel_sliceLabels(ravel,axis,labels);
+        h.setHandleState(state); // restore state
       }
   }
 
