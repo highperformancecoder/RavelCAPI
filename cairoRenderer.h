@@ -11,7 +11,7 @@ namespace ravel
   struct CairoRenderer: public CAPIRenderer
   {
     cairo_t* cr;
-    static cairo_t* cairo(CAPIRenderer* r) const
+    static cairo_t* cairo(CAPIRenderer* r) 
     {return static_cast<CairoRenderer*>(r)->cr;}
     
     cairo_text_extents_t ext{0,0,0,0,0,0};

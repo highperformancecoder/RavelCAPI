@@ -106,6 +106,8 @@ extern "C" {
   void ravel_setHandleDescription(CAPIRavel* ravel, int handle, const char* description) NOEXCEPT;
   /// number of slice labels along axis \a axis
   size_t ravel_numSliceLabels(CAPIRavel* ravel, size_t axis) NOEXCEPT;
+  /// number of slice labels along axis \a axis, disregarding calipers
+  size_t ravel_numAllSliceLabels(CAPIRavel* ravel, size_t axis) NOEXCEPT;
   /** returns the sliceLabels along axis \a axis 
       \a labels must be at least ravel_numSliceLabels in size.  
 
@@ -114,6 +116,14 @@ extern "C" {
       free these.
   **/
   void ravel_sliceLabels(CAPIRavel* ravel, size_t axis, const char* labels[]) NOEXCEPT;
+  /** returns the sliceLabels along axis \a axis 
+      \a labels must be at least ravel_numAllSliceLabels in size.  
+
+      The returned pointers are owned by the ravel object, and remain
+      valid until the next call to ravel_sliceLabels. Do not delete or
+      free these.
+  **/
+  void ravel_allSliceLabels(CAPIRavel* ravel, size_t axis, enum RavelOrder order, const char* labels[]) NOEXCEPT;
   /// enable/disable the filter calipers on axis \a axis
   void ravel_displayFilterCaliper(CAPIRavel* ravel, size_t axis, BOOL display) NOEXCEPT;
   /// set the slicer to \a sliceLabel, if it exists

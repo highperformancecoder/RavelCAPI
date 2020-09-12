@@ -39,8 +39,6 @@ namespace
   {return dlopen((lib+".so").c_str(),RTLD_NOW);}
 #endif
   
-  //#define ASG_FN_PTR(f,lib) asgFnPointer(f,lib,#f)
-
   struct RavelLib
   {
     libHandle lib;
@@ -198,7 +196,9 @@ namespace
   DEFFN(ravel_handleDescription, const char*, CAPIRavel*, int);
   DEFFN(ravel_setHandleDescription, void, CAPIRavel*, int, const char*);
   DEFFN(ravel_numSliceLabels, size_t, CAPIRavel*, size_t);
+  DEFFN(ravel_numAllSliceLabels, size_t, CAPIRavel*, size_t);
   DEFFN(ravel_sliceLabels, void, CAPIRavel*, size_t, const char**);
+  DEFFN(ravel_allSliceLabels, void, CAPIRavel*, size_t, RavelOrder, const char**);
   DEFFN(ravel_displayFilterCaliper, void, CAPIRavel*, size_t, bool);
   DEFFN(ravel_setSlicer,void,CAPIRavel*,size_t,const char*);
   DEFFN(ravel_setCalipers,void,CAPIRavel*,size_t,const char*,const char*);
@@ -229,143 +229,107 @@ namespace ravel
   Ravel::Ravel()
   {
     if (ravelLib.lib)
-      ravel=ravel_new(0);
+      {
+        if (!(ravel=ravel_new(0)))
+          throw std::runtime_error(ravel_lastErr());
+      }
     else
-      throw std::runtime_error(ravel_lastErr());
+      throw std::runtime_error(ravelLib.errorMsg);
   }
   
   Ravel::~Ravel() {
     if (ravel) ravel_delete(ravel);
   }
 
-  /// removes all handles
+  std::string Ravel::version() {return ravelLib.versionFound;}
   void Ravel::clear() {ravel_clear(ravel);}
-  /// render ravel widget into a Cairo context
-  void Ravel::render(CAPIRenderer& renderer) {ravel_render(ravel, &renderer);}
-  /// @{ handle mouse events
+  void Ravel::render(CAPIRenderer& renderer) const {ravel_render(ravel, &renderer);}
   void Ravel::onMouseDown(double x, double y) {ravel_onMouseDown(ravel,x,y);}
   void Ravel::onMouseUp(double x,double y) {ravel_onMouseUp(ravel,x,y);}
-  /// handle mouse motion with button pressed
-  /// @ return true if it needs to be rerendered
   bool Ravel::onMouseMotion(double x,double y) {return ravel_onMouseMotion(ravel,x,y);}
-  /// hande mouse motion without pressed button (tooltips etc)
-  /// @ return true if it needs to be rerendered
   bool Ravel::onMouseOver(double x,double y) {return ravel_onMouseOver(ravel,x,y);}
-  /// handle mouse movements leaving the ravel
   void Ravel::onMouseLeave() {return ravel_onMouseLeave(ravel);}
-  /// @}
-  /// resize a ravel
   void Ravel::rescale(double radius) {ravel_rescale(ravel,radius);}
-  /// radius of ravel in screen coordinates
-  double Ravel::radius() const {return ravel_radius(ravel);}
-  /// rank (no. output handles)
+  double Ravel::radius() const {
+      return ravel? ravel_radius(ravel): ravelDefaultRadius;
+  }
   size_t Ravel::rank() const {return ravel_rank(ravel);}
-  /// descriptive text of the operation of the Ravel (plain English for now)
   std::string Ravel::description() const {return ravel_description(ravel);}
-
-  /// sets an explanatory message displayed as a tooltip @param
-  /// explain a message, if empty, then a default explanatory message
-  /// for the item at (x,y) is used
-  /// @param x,y location to display the tooltip
   void Ravel::setExplain(const std::string& explain, double x, double y)
   {ravel_setExplain(ravel,explain.c_str(), x,y);}
-  /// resets the explain message
   void Ravel::resetExplain() {ravel_resetExplain(ravel);}
-  /// obtain default explanatory message for item at (x,y)
   std::string Ravel::explain(double x, double y) {return ravel_explain(ravel,x,y);}
   
-  /// return the handle IDs of the output handles, in order x,y,z, etc.
   std::vector<size_t> Ravel::outputHandleIds() const {
     std::vector<size_t> ids(rank());
     ravel_outputHandleIds(ravel, ids.data());
     return ids;
   }
-  /// set the output handles. \a ids[] must be of length \a rank.
   void Ravel::setOutputHandleIds(const std::vector<size_t>& ids) {
     ravel_setOutputHandleIds(ravel, ids.size(), ids.data());
   }
-    /// number of handles (aka axes)
   unsigned Ravel::numHandles() const {return ravel_numHandles(ravel);}
-  /// current handle mouse is over, or -1 if none
   int Ravel::selectedHandle() const {return ravel_selectedHandle(ravel);}
-  /// return the description field for handle \a handle.
   std::string Ravel::handleDescription(int handle) const {
     return ravel_handleDescription(ravel,handle);
   }
-  /// set the description field for \a handle
   void Ravel::setHandleDescription(int handle, const std::string& description) {
     ravel_setHandleDescription(ravel, handle, description.c_str());
   }
-  /// number of slice labels along axis \a axis
   size_t Ravel::numSliceLabels(size_t axis) const {return ravel_numSliceLabels(ravel, axis);}
-  /// returns the sliceLabels along axis \a axis 
   std::vector<std::string> Ravel::sliceLabels(size_t axis) const {
     std::vector<const char*> tmp(numSliceLabels(axis));
     ravel_sliceLabels(ravel,axis,tmp.data());
     return std::vector<std::string>(tmp.begin(), tmp.end());
   }
-  /// enable/disable the filter calipers on axis \a axis
+  size_t Ravel::numAllSliceLabels(size_t axis) const {return ravel_numAllSliceLabels(ravel, axis);}
+  std::vector<std::string> Ravel::allSliceLabels(size_t axis, HandleSort::Order order) const {
+    std::vector<const char*> tmp(numAllSliceLabels(axis));
+    ravel_allSliceLabels(ravel,axis,toEnum<RavelOrder>(order),tmp.data());
+    return std::vector<std::string>(tmp.begin(), tmp.end());
+  }
   void Ravel::displayFilterCaliper(size_t axis, bool display)
   {ravel_displayFilterCaliper(ravel,axis,display);}
-  /// set the slicer to \a sliceLabel, if it exists
   void Ravel::setSlicer(size_t axis, const std::string& sliceLabel)
   {ravel_setSlicer(ravel,axis,sliceLabel.c_str());}
-  /// set calipers to \a l1, l2
   void Ravel::setCalipers(size_t axis, const std::string& l1, const std::string& l2)
   {ravel_setCalipers(ravel,axis,l1.c_str(),l2.c_str());}
-  /// set the ordering on handle \a axis to \a order
   void Ravel::orderLabels(size_t axis, HandleSort::Order order,
                           HandleSort::OrderType type, const std::string& format){
     ravel_orderLabels(ravel,axis,toEnum<RavelOrder>(order),toEnum<RavelOrderType>(type),
                       format.c_str());
   }
-
-    /// apply a custom permutation of axis labels (which may be less than the number of labels)
-    /// indices is an array of length numIndices
   void Ravel::applyCustomPermutation(size_t axis, const std::vector<size_t>& indices)
   {ravel_applyCustomPermutation(ravel,axis,indices.size(), indices.data());}
-  /// get the current permutation of axis labels.
-  std::vector<size_t> Ravel::currentPermutation(size_t axis) {
+  std::vector<size_t> Ravel::currentPermutation(size_t axis) const {
     std::vector<size_t> r(numSliceLabels(axis));
     ravel_currentPermutation(ravel, axis, r.size(), r.data());
     return r;
   }
   
-    /// add a handle to the Ravel. \a sliceLabels is of length \a numSliceLabels. Ownership of char pointers not passed.
   void Ravel::addHandle(const std::string& description, const std::vector<std::string>& sliceLabels) {
     std::vector<const char*> sl;
     for (auto& i: sliceLabels) sl.push_back(i.c_str());
     ravel_addHandle(ravel, description.c_str(), sl.size(), sl.data());
   }
   
-    /// return XML represention of ravel. String buffer remains valid until next Ravel CAPI call.
   std::string Ravel::toXML() const {return ravel_toXML(ravel);}
-    /// populate with XML data.
   void Ravel::fromXML(const std::string& xml) {
     if (!ravel_fromXML(ravel, xml.c_str())) throw std::runtime_error(ravel_lastErr());
   }
-  /// get the handle state (user modifiable attributes of handle \a
-  /// handle).
   HandleState Ravel::getHandleState(size_t handle) const {
-    // internal::CAPIRavelHandleState really is a ::CAPIRavelHandleState
     return *ravel_getHandleState(ravel, handle);
   }
-  /// set the handle state
   void Ravel::setHandleState(size_t handle, const HandleState& handleState) {
     RavelHandleStateX hs(handleState);
     ravel_setHandleState(ravel, handle, &hs);
   }
-  /// get the ravel state (user modifiable attributes of handle \a
-  /// handle).
   RavelState Ravel::getRavelState() const {return *ravel_getRavelState(ravel);}
-  /// set the ravel state
   void Ravel::setRavelState(const RavelState& rState) {
     RavelStateX cState(rState);
     ravel_setRavelState(ravel, &cState);
   }
-  /// adjust handle slicer mouse is over up or down by n points
   void Ravel::adjustSlicer(int n) {ravel_adjustSlicer(ravel,n);}
 
-  /// redistribute handles according to current state
   void Ravel::redistributeHandles() {ravel_redistributeHandles(ravel);}
 }

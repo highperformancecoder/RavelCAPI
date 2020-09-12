@@ -19,14 +19,17 @@ namespace ravel
     Ravel(const Ravel&)=delete;
     void operator=(const Ravel&)=delete;
   public:
+    // @throw if libravel not available or wrong version
     Ravel();
     ~Ravel();
+    /// true if Ravel availabe for use
+    operator bool() const {return ravel;}
     /// ravel version (if successfully loaded)
-    std::string version() const;
+    static std::string version();
     /// removes all handles
     void clear();
     /// render ravel widget into a Cairo context
-    void render(CAPIRenderer&);
+    void render(CAPIRenderer&) const;
     /// @{ handle mouse events
     void onMouseDown(double x, double y);
     void onMouseUp(double x,double y);
@@ -72,14 +75,13 @@ namespace ravel
     void setHandleDescription(int handle, const std::string& description);
     /// number of slice labels along axis \a axis
     size_t numSliceLabels(size_t axis) const;
-    /** returns the sliceLabels along axis \a axis 
-        \a labels must be at least ravel_numSliceLabels in size.  
-        
-        The returned pointers are owned by the ravel object, and remain
-        valid until the next call to ravel_sliceLabels. Do not delete or
-        free these.
-    **/
+    /// number of slice labels along axis \a axis, unrestricted by calipers
+    size_t numAllSliceLabels(size_t axis) const;
+    /// returns the sliceLabels along axis \a axis 
     std::vector<std::string> sliceLabels(size_t axis) const;
+    /// returns all slice labels, unrestricted by calipers, sorted according to order
+    std::vector<std::string> allSliceLabels(size_t axis, HandleSort::Order order) const;
+    
     /// enable/disable the filter calipers on axis \a axis
     void displayFilterCaliper(size_t axis, bool display);
     /// set the slicer to \a sliceLabel, if it exists
@@ -93,7 +95,7 @@ namespace ravel
     /// indices is an array of length numIndices
     void applyCustomPermutation(size_t axis, const std::vector<size_t>& indices);
     /// get the current permutation of axis labels.
-    std::vector<size_t> currentPermutation(size_t axis);
+    std::vector<size_t> currentPermutation(size_t axis) const;
   
     /// add a handle to the Ravel. \a sliceLabels is of length \a numSliceLabels. Ownership of char pointers not passed.
     void addHandle(const std::string& description, const std::vector<std::string>& sliceLabels);

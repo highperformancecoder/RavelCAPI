@@ -59,6 +59,15 @@ RavelStateX::RavelStateX(const ravel::RavelState& state):
   m_outputHandles(state.outputHandles)
   {setupPointers();}
 
+CAPIRavelHandleState::CAPIRavelHandleState(const ravel::HandleState& state):
+  CAPIRavelHandleState(state.x,state.y,state.collapsed,
+                       state.displayFilterCaliper,toEnum<enum RavelReductionOp>(state.reductionOp),
+                       toEnum<enum RavelOrder>(state.order)) {}
+
+CAPIRavelState::CAPIRavelState(const ravel::RavelState& state):
+  CAPIRavelState(state.radius, toEnum<enum RavelOrder>(state.sortByValue)) {}
+
+
 #if defined(CLASSDESC) || defined(ECOLAB_LIB)
 // sanity check that that the C enums are concordant with the C++ ones
 static_assert(sizeof(classdesc::enum_keysData<ravel::HandleSort::Order>::keysData)
