@@ -294,6 +294,7 @@ HandleState Handle::getHandleState() const
 
 void Handle::setHandleState(const HandleState& hs)
 {
+  description=hs.description;
   moveTo(hs.x, hs.y, false);
   if (hs.collapsed!=collapsed())
     toggleCollapsed();
