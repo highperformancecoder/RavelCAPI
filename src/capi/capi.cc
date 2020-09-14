@@ -70,6 +70,7 @@ extern "C"
         r->handleIds.clear();
         for (size_t i=0; i<rank; ++i)
           r->handleIds.push_back(i);
+        r->rescale(ravelDefaultRadius);
         return r.release();
       }
     CONSUME_EXCEPTION(nullptr);

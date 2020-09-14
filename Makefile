@@ -30,7 +30,7 @@ FLAGS+=-I. -Isrc -Isrc/tcl -IRavelCAPI
 OBJS=ravel.o handle.o dataCube.o ravelCairo.o cairoShimCairo.o \
 	cairoShimCAPIRenderer.o filterCairo.o splitMerge.o \
 	sortedVector.o rawData.o partialReduction.o
-LIBS+=libravel.a
+LIBS+= libravel.a
 LIBS:=-L$(HOME)/usr/lib64 $(LIBS)
 MODELS=ravelTest
 EXES=logos 
@@ -90,7 +90,11 @@ $(MODELS:=.app): %.app: %
 libravel.a: $(OBJS)
 	ar r $@ $^
 
-libravel.$(DL): capi.o libravel.a
+.PHONY: RavelCAPI/libravelCAPI.a
+RavelCAPI/libravelCAPI.a:
+	cd RavelCAPI && $(MAKE) $(MAKEOVERRIDES) 
+
+libravel.$(DL): capi.o libravel.a RavelCAPI/libravelCAPI.a
 	$(LINK) $(FLAGS) -shared $^ $(LIBS) -o $@
 
 ifneq ($(MAKECMDGOALS),clean)
