@@ -88,6 +88,16 @@ namespace ravel
     RavelHandleStateX() {}
     RavelHandleStateX(ravel::HandleState&& state);
     RavelHandleStateX(const ravel::HandleState& state);
+    RavelHandleStateX& operator=(const RavelHandleStateX& x) {
+      CAPIRavelHandleState::operator=(x);
+      m_description=x.m_description;
+      m_customOrder=x.m_customOrder;
+      m_minLabel=x.m_minLabel;
+      m_maxLabel=x.m_maxLabel;
+      m_sliceLabel=x.m_sliceLabel;
+      setupPointers();
+      return *this;
+    }
     
   private:
     std::string m_description;
@@ -114,7 +124,14 @@ namespace ravel
     RavelStateX() {}
     RavelStateX(ravel::RavelState&& state);
     RavelStateX(const ravel::RavelState& state);
-
+    RavelStateX& operator=(const RavelStateX& x) {
+      CAPIRavelState::operator=(x);
+      m_handleStates=x.m_handleStates;
+      m_outputHandles=x.m_outputHandles;
+      setupPointers();
+      return *this;
+    }
+      
   private:
     std::vector<RavelHandleStateX> m_handleStates;
     std::vector<const CAPIRavelHandleState*> handleStatePtrs;
