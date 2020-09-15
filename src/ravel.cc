@@ -15,30 +15,37 @@ using namespace std;
 
 void Ravel::checkRedistributeHandles()
 {
-  if (handleIds.size()>0)
+  for (auto& h: handles)
     {
-      auto& h=handles[handleIds[0]];
-      if (abs(h.y())>0.01*radius() || h.x()<=0)
+      // check that slicer is within bounds
+      if (h.sliceIndex>h.sliceMax())
+        h.sliceIndex=h.sliceMax();
+      else if (h.sliceIndex<h.sliceMin())
+        h.sliceIndex=h.sliceMin();
+      // check that output handles are in their respective quadrants, and that no other are
+      if (handleIds.size()>0 && &h-&handles.front() == handleIds[0])
         {
-          redistributeHandles();
-          return;
+          if (abs(h.y())>0.01*radius() || h.x()<=0)
+            {
+              redistributeHandles();
+              return;
+            }
         }
-    }
-   if (handleIds.size()>1)
-    {
-      auto& h=handles[handleIds[1]];
-      if (h.y()>=0 || abs(h.x())>0.01*radius())
+      else if (handleIds.size()>1 && &h-&handles.front() == handleIds[1])
         {
-          redistributeHandles();
-          return;
+          if (h.y()>=0 || abs(h.x())>0.01*radius())
+            {
+              redistributeHandles();
+              return;
+            }
         }
+      else if ((abs(h.y())<=0.01*radius() && h.x()>0)||
+               (h.y()<0 && abs(h.x())<=0.01*radius()))
+            {
+              redistributeHandles();
+              return;
+            }
     }
-   // check that slicer is within bounds
-   for (auto& h: handles)
-     if (h.sliceIndex>h.sliceMax())
-       h.sliceIndex=h.sliceMax();
-     else if (h.sliceIndex<h.sliceMin())
-       h.sliceIndex=h.sliceMin();
 }
 
 void Ravel::redistributeHandles()
@@ -72,7 +79,7 @@ void Ravel::redistributeHandles()
           if (a<0) a+=2*M_PI;
           a/=delta;
           unsigned ia=a;
-          if ((rank()==0 || ia>0) && (rank()<=1 || ia<handles.size()-1) &&
+          if ((rank()==0 || ia>0) && ia<handles.size()-rank() &&
               !angleAlreadySet.count(ia) && fabs(a-ia)<0.1*delta)
             angleAlreadySet.insert(ia); // leave handle where it is
           else
