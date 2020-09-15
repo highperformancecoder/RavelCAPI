@@ -81,29 +81,38 @@ typedef struct CAPIRavelState CAPIRavelState;
 
 namespace ravel
 {
+  /// extra C++ fields for RavelHandleStateX
+  class HandleX
+  {
+  public:
+    HandleX() {}
+    HandleX(const ravel::HandleState&);
+
+  protected:
+    std::string m_description;
+    std::vector<std::string> m_customOrder; 
+    std::string m_minLabel, m_maxLabel, m_sliceLabel;
+  };
+
   /// convenience class wrapping C++ RAII types and setting up pointers
-  class RavelHandleStateX: public CAPIRavelHandleState
+  
+  class RavelHandleStateX: public CAPIRavelHandleState, private HandleX
   {
   public:
     RavelHandleStateX() {}
-    RavelHandleStateX(ravel::HandleState&& state);
-    RavelHandleStateX(const ravel::HandleState& state);
+    RavelHandleStateX(const ravel::HandleState& state):
+      CAPIRavelHandleState(state), HandleX(state) {setupPointers();}
+     RavelHandleStateX(const ravel::RavelHandleStateX& state):
+      CAPIRavelHandleState(state), HandleX(state) {setupPointers();}
     RavelHandleStateX& operator=(const RavelHandleStateX& x) {
       CAPIRavelHandleState::operator=(x);
-      m_description=x.m_description;
-      m_customOrder=x.m_customOrder;
-      m_minLabel=x.m_minLabel;
-      m_maxLabel=x.m_maxLabel;
-      m_sliceLabel=x.m_sliceLabel;
+      HandleX::operator=(x);
       setupPointers();
-      return *this;
     }
-    
+      
+   
   private:
-    std::string m_description;
     std::vector<const char*> customOrderStrings;
-    std::vector<std::string> m_customOrder; 
-    std::string m_minLabel, m_maxLabel, m_sliceLabel;
     void setupPointers() {
       customOrderStrings.clear();
       for (auto& i: m_customOrder)
@@ -116,26 +125,33 @@ namespace ravel
       description=m_description.c_str();
     }
   };
-    
+
+  class StateX
+  {
+  public:
+    StateX() {}
+    StateX(const ravel::RavelState& state);
+  protected:
+    std::vector<RavelHandleStateX> m_handleStates;
+    std::vector<std::string> m_outputHandles;
+  };
+  
   /// convenience class wrapping C++ RAII types and setting up pointers
-  class RavelStateX: public CAPIRavelState
+  class RavelStateX: public CAPIRavelState, private StateX
   {
   public:
     RavelStateX() {}
-    RavelStateX(ravel::RavelState&& state);
-    RavelStateX(const ravel::RavelState& state);
+    RavelStateX(const ravel::RavelState& x): CAPIRavelState(x), StateX(x) {setupPointers();}
+    RavelStateX(const RavelStateX& x): CAPIRavelState(x), StateX(x) {setupPointers();}
     RavelStateX& operator=(const RavelStateX& x) {
       CAPIRavelState::operator=(x);
-      m_handleStates=x.m_handleStates;
-      m_outputHandles=x.m_outputHandles;
+      StateX::operator=(x);
       setupPointers();
       return *this;
     }
-      
+   
   private:
-    std::vector<RavelHandleStateX> m_handleStates;
     std::vector<const CAPIRavelHandleState*> handleStatePtrs;
-    std::vector<std::string> m_outputHandles;
     std::vector<const char*> outputHandlePtrs;
     void setupPointers() {
       handleStatePtrs.clear();
