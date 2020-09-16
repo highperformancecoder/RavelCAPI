@@ -1,5 +1,5 @@
 .SUFFIXES: .cc .bc .js .d .jcd
-CFLAGS=-I. -I../src -I$(HOME)/usr/include --std=c++11 --bind -I$(HOME)/usr/emscripten/include
+CFLAGS=-I. -I../src -I../RavelCAPI -I$(HOME)/usr/include --std=c++11 --bind -I$(HOME)/usr/emscripten/include
 LIBS=-L$(HOME)/usr/emscripten/lib -ljson_spirit
 
 # different emscripten options here
@@ -32,7 +32,7 @@ $(warning $(RAVELOBJS))
 WEBINSTALLROOT=public_html/ravelation
 WEBINSTALL=$(WEBINSTALLROOT)/examples
 
-VPATH=../src
+VPATH=../src ../RavelCAPI
 
 all: $(JSMODULES)
 

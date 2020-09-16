@@ -18,10 +18,8 @@ void Ravel::checkRedistributeHandles()
   for (auto& h: handles)
     {
       // check that slicer is within bounds
-      if (h.sliceIndex>h.sliceMax())
-        h.sliceIndex=h.sliceMax();
-      else if (h.sliceIndex<h.sliceMin())
-        h.sliceIndex=h.sliceMin();
+      if (h.sliceIndex>=h.sliceLabels.size())
+        h.sliceIndex=h.sliceLabels.size()-1;
       // check that output handles are in their respective quadrants, and that no other are
       if (handleIds.size()>0 && &h-&handles.front() == handleIds[0])
         {
@@ -254,7 +252,12 @@ bool Ravel::onMouseMotion(double a_x, double a_y)
           break;
         case slicer:
           h.setSliceCoordinates(h.sliceIndex, a_x, a_y);
-          h.sliceIndex-=h.sliceMin();
+          if (h.sliceIndex>h.sliceMin() && h.sliceIndex<h.sliceMax())
+            h.sliceIndex-=h.sliceMin();
+          else if (h.sliceIndex>=h.sliceMax())
+            h.sliceIndex=h.sliceMax()-h.sliceMin();
+          else
+            h.sliceIndex=0;
           break;
         case filterMin:
           {
