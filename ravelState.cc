@@ -17,7 +17,7 @@ HandleState::HandleState(const CAPIRavelHandleState& state):
     for (auto i=state.customOrder; *i; ++i)
       customOrder.push_back(*i);
   if (state.minLabel) minLabel=state.minLabel;
-  if (state.maxLabel) minLabel=state.maxLabel;
+  if (state.maxLabel) maxLabel=state.maxLabel;
   if (state.sliceLabel) sliceLabel=state.sliceLabel;
 }
 
