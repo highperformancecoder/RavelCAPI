@@ -16,8 +16,6 @@ namespace ravel
   class SortedVector: public HandleSort
   {
   public:
-    /// current filter bounds
-    size_t m_sliceMin=0, m_sliceMax=std::numeric_limits<size_t>::max()-1;
     typedef std::string value_type;
    
     SortedVector(size_t sz=0, const std::string& s=""): 
@@ -107,6 +105,8 @@ namespace ravel
     
   private:
     CLASSDESC_ACCESS(SortedVector);
+    /// current filter bounds
+    size_t m_sliceMin=0, m_sliceMax=std::numeric_limits<size_t>::max()-1;
     Order m_order;
     std::vector<std::string> labels;
     std::vector<size_t> indices;
