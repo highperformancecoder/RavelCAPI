@@ -151,13 +151,13 @@ extern "C" {
   /// get the handle state (user modifiable attributes of handle \a
   /// handle). The returned object is valid until the next call to
   /// this function.
-  CAPIRavelHandleState* ravel_getHandleState(CAPIRavel* ravel, size_t handle) NOEXCEPT;
+  const CAPIRavelHandleState* ravel_getHandleState(CAPIRavel* ravel, size_t handle) NOEXCEPT;
   /// set the handle state
   void ravel_setHandleState(CAPIRavel* ravel, size_t handle, const CAPIRavelHandleState* handleState) NOEXCEPT;
   /// get the ravel state (user modifiable attributes of handle \a
   /// handle). The returned object is valid until the next call to
-  /// this function.
-  CAPIRavelState* ravel_getRavelState(CAPIRavel* ravel) NOEXCEPT;
+  /// this function. Never returns NULL.
+  const CAPIRavelState* ravel_getRavelState(CAPIRavel* ravel) NOEXCEPT;
   /// set the ravel state
   void ravel_setRavelState(CAPIRavel* ravel, const CAPIRavelState* handleState) NOEXCEPT;
   /// adjust handle slicer mouse is over up or down by n points
