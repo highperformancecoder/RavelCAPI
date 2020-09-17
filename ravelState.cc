@@ -10,7 +10,8 @@ using namespace ravel;
 HandleState::HandleState(const CAPIRavelHandleState& state):
   x(state.x), y(state.y), collapsed(state.collapsed),
   displayFilterCaliper(state.displayFilterCaliper),
-  reductionOp(toEnum<Op::ReductionOp>(state.reductionOp)), order(toEnum<HandleSort::Order>(state.order))
+  reductionOp(toEnum<Op::ReductionOp>(state.reductionOp)),
+  order(toEnum<HandleSort::Order>(state.order))
 {
   if (state.description) description=state.description;
   if (state.customOrder)
