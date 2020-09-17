@@ -108,6 +108,7 @@ namespace ravel
       CAPIRavelHandleState::operator=(x);
       HandleX::operator=(x);
       setupPointers();
+      return *this;
     }
       
    

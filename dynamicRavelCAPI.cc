@@ -11,6 +11,7 @@
 #include <dlfcn.h>
 #endif
 
+#include <stdexcept>
 using namespace std;
 
 /// C API version this is compiled against
