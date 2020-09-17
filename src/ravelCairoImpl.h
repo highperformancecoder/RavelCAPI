@@ -179,10 +179,10 @@ namespace ravel
               }
             if (h.displayFilterCaliper())
               {
-                if (!sliced || h.sliceIndex!=h.sliceMin())
+                if (!sliced || h.sliceIndex!=0)
                   drawCaliper(gc,sf,hx,hy,h.minSliceX()/sf,h.minSliceY()/sf,
                               h.minSliceLabel());
-                if (!sliced || h.sliceIndex!=h.sliceMax())
+                if (!sliced || h.sliceIndex!=h.sliceLabels.size()-1)
                   drawCaliper(gc,sf,hx,hy,h.maxSliceX()/sf,h.maxSliceY()/sf,
                               h.maxSliceLabel());
                 h.setMinSliceLabelExtents(gc);

@@ -306,7 +306,7 @@ void Handle::setHandleState(const HandleState& hs)
   else
     sliceLabels.order(hs.order);
 
-  setSlicer(hs.sliceLabel);
   sliceLabels.setCalipers(hs.minLabel, hs.maxLabel);
+  setSlicer(hs.sliceLabel);
 }
 
