@@ -152,8 +152,13 @@ extern "C"
   /// descriptive text of the operation of the Ravel (plain English for now)
   DLLEXPORT const char* ravel_description(CAPIRavel* ravel) noexcept
   {
-    ravel->temp=ravel->description();
-    return ravel->temp.c_str();
+    if (ravel)
+      {
+        ravel->temp=ravel->description();
+        return ravel->temp.c_str();
+      }
+    static const char* emptyString="";
+    return emptyString;
   }
 
   DLLEXPORT void ravel_setExplain(CAPIRavel* ravel, const char* explain, double x, double y) noexcept
@@ -359,14 +364,15 @@ extern "C"
     return true;
   }
 
-  DLLEXPORT CAPIRavelHandleState* ravel_getHandleState(CAPIRavel* ravel, size_t handle) noexcept
+  DLLEXPORT const CAPIRavelHandleState* ravel_getHandleState(CAPIRavel* ravel, size_t handle) noexcept
   {
     if (ravel && handle<ravel->handles.size())
       {
         ravel->handleState=ravel->handles[handle].getHandleState();
         return &ravel->handleState;
       }
-    return nullptr;
+    static RavelHandleStateX empty;
+    return &empty;
   }
     
     
@@ -377,14 +383,15 @@ extern "C"
       ravel->handles[handle].setHandleState(*hs);
   }
   
-  DLLEXPORT CAPIRavelState* ravel_getRavelState(CAPIRavel* ravel) noexcept
+  DLLEXPORT const CAPIRavelState* ravel_getRavelState(CAPIRavel* ravel) noexcept
   {
     if (ravel)
       {
         ravel->ravelState=ravel->getState();
         return &ravel->ravelState;
       }
-    return nullptr;
+    static const RavelStateX empty;
+    return &empty;
   }
     
     
