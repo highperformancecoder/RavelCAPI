@@ -232,16 +232,15 @@ namespace ravel
     if (ravelLib.lib)
       {
         if (!(ravel=ravel_new(0)))
-          throw std::runtime_error(ravel_lastErr());
+          ravelLib.errorMsg=ravel_lastErr();
       }
-    else
-      throw std::runtime_error(ravelLib.errorMsg);
   }
   
   Ravel::~Ravel() {
     if (ravel) ravel_delete(ravel);
   }
 
+  std::string Ravel::lastError() {return ravelLib.errorMsg;}
   std::string Ravel::version() {return ravelLib.versionFound;}
   void Ravel::clear() {ravel_clear(ravel);}
   void Ravel::render(CAPIRenderer& renderer) const {ravel_render(ravel, &renderer);}
@@ -318,14 +317,23 @@ namespace ravel
   void Ravel::fromXML(const std::string& xml) {
     if (!ravel_fromXML(ravel, xml.c_str())) throw std::runtime_error(ravel_lastErr());
   }
-  HandleState Ravel::getHandleState(size_t handle) const {
-    return *ravel_getHandleState(ravel, handle);
+  HandleState Ravel::getHandleState(size_t handle) const
+  {
+    if (ravel)
+      return *ravel_getHandleState(ravel, handle);
+    return {};
   }
-  void Ravel::setHandleState(size_t handle, const HandleState& handleState) {
+  void Ravel::setHandleState(size_t handle, const HandleState& handleState)
+  {
     RavelHandleStateX hs(handleState);
     ravel_setHandleState(ravel, handle, &hs);
   }
-  RavelState Ravel::getRavelState() const {return *ravel_getRavelState(ravel);}
+  RavelState Ravel::getRavelState() const
+  {
+    if (ravel)
+      return *ravel_getRavelState(ravel);
+    return {};
+  }
   void Ravel::setRavelState(const RavelState& rState) {
     RavelStateX cState(rState);
     ravel_setRavelState(ravel, &cState);

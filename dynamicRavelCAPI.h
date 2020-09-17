@@ -19,11 +19,12 @@ namespace ravel
     Ravel(const Ravel&)=delete;
     void operator=(const Ravel&)=delete;
   public:
-    // @throw if libravel not available or wrong version
     Ravel();
     ~Ravel();
     /// true if Ravel availabe for use
     operator bool() const {return ravel;}
+    /// returns last ravel error message
+    static std::string lastError();
     /// ravel version (if successfully loaded)
     static std::string version();
     /// removes all handles
