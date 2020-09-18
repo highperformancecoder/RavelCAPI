@@ -109,6 +109,7 @@ clean:
 	cd src/shims; $(BASIC_CLEAN)
 	cd src/tcl; $(BASIC_CLEAN)
 	cd test; $(BASIC_CLEAN)
+	cd RavelCAPI; $(MAKE) clean
 	rm -f $(MODELS) *.cd
 	rm -rf *.app
 
