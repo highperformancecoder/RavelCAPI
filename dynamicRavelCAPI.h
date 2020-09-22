@@ -124,4 +124,8 @@ namespace ravel
   };
 }
 
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
+#include "dynamicRavelCAPI.cd"
+#endif
+
 #endif
