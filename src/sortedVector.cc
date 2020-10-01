@@ -273,6 +273,8 @@ namespace ravel
     PreserveCalipers pc(*this);
     m_order=custom;
     indices=p;
+    m_sliceMin=0;
+    m_sliceMax=m_sliceMax=std::numeric_limits<size_t>::max()-1;
     assert(isPermValid());
   }
 
@@ -290,6 +292,8 @@ namespace ravel
         if (j!=labelToIndex.end())
           indices.push_back(j->second);
       }
+    m_sliceMin=0;
+    m_sliceMax=m_sliceMax=std::numeric_limits<size_t>::max()-1;
   }
   
   bool SortedVector::isPermValid() const
