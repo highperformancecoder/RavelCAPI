@@ -185,6 +185,9 @@ namespace ravel
     indices.resize(labels.size());
     for (size_t i=0; i<indices.size(); ++i) indices[i]=i;
 
+    // reset calipers
+    m_sliceMin=0;
+    m_sliceMax=std::numeric_limits<size_t>::max()-1;
     switch (o)
       {
       case forward:
