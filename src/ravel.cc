@@ -414,7 +414,16 @@ void Ravel::setState(const RavelState& rs)
     {
       auto h=handleByDescription.find(hs.description);
       if (h!=handleByDescription.end())
-        h->second->setHandleState(hs);
+        {
+          // rescale to radius
+          auto hsl=hs.x*hs.x+hs.y*hs.y;
+          if (hsl>0)
+            {
+              auto sf=radius() / sqrt(hsl);
+              h->second->setHome(hs.x*sf, hs.y*sf);
+            }
+          h->second->setHandleState(hs);
+        }
     }
   
   handleIds.clear();

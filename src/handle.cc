@@ -11,6 +11,9 @@
 using namespace ravel;
 using namespace std;
 
+#include <math.h>
+#include <assert.h>
+
 constexpr const double Handle::caliperLength,  Handle::hubRadius, Handle::slicerRadius;
 
 
@@ -295,7 +298,9 @@ HandleState Handle::getHandleState() const
 void Handle::setHandleState(const HandleState& hs)
 {
   description=hs.description;
-  moveTo(hs.x, hs.y, false);
+  if (hs.x*hs.x+hs.y*hs.y>0)
+    moveTo(hs.x, hs.y, false);
+  assert(isfinite(x()) && isfinite(y()));
   if (hs.collapsed!=collapsed())
     toggleCollapsed();
   displayFilterCaliper(hs.displayFilterCaliper);
