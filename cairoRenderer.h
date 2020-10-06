@@ -6,6 +6,8 @@
 #define CAIRORENDERER_H
 #include "capiRenderer.h"
 #include <cairo/cairo.h>
+#include <assert.h>
+#include <math.h>
 namespace ravel
 {
   struct CairoRenderer: public CAPIRenderer
@@ -74,11 +76,20 @@ namespace ravel
     static void s_identityMatrix(CAPIRenderer* c)
     {cairo_identity_matrix(cairo(c));}
     static void s_translate(CAPIRenderer* c, double x, double y)
-    {cairo_translate(cairo(c),x,y);}
+    { 
+      assert(isfinite(x) && isfinite(y));
+      cairo_translate(cairo(c),x,y);
+    }
     static void s_scale(CAPIRenderer* c, double sx, double sy)
-    {cairo_scale(cairo(c),sx,sy);}
+    {
+      assert(isfinite(sx) && isfinite(sy));
+      cairo_scale(cairo(c),sx,sy);
+    }
     static void s_rotate(CAPIRenderer* c, double angle)
-    {cairo_rotate(cairo(c),angle);}
+    {
+      assert(isfinite(angle));
+      cairo_rotate(cairo(c),angle);
+    }
     static void s_save(CAPIRenderer* c)
     {cairo_save(cairo(c));}
     static void s_restore(CAPIRenderer* c)

@@ -35,7 +35,7 @@ namespace ravel
   struct HandleState
   {
     std::string description;
-    double x,y; ///< handle tip coordinates (only angle important, not length)
+    double x=ravelDefaultRadius, y=0; ///< handle tip coordinates (only angle important, not length)
     bool collapsed=false, displayFilterCaliper=false;
     Op::ReductionOp reductionOp=Op::sum;
     HandleSort::Order order=HandleSort::none;
