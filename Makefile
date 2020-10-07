@@ -16,12 +16,12 @@ endif
 CC=$(MXE_PREFIX)-gcc
 CXX=$(MXE_PREFIX)-g++
 FLAGS=-DWIN32
-CXXFLAGS=-std=c++11
 else
 CC=gcc
 CXX=g++
-FLAGS=-fPIC
+FLAGS=-fPIC -isystem /usr/local/include -isystem /opt/local/include 
 endif
+CXXFLAGS=-std=c++11
 
 
 ifdef DEBUG
