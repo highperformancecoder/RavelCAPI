@@ -1,4 +1,5 @@
 #include "ravel.h"
+#include "ravelCAPITypes.h"
 #include <UnitTest++/UnitTest++.h>
 #include <ecolab_epilogue.h>
 using namespace std;
@@ -59,7 +60,7 @@ SUITE(RavelState)
       for (size_t i=0; i<r1.handles.size(); ++i)
         {
           CHECK(!deepEq(r1.handles[i], r2.handles[i]));
-          HandleStateX state=r1.handles[i].getHandleState();
+          RavelHandleStateX state=r1.handles[i].getHandleState();
           r1.handles[i].setHandleState(state);
           r2.handles[i].setHandleState(state);
           CHECK(deepEq(r1.handles[i], r2.handles[i]));
@@ -73,7 +74,7 @@ SUITE(RavelState)
       for (size_t i=0; i<r1.handles.size(); ++i)
         {
           CHECK(!deepEq(r1.handles[i], r2.handles[i]));
-          HandleStateX state=r2.handles[i].getHandleState();
+          RavelHandleStateX state=r2.handles[i].getHandleState();
           r1.handles[i].setHandleState(state);
           r2.handles[i].setHandleState(state);
           CHECK(deepEq(r1.handles[i], r2.handles[i]));

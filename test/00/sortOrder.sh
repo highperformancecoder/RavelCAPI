@@ -37,8 +37,7 @@ Ravel ravel
 ravel.addHandle "x" {1990 1991 1992 1993}
 set h [ravel.handles.@elem 0]
 \$h.displayFilterCaliper 1
-\$h.sliceLabels.m_sliceMin 1
-\$h.sliceLabels.m_sliceMax 2
+\$h.sliceLabels.setCalipers 1991 1992
 assert {[ravel.handles(0).sliceLabels]=={1991 1992}}
 assert {[ravel.handles(0).minSliceLabel]=="1991"}
 assert {[ravel.handles(0).maxSliceLabel]=="1992"}
