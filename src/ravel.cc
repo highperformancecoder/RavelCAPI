@@ -15,6 +15,12 @@ using namespace std;
 
 void Ravel::checkRedistributeHandles()
 {
+  double delta;
+  switch (rank())
+    {
+    case 1: delta=2*M_PI/(handles.size()); break;
+    default: delta=1.5*M_PI/(handles.size()-1); break;
+    }
   for (auto& h: handles)
     {
       // check that slicer is within bounds
@@ -37,12 +43,17 @@ void Ravel::checkRedistributeHandles()
               return;
             }
         }
-      else if ((abs(h.y())<=0.01*radius() && h.x()>0)||
-               (h.y()<0 && abs(h.x())<=0.01*radius()))
+      else
+        {
+          double a=atan2(-h.y(),h.x());
+          if ((abs(h.y())<=0.01*radius() && h.x()>0)||
+              (h.y()<0 && abs(h.x())<=0.01*radius())||
+              abs(fmod(a, delta))>0.1)
             {
               redistributeHandles();
               return;
             }
+        }
     }
 }
 
@@ -167,18 +178,23 @@ void Ravel::rescale(double r)
 int Ravel::handleIfMouseOver(double a_x, double a_y, int exclude) const
 {
   // determine tolerances based on angles
-  double cosTol=cos(0.25*M_PI);
+  double maxCosAngle=cos(0.25*M_PI);
   if (handles.size()>2)
-    cosTol=cos(0.75*M_PI/(handles.size()-1));
+    maxCosAngle=cos(0.75*M_PI/(handles.size()-1));
   double r=sqrt(sqr(a_x)+sqr(a_y));
+  // return closest handle, within cosTol, or -1 if no handle sufficiently close
+  int handle=-1;
   for (unsigned h=0; h<handles.size(); ++h)
     {
       if (int(h)==exclude) continue;
-      if ((a_x*handles[h].x()+a_y*handles[h].y())> 
-        (r*sqrt(sqr(handles[h].x())+sqr(handles[h].y()))) * cosTol)
-        return h;
+      auto cosAngle=(a_x*handles[h].x()+a_y*handles[h].y())/(r*sqrt(sqr(handles[h].x())+sqr(handles[h].y())));
+      if (cosAngle>maxCosAngle)
+        {
+          handle=h;
+          maxCosAngle=cosAngle;
+        }
     }
-  return -1; // no handle found within tolerance
+  return handle;
 }
 
 Ravel::ElementMoving Ravel::sliceCtlHandle(int handle, double a_x, double a_y) const
