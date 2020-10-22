@@ -77,17 +77,17 @@ namespace ravel
     {cairo_identity_matrix(cairo(c));}
     static void s_translate(CAPIRenderer* c, double x, double y)
     { 
-      assert(isfinite(x) && isfinite(y));
+      assert(std::isfinite(x) && std::isfinite(y));
       cairo_translate(cairo(c),x,y);
     }
     static void s_scale(CAPIRenderer* c, double sx, double sy)
     {
-      assert(isfinite(sx) && isfinite(sy));
+      assert(std::isfinite(sx) && std::isfinite(sy));
       cairo_scale(cairo(c),sx,sy);
     }
     static void s_rotate(CAPIRenderer* c, double angle)
     {
-      assert(isfinite(angle));
+      assert(std::isfinite(angle));
       cairo_rotate(cairo(c),angle);
     }
     static void s_save(CAPIRenderer* c)
