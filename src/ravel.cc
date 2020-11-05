@@ -122,7 +122,7 @@ size_t Ravel::addHandle(const string& description,
                      const vector<string>& sliceLabels)
 {
   handles.addHandle(description,sliceLabels);
-  if (handles.size()>=2)
+  if (handles.size()>=2 && rank()>0)
     redistributeHandles();
   return handles.size()-1;    
 }
