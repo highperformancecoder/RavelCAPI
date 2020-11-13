@@ -24,11 +24,13 @@ namespace ravel
         {0,0.5,0},
         {0,0,1},
         {1,0,1},
-        {0,1,1},
+        {0,.55,.55},
         {1,0.64,0}, //orange
         {0.62,0.12,0.93} //purple
       };
 
+    const int paletteSz=sizeof(palette)/sizeof(palette[0]);
+    
     template <class G>
     void drawArrow(G& gc)
     {
@@ -127,7 +129,8 @@ namespace ravel
         {
           auto& h=handles[i];
           gc.save();
-          gc.setSourceRGB(palette[i][0],palette[i][1],palette[i][2]);
+          auto& c=palette[i%paletteSz];
+          gc.setSourceRGB(c[0],c[1],c[2]);
           gc.newPath();
           gc.arc(0,0,Handle::hubRadius*radius()/sf, 2*pi, 0);
           gc.clip();
@@ -157,7 +160,8 @@ namespace ravel
         const Handle& h=handles[i];
         double hx=h.x()/sf, hy=h.y()/sf;
 
-        gc.setSourceRGB(palette[i][0],palette[i][1],palette[i][2]);
+        auto& c=palette[i%paletteSz];
+        gc.setSourceRGB(c[0],c[1],c[2]);
                                            
         drawLine(gc, hx,hy);
 
@@ -179,6 +183,9 @@ namespace ravel
               }
             if (h.displayFilterCaliper())
               {
+                gc.save();
+                auto& c=palette[(i+1)%paletteSz];
+                gc.setSourceRGB(c[0],c[1],c[2]);
                 if (!sliced || h.sliceIndex!=0)
                   drawCaliper(gc,sf,hx,hy,h.minSliceX()/sf,h.minSliceY()/sf,
                               h.minSliceLabel());
@@ -187,6 +194,7 @@ namespace ravel
                               h.maxSliceLabel());
                 h.setMinSliceLabelExtents(gc);
                 h.setMaxSliceLabelExtents(gc);
+                gc.restore();
               }
           }
         
@@ -254,6 +262,8 @@ namespace ravel
             double x=(h.sliceX()/sf+2)/scale, y=(h.sliceY()/sf-2)/scale;
             // do moveTo in rotated frame to allow for HTML canvas behaviour
             gc.moveTo(x*cos(angle)+y*sin(angle), y*cos(angle)-x*sin(angle));
+            auto& c=palette[(i+1)%paletteSz];
+            gc.setSourceRGB(c[0],c[1],c[2]);
             gc.showText(h.sliceLabel());
             gc.restore();
           }
