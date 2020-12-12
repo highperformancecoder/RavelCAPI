@@ -1,4 +1,5 @@
 .SUFFIXES: .cd .d $(SUFFIXES)
+OS=$(shell uname)
 
 ifdef MXE
 MXE_32bit=$(shell if which i686-w64-mingw32.static-g++>&/dev/null; then echo 1; fi)
@@ -16,13 +17,18 @@ endif
 CC=$(MXE_PREFIX)-gcc
 CXX=$(MXE_PREFIX)-g++
 FLAGS=-DWIN32
-CXXFLAGS=-std=c++11
 else
 CC=gcc
 CXX=g++
 FLAGS=-fPIC
 endif
 
+CXXFLAGS=-std=c++11
+
+
+ifeq ($(OS),Darwin)
+FLAGS+=-isystem /usr/local/include -isystem /opt/local/include
+endif
 
 ifdef DEBUG
 OPT=-g
