@@ -20,8 +20,14 @@
 using namespace std;
 using namespace std::chrono;
 
+#include <boost/date_time.hpp>
+using namespace boost;
+using namespace boost::posix_time;
+using namespace boost::gregorian;
+
 namespace
 {
+
   // numerically compare two strings. Numerical comparison takes place
   // on the leading numerical portion of string - if these are equal,
   // the strings are sorted lexicographically
@@ -31,22 +37,6 @@ namespace
     return xVal<yVal || (xVal==yVal && x<y);
   }
 
-  time_t date(const struct tm& tm)
-  {
-    return mktime(const_cast<struct tm*>(&tm));
-  }
-
-  struct Date: public tm
-  {
-    Date(int year, int month, int day)
-    {
-      memset(this,0,sizeof(*this));
-      tm_year=year-1900;
-      tm_mon=month-1;
-      tm_mday=day;
-    }
-  };
-  
   void extract(const string& fmt, const string& data, int pos1, const char* re1, int& var1,
                int pos2, const char* re2, int& var2)
   {
@@ -60,7 +50,7 @@ namespace
     var2=stoi(match[2]);
   }
 
-  time_t sToPtime(const string& s)
+  ptime sToPtime(const string& s)
   {
     const char* p=s.c_str();
     char *lp;
@@ -75,13 +65,11 @@ namespace
       }
     if (i==0)
       throw runtime_error("invalid date/time: "+s);
-    auto t=date(Date(d[0],d[1],d[2]));
-    t+=d[3]*3600 + d[4]*60 + d[5];
-    return t;
+    return ptime(date(d[0],d[1],d[2]), time_duration(d[3],d[4],d[5]));
   }
 
   // custom strptime that handle custom %Q marker and screwy dates with single digits
-  time_t strptime(const string& format, const string& dateTime)
+  ptime strptime(const string& format, const string& dateTime)
   {
     string::size_type pq;
     static regex screwyDates{R"(%([mdyY])[^%]%([mdyY])[^%]%([mdyY]))"};
@@ -104,7 +92,7 @@ namespace
           throw runtime_error("year not specified in format string");
         if (quarter<1 || quarter>4)
           throw runtime_error("invalid quarter "+to_string(quarter));
-        return date(Date(year, 4*(quarter-1)+1, 1));
+        return ptime(date(year, 4*(quarter-1)+1, 1));
       }
     else if (regex_match(format, m, screwyDates)) // handle dates with 1 or 2 digits see Ravel ticket #35
       {
@@ -132,7 +120,7 @@ namespace
                   case 'Y': year=v; break;
                   }
               }
-            return date(Date(year,month,day));
+            return ptime(date(year,month,day));
           }
         else
           throw runtime_error(dateTime+" doesn't match "+format);
@@ -140,9 +128,12 @@ namespace
     else if (!format.empty())
       {
         istringstream is(dateTime);
-        struct tm tm;
-        is>>get_time(&tm,format.c_str());
-        return date(tm);
+        is.imbue(locale(is.getloc(), new time_input_facet(format.c_str())));
+        ptime pt;
+        is>>pt;
+        if (pt.is_special())
+          throw runtime_error("invalid date/time: "+dateTime);
+        return pt;
       }
     else
       return sToPtime(dateTime);
