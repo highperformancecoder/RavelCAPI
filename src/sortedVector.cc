@@ -156,11 +156,12 @@ namespace ravel
       string minLabel, maxLabel;
       SortedVector& sv;
       PreserveCalipers(SortedVector& sv): sv(sv) {
-        if (!sv.calipersUnrestricted())
-          {
+        //        if (!sv.calipersUnrestricted())
+        if (sv.size()>0)
+        {
             minLabel=sv[0];
             maxLabel=sv[sv.size()-1];
-          }
+        }
       }
       ~PreserveCalipers() {
         if (!minLabel.empty() || !maxLabel.empty())
@@ -307,4 +308,17 @@ namespace ravel
     if (m_sliceMax<m_sliceMin) swap(m_sliceMin,m_sliceMax);
   }
 
+  bool SortedVector::displayFilterCaliper(bool d)
+  {
+    m_displayFilterCaliper=d;
+    if (d)
+      {
+        if (m_sliceMin>=indices.size()) m_sliceMin=indices.size()-1;
+        if (m_sliceMax>=indices.size()) m_sliceMax=indices.size()-1;
+        if (m_sliceMax<m_sliceMin) swap(m_sliceMin,m_sliceMax);
+      }
+    return d;
+  }
+
+  
 }

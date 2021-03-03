@@ -262,17 +262,6 @@ double Handle::sliceCoordInterp(size_t idx, double x) const
     1.5*hubRadius*x;
 }
 
-bool Handle::displayFilterCaliper(bool d)
-{
-  m_displayFilterCaliper=d;
-  if (!d)
-    {
-      sliceLabels.min(0);
-      sliceLabels.max(std::numeric_limits<size_t>::max()-1);
-    }
-  return d;
-}
-
 HandleState Handle::getHandleState() const
 {
   HandleState hs;
@@ -280,10 +269,10 @@ HandleState Handle::getHandleState() const
   hs.y=y();
   hs.description=description;
   hs.sliceLabel=sliceLabel();
-  hs.minLabel=minSliceLabel();
-  hs.maxLabel=maxSliceLabel();
-  hs.collapsed=collapsed();
   hs.displayFilterCaliper=displayFilterCaliper();
+  hs.minLabel=sliceLabels.minLabel();
+  hs.maxLabel=sliceLabels.maxLabel();
+  hs.collapsed=collapsed();
   hs.reductionOp=reductionOp;
   hs.order=sliceLabels.order();
   if (hs.order==HandleSort::custom)

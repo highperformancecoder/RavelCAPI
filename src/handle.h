@@ -31,7 +31,6 @@ namespace ravel
 
     double m_x, m_y, home_x, home_y;
     bool m_collapsed=false;
-    bool m_displayFilterCaliper=false;
     /** @{
         cached text extents for the handle description, op and caliper labels
         see ticket #957284
@@ -104,8 +103,8 @@ namespace ravel
 
     /// @{
     /// display filter caliper 
-    bool displayFilterCaliper() const {return m_displayFilterCaliper;}
-    bool displayFilterCaliper(bool d);
+    bool displayFilterCaliper() const {return sliceLabels.displayFilterCaliper();}
+    bool displayFilterCaliper(bool d) {return sliceLabels.displayFilterCaliper(d);}
     ///@}
     
     /// @{

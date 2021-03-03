@@ -61,8 +61,8 @@ namespace ravel
     size_t size() const {return max()-min()+1;}
     bool empty() const {return size()==0;}
 
-    size_t min() const {return m_sliceMin<indices.size()? m_sliceMin: indices.size();}
-    size_t max() const {return m_sliceMax<indices.size()? m_sliceMax: indices.size()-1;}
+    size_t min() const {return displayFilterCaliper()? (m_sliceMin<indices.size()? m_sliceMin: indices.size()): 0;}
+    size_t max() const {return m_sliceMax<indices.size() || displayFilterCaliper()? m_sliceMax: indices.size()-1;}
     size_t min(size_t m) {if (m<indices.size()) m_sliceMin=m; return min();}
     size_t max(size_t m) {m_sliceMax=m; return max();}
     
@@ -102,11 +102,21 @@ namespace ravel
 
     // set calipers to point to labels \a l1, \a l2.
     void setCalipers(const std::string& l1, const std::string& l2);
+
+    std::string minLabel() const {
+      return m_sliceMin<indices.size()? labels[indices[m_sliceMin]]: (*this)[0];
+    }
+    std::string maxLabel() const {
+      return m_sliceMax<indices.size()? labels[indices[m_sliceMax]]: (*this)[max()];
+    }
     
+    bool displayFilterCaliper(bool d);
+    bool displayFilterCaliper() const {return m_displayFilterCaliper;}
   private:
     CLASSDESC_ACCESS(SortedVector);
     /// current filter bounds
     size_t m_sliceMin=0, m_sliceMax=std::numeric_limits<size_t>::max()-1;
+    bool m_displayFilterCaliper=false;
     Order m_order;
     std::vector<std::string> labels;
     std::vector<size_t> indices;
