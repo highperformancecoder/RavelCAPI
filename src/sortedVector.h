@@ -62,7 +62,7 @@ namespace ravel
     bool empty() const {return size()==0;}
 
     size_t min() const {return displayFilterCaliper()? (m_sliceMin<indices.size()? m_sliceMin: indices.size()): 0;}
-    size_t max() const {return m_sliceMax<indices.size() || displayFilterCaliper()? m_sliceMax: indices.size()-1;}
+    size_t max() const {return m_sliceMax>=indices.size() || !displayFilterCaliper()? indices.size()-1: m_sliceMax;}
     size_t min(size_t m) {if (m<indices.size()) m_sliceMin=m; return min();}
     size_t max(size_t m) {m_sliceMax=m; return max();}
     

@@ -42,6 +42,7 @@ ravel.handleIds {0 1}
 ravel.addHandle x {a b c}
 ravel.addHandle y {a b c}
 ravel.addHandle z {a b c}
+ravel.redistributeHandles
 assert {[ravel.handles.size]>=3} ""
 ravel.handles.@elem 0
 ravel.handles.@elem 1

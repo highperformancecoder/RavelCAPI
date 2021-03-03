@@ -32,6 +32,7 @@ SUITE(RavelCairo)
       addHandle("x",{"a","b","c"});
       addHandle("y",{"a","b","c"});
       addHandle("z",{"a","b","c"});
+      redistributeHandles();
       rescale(100);
       render();
       cairo_surface_write_to_png(surf.surface(),"defaultRender.png");
