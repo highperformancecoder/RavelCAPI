@@ -156,8 +156,7 @@ namespace ravel
       string minLabel, maxLabel;
       SortedVector& sv;
       PreserveCalipers(SortedVector& sv): sv(sv) {
-        //        if (!sv.calipersUnrestricted())
-        if (sv.size()>0)
+        if (sv.size()>0 && !sv.calipersUnrestricted())
         {
             minLabel=sv[0];
             maxLabel=sv[sv.size()-1];
