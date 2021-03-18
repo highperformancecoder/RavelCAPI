@@ -214,11 +214,13 @@ Ravel::ElementMoving Ravel::sliceCtlHandle(int handle, double a_x, double a_y) c
             return Ravel::handle;
           if (h.displayFilterCaliper())
             {
-              if (dsq(a_x, a_y, h.minSliceX(), h.minSliceY()) < 
-                  sqr(0.02*Handle::caliperLength*radius()))
+              auto minDist=dsq(a_x, a_y, h.minSliceX(), h.minSliceY());
+              auto maxDist=dsq(a_x, a_y, h.maxSliceX(), h.maxSliceY());
+              
+              if (minDist < sqr(0.02*Handle::caliperLength*radius())
+                  && minDist<maxDist)
                 return filterMin;
-              else if (dsq(a_x, a_y, h.maxSliceX(), h.maxSliceY()) < 
-                       sqr(0.02*Handle::caliperLength*radius()))
+              else if (maxDist < sqr(0.02*Handle::caliperLength*radius()))
                 return filterMax;
             }
         }
