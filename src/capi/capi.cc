@@ -416,7 +416,7 @@ extern "C"
           else if (n>0) // start slicing
             {
               h->sliceIndex=0;
-              h->moveSliceIdx(n);
+              h->moveSliceIdx(n-1); // n=1 means move to first slice 
               ravel->handleIds.erase(i);
             }
         }
