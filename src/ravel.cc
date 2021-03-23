@@ -21,6 +21,7 @@ void Ravel::checkRedistributeHandles()
     case 1: delta=2*M_PI/(handles.size()); break;
     default: delta=1.5*M_PI/(handles.size()-1); break;
     }
+  set<int> positions;
   for (auto& h: handles)
     {
       // check that slicer is within bounds
@@ -46,13 +47,15 @@ void Ravel::checkRedistributeHandles()
       else
         {
           double a=atan2(-h.y(),h.x());
+          double amod=abs(fmod(a, delta));
           if ((abs(h.y())<=0.01*radius() && h.x()>0)||
               (h.y()<0 && abs(h.x())<=0.01*radius())||
-              abs(fmod(a, delta))>0.1)
+              amod>0.1||positions.count(amod))
             {
               redistributeHandles();
               return;
             }
+          positions.insert(amod);
         }
     }
 }
@@ -449,4 +452,5 @@ void Ravel::setState(const RavelState& rs)
       if (h!=handleByDescription.end())
         handleIds.push_back(h->second-&handles[0]); //index of handle in handles vector
     }
+  checkRedistributeHandles();
 }
