@@ -190,10 +190,20 @@ namespace ravel
                                                  });
             break;
           case time:
-            sort(indices.begin(), indices.end(), [&](size_t i, size_t j) {
-                               return strptime(format,labels[i])<strptime(format,labels[j]);
-                                                 });
-            m_order=timeForward;
+            try
+              {
+                sort(indices.begin(), indices.end(), [&](size_t i, size_t j) {
+                  return strptime(format,labels[i])<strptime(format,labels[j]);
+                });
+                m_order=timeForward;
+              }
+            catch (...)
+              {
+                // if time ordering fails, then just string sort the labels
+                sort(indices.begin(), indices.end(), [&](size_t i, size_t j) {
+                  return labels[i]<labels[j];
+                });
+              }
             break;
           case value:
             sort(indices.begin(), indices.end(), [&](size_t i, size_t j) {
