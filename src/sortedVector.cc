@@ -200,6 +200,7 @@ namespace ravel
             catch (...)
               {
                 // if time ordering fails, then just string sort the labels
+                for (size_t i=0; i<indices.size(); ++i) indices[i]=i;
                 sort(indices.begin(), indices.end(), [&](size_t i, size_t j) {
                   return labels[i]<labels[j];
                 });
