@@ -223,10 +223,21 @@ namespace ravel
                                                  });
             break;
           case time:
-            sort(indices.begin(), indices.end(), [&](size_t i, size_t j) {
-                               return strptime(format,labels[i])>strptime(format,labels[j]);
-                                                 });
-            m_order=timeReverse;
+            try
+              {
+                sort(indices.begin(), indices.end(), [&](size_t i, size_t j) {
+                  return strptime(format,labels[i])>strptime(format,labels[j]);
+                });
+                m_order=timeReverse;
+              }
+            catch (...)
+              {
+                // if time ordering fails, then just string sort the labels
+                for (size_t i=0; i<indices.size(); ++i) indices[i]=i;
+                sort(indices.begin(), indices.end(), [&](size_t i, size_t j) {
+                  return labels[i]>labels[j];
+                });
+              }
             break;
           case value:
             sort(indices.begin(), indices.end(), [&](size_t i, size_t j) {
