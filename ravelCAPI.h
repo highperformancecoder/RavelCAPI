@@ -133,6 +133,11 @@ extern "C" {
   /// set the ordering on handle \a axis to \a order
   void ravel_orderLabels(CAPIRavel* ravel, size_t axis, enum RavelOrder order, enum RavelOrderType, const char* format) NOEXCEPT;
 
+  /// sets the type of the next reduction operation
+  void ravel_nextReduction(CAPIRavel* ravel, enum RavelReductionOp) NOEXCEPT;
+  /// set the reduction type for \a handle
+  void ravel_handleSetReduction(CAPIRavel* ravel, int handle, enum RavelReductionOp) NOEXCEPT;
+  
   /// apply a custom permutation of axis labels (which may be less than the number of labels)
   /// indices is an array of length numIndices
   void ravel_applyCustomPermutation(CAPIRavel* ravel, size_t axis, size_t numIndices, const size_t* indices) NOEXCEPT;

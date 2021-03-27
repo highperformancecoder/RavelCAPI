@@ -204,6 +204,9 @@ namespace
   DEFFN(ravel_setSlicer,void,CAPIRavel*,size_t,const char*);
   DEFFN(ravel_setCalipers,void,CAPIRavel*,size_t,const char*,const char*);
   DEFFN(ravel_orderLabels, void, CAPIRavel*, size_t,RavelOrder,RavelOrderType, const char*);
+  DEFFN(ravel_nextReduction, void, CAPIRavel*, RavelReductionOp);
+  DEFFN(ravel_handleSetReduction, void, CAPIRavel*, int, RavelReductionOp);
+
   DEFFN(ravel_applyCustomPermutation, void, CAPIRavel*, size_t, size_t, const size_t*);
   DEFFN(ravel_currentPermutation, void, CAPIRavel*, size_t, size_t, size_t*);
   DEFFN(ravel_toXML, const char*, CAPIRavel*);
@@ -299,6 +302,10 @@ namespace ravel
     ravel_orderLabels(ravel,axis,toEnum<RavelOrder>(order),toEnum<RavelOrderType>(type),
                       format.c_str());
   }
+  void Ravel::nextReduction(Op::ReductionOp op)
+  {ravel_nextReduction(ravel,toEnum<RavelReductionOp>(op));}
+  void Ravel::handleSetReduction(int handle, Op::ReductionOp op)
+  {ravel_handleSetReduction(ravel,handle,toEnum<RavelReductionOp>(op));}
   void Ravel::applyCustomPermutation(size_t axis, const std::vector<size_t>& indices)
   {ravel_applyCustomPermutation(ravel,axis,indices.size(), indices.data());}
   std::vector<size_t> Ravel::currentPermutation(size_t axis) const {
