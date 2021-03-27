@@ -107,7 +107,7 @@ namespace ravel
       return m_sliceMin<indices.size()? labels[indices[m_sliceMin]]: (*this)[0];
     }
     std::string maxLabel() const {
-      return m_sliceMax<indices.size()? labels[indices[m_sliceMax]]: (*this)[max()];
+      return m_sliceMax<indices.size()? labels[indices[m_sliceMax]]: (*this)[max()-min()];
     }
     
     bool displayFilterCaliper(bool d);

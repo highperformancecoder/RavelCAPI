@@ -30,7 +30,7 @@ static_assert(sizeof(CAPIRenderer)==23*sizeof(void*),"Unexpected CAPIRenderer si
 static_assert(sizeof(CAPIRavelDataSpec)==4*sizeof(int),"Unexpected CAPIRavelDataSpec size - bump RAVEL_CAPI_VERSION");
 #ifndef WIN32
 static_assert(sizeof(CAPIRavelHandleState)==72,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
-static_assert(sizeof(CAPIRavelState)==32,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
+static_assert(sizeof(CAPIRavelState)==24,"Unexpected CAPIHandleState size - bump RAVEL_CAPI_VERSION");
 #endif
 
 struct CAPIRavelDC: public DataCube
