@@ -92,6 +92,11 @@ namespace ravel
     /// set the ordering on handle \a axis to \a order
     void orderLabels(size_t axis, HandleSort::Order order, HandleSort::OrderType, const std::string& format);
 
+    /// sets the type of the next reduction operation
+    void nextReduction(Op::ReductionOp);
+    /// set the reduction type for \a handle
+    void handleSetReduction(int handle, Op::ReductionOp);
+    
     /// apply a custom permutation of axis labels (which may be less than the number of labels)
     /// indices is an array of length numIndices
     void applyCustomPermutation(size_t axis, const std::vector<size_t>& indices);
