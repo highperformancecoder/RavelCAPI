@@ -49,8 +49,6 @@ namespace ravel
   struct RavelState
   {
     double radius=ravelDefaultRadius;
-    /// sort 1D ravel by value. Ignored for any other rank.
-    HandleSort::Order sortByValue=HandleSort::none;
     std::vector<HandleState> handleStates;
     std::vector<std::string> outputHandles;
     RavelState() {}

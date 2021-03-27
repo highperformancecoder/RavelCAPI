@@ -22,8 +22,7 @@ HandleState::HandleState(const CAPIRavelHandleState& state):
   if (state.sliceLabel) sliceLabel=state.sliceLabel;
 }
 
-RavelState::RavelState(const CAPIRavelState& state):
-  radius(state.radius), sortByValue(toEnum<HandleSort::Order>(state.sortByValue))
+RavelState::RavelState(const CAPIRavelState& state):  radius(state.radius)
 {
   if (state.handleStates)
     for (auto hs=state.handleStates; *hs; ++hs)
@@ -39,7 +38,7 @@ CAPIRavelHandleState::CAPIRavelHandleState(const ravel::HandleState& state):
                        toEnum<enum RavelOrder>(state.order)) {}
 
 CAPIRavelState::CAPIRavelState(const ravel::RavelState& state):
-  CAPIRavelState(state.radius, toEnum<enum RavelOrder>(state.sortByValue)) {}
+  CAPIRavelState(state.radius) {}
 
 
 HandleX::HandleX(const ravel::HandleState& state):

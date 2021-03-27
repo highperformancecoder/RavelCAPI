@@ -60,14 +60,12 @@ typedef struct CAPIRavelHandleState CAPIRavelHandleState;
 struct CAPIRavelState
 {
   double radius;
-  /// sort 1D ravel by value. Ignored for any other rank.
-  enum RavelOrder sortByValue;
   const CAPIRavelHandleState** handleStates; ///< null terminated list of handle states
   const char** outputHandles; ///< null terminated list of output handles
 
 #ifdef __cplusplus
-  CAPIRavelState(double radius=100, RavelOrder sortByValue=ravel_none):
-    radius(radius), sortByValue(sortByValue), handleStates(nullptr), outputHandles(nullptr) {}
+  CAPIRavelState(double radius=100):
+    radius(radius), handleStates(nullptr), outputHandles(nullptr) {}
   /// initialises just the simple data members
   CAPIRavelState(const ravel::RavelState& state);
 #endif
