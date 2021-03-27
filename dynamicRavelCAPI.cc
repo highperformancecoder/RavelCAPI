@@ -15,7 +15,7 @@
 using namespace std;
 
 /// C API version this is compiled against
-static const int ravelVersion=4;
+static const int ravelVersion=RAVEL_CAPI_VERSION;
 
 namespace
 {

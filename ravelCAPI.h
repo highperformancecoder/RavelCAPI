@@ -8,8 +8,6 @@
 #include <cairo/cairo.h>
 #include <stdlib.h>
 
-#define RAVEL_CAPI_VERSION 5
-
 #if defined(__cplusplus) && __cplusplus >= 201103L
 #define NOEXCEPT noexcept
 #else
