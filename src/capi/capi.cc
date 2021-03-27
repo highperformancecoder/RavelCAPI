@@ -299,6 +299,18 @@ extern "C"
     CONSUME_EXCEPTION()
   }
 
+  DLLEXPORT void ravel_nextReduction(CAPIRavel* ravel, RavelReductionOp op) noexcept
+  {
+    if (ravel)
+      ravel->nextRedOp=toEnum<Op::ReductionOp>(op);
+  }
+  
+  DLLEXPORT void ravel_handleSetReduction(CAPIRavel* ravel, int axis, RavelReductionOp op) noexcept
+  {
+    if (ravel && axis<ravel->handles.size())
+      ravel->handles[axis].reductionOp=toEnum<Op::ReductionOp>(op);
+  }
+  
   DLLEXPORT void ravel_applyCustomPermutation
   (CAPIRavel* ravel, size_t axis, size_t numIndices, const size_t* indices)
     noexcept
