@@ -11,6 +11,7 @@ else
 ECOLAB_HOME=/usr/local/ecolab
 endif
 endif
+endif
 
 include $(ECOLAB_HOME)/include/Makefile
 
