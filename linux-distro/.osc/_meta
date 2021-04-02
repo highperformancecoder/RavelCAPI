@@ -1,0 +1,8 @@
+<package name="ravel" project="home:hpcoder1">
+  <title>Ravel</title>
+  <description>Project to host package build files for Ravel (https://ravelation.hpcoders.com.au)</description>
+  <publish>
+    <disable/>
+  </publish>
+</package>
+

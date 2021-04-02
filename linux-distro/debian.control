@@ -1,0 +1,10 @@
+Source: ravel
+Section: science
+Priority: optional
+Maintainer: Russell Standish <hpcoder@hpcoders.com.au>
+Build-Depends: debhelper (>= 4.1.16), ecolab
+
+Package: ravel
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Graphical dynamical systems simulator oriented towards economics
