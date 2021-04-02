@@ -13,6 +13,8 @@ endif
 endif
 endif
 
+$(warning ECOLAB_HOME=$(ECOLAB_HOME))
+
 include $(ECOLAB_HOME)/include/Makefile
 
 ACTIONS+=xml_pack xml_unpack random_init
