@@ -5,8 +5,8 @@ else
 ifeq ($(shell ls $(HOME)/usr/ecolab/include/ecolab.h),$(HOME)/usr/ecolab/include/ecolab.h)
 ECOLAB_HOME=$(HOME)/usr/ecolab
 else
-ifeq ($(shell ls /usr/ecolab/include/ecolab.h),/usr/ecolab/include/ecolab.h)
-ECOLAB_HOME=/usr/ecolab
+ifeq ($(shell ls /usr/lib/ecolab/include/ecolab.h),/usr/lib/ecolab/include/ecolab.h)
+ECOLAB_HOME=/usr/lib/ecolab
 else 
 ECOLAB_HOME=/usr/local/ecolab
 endif
