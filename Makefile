@@ -126,6 +126,10 @@ tests: all
 sure: tests
 	sh runTests.sh
 
+install: libravel.$(DL)
+	mkdir -p $(LIBPREFIX)
+	cp libravel.$(DL) $(LIBPREFIX)
+
 Ravel/Installer/ravelDoc.wxi: doc doc/ravelDoc.tex 
 	cd doc && sh makeDoc.sh && sh createRavelDocWXI.sh
 
