@@ -58,8 +58,8 @@ namespace ravel
 }
 
 #if defined(CLASSDESC) || defined(ECOLAB_LIB)
-#include <xml_pack_base.h>
-#include <xml_unpack_base.h>
+#include "xml_pack_base.h"
+#include "xml_unpack_base.h"
 #ifdef _CLASSDESC
 #pragma omit xml_pack ravel::RavelCairo
 #pragma omit xml_unpack ravel::RavelCairo
