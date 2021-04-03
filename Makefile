@@ -142,6 +142,9 @@ ifdef AEGIS
 .PHONY: src/ravelVersion.h
 endif
 
+# force build xml_common.cd
+ravel.h: xml_common.cd
+
 src/ravelVersion.h:
 	rm -f $@
 ifdef AEGIS
