@@ -7,7 +7,7 @@ git tag -a -m "" $1
 git push
 popd
 pushd linux-distro
-semver=`echo $1|tr '-' '~' $1`
+semver=`echo $1|tr '-' '~'`
 sed -e 's/^Version:.*\$/Version: $semver/' -i ravel.spec
 sed -e 's/^Version:.*\$/Version: $semver-1/' -i ravel.dsc
 popd
