@@ -17,6 +17,8 @@ using namespace std;
 /// C API version this is compiled against
 static const int ravelVersion=RAVEL_CAPI_VERSION;
 
+#include "ravelRelease.h"
+
 namespace
 {
 #ifdef WIN32
@@ -59,6 +61,8 @@ namespace
       if (!version || !capi_version || ravelVersion!=capi_version())
         { // incompatible API
           errorMsg="Incompatible libravel dynamic library found";
+          errorMsg+=string("\nBuilt against: ")+ravelRelease;
+          errorMsg+=string("\nVersion found:")+versionFound;
           dlclose(lib);
           lib=nullptr;
         }

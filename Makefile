@@ -1,6 +1,8 @@
 .SUFFIXES: .cd .d $(SUFFIXES)
 OS=$(shell uname)
 
+RAVELRELEASE=$(shell git describe)
+
 ifdef MXE
 MXE_32bit=$(shell if which i686-w64-mingw32.static-g++>&/dev/null; then echo 1; fi)
 MXE_64bit=$(shell if which x86_64-w64-mingw32.static-g++>&/dev/null; then echo 1; fi)
