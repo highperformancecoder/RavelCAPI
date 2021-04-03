@@ -145,14 +145,6 @@ endif
 # force build xml_common.cd
 $(OBJS): xml_common.cd polyBase.cd
 
-src/ravelVersion.h:
-	rm -f $@
-ifdef AEGIS
-	echo '#define RAVEL_VERSION "'$(version)'"' >$@
-else
-	echo '#define RAVEL_VERSION "unknown"' >$@
-endif
-
 # This rule uses a header file of object descriptors
 $(MODELS:=.o): %.o: %.cc 
 #	$(CPLUSPLUS) -c $(FLAGS)  $<
