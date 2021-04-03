@@ -1,6 +1,6 @@
 Format: 1.0
 Source: ravel
-Version: 1.1.0~beta.98-1
+Version: $semver-1
 Binary: ravel
 Maintainer: Russell Standish <hpcoder@hpcoders.com.au>
 Architecture: any
