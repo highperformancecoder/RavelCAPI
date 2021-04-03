@@ -1,3 +1,5 @@
+.SUFFIXES: .cc .c .o .h .d .cd
+
 # root directory for ecolab include files and libraries
 ifdef MXE
 ECOLAB_HOME=$(HOME)/usr/mxe/ecolab
@@ -15,21 +17,95 @@ endif
 
 $(warning ECOLAB_HOME=$(ECOLAB_HOME))
 
+ifeq ($(shell ls $(ECOLAB_HOME)/include/Makefile), $(ECOLAB_HOME)/include/Makefile)
 include $(ECOLAB_HOME)/include/Makefile
+MODELS=ravelTest
+endif
 
 ACTIONS+=xml_pack xml_unpack random_init
-FLAGS+=-std=c++11 #-Wno-error=offsetof
+FLAGS+=-I$(HOME)/usr/include -I/usr/local/include -DCLASSDESC
+PKG_CONFIG=pkg-config
 
 WEBINSTALLROOT=public_html/ravelation
 WEBINSTALLEXAMPLES=$(WEBINSTALLROOT)/examples
 
-# override EcoLab's classdesc rule to get enums handled correctly
-.h.cd:
-	$(CLASSDESC) -nodef -onbase -typeName -I $(CDINCLUDE) -I $(ECOLAB_HOME)/include -i $< $(ACTIONS) >$@
-	$(CLASSDESC) -nodef -onbase -typeName -I $(CDINCLUDE) -I $(ECOLAB_HOME)/include -i $< \
-	  -respect_private  $(RPACTIONS) >>$@
+CPLUSPLUS=g++
+LINK=g++
+CPP=g++ -E
 
-VPATH+=src src/shims src/tcl src/capi RavelCAPI
+ifdef MXE
+MXE_32bit=$(shell if which i686-w64-mingw32.static-g++>&/dev/null; then echo 1; fi)
+MXE_64bit=$(shell if which x86_64-w64-mingw32.static-g++>&/dev/null; then echo 1; fi)
+ifeq ($(MXE_32bit),1)
+MXE_PREFIX=i686-w64-mingw32.static
+else
+ifeq ($(MXE_64bit),1)
+MXE_PREFIX=x86_64-w64-mingw32.static
+else
+$(error "MXE compiler not found")
+endif
+endif
+
+# force 64 bit build
+ifdef MXE64
+MXE_64bit=$(shell if which x86_64-w64-mingw32.static-g++>&/dev/null; then echo 1; fi)
+ifeq ($(MXE_64bit),1)
+MXE_PREFIX=x86_64-w64-mingw32.static
+else
+$(error "MXE compiler not found")
+endif
+endif
+
+GCC=1
+FLAGS+=-DSTATIC_BUILD -DNO_FWD_DECLARE_STL -DMXE
+CC=$(MXE_PREFIX)-gcc
+CPLUSPLUS=$(MXE_PREFIX)-g++
+LINK=$(CPLUSPLUS)
+CPP=$(CPLUSPLUS) -E
+# rewrite ecolab home to be the mxe one
+ifeq ($(ECOLAB_HOME),$(HOME)/usr/ecolab)
+ECOLAB_HOME=$(HOME)/usr/mxe/ecolab
+endif
+DIRS=$(ECOLAB_HOME) $(HOME)/usr/mxe $(subst bin/$(CPLUSPLUS),$(MXE_PREFIX),$(shell which $(CPLUSPLUS)))
+PKG_CONFIG_PATH:=$(HOME)/usr/mxe/lib/pkgconfig:$(PKG_CONFIG_PATH)
+PKG_CONFIG=env PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) $(MXE_PREFIX)-pkg-config
+LIBS+=-lgdiplus
+
+# xdr on MXE is positively ancient, so just disable it here
+XDR=
+
+# rule for running the resource compiler
+.rc.o:
+	$(MXE_PREFIX)-windres -O coff -i $< -o $@
+
+.rc.d:
+	touch $@
+else
+FLAGS+=-fPIC
+endif
+
+CXXFLAGS+=-std=c++11
+FLAGS+=-DCAIRO $(shell $(PKG_CONFIG) --cflags cairo)
+LIBS+=$(shell $(PKG_CONFIG) --libs cairo)
+
+
+.h.cd:
+	classdesc -nodef -onbase -typeName -i $< $(ACTIONS) >$@
+#	classdesc -nodef -onbase -typeName -i $< -respect_private  $(RPACTIONS) >>$@
+
+.c.d: 
+	$(CC) $(FLAGS) -MM -MG  $< >$@
+
+.cc.d: 
+	$(CPLUSPLUS) $(FLAGS)  $(CXXFLAGS) -MM -MG $< >$@
+
+.cc.o: 
+	$(CPLUSPLUS) -c $(FLAGS) $(CXXFLAGS) $(OPT) -o $@ $<
+
+.c.o: 
+	$(CC) -c $(FLAGS) $(OPT) -o $@ $<
+
+VPATH+=src src/shims src/tcl src/capi RavelCAPI $(HOME)/usr/include /usr/local/include
 FLAGS+=-I. -Isrc -Isrc/tcl -IRavelCAPI
 
 # object files making up libravel
@@ -38,8 +114,6 @@ OBJS=ravel.o handle.o dataCube.o ravelCairo.o cairoShimCairo.o \
 	sortedVector.o rawData.o partialReduction.o
 LIBS+= libravel.a
 LIBS:=-L$(HOME)/usr/lib64 $(LIBS)
-MODELS=ravelTest
-EXES=logos 
 
 DLLS=libgcc_s_dw2-1.dll libstdc++-6.dll libcairo-2.dll libgobject-2.0-0.dll libgsl-0.dll libpango-1.0-0.dll libpangocairo-1.0-0.dll tcl85.dll tk85.dll libz-1.dll libpixman-1-0.dll libpng15-15.dll libglib-2.0-0.dll libintl-8.dll libiconv-2.dll libffi-6.dll libgslcblas-0.dll libgmodule-2.0-0.dll libpangowin32-1.0-0.dll Tktable211.dll
 
@@ -56,7 +130,7 @@ endif
 
 #chmod command is to counteract AEGIS removing execute privelege from scripts
 all: $(MODELS) $(EXES)  libravel.$(DL) Ravel/Installer/ravelDoc.wxi src/ravelVersion.h
-	-$(CHMOD) a+x *.tcl
+	-chmod a+x *.tcl
 
 ifeq ($(OS),Darwin)
 all: $(MODELS:=.app)
@@ -109,6 +183,7 @@ include $(OBJS:.o=.d)
 include capi.d
 endif
 
+BASIC_CLEAN=rm -f *.o  *~ \\\#* core *.exh *.exc *.d *,D *.exe *.cd
 clean:
 	$(BASIC_CLEAN) libravel.*
 	cd src; $(BASIC_CLEAN)

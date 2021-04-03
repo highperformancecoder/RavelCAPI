@@ -13,7 +13,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <exception>
+#include <stdexcept>
 #include <assert.h>
 #include <math.h>
 

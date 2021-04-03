@@ -2,7 +2,13 @@
 #include "ravelCairo.h"
 #include "dataCube.h"
 #include "ravelVersion.h"
+#include <xml_pack_base.h>
+#include <xml_unpack_base.h>
+#ifdef ECOLAB_LIB
 #include <ecolab_epilogue.h>
+#elif CLASSDESC
+#include <classdesc_epilogue.h>
+#endif
 using namespace ravel;
 
 #include <memory>

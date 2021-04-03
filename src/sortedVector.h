@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <limits>
 #include <assert.h>
 #ifdef ECOLAB_LIB
 #include <TCL_obj_stl.h>
