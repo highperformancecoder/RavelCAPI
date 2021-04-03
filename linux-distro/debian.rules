@@ -29,9 +29,9 @@ endif
 DEST_DIR=/usr/src/packages/BUILD/debian/ravel
 
 ifeq ($(DEB_HOST_GNU_CPU),x86_64)
-LIBDIR=lib64
+LIBDIR=lib/x86_64-linux-gnu
 else
-LIBDIR=lib
+LIBDIR=lib/i386-linux-gnu
 endif
 
 build: build-stamp
