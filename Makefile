@@ -143,7 +143,7 @@ ifdef AEGIS
 endif
 
 # force build xml_common.cd
-ravel.h: xml_common.cd
+$(OBJS): xml_common.cd
 
 src/ravelVersion.h:
 	rm -f $@
