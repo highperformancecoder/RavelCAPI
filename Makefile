@@ -105,7 +105,7 @@ LIBS+=$(shell $(PKG_CONFIG) --libs cairo)
 .c.o: 
 	$(CC) -c $(FLAGS) $(OPT) -o $@ $<
 
-VPATH+=src src/shims src/tcl src/capi RavelCAPI $(HOME)/usr/include /usr/local/include
+VPATH+=src src/shims src/tcl src/capi RavelCAPI $(HOME)/usr/include /usr/local/include /usr/include
 FLAGS+=-I. -Isrc -Isrc/tcl -IRavelCAPI
 
 # object files making up libravel
