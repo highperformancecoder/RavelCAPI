@@ -39,6 +39,95 @@ SUITE(DataCube)
                         rd[i*rd.stride(0)+j*rd.stride(1)]);
     }
 
+  TEST_FIXTURE(DC, calipersReduced)
+    {
+      ifstream f("input.csv");
+      CSVFTokeniser tok(f,',');
+      auto spec=initDataSpec(tok);
+      loadFile("input.csv",',',spec);
+
+      Ravel ravel;
+      initRavel(ravel);
+      ravel.handleIds=vector<size_t>{2,1};
+      auto initRD=hyperSlice(ravel);
+
+      CHECK_EQUAL("ax1",ravel.handles[0].description);
+      CHECK_EQUAL("ax2",ravel.handles[1].description);
+      CHECK_EQUAL("?",ravel.handles[2].description);
+
+      ravel.handles[2].sliceLabels.min(1);
+      ravel.handles[2].sliceLabels.max(2);
+      ravel.handles[2].displayFilterCaliper(true);
+
+      ravel.handles[2].toggleCollapsed();
+      
+      auto rd=hyperSlice(ravel);
+      CHECK_EQUAL(1,rd.dim(0));
+      for (size_t j=0; j<rd.dim(1); ++j)
+        {
+          CHECK_EQUAL(initRD[initRD.stride(0) + j*initRD.stride(1)]+initRD[2*initRD.stride(0) + j*initRD.stride(1)],
+                           rd[j*rd.stride(1)]);
+        }
+
+      ravel.handles[0].moveSliceIdx(1);
+      ravel.handles[2].displayFilterCaliper(false);
+      ravel.handles[2].toggleCollapsed();
+      initRD=hyperSlice(ravel);
+      ravel.handles[2].displayFilterCaliper(true);
+      ravel.handles[2].toggleCollapsed();
+      rd=hyperSlice(ravel);
+      CHECK_EQUAL(1,rd.dim(0));
+      for (size_t j=0; j<rd.dim(1); ++j)
+        {
+          CHECK_EQUAL(initRD[initRD.stride(0) + j*initRD.stride(1)]+initRD[2*initRD.stride(0) + j*initRD.stride(1)],
+                           rd[j*rd.stride(1)]);
+        }
+    }
+
+  TEST_FIXTURE(DC, customReduced)
+    {
+      ifstream f("input.csv");
+      CSVFTokeniser tok(f,',');
+      auto spec=initDataSpec(tok);
+      loadFile("input.csv",',',spec);
+
+      Ravel ravel;
+      initRavel(ravel);
+      ravel.handleIds=vector<size_t>{2,1};
+      auto initRD=hyperSlice(ravel);
+
+      CHECK_EQUAL("ax1",ravel.handles[0].description);
+      CHECK_EQUAL("ax2",ravel.handles[1].description);
+      CHECK_EQUAL("?",ravel.handles[2].description);
+
+      ravel.handles[2].sliceLabels.customPermutation({0,3});
+      ravel.handles[2].toggleCollapsed();
+      
+      auto rd=hyperSlice(ravel);
+      CHECK_EQUAL(1,rd.dim(0));
+      for (size_t j=0; j<rd.dim(1); ++j)
+        {
+          //          cout << initRD[j*initRD.stride(1)] << " " <<initRD[3*initRD.stride(0) + j*initRD.stride(1)]<<" "<<rd[j*rd.stride(1)]<<endl;
+          CHECK_EQUAL(initRD[j*initRD.stride(1)]+initRD[3*initRD.stride(0) + j*initRD.stride(1)],
+                           rd[j*rd.stride(1)]);
+        }
+
+      ravel.handles[2].sliceLabels.customPermutation({2,3,1,0});
+      ravel.handles[2].sliceLabels.min(1);
+      ravel.handles[2].sliceLabels.max(2);
+      ravel.handles[2].displayFilterCaliper(true);
+
+      rd=hyperSlice(ravel);
+      CHECK_EQUAL(1,rd.dim(0));
+      for (size_t j=0; j<rd.dim(1); ++j)
+        {
+          //          cout << initRD[3*initRD.stride(0) + j*initRD.stride(1)] << " " <<initRD[initRD.stride(0) + j*initRD.stride(1)]<<" "<<rd[j*rd.stride(1)]<<endl;
+          CHECK_EQUAL(initRD[3*initRD.stride(0) + j*initRD.stride(1)]+initRD[initRD.stride(0) + j*initRD.stride(1)],
+                           rd[j*rd.stride(1)]);
+        }
+    
+    }
+
 #if 0  
       // bin on handle
       ravel.handles[0].addPartialReduction(new Bin(Bin::add,2));

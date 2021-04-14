@@ -331,7 +331,7 @@ void DataCube::hyperSlice(RawData& sliceData, const Ravel& ravel) const
   vector<SortedVector> orderings(rawData.rank());
   for (auto& h: ravel.handles)
     {
-      if (h.sliceLabels.order()!=HandleSort::none && !h.collapsed())
+      if (h.sliceLabels.order()!=HandleSort::none)
         handlesOrdered=true;
       auto& o=orderings[rawData.axis(h.description)]=h.sliceLabels;
       o.min(0);
