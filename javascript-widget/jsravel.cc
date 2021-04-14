@@ -408,7 +408,7 @@ EMSCRIPTEN_BINDINGS(Ravel) {
 
   class_<RavelState>("RavelState")
     .property("radius",&RavelState::radius)
-    .property("sortByValue",&RavelState::sortByValue)
+    //.property("sortByValue",&RavelState::sortByValue)
     .property("handleStates",&RavelState::handleStates)
     .property("outputHandles",&RavelState::outputHandles)
     ;
