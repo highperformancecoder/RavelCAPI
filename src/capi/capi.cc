@@ -1,3 +1,6 @@
+// if DEMO, then software is nobbled 90 days after release
+#define DEMO 1
+
 #include "ravelCAPI.h"
 #include "ravelCairo.h"
 #include "dataCube.h"
@@ -79,6 +82,11 @@ extern "C"
 
   DLLEXPORT CAPIRavel* ravel_new(size_t rank) noexcept 
   {
+    if (nobbled())
+      {
+        lastErr="Expired";
+        return nullptr;
+      }
     try
       {
         unique_ptr<CAPIRavel> r(new CAPIRavel);
