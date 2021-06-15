@@ -1,6 +1,6 @@
 echo "old version=`git describe`"
 echo '#define RAVEL_VERSION "'$1'"' >src/ravelVersion.h
-echo '#define RAVEL_RELEASE_TIMESTAMP '`date +%s` >src/ravelVersion.h
+echo '#define RAVEL_RELEASE_TIMESTAMP '`date +%s` >>src/ravelVersion.h
 pushd RavelCAPI
 echo 'const char* ravelRelease="'$1'";' >RavelCAPI/ravelRelease.h
 git commit -a -m "Release $1"
