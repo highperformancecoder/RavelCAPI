@@ -64,9 +64,18 @@ static string lastErr;
 
 extern "C"
 {
+  bool nobbled() {
+#if DEMO
+    // nobble software if now is more than 90 days after the release date
+    size_t nobbleTime=7776000;
+    return time(nullptr)>RAVEL_RELEASE_TIMESTAMP+nobbleTime;
+#endif
+    return false;
+  }
+  
   DLLEXPORT int ravel_capi_version() noexcept {return RAVEL_CAPI_VERSION;}
   DLLEXPORT const char* ravel_lastErr() noexcept  {return lastErr.c_str();}
-  DLLEXPORT const char* ravel_version() noexcept  {return RAVEL_VERSION;}
+  DLLEXPORT const char* ravel_version() noexcept  {return nobbled()? "Expired": RAVEL_VERSION;}
 
   DLLEXPORT CAPIRavel* ravel_new(size_t rank) noexcept 
   {
