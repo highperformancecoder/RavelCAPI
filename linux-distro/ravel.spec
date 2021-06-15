@@ -21,7 +21,7 @@
 Name:           minsky-beta
 %define semver 2.21.0
 %define betaver beta.38
-Version: 1.1.0~beta.110
+Version: 1.1.0~beta.111
 Source0:        Minsky-%{semver}-%{betaver}.tar.gz
 Release:        0
 Summary:        Economics dynamical systems simulator
