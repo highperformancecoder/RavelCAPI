@@ -27,6 +27,8 @@ namespace ravel
     static std::string lastError();
     /// ravel version (if successfully loaded)
     static std::string version();
+    /// number of days until expired - -ve values means expired.
+    static int daysUntilExpired();
     /// removes all handles
     void clear();
     /// render ravel widget into a Cairo context

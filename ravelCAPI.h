@@ -39,6 +39,8 @@ typedef struct CAPIRavelDataSpec CAPIRavelDataSpec;
 #ifdef __cplusplus
 extern "C" {
 #endif
+  /// returns number of days until license expires
+  int ravel_days_until_expiry() NOEXCEPT;
   /// returns the major version number of this API. This gets bumped
   /// whenever a method is removed or signature changes, but not when
   /// a method is added

@@ -177,6 +177,7 @@ namespace
     
   DEFFN(ravel_lastErr, const char*);
   DEFFN(ravel_version, const char*);
+  DEFFN(ravel_days_until_expiry, int);
   DEFFN(ravel_new, CAPIRavel*,size_t);
   DEFFN(ravel_delete, void, CAPIRavel*);
   DEFFN(ravel_clear, void, CAPIRavel*);
@@ -240,6 +241,8 @@ namespace ravel
       {
         if (!(ravel=ravel_new(0)))
           ravelLib.errorMsg=ravel_lastErr();
+        else if (daysUntilExpired()<0)
+          ravelLib.errorMsg="Expired";
       }
   }
   
@@ -249,6 +252,7 @@ namespace ravel
 
   std::string Ravel::lastError() {return ravelLib.errorMsg;}
   std::string Ravel::version() {return ravelLib.versionFound;}
+  int Ravel::daysUntilExpired() {return ravelLib.lib?  ravel_days_until_expiry(): -1;}
   void Ravel::clear() {ravel_clear(ravel);}
   void Ravel::render(CAPIRenderer& renderer) const {ravel_render(ravel, &renderer);}
   void Ravel::onMouseDown(double x, double y) {ravel_onMouseDown(ravel,x,y);}
