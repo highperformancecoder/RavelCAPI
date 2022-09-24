@@ -23,6 +23,8 @@ namespace ravel
     ~Ravel();
     /// true if Ravel availabe for use
     operator bool() const {return ravel;}
+    /// true if ravel is available on the system
+    static bool available();
     /// returns last ravel error message
     static std::string lastError();
     /// ravel version (if successfully loaded)

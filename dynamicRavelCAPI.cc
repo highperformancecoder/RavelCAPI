@@ -250,6 +250,7 @@ namespace ravel
     if (ravel) ravel_delete(ravel);
   }
 
+  bool Ravel::available() {return ravelLib.lib;}
   std::string Ravel::lastError() {return ravelLib.errorMsg;}
   std::string Ravel::version() {return ravelLib.versionFound;}
   int Ravel::daysUntilExpired() {return ravelLib.lib?  ravel_days_until_expiry(): -1;}
