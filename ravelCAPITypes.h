@@ -122,6 +122,7 @@ namespace ravel
         customOrderStrings.push_back(i.c_str());
       customOrderStrings.push_back(nullptr);
       customOrder=customOrderStrings.data();
+      format=m_format.c_str();
       minLabel=m_minLabel.c_str();
       maxLabel=m_maxLabel.c_str();
       sliceLabel=m_sliceLabel.c_str();
