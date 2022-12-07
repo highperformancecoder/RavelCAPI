@@ -39,7 +39,7 @@ namespace ravel
     bool collapsed=false, displayFilterCaliper=false;
     Op::ReductionOp reductionOp=Op::sum;
     HandleSort::Order order=HandleSort::none;
-    std::string format; // for deprecate time* sort orders
+    std::string format; // for deprecated time* sort orders
     std::vector<std::string> customOrder; 
     std::string minLabel, maxLabel, sliceLabel;
     HandleState() {}

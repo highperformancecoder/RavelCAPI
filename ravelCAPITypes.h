@@ -6,7 +6,7 @@
 #ifndef RAVELCAPITYPES_H
 #define RAVELCAPITYPES_H
 
-#define RAVEL_CAPI_VERSION 5
+#define RAVEL_CAPI_VERSION 6
 
 #ifdef __cplusplus
 namespace ravel
@@ -42,6 +42,7 @@ struct CAPIRavelHandleState
   const char* minLabel;
   const char* maxLabel;
   const char* sliceLabel;
+  const char* format;
   const char** customOrder; ///< used if order==custom, null terminated
 
 #ifdef __cplusplus
@@ -90,7 +91,8 @@ namespace ravel
 
   protected:
     std::string m_description;
-    std::vector<std::string> m_customOrder; 
+    std::vector<std::string> m_customOrder;
+    std::string m_format;
     std::string m_minLabel, m_maxLabel, m_sliceLabel;
   };
 

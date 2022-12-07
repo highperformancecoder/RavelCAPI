@@ -11,7 +11,8 @@ HandleState::HandleState(const CAPIRavelHandleState& state):
   x(state.x), y(state.y), collapsed(state.collapsed),
   displayFilterCaliper(state.displayFilterCaliper),
   reductionOp(toEnum<Op::ReductionOp>(state.reductionOp)),
-  order(toEnum<HandleSort::Order>(state.order))
+  order(toEnum<HandleSort::Order>(state.order)),
+  format(state.format)
 {
   if (state.description) description=state.description;
   if (state.customOrder)
@@ -42,7 +43,7 @@ CAPIRavelState::CAPIRavelState(const ravel::RavelState& state):
 
 
 HandleX::HandleX(const ravel::HandleState& state):
-  m_description(state.description), m_customOrder(state.customOrder),
+  m_description(state.description), m_customOrder(state.customOrder), m_format(state.format),
   m_minLabel(state.minLabel), m_maxLabel(state.maxLabel), m_sliceLabel(state.sliceLabel)
 {}
 
