@@ -23,7 +23,7 @@ enum RavelReductionOp {ravel_sum, ravel_prod, ravel_av, ravel_stddev, ravel_min,
 
 /// enum describing the sorting properties of handle
 // num* and time* deprecated here
-enum RavelOrder {ravel_none, ravel_forward, ravel_reverse, ravel_numForward, ravel_numReverse, ravel_timeForward, ravel_timeReverse, ravel_custom, ravel_dynamic_forward, ravel_dynamic_reverse };
+enum RavelOrder {ravel_none, ravel_forward, ravel_reverse, ravel_numForward, ravel_numReverse, ravel_timeForward, ravel_timeReverse, ravel_custom, ravel_static_forward, ravel_static_reverse, ravel_dynamic_forward, ravel_dynamic_reverse };
 enum RavelOrderType {ravel_string, ravel_time, ravel_value};
 
 // interface, for use on CAPI
