@@ -27,7 +27,8 @@ namespace ravel
   struct HandleSort
   {
     // num* and time* deprecated here
-    enum Order {none, forward, reverse, numForward, numReverse, timeForward, timeReverse, custom };
+    // dynamic* is the same as custom as far as Ravel is concerned, but may be used by clients to implement dynamic sorting
+    enum Order {none, forward, reverse, numForward, numReverse, timeForward, timeReverse, custom, dynamicForward, dynamicReverse };
     enum OrderType {string, time, value};
   };
 

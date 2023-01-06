@@ -6,7 +6,7 @@
 #ifndef RAVELCAPITYPES_H
 #define RAVELCAPITYPES_H
 
-#define RAVEL_CAPI_VERSION 6
+#define RAVEL_CAPI_VERSION 7
 
 #ifdef __cplusplus
 namespace ravel
@@ -23,7 +23,7 @@ enum RavelReductionOp {ravel_sum, ravel_prod, ravel_av, ravel_stddev, ravel_min,
 
 /// enum describing the sorting properties of handle
 // num* and time* deprecated here
-enum RavelOrder {ravel_none, ravel_forward, ravel_reverse, ravel_numForward, ravel_numReverse, ravel_timeForward, ravel_timeReverse, ravel_custom };
+enum RavelOrder {ravel_none, ravel_forward, ravel_reverse, ravel_numForward, ravel_numReverse, ravel_timeForward, ravel_timeReverse, ravel_custom, ravel_dynamic_forward, ravel_dynamic_reverse };
 enum RavelOrderType {ravel_string, ravel_time, ravel_value};
 
 // interface, for use on CAPI
