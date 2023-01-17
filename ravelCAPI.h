@@ -5,6 +5,7 @@
 #ifndef RAVELCAPI_H
 #define RAVELCAPI_H
 #include "capiRenderer.h"
+#include "capiCivita.h"
 #include <cairo/cairo.h>
 #include <stdlib.h>
 
@@ -170,6 +171,18 @@ extern "C" {
 
   /// redistribute handles according to current state
   void ravel_redistributeHandles(CAPIRavel* ravel) NOEXCEPT;
+
+  /// arrange for the output handle to be sorted in direction \a dir
+  /// Has no effect unless \a ravel is rank 1.
+  void ravel_sortByValue(CAPIRavel* ravel, const CAPITensor* input, enum RavelOrder dir) NOEXCEPT;
+
+  /// Return a tensor expression representing the application of this ravel on \a arg
+  const CAPITensor* ravel_hyperSlice(CAPIRavel* ravel, const CAPITensor* arg) NOEXCEPT;
+
+  /// sets handles and slices from \a hc
+  /// @param hc is JSON representation of the hypercube. See \a civita::Hypercube::json()
+  void ravel_populateFromHypercube(CAPIRavel* ravel, const char* hc) NOEXCEPT;
+
   
   /// create a new dataCube object
   CAPIRavelDC* ravelDC_new() NOEXCEPT;
