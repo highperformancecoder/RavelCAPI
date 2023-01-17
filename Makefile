@@ -22,12 +22,12 @@ FLAGS=-DWIN32
 else
 CC=gcc
 CXX=g++
-FLAGS=-fPIC -isystem /usr/local/include -isystem /opt/local/include 
+FLAGS=-fPIC -isystem /usr/local/include -isystem /opt/local/include -Icivita
 endif
-CXXFLAGS=-std=c++11
 
 CXXFLAGS=-std=c++11
 
+VPATH=civita
 
 ifeq ($(OS),Darwin)
 FLAGS+=-isystem /usr/local/include -isystem /opt/local/include
@@ -39,12 +39,20 @@ else
 OPT=-O3 -DNDEBUG
 endif
 
+ifdef FPIC
+OPT+=-fPIC
+endif
+
+
 OBJS=ravelState.o dynamicRavelCAPI.o
 
-all: testCAPI.o libravelCAPI.a
+all: testCAPI.o libravelCAPI.a civita/libcivita.a
 
 libravelCAPI.a: $(OBJS)
 	ar r $@ $^
+
+civita/libcivita.a:
+	cd civita && $(MAKE) $(MAKEOVERRIDES)
 
 .cc.o: 
 	$(CXX) -c $(FLAGS) $(CXXFLAGS) $(OPT) -o $@ $<
@@ -65,3 +73,4 @@ endif
 
 clean:
 	-rm *.o *.d *.cd *.a *~ \#*
+	cd civita && $(MAKE) clean

@@ -5,11 +5,18 @@
 #ifndef RAVELSTATE_H
 #define RAVELSTATE_H
 #include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
 struct CAPIRavelState;
 struct CAPIRavelHandleState;
+
+namespace civita
+{
+  class ITensor;
+  using TensorPtr=std::shared_ptr<ITensor>;
+}
 
 namespace ravel
 {
@@ -65,7 +72,10 @@ namespace ravel
       outputHandles.clear();
     }
   };
-  
+
+  /// creates a chain of tensor operations that represents a Ravel in
+  /// state \a state, operating on \a arg
+  std::vector<civita::TensorPtr> createRavelChain(const RavelState&, const civita::TensorPtr& arg);
 }
 #if defined(CLASSDESC) || defined(ECOLAB_LIB)
 #include "ravelState.cd"
