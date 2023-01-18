@@ -5,6 +5,7 @@
 
 #include "dynamicRavelCAPI.h"
 #include "ravelCAPITypes.h"
+#include "ravelCivita.h"
 #ifdef WIN32
 #include <windows.h>
 #else
@@ -222,7 +223,10 @@ namespace
   DEFFN(ravel_setRavelState, void, CAPIRavel*, const CAPIRavelState*);
   DEFFN(ravel_adjustSlicer, void, CAPIRavel*, int);
   DEFFN(ravel_redistributeHandles,void, CAPIRavel*);
-    
+  DEFFN(ravel_sortByValue,void, CAPIRavel*, const CAPITensor*, RavelOrder);
+  DEFFN(ravel_hyperSlice,CAPITensor*, CAPIRavel*, const CAPITensor*);
+  DEFFN(ravel_populateFromHypercube,void, CAPIRavel*, const char*);
+  
   //    DEFFN(ravelDC_new, Ravel::CAPIRavelDC*);
   //    DEFFN(ravelDC_delete, void, CAPIRavelDC*);
   //    DEFFN(ravelDC_initRavel, bool, CAPIRavelDC*, CAPIRavel*);
@@ -357,4 +361,37 @@ namespace ravel
   void Ravel::adjustSlicer(int n) {ravel_adjustSlicer(ravel,n);}
 
   void Ravel::redistributeHandles() {ravel_redistributeHandles(ravel);}
+
+  void Ravel::sortByValue(const civita::TensorPtr& input, HandleSort::Order dir)
+  {
+    CAPITensor capiTensor(*input);
+    ravel_sortByValue(ravel, &capiTensor, toEnum<RavelOrder>(dir));
+  }
+
+  namespace
+  {
+    // structure to maintain lifetimes of input and wrappers in a chain
+    struct Chain: public TensorWrap
+    {
+      civita::TensorPtr input;
+      CAPITensor capiTensor;
+      Chain(const ::CAPITensor& output, const civita::TensorPtr& input,
+            CAPITensor&& capiTensor):
+        TensorWrap(output), input(input), capiTensor(capiTensor) {}
+    };
+  }
+  
+  civita::TensorPtr Ravel::hyperSlice(const civita::TensorPtr& arg)
+  {
+    CAPITensor capiTensor(*arg);
+    auto r=ravel_hyperSlice(ravel, &capiTensor);
+    return make_shared<Chain>(*r,arg,std::move(capiTensor));
+  }
+
+    /// sets handles and slices from \a hc
+    void Ravel::populateFromHypercube(const civita::Hypercube& hc)
+    {
+      ravel_populateFromHypercube(ravel, hc.json().c_str());
+    }
+
 }

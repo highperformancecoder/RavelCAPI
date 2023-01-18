@@ -177,6 +177,7 @@ extern "C" {
   void ravel_sortByValue(CAPIRavel* ravel, const CAPITensor* input, enum RavelOrder dir) NOEXCEPT;
 
   /// Return a tensor expression representing the application of this ravel on \a arg
+  /// Validity of returned object is until next call of \a ravel_hyperSlice, or the lifetime of \a ravel
   const CAPITensor* ravel_hyperSlice(CAPIRavel* ravel, const CAPITensor* arg) NOEXCEPT;
 
   /// sets handles and slices from \a hc

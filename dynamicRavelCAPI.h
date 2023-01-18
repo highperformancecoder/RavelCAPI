@@ -7,6 +7,7 @@
 #define RAVEL_DYNAMMICRAVEL_H
 
 #include "ravelState.h"
+#include "hypercube.h"
 struct CAPIRavel;
 struct CAPIRavelDC;
 struct CAPIRenderer;
@@ -130,6 +131,17 @@ namespace ravel
     /// redistribute handles according to current state
     void redistributeHandles();
 
+        /// sort a rank 1 tensor by value along its output handle, given \a input, in direction \a dir
+    /// If rank != 1, this method does nothing.
+    void sortByValue(const civita::TensorPtr& input, HandleSort::Order dir);
+
+    /// Return a tensor expression representing the application of this ravel on \a arg
+    civita::TensorPtr hyperSlice(const civita::TensorPtr& arg);
+
+    /// sets handles and slices from \a hc
+    void populateFromHypercube(const civita::Hypercube& hc);
+
+    
   };
 }
 
