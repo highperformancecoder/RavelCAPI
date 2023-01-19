@@ -136,7 +136,7 @@ namespace ravel
     void sortByValue(const civita::TensorPtr& input, HandleSort::Order dir);
 
     /// Return a tensor expression representing the application of this ravel on \a arg
-    civita::TensorPtr hyperSlice(const civita::TensorPtr& arg);
+    civita::TensorPtr hyperSlice(const civita::TensorPtr& arg) const;
 
     /// sets handles and slices from \a hc
     void populateFromHypercube(const civita::Hypercube& hc);

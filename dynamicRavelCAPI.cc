@@ -381,8 +381,9 @@ namespace ravel
     };
   }
   
-  civita::TensorPtr Ravel::hyperSlice(const civita::TensorPtr& arg)
+  civita::TensorPtr Ravel::hyperSlice(const civita::TensorPtr& arg) const
   {
+    if (!arg) return nullptr;
     CAPITensor capiTensor(*arg);
     auto r=ravel_hyperSlice(ravel, &capiTensor);
     return make_shared<Chain>(*r,arg,std::move(capiTensor));
