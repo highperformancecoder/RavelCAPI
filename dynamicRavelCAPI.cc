@@ -374,18 +374,18 @@ namespace ravel
     struct Chain: public TensorWrap
     {
       civita::TensorPtr input;
-      CAPITensor capiTensor;
+      std::unique_ptr<CAPITensor> capiTensor;
       Chain(const ::CAPITensor& output, const civita::TensorPtr& input,
-            CAPITensor&& capiTensor):
-        TensorWrap(output), input(input), capiTensor(capiTensor) {}
+            std::unique_ptr<CAPITensor>&& capiTensor):
+        TensorWrap(output), input(input), capiTensor(std::move(capiTensor)) {}
     };
   }
   
   civita::TensorPtr Ravel::hyperSlice(const civita::TensorPtr& arg) const
   {
     if (!arg) return nullptr;
-    CAPITensor capiTensor(*arg);
-    auto r=ravel_hyperSlice(ravel, &capiTensor);
+    std::unique_ptr<CAPITensor> capiTensor(new CAPITensor(*arg));
+    auto r=ravel_hyperSlice(ravel, capiTensor.get());
     return make_shared<Chain>(*r,arg,std::move(capiTensor));
   }
 
