@@ -25,9 +25,10 @@ FLAGS=-DWIN32
 else
 CC=gcc
 CXX=g++
-FLAGS=-fPIC -isystem /usr/local/include -isystem /opt/local/include -Icivita
+FLAGS=-fPIC -isystem /usr/local/include -isystem /opt/local/include
 endif
 
+FLAGS+=-Icivita
 CXXFLAGS=-std=c++11
 
 VPATH=civita
