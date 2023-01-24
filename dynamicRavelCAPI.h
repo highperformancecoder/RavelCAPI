@@ -40,10 +40,10 @@ namespace ravel
     void onMouseDown(double x, double y);
     void onMouseUp(double x,double y);
     /// handle mouse motion with button pressed
-    /// @ return true if it needs to be rerendered
+    /// @return true if it needs to be rerendered
     bool onMouseMotion(double x,double y);
     /// hande mouse motion without pressed button (tooltips etc)
-    /// @ return true if it needs to be rerendered
+    /// @return true if it needs to be rerendered
     bool onMouseOver(double x,double y);
     /// handle mouse movements leaving the ravel
     void onMouseLeave();
