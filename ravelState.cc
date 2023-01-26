@@ -85,7 +85,9 @@ namespace ravel
     // TODO sorts and calipers
     for (auto& i: state.handleStates)
       {
-        if (i.order!=ravel::HandleSort::none || i.displayFilterCaliper || !i.customOrder.empty())
+        bool isOutput=outputHandles.count(i.description);
+        if ((isOutput||i.collapsed) && // no point permuting the handle slices if it is simply sliced.
+            (i.order!=ravel::HandleSort::none || i.displayFilterCaliper || !i.customOrder.empty()))
           {
             //apply sorting/calipers
             auto permuteAxis=make_shared<PermuteAxis>();
@@ -147,7 +149,7 @@ namespace ravel
             permuteAxis->setPermutation(move(perm));
             chain.push_back(permuteAxis);
           }
-        if (!outputHandles.count(i.description))
+        if (!isOutput)
           {
             auto arg=chain.back();
             if (i.collapsed)
@@ -171,7 +173,7 @@ namespace ravel
                 chain.back()->setArgument(arg, i.description, sliceIdx);
               }
           }
-      }
+      }      
     
     if (chain.back()->rank()>1)
       {
