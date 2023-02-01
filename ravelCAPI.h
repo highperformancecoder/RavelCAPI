@@ -182,7 +182,8 @@ extern "C" {
 
   /// sets handles and slices from \a hc
   /// @param hc is JSON representation of the hypercube. See \a civita::Hypercube::json()
-  void ravel_populateFromHypercube(CAPIRavel* ravel, const char* hc) NOEXCEPT;
+  /// @return true on success. Use ravel_lastErr() to retrieve diagnostic
+  int ravel_populateFromHypercube(CAPIRavel* ravel, const char* hc) NOEXCEPT;
 
   
   /// create a new dataCube object

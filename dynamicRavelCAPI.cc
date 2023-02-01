@@ -225,7 +225,7 @@ namespace
   DEFFN(ravel_redistributeHandles,void, CAPIRavel*);
   DEFFN(ravel_sortByValue,void, CAPIRavel*, const CAPITensor*, RavelOrder);
   DEFFN(ravel_hyperSlice,CAPITensor*, CAPIRavel*, const CAPITensor*);
-  DEFFN(ravel_populateFromHypercube,void, CAPIRavel*, const char*);
+  DEFFN(ravel_populateFromHypercube,int, CAPIRavel*, const char*);
   
   //    DEFFN(ravelDC_new, Ravel::CAPIRavelDC*);
   //    DEFFN(ravelDC_delete, void, CAPIRavelDC*);
@@ -386,13 +386,14 @@ namespace ravel
     if (!arg) return nullptr;
     std::unique_ptr<CAPITensor> capiTensor(new CAPITensor(*arg));
     auto r=ravel_hyperSlice(ravel, capiTensor.get());
+    if (!r) throw std::runtime_error(ravel_lastErr());
     return make_shared<Chain>(*r,arg,std::move(capiTensor));
   }
 
     /// sets handles and slices from \a hc
     void Ravel::populateFromHypercube(const civita::Hypercube& hc)
     {
-      ravel_populateFromHypercube(ravel, hc.json().c_str());
+      if (!ravel_populateFromHypercube(ravel, hc.json().c_str()))
+        throw std::runtime_error(ravel_lastErr());
     }
-
 }
