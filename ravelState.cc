@@ -91,7 +91,7 @@ namespace ravel
           {
             //apply sorting/calipers
             auto permuteAxis=make_shared<PermuteAxis>();
-            permuteAxis->setArgument(chain.back(), i.description);
+            permuteAxis->setArgument(chain.back(), {i.description, 0});
             auto& xv=chain.back()->hypercube().xvectors[permuteAxis->axis()];
             vector<size_t> perm;
             if (i.customOrder.empty())
@@ -155,7 +155,7 @@ namespace ravel
             if (i.collapsed)
               {
                 chain.emplace_back(createReductionOp(i.reductionOp));
-                chain.back()->setArgument(arg, i.description);
+                chain.back()->setArgument(arg, {i.description,0});
               }
             else
               {
@@ -170,7 +170,7 @@ namespace ravel
                 size_t sliceIdx=0;
                 if (sliceIt!=axisIt->end())
                   sliceIdx=sliceIt-axisIt->begin();
-                chain.back()->setArgument(arg, i.description, sliceIdx);
+                chain.back()->setArgument(arg, {i.description, double(sliceIdx)});
               }
           }
       }      
@@ -178,7 +178,7 @@ namespace ravel
     if (chain.back()->rank()>1)
       {
         auto finalPivot=make_shared<Pivot>();
-        finalPivot->setArgument(chain.back());
+        finalPivot->setArgument(chain.back(),{});
         finalPivot->setOrientation(state.outputHandles);
         chain.push_back(finalPivot);
       }
