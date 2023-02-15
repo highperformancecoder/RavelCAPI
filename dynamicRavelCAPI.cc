@@ -312,13 +312,13 @@ namespace ravel
   {ravel_setSlicer(ravel,axis,sliceLabel.c_str());}
   void Ravel::setCalipers(size_t axis, const std::string& l1, const std::string& l2)
   {ravel_setCalipers(ravel,axis,l1.c_str(),l2.c_str());}
-  std::pair<size_t,size_t> Ravel::getCaliperPositions(CAPIRavel* ravel, size_t axis)
+  std::pair<size_t,size_t> Ravel::getCaliperPositions(size_t axis)
   {
     std::pair<size_t,size_t> r;
     ravel_getCaliperPositions(ravel,axis,&r.first,&r.second);
     return r;
   }
-  void Ravel::setCaliperPositions(CAPIRavel* ravel, size_t axis, size_t p1, size_t p2)
+  void Ravel::setCaliperPositions(size_t axis, size_t p1, size_t p2)
   {
     ravel_setCaliperPositions(ravel,axis,p1,p2);
   }
