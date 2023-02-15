@@ -209,6 +209,8 @@ namespace
   DEFFN(ravel_displayFilterCaliper, void, CAPIRavel*, size_t, bool);
   DEFFN(ravel_setSlicer,void,CAPIRavel*,size_t,const char*);
   DEFFN(ravel_setCalipers,void,CAPIRavel*,size_t,const char*,const char*);
+  DEFFN(ravel_getCaliperPositions,void,CAPIRavel*,size_t,size_t*,size_t*);
+  DEFFN(ravel_setCaliperPositions,void,CAPIRavel*,size_t,size_t,size_t);
   DEFFN(ravel_orderLabels, void, CAPIRavel*, size_t,RavelOrder,RavelOrderType, const char*);
   DEFFN(ravel_nextReduction, void, CAPIRavel*, RavelReductionOp);
   DEFFN(ravel_handleSetReduction, void, CAPIRavel*, int, RavelReductionOp);
@@ -310,6 +312,17 @@ namespace ravel
   {ravel_setSlicer(ravel,axis,sliceLabel.c_str());}
   void Ravel::setCalipers(size_t axis, const std::string& l1, const std::string& l2)
   {ravel_setCalipers(ravel,axis,l1.c_str(),l2.c_str());}
+  std::pair<size_t,size_t> Ravel::getCaliperPositions(CAPIRavel* ravel, size_t axis)
+  {
+    std::pair<size_t,size_t> r;
+    ravel_getCaliperPositions(ravel,axis,&r.first,&r.second);
+    return r;
+  }
+  void Ravel::setCaliperPositions(CAPIRavel* ravel, size_t axis, size_t p1, size_t p2)
+  {
+    ravel_setCaliperPositions(ravel,axis,p1,p2);
+  }
+
   void Ravel::orderLabels(size_t axis, HandleSort::Order order,
                           HandleSort::OrderType type, const std::string& format){
     ravel_orderLabels(ravel,axis,toEnum<RavelOrder>(order),toEnum<RavelOrderType>(type),

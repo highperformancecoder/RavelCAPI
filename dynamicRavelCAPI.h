@@ -94,6 +94,10 @@ namespace ravel
     void setSlicer(size_t axis, const std::string& sliceLabel);
     /// set calipers to \a l1, l2
     void setCalipers(size_t axis, const std::string& l1, const std::string& l2);
+    /// get current caliper positions
+    std::pair<size_t,size_t> getCaliperPositions(CAPIRavel* ravel, size_t axis);
+    /// set caliper positions to \a p1, p2. Note: p1 must be less than numSliceLabels, otherwise it is ignored.
+    void setCaliperPositions(CAPIRavel* ravel, size_t axis, size_t p1, size_t p2);
     /// set the ordering on handle \a axis to \a order
     void orderLabels(size_t axis, HandleSort::Order order, HandleSort::OrderType, const std::string& format);
 

@@ -131,6 +131,10 @@ extern "C" {
   void ravel_setSlicer(CAPIRavel* ravel, size_t axis, const char* sliceLabel) NOEXCEPT;
   /// set calipers to \a l1, l2
   void ravel_setCalipers(CAPIRavel* ravel, size_t axis, const char* l1, const char* l2) NOEXCEPT;
+  /// get current caliper positions
+  void ravel_getCaliperPositions(CAPIRavel* ravel, size_t axis, size_t* p1, size_t* p2) NOEXCEPT;
+  /// set caliper positions to \a p1, p2. Note: p1 must be less than numSliceLabels, otherwise it is ignored.
+  void ravel_setCaliperPositions(CAPIRavel* ravel, size_t axis, size_t p1, size_t p2) NOEXCEPT;
   /// set the ordering on handle \a axis to \a order
   void ravel_orderLabels(CAPIRavel* ravel, size_t axis, enum RavelOrder order, enum RavelOrderType, const char* format) NOEXCEPT;
 
