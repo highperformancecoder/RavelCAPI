@@ -211,7 +211,7 @@ namespace
   DEFFN(ravel_setCalipers,void,CAPIRavel*,size_t,const char*,const char*);
   DEFFN(ravel_getCaliperPositions,void,CAPIRavel*,size_t,size_t*,size_t*);
   DEFFN(ravel_setCaliperPositions,void,CAPIRavel*,size_t,size_t,size_t);
-  DEFFN(ravel_orderLabels, void, CAPIRavel*, size_t,RavelOrder,RavelOrderType, const char*);
+  DEFFN(ravel_orderLabels, void, CAPIRavel*, size_t,RavelOrder);
   DEFFN(ravel_nextReduction, void, CAPIRavel*, RavelReductionOp);
   DEFFN(ravel_handleSetReduction, void, CAPIRavel*, int, RavelReductionOp);
 
@@ -323,10 +323,8 @@ namespace ravel
     ravel_setCaliperPositions(ravel,axis,p1,p2);
   }
 
-  void Ravel::orderLabels(size_t axis, HandleSort::Order order,
-                          HandleSort::OrderType type, const std::string& format){
-    ravel_orderLabels(ravel,axis,toEnum<RavelOrder>(order),toEnum<RavelOrderType>(type),
-                      format.c_str());
+  void Ravel::orderLabels(size_t axis, HandleSort::Order order){
+    ravel_orderLabels(ravel,axis,toEnum<RavelOrder>(order));
   }
   void Ravel::nextReduction(Op::ReductionOp op)
   {ravel_nextReduction(ravel,toEnum<RavelReductionOp>(op));}

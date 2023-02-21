@@ -136,7 +136,7 @@ extern "C" {
   /// set caliper positions to \a p1, p2. Note: p1 must be less than numSliceLabels, otherwise it is ignored.
   void ravel_setCaliperPositions(CAPIRavel* ravel, size_t axis, size_t p1, size_t p2) NOEXCEPT;
   /// set the ordering on handle \a axis to \a order
-  void ravel_orderLabels(CAPIRavel* ravel, size_t axis, enum RavelOrder order, enum RavelOrderType, const char* format) NOEXCEPT;
+  void ravel_orderLabels(CAPIRavel* ravel, size_t axis, enum RavelOrder order) NOEXCEPT;
 
   /// sets the type of the next reduction operation
   void ravel_nextReduction(CAPIRavel* ravel, enum RavelReductionOp) NOEXCEPT;
