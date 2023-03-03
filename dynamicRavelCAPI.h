@@ -57,6 +57,8 @@ namespace ravel
     /// descriptive text of the operation of the Ravel (plain English for now)
     std::string description() const;
 
+    static std::string description(const RavelState& s);
+    
   /// sets an explanatory message displayed as a tooltip @param
   /// explain a message, if empty, then a default explanatory message
   /// for the item at (x,y) is used

@@ -81,6 +81,9 @@ extern "C" {
   /// descriptive text of the operation of the Ravel (plain English for now)
   /// String buffer remains valid until next Ravel CAPI call.
   const char* ravel_description(CAPIRavel* ravel) NOEXCEPT;
+  /// descriptive text of the operation of the Ravel state (plain English for now)
+  /// String buffer remains valid until next Ravel CAPI call.
+  const char* ravel_state_description(const CAPIRavelState* state) NOEXCEPT;
 
   /// sets an explanatory message displayed as a tooltip @param
   /// explain a message, if empty, then a default explanatory message

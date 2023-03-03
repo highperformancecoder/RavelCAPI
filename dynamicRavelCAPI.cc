@@ -192,6 +192,7 @@ namespace
   DEFFN(ravel_radius, double, CAPIRavel*);
   DEFFN(ravel_rank, size_t, CAPIRavel*);
   DEFFN(ravel_description, const char*, CAPIRavel*);
+  DEFFN(ravel_state_description, const char*, const CAPIRavelState*);
   DEFFN(ravel_explain, const char*, CAPIRavel*, double, double);
   DEFFN(ravel_setExplain, void, CAPIRavel*, const char*, double, double);
   DEFFN(ravel_resetExplain, void, CAPIRavel*);
@@ -273,6 +274,10 @@ namespace ravel
   }
   size_t Ravel::rank() const {return ravel_rank(ravel);}
   std::string Ravel::description() const {return ravel_description(ravel);}
+  std::string Ravel::description(const RavelState& s) {
+    RavelStateX tmp(s);
+    return ravel_state_description(&tmp);
+  }
   void Ravel::setExplain(const std::string& explain, double x, double y)
   {ravel_setExplain(ravel,explain.c_str(), x,y);}
   void Ravel::resetExplain() {ravel_resetExplain(ravel);}
