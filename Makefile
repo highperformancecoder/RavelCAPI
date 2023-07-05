@@ -2,9 +2,10 @@
 OS=$(shell uname)
 
 RAVELRELEASE=$(shell git describe)
+MAKEOVERRIDES+=FPIC=1 CPLUSPLUS=$(CPLUSPLUS) GCOV=$(GCOV)
 
-build_civita:=$(shell cd civita && $(MAKE) $(JOBS) $(MAKEOVERRIDES) FPIC=1))
-$(warning $(bbuild_civita))
+build_civita:=$(shell cd civita && $(MAKE) $(JOBS) $(MAKEOVERRIDES))
+$(warning $(build_civita))
 
 ifdef MXE
 MXE_32bit=$(shell if which i686-w64-mingw32.static-g++>&/dev/null; then echo 1; fi)
@@ -47,6 +48,9 @@ ifdef FPIC
 OPT+=-fPIC
 endif
 
+ifdef GCOV
+FLAGS+=-fprofile-arcs -ftest-coverage
+endif
 
 OBJS=ravelState.o dynamicRavelCAPI.o
 
