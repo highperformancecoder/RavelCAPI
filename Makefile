@@ -1,12 +1,6 @@
 .SUFFIXES: .cd .d $(SUFFIXES)
 OS=$(shell uname)
 
-RAVELRELEASE=$(shell git describe)
-MAKEOVERRIDES+=FPIC=1 CPLUSPLUS=$(CPLUSPLUS) GCOV=$(GCOV)
-
-build_civita:=$(shell cd civita && $(MAKE) $(JOBS) $(MAKEOVERRIDES))
-$(warning $(build_civita))
-
 ifdef MXE
 MXE_32bit=$(shell if which i686-w64-mingw32.static-g++>&/dev/null; then echo 1; fi)
 MXE_64bit=$(shell if which x86_64-w64-mingw32.static-g++>&/dev/null; then echo 1; fi)
@@ -24,10 +18,22 @@ CC=$(MXE_PREFIX)-gcc
 CXX=$(MXE_PREFIX)-g++
 FLAGS=-DWIN32
 else
+ifdef CPLUSPLUS
+CC=$(CPLUSPLUS)
+CXX=$(CPLUSPLUS)
+else
 CC=gcc
 CXX=g++
-FLAGS=-fPIC -isystem /usr/local/include -isystem /opt/local/include
 endif
+FLAGS=-fPIC -isystem /usr/local/include -isystem /opt/local/include
+endif   #ifdef MXE
+
+RAVELRELEASE=$(shell git describe)
+MAKEOVERRIDES+=FPIC=1 CPLUSPLUS=$(CXX) GCOV=$(GCOV)
+
+build_civita:=$(shell cd civita && $(MAKE) $(JOBS) $(MAKEOVERRIDES))
+$(warning $(build_civita))
+
 
 FLAGS+=-Icivita
 CXXFLAGS=-std=c++11
