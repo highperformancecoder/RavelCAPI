@@ -144,7 +144,7 @@ namespace ravel
                         break;
                       }
               }
-            permuteAxis->setPermutation(move(perm));
+            permuteAxis->setPermutation(std::move(perm));
             chain.push_back(permuteAxis);
           }
         if (!isOutput)
