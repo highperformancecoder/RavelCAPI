@@ -80,6 +80,8 @@ namespace ravel
 
   vector<TensorPtr> createRavelChain(const RavelState& state, const TensorPtr& input)
   {
+    if (!input->hypercube().dimsAreDistinct())
+      throw runtime_error("Axis names of input hypercube must be distinct");
     set<string> outputHandles(state.outputHandles.begin(), state.outputHandles.end());
     vector<TensorPtr> chain{input};
     // TODO sorts and calipers
