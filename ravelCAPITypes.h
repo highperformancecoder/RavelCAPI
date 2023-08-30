@@ -6,7 +6,7 @@
 #ifndef RAVELCAPITYPES_H
 #define RAVELCAPITYPES_H
 
-#define RAVEL_CAPI_VERSION 8
+#define RAVEL_CAPI_VERSION 9
 
 #ifdef __cplusplus
 namespace ravel

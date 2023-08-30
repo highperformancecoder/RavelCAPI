@@ -35,6 +35,7 @@ namespace ravel
       stroke=s_stroke;
       strokePreserve=s_strokePreserve;
       setSourceRGB=s_setSourceRGB;
+      setSourceRGBA=s_setSourceRGBA;
       showText=s_showText;
       setTextExtents=s_setTextExtents;
       textWidth=s_textWidth;
@@ -65,6 +66,8 @@ namespace ravel
     static void s_clip(CAPIRenderer* c)  {cairo_clip(cairo(c));}
     static void s_stroke(CAPIRenderer* c) {cairo_stroke(cairo(c));}
     static void s_strokePreserve(CAPIRenderer* c) {cairo_stroke_preserve(cairo(c));}
+    static void s_setSourceRGBA(CAPIRenderer* c, double r, double g, double b,double a)
+    {cairo_set_source_rgba(cairo(c),r,g,b,a);}
     static void s_setSourceRGB(CAPIRenderer* c, double r, double g, double b)
     {cairo_set_source_rgb(cairo(c),r,g,b);}
     static void s_showText(CAPIRenderer* c, const char* s)

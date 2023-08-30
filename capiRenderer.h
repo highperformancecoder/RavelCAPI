@@ -26,6 +26,7 @@ struct CAPIRenderer
   
   // sources
   void (*setSourceRGB)(struct CAPIRenderer*, double r, double g, double b);
+  void (*setSourceRGBA)(struct CAPIRenderer*, double r, double g, double b, double a);
     
   // text. Argument is in UTF8 encoding
   void (*showText)(struct CAPIRenderer*, const char*);
