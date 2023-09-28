@@ -19,12 +19,11 @@ CXX=$(MXE_PREFIX)-g++
 FLAGS=-DWIN32
 else
 ifdef CPLUSPLUS
-CC=$(CPLUSPLUS)
 CXX=$(CPLUSPLUS)
 else
-CC=gcc
 CXX=g++
 endif
+CC=gcc
 FLAGS=-fPIC -isystem /usr/local/include -isystem /opt/local/include
 endif   #ifdef MXE
 
