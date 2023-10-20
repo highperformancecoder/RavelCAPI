@@ -3,16 +3,22 @@ OS=$(shell uname)
 
 ifdef MXE
 MXE_32bit=$(shell if which i686-w64-mingw32.static-g++>&/dev/null; then echo 1; fi)
-MXE_64bit=$(shell if which x86_64-w64-mingw32.shared-g++>&/dev/null; then echo 1; fi)
+
+MXE_64bit_static=$(shell if which x86_64-w64-mingw32.static-g++>&/dev/null; then echo 1; fi)
+MXE_64bit_shared=$(shell if which x86_64-w64-mingw32.shared-g++>&/dev/null; then echo 1; fi)
 
 ifeq ($(MXE_32bit),1)
-MXE_PREFIX=i686-w64-mingw32.static
+  MXE_PREFIX=i686-w64-mingw32.static
 else
-ifeq ($(MXE_64bit),1)
-MXE_PREFIX=x86_64-w64-mingw32.shared
-else
-$(error "MXE compiler not found")
-endif
+  ifeq ($(MXE_64bit_static),1)  # prefer static to shared
+    MXE_PREFIX=x86_64-w64-mingw32.static
+  else
+    ifeq ($(MXE_64bit_shared),1)
+      MXE_PREFIX=x86_64-w64-mingw32.shared
+    else
+      $(error "MXE compiler not found")
+    endif
+  endif
 endif
 CC=$(MXE_PREFIX)-gcc
 CXX=$(MXE_PREFIX)-g++
