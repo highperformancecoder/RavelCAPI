@@ -36,9 +36,13 @@ endif   #ifdef MXE
 RAVELRELEASE=$(shell git describe)
 MAKEOVERRIDES+=FPIC=1 CPLUSPLUS="$(CXX)" GCOV=$(GCOV) CLASSDESC=$(CLASSDESC) EXTRA_FLAGS=$(EXTRA_FLAGS)
 
-build_civita:=$(shell cd civita && $(MAKE) $(JOBS) $(MAKEOVERRIDES))
+ifneq ($(MAKECMDGOALS),clean)
+build_civita:=$(shell if cd civita && $(MAKE) $(JOBS) $(MAKEOVERRIDES) >build.log 2>&1; then echo civita built; fi)
 $(warning $(build_civita))
-
+ifneq ($(strip $(build_civita)),civita built)
+$(error Making Civita failed; check civita/build.log)
+endif
+endif
 
 FLAGS+=-Icivita
 CXXFLAGS=-std=c++11
