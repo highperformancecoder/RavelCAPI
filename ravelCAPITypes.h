@@ -22,7 +22,7 @@ namespace ravel
 enum RavelReductionOp {ravel_sum, ravel_prod, ravel_av, ravel_stddev, ravel_min, ravel_max};
 
 /// enum describing the sorting properties of handle
-enum RavelOrder {ravel_none, ravel_custom, ravel_static_forward, ravel_static_reverse, ravel_dynamic_forward, ravel_dynamic_reverse };
+enum RavelOrder {ravel_none, ravel_forward, ravel_reverse, ravel_custom, ravel_static_forward, ravel_static_reverse, ravel_dynamic_forward, ravel_dynamic_reverse };
 
 // interface, for use on CAPI
 struct CAPIRavelHandleState
