@@ -102,13 +102,11 @@ namespace ravel
                   perm.push_back(i);
                 switch (i.order)
                   {
-                  case ravel::HandleSort::staticForward:
-                  case ravel::HandleSort::dynamicForward:
+                  case ravel::HandleSort::forward:
                     sort(perm.begin(), perm.end(),
                          [&](size_t i, size_t j) {return diff(xv[i],xv[j])<0;});
                     break;
-                  case ravel::HandleSort::staticReverse:
-                  case ravel::HandleSort::dynamicReverse:
+                  case ravel::HandleSort::reverse:
                     sort(perm.begin(), perm.end(),
                          [&](size_t i, size_t j) {return diff(xv[i],xv[j])>0;});
                     break;

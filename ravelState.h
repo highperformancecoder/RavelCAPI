@@ -38,7 +38,7 @@ namespace ravel
     // static* and dynamic* is the same as custom as far as Ravel is
     // concerned, but may be used by clients to implement dynamic
     // sorting. All custom ordering enumerators must be declared after custom.
-    enum Order {none, custom, staticForward, staticReverse, dynamicForward, dynamicReverse };
+    enum Order {none, forward, reverse, custom, staticForward, staticReverse, dynamicForward, dynamicReverse };
   };
 
   // representing the state of the handles
