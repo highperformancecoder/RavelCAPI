@@ -32,6 +32,8 @@ namespace ravel
     static std::string version();
     /// number of days until expired - -ve values means expired.
     static int daysUntilExpired();
+    /// unload the Ravel plugin, removing it from the system
+    static void unload();
     /// removes all handles
     void clear();
     /// render ravel widget into a Cairo context
