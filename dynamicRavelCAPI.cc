@@ -30,7 +30,7 @@ namespace
   FARPROC WINAPI dlsym(HMODULE lib, const char* name)
   {return GetProcAddress(lib,name);}
 
-  void dlclose(HINSTANCE lib) {FreeLibrary(lib);}
+  void dlclose(HINSTANCE) {}
 
   const string dlerror() {
     char msg[1024];
@@ -68,8 +68,7 @@ namespace
           lib=nullptr;
         }
     }
-    ~RavelLib() {unload();}
-    void unload() {
+    ~RavelLib() {
       if (lib)
         dlclose(lib);
       lib=nullptr;
@@ -262,8 +261,6 @@ namespace ravel
   std::string Ravel::lastError() {return ravelLib.errorMsg;}
   std::string Ravel::version() {return ravelLib.versionFound;}
   int Ravel::daysUntilExpired() {return ravelLib.lib?  ravel_days_until_expiry(): -1;}
-  void Ravel::unload() {ravelLib.unload();}
-
   void Ravel::clear() {ravel_clear(ravel);}
   void Ravel::render(CAPIRenderer& renderer) const {ravel_render(ravel, &renderer);}
   void Ravel::onMouseDown(double x, double y) {ravel_onMouseDown(ravel,x,y);}
