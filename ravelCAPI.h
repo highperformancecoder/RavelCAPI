@@ -192,36 +192,6 @@ extern "C" {
   /// @return true on success. Use ravel_lastErr() to retrieve diagnostic
   int ravel_populateFromHypercube(CAPIRavel* ravel, const char* hc) NOEXCEPT;
 
-  
-  /// create a new dataCube object
-  CAPIRavelDC* ravelDC_new() NOEXCEPT;
-  /// delete a datacube object
-  void ravelDC_delete(CAPIRavelDC*) NOEXCEPT;
-  /// initialise a ravel from a loaded datacube. @return true on success
-  int ravelDC_initRavel(CAPIRavelDC* dc,CAPIRavel* ravel) NOEXCEPT;
-  /// open a CSV file. Format is described by \a spec. -1 means figure it out from the data. @return true on success
-  int ravelDC_openFile(CAPIRavelDC* dc, const char* fileName, CAPIRavelDataSpec spec) NOEXCEPT;
-  /// load data into a datacube. \a ravel specifies the dimensions and labels of the datacube.
-  /** on return, the rank of the datacube is the same as the rank of the ravel, ie
-      ravelDC_hyperSlice(dc,ravel,dims,data);
-      ravelDC_loadData(dc,ravel,data);
-      will permanently reduce the datacube to the slice described by \a ravel
-  **/
-  void ravelDC_loadData(CAPIRavelDC* dc, const CAPIRavel* ravel, const double data[]) NOEXCEPT;
-  /** return a hyperslice corresponding to the ravel's configuration
-      The returned data is a dense multidimensional array with the
-      dimensions returned as the \a dim parameter, which must be the
-      ravel's rank in size.
-      The returned data is owned by \a dc, and remains valid until the
-      next call of hyperSlice
-      @return true on success.  data is set to NULL on failure.
-  **/
-  int ravelDC_hyperSlice(CAPIRavelDC* dc, CAPIRavel *ravel, size_t dims[], double **data) NOEXCEPT;
-  /// return XML represention of
-  const char* ravelDC_toXML(CAPIRavelDC*) NOEXCEPT;
-  /// populate with XML data
-  void ravelDC_fromXML(CAPIRavelDC*, const char*) NOEXCEPT;
-
 #ifdef __cplusplus
 }
 #endif
