@@ -187,8 +187,10 @@ namespace ravel
 using namespace ravel;
 CAPIRavelHandleState::CAPIRavelHandleState(const ravel::HandleState& state):
   CAPIRavelHandleState(state.x,state.y,state.collapsed,
-                       state.displayFilterCaliper,toEnum<enum RavelReductionOp>(state.reductionOp),
-                       toEnum<enum RavelOrder>(state.order), state.customOrder) {}
+                       state.displayFilterCaliper,
+                       toEnum<enum RavelReductionOp>(state.reductionOp),
+                       toEnum<enum RavelOrder>(state.order),
+                       state.customOrderIsInverted) {}
 
 CAPIRavelState::CAPIRavelState(const ravel::RavelState& state):
   CAPIRavelState(state.radius) {}

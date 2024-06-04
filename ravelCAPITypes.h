@@ -29,7 +29,7 @@ struct CAPIRavelHandleState
 {
   double x,y; ///< handle tip coordinates (only angle important, not length)
   BOOL collapsed, displayFilterCaliper;
-  BOOL customOrderIsInverted=false; ///< if true, then customOrder is slices not selected
+  BOOL customOrderIsInverted; ///< if true, then customOrder is slices not selected
   enum RavelReductionOp reductionOp;
   enum RavelOrder order;
   
