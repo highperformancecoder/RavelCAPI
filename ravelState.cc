@@ -16,7 +16,7 @@ namespace ravel
     displayFilterCaliper(state.displayFilterCaliper),
     reductionOp(toEnum<Op::ReductionOp>(state.reductionOp)),
     order(toEnum<HandleSort::Order>(state.order)),
-    format(state.format)
+    format(state.format), customOrderIsInverted(state.customOrderIsInverted)
   {
     if (state.description) description=state.description;
     if (state.customOrder)
@@ -188,7 +188,7 @@ using namespace ravel;
 CAPIRavelHandleState::CAPIRavelHandleState(const ravel::HandleState& state):
   CAPIRavelHandleState(state.x,state.y,state.collapsed,
                        state.displayFilterCaliper,toEnum<enum RavelReductionOp>(state.reductionOp),
-                       toEnum<enum RavelOrder>(state.order)) {}
+                       toEnum<enum RavelOrder>(state.order), state.customOrder) {}
 
 CAPIRavelState::CAPIRavelState(const ravel::RavelState& state):
   CAPIRavelState(state.radius) {}

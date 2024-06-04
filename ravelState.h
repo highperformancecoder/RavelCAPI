@@ -50,6 +50,7 @@ namespace ravel
     Op::ReductionOp reductionOp=Op::sum;
     HandleSort::Order order=HandleSort::none;
     std::string format; // for deprecated time* sort orders
+    bool customOrderIsInverted=false; ///< if true, then customOrder is slices not selected
     std::vector<std::string> customOrder; 
     std::string minLabel, maxLabel, sliceLabel;
     HandleState() {}

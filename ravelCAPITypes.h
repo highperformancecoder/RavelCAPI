@@ -6,7 +6,7 @@
 #ifndef RAVELCAPITYPES_H
 #define RAVELCAPITYPES_H
 
-#define RAVEL_CAPI_VERSION 9
+#define RAVEL_CAPI_VERSION 10
 
 #ifdef __cplusplus
 namespace ravel
@@ -29,6 +29,7 @@ struct CAPIRavelHandleState
 {
   double x,y; ///< handle tip coordinates (only angle important, not length)
   BOOL collapsed, displayFilterCaliper;
+  BOOL customOrderIsInverted=false; ///< if true, then customOrder is slices not selected
   enum RavelReductionOp reductionOp;
   enum RavelOrder order;
   
@@ -46,11 +47,11 @@ struct CAPIRavelHandleState
 #ifdef __cplusplus
   explicit CAPIRavelHandleState(double x=0, double y=0, bool collapsed=false,
                        bool displayFilterCaliper=false, RavelReductionOp reductionOp=ravel_sum,
-                       RavelOrder order=ravel_none):
+                                RavelOrder order=ravel_none,bool customOrderIsInverted=false):
     x(x), y(y), collapsed(collapsed), displayFilterCaliper(displayFilterCaliper),
     reductionOp(reductionOp), order(order),
     description(nullptr), minLabel(nullptr), maxLabel(nullptr), sliceLabel(nullptr),
-    customOrder(nullptr) {}
+    customOrder(nullptr), customOrderIsInverted(customOrderIsInverted) {}
   /// initialises just the simple data members
   CAPIRavelHandleState(const ravel::HandleState& state);
 #endif
