@@ -229,14 +229,6 @@ namespace
   DEFFN(ravel_sortByValue,void, CAPIRavel*, const CAPITensor*, RavelOrder);
   DEFFN(ravel_hyperSlice,CAPITensor*, CAPIRavel*, const CAPITensor*);
   DEFFN(ravel_populateFromHypercube,int, CAPIRavel*, const char*);
-  
-  //    DEFFN(ravelDC_new, Ravel::CAPIRavelDC*);
-  //    DEFFN(ravelDC_delete, void, CAPIRavelDC*);
-  //    DEFFN(ravelDC_initRavel, bool, CAPIRavelDC*, CAPIRavel*);
-  //    DEFFN(ravelDC_openFile, bool, CAPIRavelDC*, const char*, RavelDataSpec);
-  //    DEFFN(ravelDC_loadData, void, CAPIRavelDC*, const CAPIRavel*, const double*);
-  //    DEFFN(ravelDC_hyperSlice, int, CAPIRavelDC*, CAPIRavel*, size_t*, double**);
-
 }
 
 namespace ravel
