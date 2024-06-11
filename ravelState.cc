@@ -115,7 +115,14 @@ namespace ravel
                     break;
                   }
               }
-            else
+            else if (i.customOrderIsInverted)
+              {
+                set<string> customOrder(i.customOrder.begin(), i.customOrder.end());
+                for (size_t i=0; i<xv.size(); ++i)
+                  if (!customOrder.count(str(xv[i], xv.dimension.units)))
+                    perm.push_back(i);
+              }
+            else              
               {
                 map<string, size_t> offsets;
                 for (size_t i=0; i<xv.size(); ++i)
