@@ -50,8 +50,10 @@ namespace ravel
     Op::ReductionOp reductionOp=Op::sum;
     HandleSort::Order order=HandleSort::none;
     std::string format; // for deprecated time* sort orders
-    bool customOrderIsInverted=false; ///< if true, then customOrder is slices not selected
-    std::vector<std::string> customOrder; 
+    /// if true, then customOrder is slices not selected. Deprecated,
+    /// supported just for old rvl files
+    bool customOrderIsInverted=false; 
+    std::vector<std::string> customOrder, customOrderComplement; 
     std::string minLabel, maxLabel, sliceLabel;
     HandleState() {}
     HandleState(const CAPIRavelHandleState& state);
