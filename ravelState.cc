@@ -100,18 +100,24 @@ namespace ravel
               {
                 for (size_t i=0; i<xv.size(); ++i)
                   perm.push_back(i);
-                switch (i.order)
+                // custom ordering cannot have an empty customOrder -
+                // but correct for previous misguided implementation
+                // that confused staticForward with forward, etc.
+               switch (i.order)
                   {
                   case ravel::HandleSort::forward:
+                  case ravel::HandleSort::staticForward:
+                  case ravel::HandleSort::dynamicForward:
                     sort(perm.begin(), perm.end(),
                          [&](size_t i, size_t j) {return diff(xv[i],xv[j])<0;});
                     break;
                   case ravel::HandleSort::reverse:
+                  case ravel::HandleSort::staticReverse:
+                  case ravel::HandleSort::dynamicReverse:
                     sort(perm.begin(), perm.end(),
                          [&](size_t i, size_t j) {return diff(xv[i],xv[j])>0;});
                     break;
                   default:
-                    assert(i.order==ravel::HandleSort::none);
                     break;
                   }
               }
