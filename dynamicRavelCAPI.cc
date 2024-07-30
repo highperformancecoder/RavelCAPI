@@ -40,7 +40,13 @@ namespace
 #else
   typedef void* libHandle;
   libHandle loadLibrary(const string& lib)
-  {return dlopen((lib+".so").c_str(),RTLD_NOW);}
+  {
+    // get ravel plugin from special place
+    if (auto home=getenv("HOME"))
+      if (auto handle=dlopen((string(home)+"/.ravel/"+lib+".so").c_str(),RTLD_NOW))
+        return handle;
+    return dlopen((lib+".so").c_str(),RTLD_NOW);
+  }
 #endif
   
   struct RavelLib

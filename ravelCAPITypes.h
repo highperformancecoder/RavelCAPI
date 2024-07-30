@@ -119,6 +119,16 @@ namespace ravel
       customOrderStrings.clear();
       for (auto& i: m_customOrder)
         customOrderStrings.push_back(i.c_str());
+      // correct for a previous beta implementation that was misguided
+      // custom ordering cannot have an empty customOrder
+      if (m_customOrder.empty())
+        switch (order)
+          {
+          case ravel_custom: order=ravel_none; break;
+          case ravel_static_forward: case ravel_dynamic_forward: order=ravel_forward; break;
+          case ravel_static_reverse: case ravel_dynamic_reverse: order=ravel_reverse; break;
+          default: break;
+          }
       customOrderStrings.push_back(nullptr);
       customOrder=customOrderStrings.data();
       format=m_format.c_str();
