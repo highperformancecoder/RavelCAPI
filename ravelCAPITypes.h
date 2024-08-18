@@ -78,6 +78,11 @@ typedef struct CAPIRavelState CAPIRavelState;
 #ifdef __cplusplus
 #include <string>
 #include <vector>
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
+#include <classdesc_access.h>
+#else
+#define CLASSDESC_ACCESS(x)
+#endif
 
 namespace ravel
 {
@@ -89,6 +94,7 @@ namespace ravel
     HandleX(const ravel::HandleState&);
 
   protected:
+    CLASSDESC_ACCESS(HandleX);
     std::string m_description;
     std::vector<std::string> m_customOrder;
     std::string m_format;
@@ -114,6 +120,7 @@ namespace ravel
       
    
   private:
+    CLASSDESC_ACCESS(RavelHandleStateX);
     std::vector<const char*> customOrderStrings;
     void setupPointers() {
       customOrderStrings.clear();
@@ -145,6 +152,7 @@ namespace ravel
     StateX() {}
     StateX(const ravel::RavelState& state);
   protected:
+    CLASSDESC_ACCESS(StateX);
     std::vector<RavelHandleStateX> m_handleStates;
     std::vector<std::string> m_outputHandles;
   };
@@ -164,6 +172,7 @@ namespace ravel
     }
    
   private:
+    CLASSDESC_ACCESS(RavelStateX);
     std::vector<const CAPIRavelHandleState*> handleStatePtrs;
     std::vector<const char*> outputHandlePtrs;
     void setupPointers() {
@@ -180,6 +189,11 @@ namespace ravel
     }
   };
 }
+
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
+#include "ravelCAPITypes.cd"
 #endif
+
+#endif // __cplusplus
 
 #endif
