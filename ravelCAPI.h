@@ -17,8 +17,6 @@
 
 struct CAPIRavel;
 typedef struct CAPIRavel CAPIRavel;
-struct CAPIRavelDC;
-typedef struct CAPIRavelDC CAPIRavelDC;
 
 #include "ravelCAPITypes.h"
 

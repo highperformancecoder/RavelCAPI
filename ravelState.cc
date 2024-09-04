@@ -2,9 +2,12 @@
   Ravel C API. © Ravelation Pty Ltd 2020
 */
 
-#include "ravelCAPI.h"
+#include "ravelCAPITypes.h"
 #include "ravelState.h"
 #include "tensorOp.h"
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
+#include <classdesc_epilogue.h>
+#endif
 
 using namespace std;
 
@@ -52,8 +55,6 @@ namespace ravel
   // sanity check that that the C enums are concordant with the C++ ones
   static_assert(sizeof(classdesc::enum_keysData<ravel::HandleSort::Order>::keysData)
                 ==sizeof(classdesc::enum_keysData<RavelOrder>::keysData));
-  static_assert(sizeof(classdesc::enum_keysData<ravel::HandleSort::OrderType>::keysData)
-                ==sizeof(classdesc::enum_keysData<RavelOrderType>::keysData));
   static_assert(sizeof(classdesc::enum_keysData<Op::ReductionOp>::keysData)
                 ==sizeof(classdesc::enum_keysData<RavelReductionOp>::keysData));
 #endif
