@@ -34,7 +34,7 @@ FLAGS=-fPIC -isystem /usr/local/include -isystem /opt/local/include
 endif   #ifdef MXE
 
 RAVELRELEASE=$(shell git describe)
-MAKEOVERRIDES+=FPIC=1 CPLUSPLUS="$(CXX)" GCOV=$(GCOV) CLASSDESC=$(CLASSDESC) EXTRA_FLAGS=$(EXTRA_FLAGS)
+MAKEOVERRIDES+=FPIC=1 CPLUSPLUS="$(CXX)" GCOV=$(GCOV) CLASSDESC=$(CLASSDESC) EXTRA_FLAGS="$(EXTRA_FLAGS)"
 
 ifneq ($(MAKECMDGOALS),clean)
 build_civita:=$(shell if cd civita && $(MAKE) $(JOBS) $(MAKEOVERRIDES) >build.log 2>&1; then echo civita built; fi)
