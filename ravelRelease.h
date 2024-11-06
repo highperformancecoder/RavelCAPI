@@ -1,1 +1,1 @@
-const char* ravelRelease="1.3.1";
+const char* ravelRelease="1.5.2";

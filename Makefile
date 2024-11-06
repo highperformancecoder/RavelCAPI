@@ -37,6 +37,8 @@ RAVELRELEASE=$(shell git describe)
 MAKEOVERRIDES+=FPIC=1 CPLUSPLUS="$(CXX)" GCOV=$(GCOV) CLASSDESC=$(CLASSDESC) EXTRA_FLAGS="$(EXTRA_FLAGS)"
 
 ifneq ($(MAKECMDGOALS),clean)
+MAKEOVERRIDES=FPIC=1 CPLUSPLUS=$(CXX) GCOV=$(GCOV) CLASSDESC=$(CLASSDESC)
+$(warning $(MAKE) $(JOBS) $(MAKEOVERRIDES))
 build_civita:=$(shell if cd civita && $(MAKE) $(JOBS) $(MAKEOVERRIDES) >build.log 2>&1; then echo civita built; fi)
 $(warning $(build_civita))
 ifneq ($(strip $(build_civita)),civita built)
