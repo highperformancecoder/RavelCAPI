@@ -20,20 +20,8 @@ typedef struct CAPIRavel CAPIRavel;
 
 #include "ravelCAPITypes.h"
 
-/// describe the structure of a CSV file. -1 means figure it out from the data
-struct CAPIRavelDataSpec
-{
-  int nRowAxes;      ///< No. rows describing axes
-  int nColAxes;      ///< No. cols describing axes
-  int nCommentLines; ///< No. comment header lines
-  char separator;    ///< field separator character
-
-#ifdef __cplusplus
-  CAPIRavelDataSpec(): nRowAxes(-1), nColAxes(-1), nCommentLines(-1), separator(',') {}
-#endif
-};
-
-typedef struct CAPIRavelDataSpec CAPIRavelDataSpec;
+struct CAPIRavelDatabase;
+typedef struct CAPIRavelDatabase CAPIRavelDatabase;
 
 #ifdef __cplusplus
 extern "C" {
@@ -190,6 +178,29 @@ extern "C" {
   /// @return true on success. Use ravel_lastErr() to retrieve diagnostic
   int ravel_populateFromHypercube(CAPIRavel* ravel, const char* hc) NOEXCEPT;
 
+  /// Connect to a database table. Note this is tested with mysql, postgresql and sqlite3 only.
+  /// @param dbType type of database: see SOCI documentation, but currently: mysql, oracle, postgresql, sqlite3, odbc, firebird, db2.
+  /// @param connect connection string for the database in question.
+  /// @param table name of table to use
+  /// @return database object. NULL is returned in case of error. Error message can be retrieved by ravel_lastErr()
+  CAPIRavelDatabase* ravel_connect(const char* dbType, const char* connect, const char* table) NOEXCEPT;
+
+  /// close database and destroy the database object
+  void ravel_close(CAPIRavelDatabase*) NOEXCEPT;
+
+  /// Create an empty table, using \a spec and the contents of \a filename, which is a CSV file
+  /// If the table already exists, it is dropped, prior to creation of the new table.
+  /// @return true if successful, false otherwise. Error message can be retrieved by ravel_lastErr()
+  BOOL ravel_createTable(CAPIRavelDatabase* db, const char* filename, const CAPIRavelDataSpec* spec) NOEXCEPT;
+
+  /// Load a sequence of \a filenames, terminated by NULL, into the database table specified in \a ravel_connect()
+  /// All filenames must have the same CSV structure, described by \a spec, and match the table schema created with \a ravel_createTable()
+  /// Duplicate records are not detected in this call - a later call to clean up duplicates must be done later
+  BOOL ravel_loadDatabase(CAPIRavelDatabase* db, const char** filenames, const CAPIRavelDataSpec* spec) NOEXCEPT;
+
+  /// de-duplicate records according to the value of \a duplicateKeyAction
+  void ravel_deduplicate(CAPIRavelDatabase* db, enum CAPIRavelDuplicateKey duplicateKeyAction, const CAPIRavelDataSpec* spec) NOEXCEPT;
+  
 #ifdef __cplusplus
 }
 #endif

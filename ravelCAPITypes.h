@@ -8,7 +8,9 @@
 
 #define RAVEL_CAPI_VERSION 10
 
+
 #ifdef __cplusplus
+#include "dimension.h"
 namespace ravel
 {
   struct HandleState;
@@ -74,6 +76,60 @@ struct CAPIRavelState
 };
 
 typedef struct CAPIRavelState CAPIRavelState;
+
+// types for CSV handling
+enum CAPIRavelDuplicateKey {ravel_throwException, ravel_dupFirst, ravel_dupSum, ravel_dupProduct, ravel_dupMin, ravel_dupMax, ravel_dupAv};
+enum CAPIRavelDimensionType {ravel_string,ravel_time,ravel_value};
+
+struct CAPIRavelDimension
+{
+  enum CAPIRavelDimensionType type; ///< type of dimension
+  const char* format;               ///< format string for ingesting value from strings
+  const char* name;                 ///< name of dimension
+#ifdef __cplusplus
+  CAPIRavelDimension(CAPIRavelDimensionType type, const char* format, const char* name):
+    type(type), format(format), name(name) {}
+#endif
+};
+typedef struct CAPIRavelDimension CAPIRavelDimension;
+
+/// describe the structure of a CSV file. 
+struct CAPIRavelDataSpec
+{
+  char separator;       ///< field separator character
+  char quote;           ///< quote character
+  char escape;          ///< escape character, might be backslash, technically shouldn't be used for CSV
+  char unusedChar;      ///< padding for int alignment
+  /// number of columns this spec describes. Any additional columns
+  /// are assumed to be data columns, and named by the header row cell.
+  int numCols;       
+  int dataRowOffset;    ///< start of the data section
+  int headerRow;        ///< index of header row
+  int mergeDelimiters; ///< if true, multiple separator characters are merged (eg space delimited files)
+  int counter;         ///< count data items, not read their values
+  int dontFail;        ///< do not throw an error on corrupt data, just ignore the data
+
+  int numAxes;          ///< size of dimensionCols set
+  int numData;          ///< size of  dataCols set
+  int unusedInt;        ///< padding for long int alignment
+  int* dimensionCols;   ///< set of columns that are dimensions, of size numAxes. Note dimensionCols ∩ dataCols = ∅
+  int* dataCols;        ///< set of columns that are data, of size numData. Note dimensionCols ∩ dataCols = ∅
+  CAPIRavelDimension* dimensions; ///< dimension vector of size numCols
+ 
+#ifdef __cplusplus
+  CAPIRavelDataSpec(): numCols(0), dataRowOffset(1), headerRow(0),
+                       separator(','), quote('"'), escape('\0'),
+                       mergeDelimiters(false), counter(false), dontFail(false),
+                       numAxes(0), dimensionCols(nullptr),
+                       numData(0), dataCols(nullptr),
+                       dimensions(nullptr)
+  {}
+#endif
+};
+
+typedef struct CAPIRavelDataSpec CAPIRavelDataSpec;
+
+
 
 #ifdef __cplusplus
 #include <string>
@@ -188,6 +244,22 @@ namespace ravel
       outputHandles=outputHandlePtrs.data();
     }
   };
+
+  struct DataSpec;
+  
+  class RavelDataSpec: public CAPIRavelDataSpec
+  {
+  public:
+    RavelDataSpec() {}
+    RavelDataSpec(const DataSpec& x);
+  private:
+    std::vector<int> m_dimCols;
+    std::vector<int> m_dataCols;
+    std::vector<CAPIRavelDimension> dimensionPtrs;
+    std::vector<civita::NamedDimension> dimensionData;
+    void setupPtrs();
+  };
+  
 }
 
 #if defined(CLASSDESC) || defined(ECOLAB_LIB)

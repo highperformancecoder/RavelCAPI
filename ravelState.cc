@@ -14,6 +14,17 @@ using namespace std;
 namespace ravel
 {
 
+  template <class E> constexpr size_t enumSize()
+  {
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
+    // use classdesc reflection
+    return sizeof(classdesc::enum_keysData<E>::keysData)/
+      sizeof(classdesc::enum_keysData<E>::keysData[0]);
+#else
+    return 0; // cannot determine this within standard C++
+#endif
+  }
+  
   HandleState::HandleState(const CAPIRavelHandleState& state):
     x(state.x), y(state.y), collapsed(state.collapsed),
     displayFilterCaliper(state.displayFilterCaliper),
@@ -210,3 +221,16 @@ CAPIRavelState::CAPIRavelState(const ravel::RavelState& state):
   CAPIRavelState(state.radius) {}
 
 
+void RavelDataSpec::setupPtrs()
+{
+  numCols=dimensionData.size();
+  numAxes=m_dimCols.size();
+  dimensionCols=m_dimCols.data();
+  numData=m_dataCols.size();
+  dataCols=m_dataCols.data();
+  static_assert(enumSize<civita::Dimension>()==enumSize<CAPIRavelDimensionType>());
+  for (auto& i: dimensionData)
+    dimensionPtrs.emplace_back(toEnum<CAPIRavelDimensionType>(i.dimension.type),
+        i.dimension.units.c_str(), i.name.c_str());
+  dimensions=dimensionPtrs.data();
+}

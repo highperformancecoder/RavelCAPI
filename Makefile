@@ -68,7 +68,7 @@ ifdef GCOV
 FLAGS+=-fprofile-arcs -ftest-coverage
 endif
 
-OBJS=ravelState.o dynamicRavelCAPI.o
+OBJS=ravelState.o CSVTools.o dynamicRavelCAPI.o
 
 all: testCAPI.o libravelCAPI.a civita/libcivita.a
 
