@@ -79,6 +79,11 @@ namespace ravel
     }
   };
 
+  struct DuplicateKeyAction
+  {
+    enum Type {throwException, first, sum, product, min, max, av};
+  };
+  
   struct DataSpec: public CSVSpec
   {
     int dataRowOffset;    ///< start of the data section
