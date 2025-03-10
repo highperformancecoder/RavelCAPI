@@ -161,5 +161,8 @@ namespace ravel
     void reset() {}
   };
 }
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
+#include "CSVTools.cd"
+#endif
 
 #endif
