@@ -3,8 +3,8 @@
   Open source licensed under the MIT license.
 */
 
-#ifndef RAVEL_DYNAMMICRAVEL_H
-#define RAVEL_DYNAMMICRAVEL_H
+#ifndef RAVEL_DYNAMICRAVEL_H
+#define RAVEL_DYNAMICRAVEL_H
 
 #include "ravelState.h"
 #include "hypercube.h"

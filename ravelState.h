@@ -6,11 +6,15 @@
 #define RAVELSTATE_H
 #include <map>
 #include <memory>
+#include <set>
 #include <string>
 #include <vector>
+#include <dimension.h>
+#include "CSVTools.h"
 
 struct CAPIRavelState;
 struct CAPIRavelHandleState;
+struct CAPIRavelDataSpec;
 
 namespace civita
 {
@@ -75,6 +79,26 @@ namespace ravel
     }
   };
 
+  struct DuplicateKeyAction
+  {
+    enum Type {throwException, first, sum, product, min, max, av};
+  };
+  
+  struct DataSpec: public CSVSpec
+  {
+    int dataRowOffset;    ///< start of the data section
+    int headerRow=0;        ///< index of header row
+    bool mergeDelimiters=false; ///< if true, multiple separator characters are merged (eg space delimited files)
+    bool counter=false;         ///< count data items, not read their values
+    bool dontFail=false;        ///< do not throw an error on corrupt data, just ignore the data
+
+    std::set<unsigned> dimensionCols;   ///< set of columns that are dimensions, of size numAxes. Note dimensionCols ∩ dataCols = ∅
+    std::set<unsigned> dataCols;        ///< set of columns that are data, of size numData. Note dimensionCols ∩ dataCols = ∅
+    std::vector<civita::NamedDimension> dimensions; ///< dimension vector of size numCols
+    DataSpec() {}
+    DataSpec(const CAPIRavelDataSpec& spec) {/* TODO */}
+  };
+  
   /// creates a chain of tensor operations that represents a Ravel in
   /// state \a state, operating on \a arg
   std::vector<civita::TensorPtr> createRavelChain(const RavelState&, const civita::TensorPtr& arg);
