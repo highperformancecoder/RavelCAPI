@@ -14,7 +14,8 @@ namespace ravel
   {
     char separator=',';       ///< field separator character
     char quote='"';           ///< quote character
-    char escape='\0';          ///< escape character, might be backslash, technically shouldn't be used for CSV
+    char escape='\0';         ///< escape character, might be backslash, technically shouldn't be used for CSV
+    char decSeparator='.';    ///< decimal "point", usually '.' or ','.
   };
   
   /// get complete line from input, allowing for quoted linefeed
@@ -161,5 +162,8 @@ namespace ravel
     void reset() {}
   };
 }
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
+#include "CSVTools.cd"
+#endif
 
 #endif
