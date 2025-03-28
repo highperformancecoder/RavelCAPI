@@ -253,6 +253,7 @@ namespace ravel
     RavelDataSpec() {}
     RavelDataSpec(const DataSpec& x);
   private:
+    CLASSDESC_ACCESS(RavelDataSpec);
     std::vector<int> m_dimCols;
     std::vector<int> m_dataCols;
     std::vector<CAPIRavelDimension> dimensionPtrs;

@@ -228,7 +228,9 @@ void RavelDataSpec::setupPtrs()
   dimensionCols=m_dimCols.data();
   numData=m_dataCols.size();
   dataCols=m_dataCols.data();
+#ifndef __EMSCRIPTEN__
   static_assert(enumSize<civita::Dimension>()==enumSize<CAPIRavelDimensionType>());
+#endif
   for (auto& i: dimensionData)
     dimensionPtrs.emplace_back(toEnum<CAPIRavelDimensionType>(i.dimension.type),
         i.dimension.units.c_str(), i.name.c_str());
