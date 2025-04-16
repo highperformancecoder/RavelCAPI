@@ -13,6 +13,12 @@ struct CAPIRavel;
 struct CAPIRavelDatabase;
 struct CAPIRenderer;
 
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
+#include "classdesc_access.h"
+#else
+#define CLASSDESC_ACCESS(x)
+#endif
+
 namespace ravel
 {
   class Ravel
@@ -155,6 +161,7 @@ namespace ravel
     CAPIRavelDatabase* db=nullptr;
     Database(const Database&)=delete;
     void operator=(const Database&)=delete;
+    CLASSDESC_ACCESS(Database);
   public:
     void connect(const std::string& dbType, const std::string& connect, const std::string& table);
     void close();
@@ -172,6 +179,14 @@ namespace ravel
 }
 
 #if defined(CLASSDESC) || defined(ECOLAB_LIB)
+#define CLASSDESC_pack___ravel__Database
+#define CLASSDESC_unpack___ravel__Database
+namespace classdesc_access
+{
+  template <> struct access_pack<ravel::Database>: public classdesc::NullDescriptor<classdesc::pack_t> {};
+  template <> struct access_unpack<ravel::Database>: public classdesc::NullDescriptor<classdesc::pack_t> {};
+}
+
 #include "dynamicRavelCAPI.cd"
 #endif
 

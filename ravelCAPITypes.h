@@ -99,7 +99,7 @@ struct CAPIRavelDataSpec
   char separator;       ///< field separator character
   char quote;           ///< quote character
   char escape;          ///< escape character, might be backslash, technically shouldn't be used for CSV
-  char unusedChar;      ///< padding for int alignment
+  char decSeparator;    ///< decimal "point", usually '.' or ','.
   /// number of columns this spec describes. Any additional columns
   /// are assumed to be data columns, and named by the header row cell.
   int numCols;       
@@ -119,6 +119,7 @@ struct CAPIRavelDataSpec
 #ifdef __cplusplus
   CAPIRavelDataSpec(): numCols(0), dataRowOffset(1), headerRow(0),
                        separator(','), quote('"'), escape('\0'),
+                       decSeparator('.'),
                        mergeDelimiters(false), counter(false), dontFail(false),
                        numAxes(0), dimensionCols(nullptr),
                        numData(0), dataCols(nullptr),
