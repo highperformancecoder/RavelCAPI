@@ -263,6 +263,11 @@ namespace
   DEFFN(ravel_sortByValue,void, CAPIRavel*, const CAPITensor*, RavelOrder);
   DEFFN(ravel_hyperSlice,CAPITensor*, CAPIRavel*, const CAPITensor*);
   DEFFN(ravel_populateFromHypercube,int, CAPIRavel*, const char*);
+  DEFFN(ravel_connect,CAPIRavelDatabase*, const char*, const char*, const char*);
+  DEFFN(ravel_close,void,CAPIRavelDatabase*);
+  DEFFN(ravel_createTable,bool,CAPIRavelDatabase*,const char*,const CAPIRavelDataSpec*);
+  DEFFN(ravel_loadDatabase,bool,CAPIRavelDatabase*,const char**,const CAPIRavelDataSpec*);
+  DEFFN(ravel_deduplicate,void,CAPIRavelDatabase*, CAPIRavelDuplicateKey,const CAPIRavelDataSpec*);
 }
 
 namespace ravel
@@ -432,10 +437,42 @@ namespace ravel
     return make_shared<Chain>(*r,arg,std::move(capiTensor));
   }
 
-    /// sets handles and slices from \a hc
-    void Ravel::populateFromHypercube(const civita::Hypercube& hc)
-    {
-      if (!ravel_populateFromHypercube(ravel, hc.json().c_str()))
-        throw std::runtime_error(ravel_lastErr());
-    }
+  /// sets handles and slices from \a hc
+  void Ravel::populateFromHypercube(const civita::Hypercube& hc)
+  {
+    if (!ravel_populateFromHypercube(ravel, hc.json().c_str()))
+      throw std::runtime_error(ravel_lastErr());
+  }
+
+  void Database::connect(const string& dbType, const string& connect, const string& table)
+  {
+    close();
+    if (!(db=ravel_connect(dbType.c_str(),connect.c_str(),table.c_str())))
+      throw runtime_error(ravel_lastErr());
+  }
+
+  void Database::close() {ravel_close(db); db=nullptr;}
+
+  void Database::createTable(const string& filename, const DataSpec& spec)
+  {
+    RavelDataSpec s(spec);
+    if (!ravel_createTable(db,filename.c_str(),&s))
+       throw std::runtime_error(ravel_lastErr());
+  }
+
+  void Database::loadDatabase(const vector<string>& filenames, const DataSpec& spec)
+  {
+    if (filenames.empty()) return;
+    RavelDataSpec s(spec);
+    vector<const char*> f;
+    for (auto& i: filenames) f.push_back(i.c_str());
+    if (!ravel_loadDatabase(db,&f[0],&s))
+       throw std::runtime_error(ravel_lastErr());
+  }
+
+  void Database::deduplicate(DuplicateKeyAction::Type duplicateKeyAction, const DataSpec& spec)
+  {
+    RavelDataSpec s(spec);
+    ravel_deduplicate(db,toEnum<CAPIRavelDuplicateKey>(duplicateKeyAction),&s);
+  }
 }

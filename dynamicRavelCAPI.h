@@ -9,7 +9,8 @@
 #include "ravelState.h"
 #include "hypercube.h"
 struct CAPIRavel;
-struct CAPIRavelDC;
+//struct CAPIRavelDC;
+struct CAPIRavelDatabase;
 struct CAPIRenderer;
 
 namespace ravel
@@ -146,8 +147,27 @@ namespace ravel
 
     /// sets handles and slices from \a hc
     void populateFromHypercube(const civita::Hypercube& hc);
+  };
 
-    
+  
+  class Database
+  {
+    CAPIRavelDatabase* db=nullptr;
+    Database(const Database&)=delete;
+    void operator=(const Database&)=delete;
+  public:
+    void connect(const std::string& dbType, const std::string& connect, const std::string& table);
+    void close();
+    Database()=default;
+    Database(const std::string& dbType, const std::string& connect, const std::string& table)
+    {this->connect(dbType,connect,table);}
+    ~Database() {close();}
+    Database(Database&& x): db(x.db) {x.db=nullptr;}
+    Database& operator=(Database&& x) {db=x.db; x.db=nullptr; return *this;}
+
+    void createTable(const std::string& filename, const DataSpec& spec);
+    void loadDatabase(const std::vector<std::string>& filenames, const DataSpec& spec);
+    void deduplicate(DuplicateKeyAction::Type duplicateKeyAction, const DataSpec& spec);
   };
 }
 
