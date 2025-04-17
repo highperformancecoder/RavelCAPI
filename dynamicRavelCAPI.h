@@ -9,8 +9,15 @@
 #include "ravelState.h"
 #include "hypercube.h"
 struct CAPIRavel;
-struct CAPIRavelDC;
+//struct CAPIRavelDC;
+struct CAPIRavelDatabase;
 struct CAPIRenderer;
+
+#if defined(CLASSDESC) || defined(ECOLAB_LIB)
+#include "classdesc_access.h"
+#else
+#define CLASSDESC_ACCESS(x)
+#endif
 
 namespace ravel
 {
@@ -146,12 +153,40 @@ namespace ravel
 
     /// sets handles and slices from \a hc
     void populateFromHypercube(const civita::Hypercube& hc);
+  };
 
-    
+  
+  class Database
+  {
+    CAPIRavelDatabase* db=nullptr;
+    Database(const Database&)=delete;
+    void operator=(const Database&)=delete;
+    CLASSDESC_ACCESS(Database);
+  public:
+    void connect(const std::string& dbType, const std::string& connect, const std::string& table);
+    void close();
+    Database()=default;
+    Database(const std::string& dbType, const std::string& connect, const std::string& table)
+    {this->connect(dbType,connect,table);}
+    ~Database() {close();}
+    Database(Database&& x): db(x.db) {x.db=nullptr;}
+    Database& operator=(Database&& x) {db=x.db; x.db=nullptr; return *this;}
+
+    void createTable(const std::string& filename, const DataSpec& spec);
+    void loadDatabase(const std::vector<std::string>& filenames, const DataSpec& spec);
+    void deduplicate(DuplicateKeyAction::Type duplicateKeyAction, const DataSpec& spec);
   };
 }
 
 #if defined(CLASSDESC) || defined(ECOLAB_LIB)
+#define CLASSDESC_pack___ravel__Database
+#define CLASSDESC_unpack___ravel__Database
+namespace classdesc_access
+{
+  template <> struct access_pack<ravel::Database>: public classdesc::NullDescriptor<classdesc::pack_t> {};
+  template <> struct access_unpack<ravel::Database>: public classdesc::NullDescriptor<classdesc::pack_t> {};
+}
+
 #include "dynamicRavelCAPI.cd"
 #endif
 

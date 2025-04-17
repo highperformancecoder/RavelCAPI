@@ -221,6 +221,23 @@ CAPIRavelState::CAPIRavelState(const ravel::RavelState& state):
   CAPIRavelState(state.radius) {}
 
 
+RavelDataSpec::RavelDataSpec(const DataSpec& x)
+{
+  separator=x.separator;
+  quote=x.quote;
+  escape=x.escape;
+  decSeparator=x.decSeparator;
+  dataRowOffset=x.dataRowOffset;
+  headerRow=x.headerRow;
+  mergeDelimiters=x.mergeDelimiters;
+  counter=x.counter;
+  dontFail=x.dontFail;
+  m_dimCols.insert(m_dimCols.end(),x.dimensionCols.begin(),x.dimensionCols.end());
+  m_dataCols.insert(m_dataCols.end(),x.dataCols.begin(),x.dataCols.end());
+  dimensionData=x.dimensions;
+  setupPtrs();
+}
+
 void RavelDataSpec::setupPtrs()
 {
   numCols=dimensionData.size();
@@ -231,8 +248,10 @@ void RavelDataSpec::setupPtrs()
 #ifndef __EMSCRIPTEN__
   static_assert(enumSize<civita::Dimension>()==enumSize<CAPIRavelDimensionType>());
 #endif
+  dimensionPtrs.clear();
   for (auto& i: dimensionData)
     dimensionPtrs.emplace_back(toEnum<CAPIRavelDimensionType>(i.dimension.type),
         i.dimension.units.c_str(), i.name.c_str());
   dimensions=dimensionPtrs.data();
 }
+

@@ -96,7 +96,7 @@ namespace ravel
     std::set<unsigned> dataCols;        ///< set of columns that are data, of size numData. Note dimensionCols ∩ dataCols = ∅
     std::vector<civita::NamedDimension> dimensions; ///< dimension vector of size numCols
     DataSpec() {}
-    DataSpec(const CAPIRavelDataSpec& spec) {/* TODO */}
+    DataSpec(const CAPIRavelDataSpec&);
   };
   
   /// creates a chain of tensor operations that represents a Ravel in
