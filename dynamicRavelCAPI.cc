@@ -466,6 +466,7 @@ namespace ravel
     RavelDataSpec s(spec);
     vector<const char*> f;
     for (auto& i: filenames) f.push_back(i.c_str());
+    f.push_back(nullptr);
     if (!ravel_loadDatabase(db,&f[0],&s))
        throw std::runtime_error(ravel_lastErr());
   }
