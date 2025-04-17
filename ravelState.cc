@@ -61,7 +61,26 @@ namespace ravel
     m_outputHandles(state.outputHandles)
   {}
 
-
+  DataSpec::DataSpec(const CAPIRavelDataSpec& spec)
+  {
+    separator=spec.separator;
+    quote=spec.quote;
+    escape=spec.escape;
+    decSeparator=spec.decSeparator;
+    dataRowOffset=spec.dataRowOffset;
+    headerRow=spec.headerRow;
+    mergeDelimiters=spec.mergeDelimiters;
+    counter=spec.counter;
+    dontFail=spec.dontFail;
+    for (auto i=spec.dimensionCols; i<spec.dimensionCols+spec.numAxes; ++i)
+      dimensionCols.insert(*i);
+    for (auto i=spec.dataCols; i<spec.dataCols+spec.numData; ++i)
+      dataCols.insert(*i);
+    for (auto i=spec.dimensions; i<spec.dimensions+spec.numCols; ++i)
+      dimensions.emplace_back(i->name,
+            civita::Dimension{toEnum<civita::Dimension::Type>(i->type),i->format});
+  }
+  
 #if defined(CLASSDESC) || defined(ECOLAB_LIB)
   // sanity check that that the C enums are concordant with the C++ ones
   static_assert(sizeof(classdesc::enum_keysData<ravel::HandleSort::Order>::keysData)

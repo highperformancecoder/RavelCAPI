@@ -86,7 +86,7 @@ namespace ravel
   
   struct DataSpec: public CSVSpec
   {
-    int dataRowOffset;    ///< start of the data section
+    int dataRowOffset=1;    ///< start of the data section
     int headerRow=0;        ///< index of header row
     bool mergeDelimiters=false; ///< if true, multiple separator characters are merged (eg space delimited files)
     bool counter=false;         ///< count data items, not read their values
