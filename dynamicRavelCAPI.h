@@ -13,7 +13,7 @@ struct CAPIRavel;
 struct CAPIRavelDatabase;
 struct CAPIRenderer;
 
-#if defined(CLASSDESC) || defined(ECOLAB_LIB)
+#if defined(CLASSDESC) || defined(ECOLAB_LIB) || defined(CLASSDESC_ACCESS)
 #include "classdesc_access.h"
 #else
 #define CLASSDESC_ACCESS(x)
