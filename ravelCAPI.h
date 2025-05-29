@@ -200,6 +200,10 @@ extern "C" {
 
   /// de-duplicate records according to the value of \a duplicateKeyAction
   void ravel_deduplicate(CAPIRavelDatabase* db, enum CAPIRavelDuplicateKey duplicateKeyAction, const CAPIRavelDataSpec* spec) NOEXCEPT;
+
+  /// Return a tensor expression representing the application of this ravel on \a db
+  /// Validity of returned object is until next call of \a ravel_hyperSlice, ravel_dbHyperslice, or the lifetime of \a ravel or db
+  const CAPITensor* ravel_dbHyperSlice(CAPIRavel* ravel, CAPIRavelDatabase* db) NOEXCEPT;
   
 #ifdef __cplusplus
 }
