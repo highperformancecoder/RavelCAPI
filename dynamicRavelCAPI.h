@@ -9,7 +9,6 @@
 #include "ravelState.h"
 #include "hypercube.h"
 struct CAPIRavel;
-//struct CAPIRavelDC;
 struct CAPIRavelDatabase;
 struct CAPIRenderer;
 
@@ -19,13 +18,15 @@ struct CAPIRenderer;
 #define CLASSDESC_ACCESS(x)
 #endif
 
-namespace ravel
+namespace ravelCAPI
 {
+  using namespace ravel;
   class Ravel
   {
     CAPIRavel* ravel=nullptr;
     Ravel(const Ravel&)=delete;
     void operator=(const Ravel&)=delete;
+    friend class Database;
   public:
     Ravel();
     ~Ravel();
@@ -163,8 +164,9 @@ namespace ravel
     void operator=(const Database&)=delete;
     CLASSDESC_ACCESS(Database);
   public:
+    /// connect to database of type \a dbType, using connection string \a connect and table \a table
     void connect(const std::string& dbType, const std::string& connect, const std::string& table);
-    void close();
+    void close(); ///< close the database
     Database()=default;
     Database(const std::string& dbType, const std::string& connect, const std::string& table)
     {this->connect(dbType,connect,table);}
@@ -172,9 +174,20 @@ namespace ravel
     Database(Database&& x): db(x.db) {x.db=nullptr;}
     Database& operator=(Database&& x) {db=x.db; x.db=nullptr; return *this;}
 
+    /// create the table, dropping any previous, using the CSV \a filename and \a spec as template 
     void createTable(const std::string& filename, const DataSpec& spec);
+    /// load the CSV \a filenames into table using spec. Filenames + spec must match the table structure.
     void loadDatabase(const std::vector<std::string>& filenames, const DataSpec& spec);
+    /// Remove duplicate records according to the axes described by \a spec.
+    /// @param duplicateKeyAction describes how to resolve duplicate records.
     void deduplicate(DuplicateKeyAction::Type duplicateKeyAction, const DataSpec& spec);
+    /// set axis names, including the horizontal dimension
+    /// Note the names here need only refer to value dimensions - string and time dimensions are automatically considered axes.
+    void setAxisNames(const std::set<std::string>& axisNames, const std::string& horizontaDimension="?");
+    /// Set the Ravel to the full hypercube describing the database
+    void fullHypercube(Ravel&);
+    /// Extract the datacube corresponding to the state of the ravel applied to the database
+    civita::TensorPtr hyperSlice(const Ravel&);
   };
 }
 

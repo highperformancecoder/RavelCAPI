@@ -268,9 +268,12 @@ namespace
   DEFFN(ravel_createTable,bool,CAPIRavelDatabase*,const char*,const CAPIRavelDataSpec*);
   DEFFN(ravel_loadDatabase,bool,CAPIRavelDatabase*,const char**,const CAPIRavelDataSpec*);
   DEFFN(ravel_deduplicate,void,CAPIRavelDatabase*, CAPIRavelDuplicateKey,const CAPIRavelDataSpec*);
+  DEFFN(ravel_setAxisNames,void,CAPIRavelDatabase*, const char**, size_t, const char*);
+  DEFFN(ravel_dbFullHypercube,void,CAPIRavel*, CAPIRavelDatabase*);
+  DEFFN(ravel_dbHyperSlice,const CAPITensor*,CAPIRavel*, CAPIRavelDatabase*);
 }
 
-namespace ravel
+namespace ravelCAPI
 {
 
   Ravel::Ravel()
@@ -411,7 +414,7 @@ namespace ravel
 
   void Ravel::sortByValue(const civita::TensorPtr& input, HandleSort::Order dir)
   {
-    CAPITensor capiTensor(*input);
+    ravel::CAPITensor capiTensor(*input);
     ravel_sortByValue(ravel, &capiTensor, toEnum<RavelOrder>(dir));
   }
 
@@ -421,9 +424,9 @@ namespace ravel
     struct Chain: public TensorWrap
     {
       civita::TensorPtr input;
-      std::unique_ptr<CAPITensor> capiTensor;
+      std::unique_ptr<ravel::CAPITensor> capiTensor;
       Chain(const ::CAPITensor& output, const civita::TensorPtr& input,
-            std::unique_ptr<CAPITensor>&& capiTensor):
+            std::unique_ptr<ravel::CAPITensor>&& capiTensor):
         TensorWrap(output), input(input), capiTensor(std::move(capiTensor)) {}
     };
   }
@@ -431,7 +434,7 @@ namespace ravel
   civita::TensorPtr Ravel::hyperSlice(const civita::TensorPtr& arg) const
   {
     if (!arg) return nullptr;
-    std::unique_ptr<CAPITensor> capiTensor(new CAPITensor(*arg));
+    std::unique_ptr<ravel::CAPITensor> capiTensor(new ravel::CAPITensor(*arg));
     auto r=ravel_hyperSlice(ravel, capiTensor.get());
     if (!r) throw std::runtime_error(ravel_lastErr());
     return make_shared<Chain>(*r,arg,std::move(capiTensor));
@@ -476,4 +479,24 @@ namespace ravel
     RavelDataSpec s(spec);
     ravel_deduplicate(db,toEnum<CAPIRavelDuplicateKey>(duplicateKeyAction),&s);
   }
+  
+  void Database::setAxisNames(const std::set<std::string>& axisNames, const std::string& horizontaDimension)
+  {
+    vector<const char*> aNames;
+    for (auto& i: axisNames) aNames.push_back(i.c_str());
+    ravel_setAxisNames(db,aNames.data(),aNames.size(),horizontaDimension.c_str());
+  }
+  
+    void Database::fullHypercube(Ravel& ravel)
+    {
+      ravel_dbFullHypercube(ravel.ravel, db);
+    }
+  
+    /// Extract the datacube corresponding to the state of the ravel applied to the database
+    civita::TensorPtr Database::hyperSlice(const Ravel& ravel)
+    {
+      if (auto r=ravel_dbHyperSlice(ravel.ravel, db))
+        return make_shared<TensorWrap>(*r);
+      return {};
+    }
 }
