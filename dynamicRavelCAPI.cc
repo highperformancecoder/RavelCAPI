@@ -497,6 +497,6 @@ namespace ravelCAPI
     {
       if (auto r=ravel_dbHyperSlice(ravel.ravel, db))
         return make_shared<TensorWrap>(*r);
-      return {};
+      throw std::runtime_error(ravel_lastErr());
     }
 }
