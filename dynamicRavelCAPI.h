@@ -173,7 +173,8 @@ namespace ravelCAPI
     ~Database() {close();}
     Database(Database&& x): db(x.db) {x.db=nullptr;}
     Database& operator=(Database&& x) {db=x.db; x.db=nullptr; return *this;}
-
+    operator bool() const {return db;}
+    
     /// create the table, dropping any previous, using the CSV \a filename and \a spec as template 
     void createTable(const std::string& filename, const DataSpec& spec);
     /// load the CSV \a filenames into table using spec. Filenames + spec must match the table structure.
@@ -181,6 +182,9 @@ namespace ravelCAPI
     /// Remove duplicate records according to the axes described by \a spec.
     /// @param duplicateKeyAction describes how to resolve duplicate records.
     void deduplicate(DuplicateKeyAction::Type duplicateKeyAction, const DataSpec& spec);
+
+    /// return list of column names in database
+    std::vector<std::string> columnNames() const;
     /// set axis names, including the horizontal dimension
     /// Note the names here need only refer to value dimensions - string and time dimensions are automatically considered axes.
     void setAxisNames(const std::set<std::string>& axisNames, const std::string& horizontaDimension="?");
@@ -192,12 +196,12 @@ namespace ravelCAPI
 }
 
 #if defined(CLASSDESC) || defined(ECOLAB_LIB)
-#define CLASSDESC_pack___ravel__Database
-#define CLASSDESC_unpack___ravel__Database
+#define CLASSDESC_pack___ravelCAPI__Database
+#define CLASSDESC_unpack___ravelCAPI__Database
 namespace classdesc_access
 {
-  template <> struct access_pack<ravel::Database>: public classdesc::NullDescriptor<classdesc::pack_t> {};
-  template <> struct access_unpack<ravel::Database>: public classdesc::NullDescriptor<classdesc::pack_t> {};
+  template <> struct access_pack<ravelCAPI::Database>: public classdesc::NullDescriptor<classdesc::pack_t> {};
+  template <> struct access_unpack<ravelCAPI::Database>: public classdesc::NullDescriptor<classdesc::pack_t> {};
 }
 
 #include "dynamicRavelCAPI.cd"
