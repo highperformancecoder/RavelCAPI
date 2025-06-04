@@ -183,8 +183,8 @@ namespace ravelCAPI
     /// @param duplicateKeyAction describes how to resolve duplicate records.
     void deduplicate(DuplicateKeyAction::Type duplicateKeyAction, const DataSpec& spec);
 
-    /// return list of column names in database
-    std::vector<std::string> columnNames() const;
+    /// return list of numerical column names in database (data or value axes)
+    std::vector<std::string> numericalColumnNames() const;
     /// set axis names, including the horizontal dimension
     /// Note the names here need only refer to value dimensions - string and time dimensions are automatically considered axes.
     void setAxisNames(const std::set<std::string>& axisNames, const std::string& horizontaDimension="?");

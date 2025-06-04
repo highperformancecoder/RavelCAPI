@@ -201,14 +201,14 @@ extern "C" {
   /// de-duplicate records according to the value of \a duplicateKeyAction
   void ravel_deduplicate(CAPIRavelDatabase* db, enum CAPIRavelDuplicateKey duplicateKeyAction, const CAPIRavelDataSpec* spec) NOEXCEPT;
 
-  /// return number of columns in the table
-  size_t ravel_dbNumColumns(CAPIRavelDatabase* db) NOEXCEPT;
+  /// return number of numerical columns in the table: data or value axes
+  size_t ravel_dbNumNumericalColumns(CAPIRavelDatabase* db) NOEXCEPT;
 
-  /// populate \a columnNames with the database column names
-  /// columnNames must be at least ravel_dbNumColumns() in size
+  /// populate \a columnNames with the database numerical column names
+  /// columnNames must be at least ravel_dbNumNumericalColumns() in size
   /// The returned pointers ar all owned by \a db, and are valid in the next call.
   /// Do not delete or free these.
-  void ravel_dbColumnNames(CAPIRavelDatabase* db, const char* columnNames[])  NOEXCEPT;
+  void ravel_dbNumericalColumnNames(CAPIRavelDatabase* db, const char* columnNames[])  NOEXCEPT;
   
   /// set extra metadata of \a db: a list of \a axisNames that are
   /// value typed axes, and the horizontal dimension name
