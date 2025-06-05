@@ -183,6 +183,10 @@ namespace ravelCAPI
     /// @param duplicateKeyAction describes how to resolve duplicate records.
     void deduplicate(DuplicateKeyAction::Type duplicateKeyAction, const DataSpec& spec);
 
+    /// return list of all table names in the database. Can pass an
+    /// empty string as \a table in the connect method to run this
+    /// method.
+    std::vector<std::string> tableNames() const;
     /// return list of numerical column names in database (data or value axes)
     std::vector<std::string> numericalColumnNames() const;
     /// set axis names, including the horizontal dimension

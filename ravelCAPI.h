@@ -185,6 +185,13 @@ extern "C" {
   /// @return database object. NULL is returned in case of error. Error message can be retrieved by ravel_lastErr()
   CAPIRavelDatabase* ravel_connect(const char* dbType, const char* connect, const char* table) NOEXCEPT;
 
+  /// Return all available table names in db. You can pass the empty
+  /// string to \a table in ravel_connect, and then call connect again
+  /// to reconnect with a new table. Size of the array of strings
+  /// returned in \a size, and validitiy of all pointers returned is
+  /// until the next call of this, or the lifetime of \a db.
+  const char** ravel_dbTableNames(CAPIRavelDatabase* db, size_t* size) NOEXCEPT;
+  
   /// close database and destroy the database object
   void ravel_close(CAPIRavelDatabase*) NOEXCEPT;
 
