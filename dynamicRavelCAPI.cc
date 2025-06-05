@@ -269,8 +269,7 @@ namespace
   DEFFN(ravel_loadDatabase,bool,CAPIRavelDatabase*,const char**,const CAPIRavelDataSpec*);
   DEFFN(ravel_deduplicate,void,CAPIRavelDatabase*, CAPIRavelDuplicateKey,const CAPIRavelDataSpec*);
   DEFFN(ravel_dbTableNames, const char**, CAPIRavelDatabase*, size_t*);
-  DEFFN(ravel_dbNumNumericalColumns, size_t, CAPIRavelDatabase*);
-  DEFFN(ravel_dbNumericalColumnNames, void, CAPIRavelDatabase*, const char**);
+  DEFFN(ravel_dbNumericalColumnNames, const char**, CAPIRavelDatabase*, size_t*);
   DEFFN(ravel_setAxisNames,void,CAPIRavelDatabase*, const char**, size_t, const char*);
   DEFFN(ravel_dbFullHypercube,void,CAPIRavel*, CAPIRavelDatabase*);
   DEFFN(ravel_dbHyperSlice,const CAPITensor*,CAPIRavel*, CAPIRavelDatabase*);
@@ -498,9 +497,9 @@ namespace ravelCAPI
   {
     if (db)
       {
-        vector<const char*> names(ravel_dbNumNumericalColumns(db));
-        ravel_dbNumericalColumnNames(db,names.data());
-        return vector<string>(names.begin(), names.end());
+        size_t size;
+        auto names=ravel_dbNumericalColumnNames(db,&size);
+        return vector<string>(names,names+size);
       }
     return {};
   }

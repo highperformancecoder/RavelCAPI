@@ -190,6 +190,7 @@ extern "C" {
   /// to reconnect with a new table. Size of the array of strings
   /// returned in \a size, and validitiy of all pointers returned is
   /// until the next call of this, or the lifetime of \a db.
+  /// Do not delete or free these.
   const char** ravel_dbTableNames(CAPIRavelDatabase* db, size_t* size) NOEXCEPT;
   
   /// close database and destroy the database object
@@ -208,14 +209,11 @@ extern "C" {
   /// de-duplicate records according to the value of \a duplicateKeyAction
   void ravel_deduplicate(CAPIRavelDatabase* db, enum CAPIRavelDuplicateKey duplicateKeyAction, const CAPIRavelDataSpec* spec) NOEXCEPT;
 
-  /// return number of numerical columns in the table: data or value axes
-  size_t ravel_dbNumNumericalColumns(CAPIRavelDatabase* db) NOEXCEPT;
-
-  /// populate \a columnNames with the database numerical column names
-  /// columnNames must be at least ravel_dbNumNumericalColumns() in size
-  /// The returned pointers ar all owned by \a db, and are valid in the next call.
-  /// Do not delete or free these.
-  void ravel_dbNumericalColumnNames(CAPIRavelDatabase* db, const char* columnNames[])  NOEXCEPT;
+  /// return the database numerical column names, with the number of
+  /// returned column names returned in \a size The returned pointers
+  /// ar all owned by \a db, and are valid in the next call.  Do not
+  /// delete or free these.
+  const char** ravel_dbNumericalColumnNames(CAPIRavelDatabase* db, size_t* size)  NOEXCEPT;
   
   /// set extra metadata of \a db: a list of \a axisNames that are
   /// value typed axes, and the horizontal dimension name
