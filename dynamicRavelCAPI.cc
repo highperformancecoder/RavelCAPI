@@ -278,6 +278,15 @@ namespace
 namespace ravelCAPI
 {
 
+  bool available() {return ravelLib.lib;}
+  std::string lastError() {return ravelLib.errorMsg;}
+  std::string version() {return ravelLib.versionFound;}
+  int daysUntilExpired() {return ravelLib.lib?  ravel_days_until_expiry(): -1;}
+  std::string description(const RavelState& s) {
+    RavelStateX tmp(s);
+    return ravel_state_description(&tmp);
+  }
+
   Ravel::Ravel()
   {
     if (ravelLib.lib)
@@ -293,10 +302,6 @@ namespace ravelCAPI
     if (ravel) ravel_delete(ravel);
   }
 
-  bool Ravel::available() {return ravelLib.lib;}
-  std::string Ravel::lastError() {return ravelLib.errorMsg;}
-  std::string Ravel::version() {return ravelLib.versionFound;}
-  int Ravel::daysUntilExpired() {return ravelLib.lib?  ravel_days_until_expiry(): -1;}
   void Ravel::clear() {ravel_clear(ravel);}
   void Ravel::render(CAPIRenderer& renderer) const {ravel_render(ravel, &renderer);}
   void Ravel::onMouseDown(double x, double y) {ravel_onMouseDown(ravel,x,y);}
@@ -310,10 +315,6 @@ namespace ravelCAPI
   }
   size_t Ravel::rank() const {return ravel_rank(ravel);}
   std::string Ravel::description() const {return ravel_description(ravel);}
-  std::string Ravel::description(const RavelState& s) {
-    RavelStateX tmp(s);
-    return ravel_state_description(&tmp);
-  }
   void Ravel::setExplain(const std::string& explain, double x, double y)
   {ravel_setExplain(ravel,explain.c_str(), x,y);}
   void Ravel::resetExplain() {ravel_resetExplain(ravel);}

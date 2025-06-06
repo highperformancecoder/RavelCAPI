@@ -21,6 +21,17 @@ struct CAPIRenderer;
 namespace ravelCAPI
 {
   using namespace ravel;
+  /// true if ravel is available on the system
+  bool available();
+  /// returns last ravel error message
+  std::string lastError();
+  /// ravel version (if successfully loaded)
+  std::string version();
+  /// number of days until expired - -ve values means expired.
+  int daysUntilExpired();
+  /// Return an (English language) description of a Ravel state.
+  std::string description(const RavelState& s);
+  
   class Ravel
   {
     CAPIRavel* ravel=nullptr;
@@ -33,13 +44,13 @@ namespace ravelCAPI
     /// true if Ravel availabe for use
     operator bool() const {return ravel;}
     /// true if ravel is available on the system
-    static bool available();
+    static bool available() {return ravelCAPI::available();}
     /// returns last ravel error message
-    static std::string lastError();
+    static std::string lastError() {return ravelCAPI::lastError();}
     /// ravel version (if successfully loaded)
-    static std::string version();
+    static std::string version() {return ravelCAPI::version();}
     /// number of days until expired - -ve values means expired.
-    static int daysUntilExpired();
+    static int daysUntilExpired() {return ravelCAPI::daysUntilExpired();}
     /// removes all handles
     void clear();
     /// render ravel widget into a Cairo context
@@ -65,7 +76,8 @@ namespace ravelCAPI
     /// descriptive text of the operation of the Ravel (plain English for now)
     std::string description() const;
 
-    static std::string description(const RavelState& s);
+    /// Return an (English language) description of a Ravel state.
+    static std::string description(const RavelState& s) {return ravelCAPI::description(s);}
     
   /// sets an explanatory message displayed as a tooltip @param
   /// explain a message, if empty, then a default explanatory message
