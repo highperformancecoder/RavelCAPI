@@ -304,7 +304,7 @@ namespace ravelCAPI
   }
 
   void Ravel::clear() {ravel_clear(ravel);}
-  void Ravel::setCancel(bool x) {ravel_cancel(x);}
+  void Ravel::cancel(bool x) {ravel_cancel(x);}
   void Ravel::render(CAPIRenderer& renderer) const {ravel_render(ravel, &renderer);}
   void Ravel::onMouseDown(double x, double y) {ravel_onMouseDown(ravel,x,y);}
   void Ravel::onMouseUp(double x,double y) {ravel_onMouseUp(ravel,x,y);}

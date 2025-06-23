@@ -54,7 +54,7 @@ namespace ravelCAPI
     /// removes all handles
     void clear();
     /// sets/clears a cancel flag to cancel a long running operation. Callable from separate thread
-    void setCancel(bool cancel);
+    static void cancel(bool cancel);
     /// render ravel widget into a Cairo context
     void render(CAPIRenderer&) const;
     /// @{ handle mouse events
