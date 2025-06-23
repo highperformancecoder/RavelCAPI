@@ -53,6 +53,8 @@ namespace ravelCAPI
     static int daysUntilExpired() {return ravelCAPI::daysUntilExpired();}
     /// removes all handles
     void clear();
+    /// sets/clears a cancel flag to cancel a long running operation. Callable from separate thread
+    void setCancel(bool cancel);
     /// render ravel widget into a Cairo context
     void render(CAPIRenderer&) const;
     /// @{ handle mouse events

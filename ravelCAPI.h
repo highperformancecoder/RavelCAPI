@@ -44,6 +44,9 @@ extern "C" {
   /// removes all handles
   void ravel_clear(CAPIRavel* ravel) NOEXCEPT;
 
+  /// sets/clears a cancel flag to cancel a long running operation. Callable from separate thread
+  void ravel_cancel(BOOL cancel) NOEXCEPT;
+  
   /// render ravel widget into a Cairo context
   void ravel_render(CAPIRavel* ravel, CAPIRenderer* cairo) NOEXCEPT;
   /// @{ handle mouse events

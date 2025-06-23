@@ -216,6 +216,7 @@ namespace
   DEFFN(ravel_new, CAPIRavel*,size_t);
   DEFFN(ravel_delete, void, CAPIRavel*);
   DEFFN(ravel_clear, void, CAPIRavel*);
+  DEFFN(ravel_cancel, void, bool);
   DEFFN(ravel_render, void, CAPIRavel*, CAPIRenderer*);
   DEFFN(ravel_onMouseDown, void, CAPIRavel*, double, double);
   DEFFN(ravel_onMouseUp,void, CAPIRavel*, double, double);
@@ -303,6 +304,7 @@ namespace ravelCAPI
   }
 
   void Ravel::clear() {ravel_clear(ravel);}
+  void Ravel::setCancel(bool x) {ravel_cancel(x);}
   void Ravel::render(CAPIRenderer& renderer) const {ravel_render(ravel, &renderer);}
   void Ravel::onMouseDown(double x, double y) {ravel_onMouseDown(ravel,x,y);}
   void Ravel::onMouseUp(double x,double y) {ravel_onMouseUp(ravel,x,y);}
