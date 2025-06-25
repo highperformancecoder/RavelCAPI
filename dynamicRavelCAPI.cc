@@ -457,9 +457,10 @@ namespace ravelCAPI
     close();
     if (!(db=ravel_connect(dbType.c_str(),connect.c_str(),table.c_str())))
       throw runtime_error(ravel_lastErr());
+    m_connection={dbType,connect,table};
   }
 
-  void Database::close() {ravel_close(db); db=nullptr;}
+  void Database::close() {ravel_close(db); m_connection={}; db=nullptr;}
 
   void Database::createTable(const string& filename, const DataSpec& spec)
   {
