@@ -170,6 +170,12 @@ namespace ravelCAPI
     void populateFromHypercube(const civita::Hypercube& hc);
   };
 
+  struct DatabaseConnection
+  {
+    std::string dbType;     ///< type of database to connect to
+    std::string connection; ///< connection string to database
+    std::string table;      ///< table to use
+  };
   
   class Database
   {
@@ -177,6 +183,7 @@ namespace ravelCAPI
     Database(const Database&)=delete;
     void operator=(const Database&)=delete;
     CLASSDESC_ACCESS(Database);
+    DatabaseConnection m_connection;
   public:
     /// connect to database of type \a dbType, using connection string \a connect and table \a table
     void connect(const std::string& dbType, const std::string& connect, const std::string& table);
@@ -188,6 +195,8 @@ namespace ravelCAPI
     Database(Database&& x): db(x.db) {x.db=nullptr;}
     Database& operator=(Database&& x) {db=x.db; x.db=nullptr; return *this;}
     operator bool() const {return db;}
+
+    DatabaseConnection connection() const {return m_connection;}
     
     /// create the table, dropping any previous, using the CSV \a filename and \a spec as template 
     void createTable(const std::string& filename, const DataSpec& spec);
