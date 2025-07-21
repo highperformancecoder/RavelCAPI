@@ -268,6 +268,7 @@ namespace
   DEFFN(ravel_close,void,CAPIRavelDatabase*);
   DEFFN(ravel_createTable,bool,CAPIRavelDatabase*,const char*,const CAPIRavelDataSpec*);
   DEFFN(ravel_loadDatabase,bool,CAPIRavelDatabase*,const char**,const CAPIRavelDataSpec*);
+  DEFFN(ravel_loadDatabaseCallback,void,CAPIRavelDatabase*,void(*)(const char*,double));
   DEFFN(ravel_deduplicate,void,CAPIRavelDatabase*, CAPIRavelDuplicateKey,const CAPIRavelDataSpec*);
   DEFFN(ravel_dbTableNames, const char**, CAPIRavelDatabase*, size_t*);
   DEFFN(ravel_dbNumericalColumnNames, const char**, CAPIRavelDatabase*, size_t*);
@@ -480,6 +481,9 @@ namespace ravelCAPI
        throw std::runtime_error(ravel_lastErr());
   }
 
+  void Database::loadDatabaseCallback(void(*progress)(const char* filename,double fraction))
+  {ravel_loadDatabaseCallback(db,progress);}
+  
   void Database::deduplicate(DuplicateKeyAction::Type duplicateKeyAction, const DataSpec& spec)
   {
     RavelDataSpec s(spec);

@@ -209,6 +209,12 @@ extern "C" {
   /// Duplicate records are not detected in this call - a later call to clean up duplicates must be done later
   BOOL ravel_loadDatabase(CAPIRavelDatabase* db, const char** filenames, const CAPIRavelDataSpec* spec) NOEXCEPT;
 
+  /// Supply a callback to monitor progress of ravel_loadDatabase
+  /// @param filename - file being processed
+  /// @param fraction - fraction of file processed [0,1]
+  /// Can be null, which disables callback
+  void ravel_loadDatabaseCallback(CAPIRavelDatabase* db, void(*)(const char* filename,double fraction)) NOEXCEPT;
+  
   /// de-duplicate records according to the value of \a duplicateKeyAction
   void ravel_deduplicate(CAPIRavelDatabase* db, enum CAPIRavelDuplicateKey duplicateKeyAction, const CAPIRavelDataSpec* spec) NOEXCEPT;
 
