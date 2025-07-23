@@ -23,6 +23,8 @@ namespace ravelCAPI
   using namespace ravel;
   /// true if ravel is available on the system
   bool available();
+  /// returns true if this is a RavelPro build.
+  bool ravelPro();
   /// returns last ravel error message
   std::string lastError();
   /// ravel version (if successfully loaded)
@@ -45,6 +47,8 @@ namespace ravelCAPI
     operator bool() const {return ravel;}
     /// true if ravel is available on the system
     static bool available() {return ravelCAPI::available();}
+    /// returns true if this is a RavelPro build.
+    static bool ravelPro() {return ravelCAPI::ravelPro();}
     /// returns last ravel error message
     static std::string lastError() {return ravelCAPI::lastError();}
     /// ravel version (if successfully loaded)

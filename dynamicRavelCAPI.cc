@@ -212,6 +212,7 @@ namespace
     
   DEFFN(ravel_lastErr, const char*);
   DEFFN(ravel_version, const char*);
+  DEFFN(ravel_pro, bool);
   DEFFN(ravel_days_until_expiry, int);
   DEFFN(ravel_new, CAPIRavel*,size_t);
   DEFFN(ravel_delete, void, CAPIRavel*);
@@ -281,6 +282,7 @@ namespace ravelCAPI
 {
 
   bool available() {return ravelLib.lib;}
+  bool ravelPro() {return ravel_pro();}
   std::string lastError() {return ravelLib.errorMsg;}
   std::string version() {return ravelLib.versionFound;}
   int daysUntilExpired() {return ravelLib.lib?  ravel_days_until_expiry(): -1;}

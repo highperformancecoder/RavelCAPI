@@ -36,7 +36,9 @@ extern "C" {
   const char* ravel_lastErr() NOEXCEPT;
   /// returns the release version of this library
   const char* ravel_version() NOEXCEPT;
-
+  /// returns true if this is a RavelPro build.
+  BOOL ravel_pro() NOEXCEPT;
+  
   /// create a new Ravel control widget
   CAPIRavel* ravel_new(size_t rank) NOEXCEPT;
   /// dispose of ravel created by ravel_new()
