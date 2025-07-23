@@ -47,8 +47,6 @@ namespace ravelCAPI
     operator bool() const {return ravel;}
     /// true if ravel is available on the system
     static bool available() {return ravelCAPI::available();}
-    /// returns true if this is a RavelPro build.
-    static bool ravelPro() {return ravelCAPI::ravelPro();}
     /// returns last ravel error message
     static std::string lastError() {return ravelCAPI::lastError();}
     /// ravel version (if successfully loaded)
@@ -201,7 +199,9 @@ namespace ravelCAPI
     operator bool() const {return db;}
 
     DatabaseConnection connection() const {return m_connection;}
-    
+    /// returns true if this is a RavelPro build.
+    static bool ravelPro() {return ravelCAPI::ravelPro();}
+
     /// create the table, dropping any previous, using the CSV \a filename and \a spec as template 
     void createTable(const std::string& filename, const DataSpec& spec);
     /// load the CSV \a filenames into table using spec. Filenames + spec must match the table structure.
