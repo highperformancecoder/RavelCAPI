@@ -176,7 +176,7 @@ namespace ravelCAPI
     std::string connection; ///< connection string to database
     std::string table;      ///< table to use
   };
-  
+
   class Database
   {
     CAPIRavelDatabase* db=nullptr;
@@ -202,11 +202,14 @@ namespace ravelCAPI
     void createTable(const std::string& filename, const DataSpec& spec);
     /// load the CSV \a filenames into table using spec. Filenames + spec must match the table structure.
     void loadDatabase(const std::vector<std::string>& filenames, const DataSpec& spec);
-    /// Supply a callback to monitor progress of ravel_loadDatabase
+
+    /// Progress callback signature.
     /// @param filename - file being processed
     /// @param fraction - fraction of file processed [0,1]
+    using LoadDatabaseCallback=void(*)(const char* filename,double fraction);
+    /// Supply a callback to monitor progress of ravel_loadDatabase
     /// Can be null, which disables callback
-    void loadDatabaseCallback(void(*)(const char* filename,double fraction));
+    void loadDatabaseCallback(ravelCAPI::Database::LoadDatabaseCallback);
     
     /// Remove duplicate records according to the axes described by \a spec.
     /// @param duplicateKeyAction describes how to resolve duplicate records.
