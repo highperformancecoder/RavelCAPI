@@ -515,7 +515,7 @@ namespace ravelCAPI
   }
 
   
-  void Database::setAxisNames(const std::set<std::string>& axisNames, const std::string& horizontaDimension)
+  void Database::setAxisNames(const std::vector<std::string>& axisNames, const std::string& horizontaDimension)
   {
     vector<const char*> aNames;
     for (auto& i: axisNames) aNames.push_back(i.c_str());

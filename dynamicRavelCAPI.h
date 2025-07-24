@@ -227,7 +227,7 @@ namespace ravelCAPI
     std::vector<std::string> numericalColumnNames() const;
     /// set axis names, including the horizontal dimension
     /// Note the names here need only refer to value dimensions - string and time dimensions are automatically considered axes.
-    void setAxisNames(const std::set<std::string>& axisNames, const std::string& horizontaDimension="?");
+    void setAxisNames(const std::vector<std::string>& axisNames, const std::string& horizontalDimension="?");
     /// Set the Ravel to the full hypercube describing the database
     void fullHypercube(Ravel&);
     /// Extract the datacube corresponding to the state of the ravel applied to the database
