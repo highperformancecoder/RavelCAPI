@@ -41,24 +41,33 @@ namespace
   typedef void* libHandle;
   libHandle loadLibrary(const string& lib)
   {
-    // get ravel plugin from special place
-    if (auto home=getenv("HOME"))
-      if (auto handle=dlopen((string(home)+"/.ravel/"+lib+".so").c_str(),RTLD_NOW))
-        return handle;
     return dlopen((lib+".so").c_str(),RTLD_NOW);
   }
 #endif
   
   struct RavelLib
   {
-    libHandle lib;
+    libHandle lib=nullptr;
     string errorMsg;
     string versionFound="unavailable";
-    RavelLib(): lib(loadLibrary("libravel"))
+    RavelLib()
     {
+#ifndef WIN32
+      // get ravel plugin from special place
+      if (auto home=getenv("HOME"))
+        if (!(lib=loadLibrary(string(home)+"/.ravel/libravel")))
+          {
+            errorMsg=dlerror();
+            errorMsg+=" & ";
+            lib=loadLibrary("libravel");
+          }
+#else
+      lib=loadLibrary("libravel");
+#endif
+      
       if (!lib)
         {
-          errorMsg=dlerror();
+          errorMsg+=dlerror();
           return;
         }
       
