@@ -115,109 +115,109 @@ namespace
   struct RavelFn<R>
   {
     R (*f)()=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    R operator()() {return f? f(): R();}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    R operator()() {return ravelLib.lib&&f? f(): R();}
   };
   template <>
   struct RavelFn<void>
   {
     void (*f)()=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    void operator()() {if (f) f();}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    void operator()() {if (ravelLib.lib&&f) f();}
   };
   template <>
   struct RavelFn<const char*>
   {
     const char* (*f)()=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    const char* operator()() {return f? f(): "";}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    const char* operator()() {return ravelLib.lib&&f? f(): "";}
   };
   template <class R, class A>
   struct RavelFn<R,A>
   {
     R (*f)(A)=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    R operator()(A a) {return f? f(a): R{};}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    R operator()(A a) {return ravelLib.lib&&f? f(a): R{};}
   };
   template <class A>
   struct RavelFn<const char*,A>
   {
     const char* (*f)(A)=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    const char* operator()(A a) {return f? f(a): "";}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    const char* operator()(A a) {return ravelLib.lib&&f? f(a): "";}
   };
   template <class A>
   struct RavelFn<void,A>
   {
     void (*f)(A)=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    void operator()(A a) {if (f) f(a);}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    void operator()(A a) {if (ravelLib.lib&&f) f(a);}
   };
   template <class R, class A0, class A1>
   struct RavelFn<R,A0,A1>
   {
     R (*f)(A0,A1)=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    R operator()(A0 a0, A1 a1) {return f? f(a0,a1): R{};}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    R operator()(A0 a0, A1 a1) {return ravelLib.lib&&f? f(a0,a1): R{};}
   };
   template <class A0, class A1>
   struct RavelFn<const char*,A0,A1>
   {
     const char* (*f)(A0,A1)=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    const char* operator()(A0 a0, A1 a1) {return f? f(a0,a1): "";}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    const char* operator()(A0 a0, A1 a1) {return ravelLib.lib&&f? f(a0,a1): "";}
   };
   template <class A0, class A1>
   struct RavelFn<void,A0,A1>
   {
     void (*f)(A0,A1)=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    void operator()(A0 a0, A1 a1) {if (f) f(a0,a1);}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    void operator()(A0 a0, A1 a1) {if (ravelLib.lib&&f) f(a0,a1);}
   };
   template <class R, class A0, class A1, class A2>
   struct RavelFn<R,A0,A1,A2>
   {
     R (*f)(A0,A1,A2)=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    R operator()(A0 a0, A1 a1,A2 a2) {return f? f(a0,a1,a2): R{};}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    R operator()(A0 a0, A1 a1,A2 a2) {return ravelLib.lib&&f? f(a0,a1,a2): R{};}
   };
   template <class A0, class A1, class A2>
   struct RavelFn<const char*,A0,A1,A2>
   {
     const char* (*f)(A0,A1,A2)=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    const char* operator()(A0 a0, A1 a1,A2 a2) {return f? f(a0,a1,a2): "";}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    const char* operator()(A0 a0, A1 a1,A2 a2) {return ravelLib.lib&&f? f(a0,a1,a2): "";}
   };
   template <class A0, class A1, class A2>
   struct RavelFn<void,A0,A1,A2>
   {
     void (*f)(A0,A1,A2)=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    void operator()(A0 a0, A1 a1, A2 a2) {if (f) f(a0,a1,a2);}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    void operator()(A0 a0, A1 a1, A2 a2) {if (ravelLib.lib&&f) f(a0,a1,a2);}
   };
   template <class R, class A0, class A1, class A2, class A3>
   struct RavelFn<R,A0,A1,A2,A3>
   {
     R (*f)(A0,A1,A2,A3)=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    R operator()(A0 a0, A1 a1,A2 a2,A3 a3) {return f? f(a0,a1,a2,a3): R{};}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    R operator()(A0 a0, A1 a1,A2 a2,A3 a3) {return ravelLib.lib&&f? f(a0,a1,a2,a3): R{};}
   };
   template <class A0, class A1, class A2,class A3>
   struct RavelFn<void,A0,A1,A2,A3>
   {
     void (*f)(A0,A1,A2,A3)=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    void operator()(A0 a0, A1 a1, A2 a2,A3 a3) {if (f) f(a0,a1,a2,a3);}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    void operator()(A0 a0, A1 a1, A2 a2,A3 a3) {if (ravelLib.lib&&f) f(a0,a1,a2,a3);}
   };
   template <class A0, class A1, class A2,class A3,class A4>
   struct RavelFn<void,A0,A1,A2,A3,A4>
   {
     void (*f)(A0,A1,A2,A3,A4)=nullptr;
-    RavelFn(const char*name, libHandle lib) {ravelLib.asgFnPointer(f,name);}
-    void operator()(A0 a0, A1 a1, A2 a2,A3 a3,A4 a4) {if (f) f(a0,a1,a2,a3,a4);}
+    RavelFn(const char*name) {ravelLib.asgFnPointer(f,name);}
+    void operator()(A0 a0, A1 a1, A2 a2,A3 a3,A4 a4) {if (ravelLib.lib&&f) f(a0,a1,a2,a3,a4);}
   };
    
-#define DEFFN(f,...) RavelFn<__VA_ARGS__> f(#f,ravelLib.lib);
+#define DEFFN(f,...) RavelFn<__VA_ARGS__> f(#f);
     
   DEFFN(ravel_lastErr, const char*);
   DEFFN(ravel_version, const char*);
