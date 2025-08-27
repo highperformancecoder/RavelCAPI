@@ -190,6 +190,10 @@ extern "C" {
   /// @return database object. NULL is returned in case of error. Error message can be retrieved by ravel_lastErr()
   CAPIRavelDatabase* ravel_connect(const char* dbType, const char* connect, const char* table) NOEXCEPT;
 
+  /// returns list of available backends (to be passed as the \a dbType parameter in \a ravel_connect
+  /// @param size - number of backend names returned
+  const char** ravel_dbBackends(size_t* size) NOEXCEPT;
+  
   /// Return all available table names in db. You can pass the empty
   /// string to \a table in ravel_connect, and then call connect again
   /// to reconnect with a new table. Size of the array of strings

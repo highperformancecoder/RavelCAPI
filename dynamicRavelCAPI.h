@@ -187,6 +187,7 @@ namespace ravelCAPI
     CLASSDESC_ACCESS(Database);
     DatabaseConnection m_connection;
   public:
+    static std::vector<std::string> backends();
     /// connect to database of type \a dbType, using connection string \a connect and table \a table
     void connect(const std::string& dbType, const std::string& connect, const std::string& table);
     void close(); ///< close the database

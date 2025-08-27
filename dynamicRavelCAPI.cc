@@ -275,6 +275,7 @@ namespace
   DEFFN(ravel_hyperSlice,CAPITensor*, CAPIRavel*, const CAPITensor*);
   DEFFN(ravel_populateFromHypercube,int, CAPIRavel*, const char*);
   DEFFN(ravel_connect,CAPIRavelDatabase*, const char*, const char*, const char*);
+  DEFFN(ravel_dbBackends,const char**,size_t*);
   DEFFN(ravel_close,void,CAPIRavelDatabase*);
   DEFFN(ravel_createTable,bool,CAPIRavelDatabase*,const char*,const CAPIRavelDataSpec*);
   DEFFN(ravel_loadDatabase,bool,CAPIRavelDatabase*,const char**,const CAPIRavelDataSpec*);
@@ -462,6 +463,13 @@ namespace ravelCAPI
   {
     if (!ravel_populateFromHypercube(ravel, hc.json().c_str()))
       throw std::runtime_error(ravel_lastErr());
+  }
+
+  vector<string> Database::backends()
+  {
+    size_t numBackends;
+    auto backends=ravel_dbBackends(&numBackends);
+    return vector<string>(backends, backends+numBackends);
   }
 
   void Database::connect(const string& dbType, const string& connect, const string& table)
