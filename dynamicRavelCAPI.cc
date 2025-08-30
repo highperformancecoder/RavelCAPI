@@ -284,7 +284,7 @@ namespace
   DEFFN(ravel_dbTableNames, const char**, CAPIRavelDatabase*, size_t*);
   DEFFN(ravel_dbNumericalColumnNames, const char**, CAPIRavelDatabase*, size_t*);
   DEFFN(ravel_setAxisNames,void,CAPIRavelDatabase*, const char**, size_t, const char*);
-  DEFFN(ravel_dbFullHypercube,void,CAPIRavel*, CAPIRavelDatabase*);
+  DEFFN(ravel_dbFullHypercube,bool,CAPIRavel*, CAPIRavelDatabase*);
   DEFFN(ravel_dbHyperSlice,const CAPITensor*,CAPIRavel*, CAPIRavelDatabase*);
 }
 
@@ -541,7 +541,8 @@ namespace ravelCAPI
   
     void Database::fullHypercube(Ravel& ravel)
     {
-      ravel_dbFullHypercube(ravel.ravel, db);
+      if (!ravel_dbFullHypercube(ravel.ravel, db))
+        throw std::runtime_error(ravel_lastErr());
     }
   
     /// Extract the datacube corresponding to the state of the ravel applied to the database

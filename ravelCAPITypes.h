@@ -6,7 +6,7 @@
 #ifndef RAVELCAPITYPES_H
 #define RAVELCAPITYPES_H
 
-#define RAVEL_CAPI_VERSION 10
+#define RAVEL_CAPI_VERSION 11
 
 
 #ifdef __cplusplus

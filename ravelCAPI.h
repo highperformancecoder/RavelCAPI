@@ -236,8 +236,9 @@ extern "C" {
   void ravel_setAxisNames(CAPIRavelDatabase* db, const char** axisNames, size_t numAxisNames, const char* horizontalDimension) NOEXCEPT;
   
   /// Initialises \a ravel with the full hypercube extracted from the database
-  /// On error, ravel is left unchanged
-  void ravel_dbFullHypercube(CAPIRavel* ravel, CAPIRavelDatabase* db) NOEXCEPT;
+  /// On error, ravel is left unchanged,
+  /// @return true is successful, otherwise false. lastErr is set with error message
+  BOOL ravel_dbFullHypercube(CAPIRavel* ravel, CAPIRavelDatabase* db) NOEXCEPT;
   
   /// Return a tensor expression representing the application of this ravel on \a db
   /// Validity of returned object is until next call of \a ravel_hyperSlice, ravel_dbHyperslice, or the lifetime of \a ravel or db
