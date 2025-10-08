@@ -61,6 +61,10 @@ namespace ravel
     std::string minLabel, maxLabel, sliceLabel;
     HandleState() {}
     HandleState(const CAPIRavelHandleState& state);
+#if defined(__cplusplus) && __cplusplus >= 202002L
+    auto operator<=>(const HandleState&) const = default;
+    bool operator==(const HandleState&) const = default;
+#endif
   };
 
   /// represents the full Ravel state
@@ -77,6 +81,10 @@ namespace ravel
       handleStates.clear();
       outputHandles.clear();
     }
+#if defined(__cplusplus) && __cplusplus >= 202002L
+    auto operator<=>(const RavelState&) const = default;
+    bool operator==(const RavelState&) const = default;
+#endif
   };
 
   struct DuplicateKeyAction
