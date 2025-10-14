@@ -46,7 +46,7 @@ endif
 endif
 
 FLAGS+=-Icivita
-CXXFLAGS=-std=c++11
+CXXFLAGS=-std=c++17 -ObjC++ 
 
 VPATH=civita
 

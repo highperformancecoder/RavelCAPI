@@ -12,6 +12,9 @@
 #include <dlfcn.h>
 #endif
 
+#undef BOOL
+#include <Foundation/Foundation.h>
+
 #include <stdexcept>
 using namespace std;
 
@@ -52,18 +55,9 @@ namespace
     string versionFound="unavailable";
     RavelLib()
     {
-#ifndef WIN32
-      // get ravel plugin from special place
-      if (auto home=getenv("HOME"))
-        if (!(lib=loadLibrary(string(home)+"/.ravel/libravel")))
-          {
-            errorMsg=dlerror();
-            errorMsg+=" & ";
-            lib=loadLibrary("libravel");
-          }
-#else
-      lib=loadLibrary("libravel");
-#endif
+      // Conway special, bundled unlimited license Ravel.
+      auto resourcePath=[[NSBundle mainBundle] resourcePath];
+      lib=loadLibrary(string([resourcePath UTF8String])+"/build/libravel");
       
       if (!lib)
         {
