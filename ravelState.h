@@ -62,7 +62,9 @@ namespace ravel
     HandleState() {}
     HandleState(const CAPIRavelHandleState& state);
 #if defined(__cplusplus) && __cplusplus >= 202002L
+#ifndef __APPLE__
     auto operator<=>(const HandleState&) const = default;
+#endif
     bool operator==(const HandleState&) const = default;
 #endif
   };
@@ -82,7 +84,9 @@ namespace ravel
       outputHandles.clear();
     }
 #if defined(__cplusplus) && __cplusplus >= 202002L
+#ifndef __APPLE__
     auto operator<=>(const RavelState&) const = default;
+#endif
     bool operator==(const RavelState&) const = default;
 #endif
   };
