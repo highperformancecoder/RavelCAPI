@@ -322,154 +322,154 @@ namespace ravelCAPI
   }
   void Ravel::cancel(bool x) {ravel_cancel(x);}
   void Ravel::render(CAPIRenderer& renderer) const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     ravel_render(ravel, &renderer);
   }
   void Ravel::onMouseDown(double x, double y) {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_onMouseDown(ravel,x,y);
   }
   void Ravel::onMouseUp(double x,double y) {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_onMouseUp(ravel,x,y);
   }
   bool Ravel::onMouseMotion(double x,double y) {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     return ravel_onMouseMotion(ravel,x,y);
   }
   bool Ravel::onMouseOver(double x,double y) {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     return ravel_onMouseOver(ravel,x,y);
   }
   void Ravel::onMouseLeave() {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     return ravel_onMouseLeave(ravel);
   }
   void Ravel::rescale(double radius) {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_rescale(ravel,radius);
   }
   double Ravel::radius() const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     return ravel? ravel_radius(ravel): ravelDefaultRadius;
   }
   size_t Ravel::rank() const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     return ravel_rank(ravel);
   }
   std::string Ravel::description() const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     return ravel_description(ravel);
   }
   void Ravel::setExplain(const std::string& explain, double x, double y)
   {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_setExplain(ravel,explain.c_str(), x,y);
   }
   void Ravel::resetExplain() {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_resetExplain(ravel);
   }
   std::string Ravel::explain(double x, double y) {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     return ravel_explain(ravel,x,y);
   }
   
   std::vector<size_t> Ravel::outputHandleIds() const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     std::vector<size_t> ids(ravel_rank(ravel));
     ravel_outputHandleIds(ravel, ids.data());
     return ids;
   }
   void Ravel::setOutputHandleIds(const std::vector<size_t>& ids) {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_setOutputHandleIds(ravel, ids.size(), ids.data());
   }
   unsigned Ravel::numHandles() const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     return ravel_numHandles(ravel);
   }
   int Ravel::selectedHandle() const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     return ravel_selectedHandle(ravel);
   }
   std::string Ravel::handleDescription(int handle) const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     return ravel_handleDescription(ravel,handle);
   }
   void Ravel::setHandleDescription(int handle, const std::string& description) {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_setHandleDescription(ravel, handle, description.c_str());
   }
   size_t Ravel::numSliceLabels(size_t axis) const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     return ravel_numSliceLabels(ravel, axis);
   }
   std::vector<std::string> Ravel::sliceLabels(size_t axis) const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     std::vector<const char*> tmp(numSliceLabels(axis));
     ravel_sliceLabels(ravel,axis,tmp.data());
     return std::vector<std::string>(tmp.begin(), tmp.end());
   }
   size_t Ravel::numAllSliceLabels(size_t axis) const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     return ravel_numAllSliceLabels(ravel, axis);
   }
   std::vector<std::string> Ravel::allSliceLabels(size_t axis, HandleSort::Order order) const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     std::vector<const char*> tmp(numAllSliceLabels(axis));
     ravel_allSliceLabels(ravel,axis,toEnum<RavelOrder>(order),tmp.data());
     return std::vector<std::string>(tmp.begin(), tmp.end());
   }
   void Ravel::displayFilterCaliper(size_t axis, bool display)
   {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_displayFilterCaliper(ravel,axis,display);
   }
   void Ravel::setSlicer(size_t axis, const std::string& sliceLabel)
   {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_setSlicer(ravel,axis,sliceLabel.c_str());
   }
   void Ravel::setCalipers(size_t axis, const std::string& l1, const std::string& l2)
   {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_setCalipers(ravel,axis,l1.c_str(),l2.c_str());
   }
   std::pair<size_t,size_t> Ravel::getCaliperPositions(size_t axis)
   {
     std::pair<size_t,size_t> r;
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_getCaliperPositions(ravel,axis,&r.first,&r.second);
     return r;
   }
   void Ravel::setCaliperPositions(size_t axis, size_t p1, size_t p2)
   {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_setCaliperPositions(ravel,axis,p1,p2);
   }
 
   void Ravel::orderLabels(size_t axis, HandleSort::Order order){
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_orderLabels(ravel,axis,toEnum<RavelOrder>(order));
   }
   void Ravel::nextReduction(Op::ReductionOp op)
   {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_nextReduction(ravel,toEnum<RavelReductionOp>(op));
   }
   void Ravel::handleSetReduction(int handle, Op::ReductionOp op)
   {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_handleSetReduction(ravel,handle,toEnum<RavelReductionOp>(op));
   }
   void Ravel::applyCustomPermutation(size_t axis, const std::vector<size_t>& indices)
   {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_applyCustomPermutation(ravel,axis,indices.size(), indices.data());
   }
   std::vector<size_t> Ravel::currentPermutation(size_t axis) const {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     std::vector<size_t> r(numSliceLabels(axis));
     ravel_currentPermutation(ravel, axis, r.size(), r.data());
     return r;
@@ -478,20 +478,20 @@ namespace ravelCAPI
   void Ravel::addHandle(const std::string& description, const std::vector<std::string>& sliceLabels) {
     std::vector<const char*> sl;
     for (auto& i: sliceLabels) sl.push_back(i.c_str());
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_addHandle(ravel, description.c_str(), sl.size(), sl.data());
   }
   
   std::string Ravel::toXML() const {return ravel_toXML(ravel);}
   void Ravel::fromXML(const std::string& xml) {
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     if (!ravel_fromXML(ravel, xml.c_str())) throw std::runtime_error(ravel_lastErr());
   }
   HandleState Ravel::getHandleState(size_t handle) const
   {
     if (ravel)
       {
-        shared_lock lock(updateMutex);
+        shared_lock<shared_mutex> lock(updateMutex);
         return *ravel_getHandleState(ravel, handle);
       }
     return {};
@@ -499,37 +499,37 @@ namespace ravelCAPI
   void Ravel::setHandleState(size_t handle, const HandleState& handleState)
   {
     RavelHandleStateX hs(handleState);
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_setHandleState(ravel, handle, &hs);
   }
   RavelState Ravel::getRavelState() const
   {
     if (ravel)
       {
-        shared_lock lock(updateMutex);
+        shared_lock<shared_mutex> lock(updateMutex);
         return *ravel_getRavelState(ravel);
       }
     return {};
   }
   void Ravel::setRavelState(const RavelState& rState) {
     RavelStateX cState(rState);
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_setRavelState(ravel, &cState);
   }
   void Ravel::adjustSlicer(int n) {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_adjustSlicer(ravel,n);
   }
 
   void Ravel::redistributeHandles() {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_redistributeHandles(ravel);
   }
 
   void Ravel::sortByValue(const civita::TensorPtr& input, HandleSort::Order dir)
   {
     ravel::CAPITensor capiTensor(*input);
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_sortByValue(ravel, &capiTensor, toEnum<RavelOrder>(dir));
   }
 
@@ -550,7 +550,7 @@ namespace ravelCAPI
   {
     if (!arg) return nullptr;
     std::unique_ptr<ravel::CAPITensor> capiTensor(new ravel::CAPITensor(*arg));
-    shared_lock lock(updateMutex);
+    shared_lock<shared_mutex> lock(updateMutex);
     auto r=ravel_hyperSlice(ravel, capiTensor.get());
     if (!r) throw std::runtime_error(ravel_lastErr());
     return make_shared<Chain>(*r,arg,std::move(capiTensor));
@@ -559,7 +559,7 @@ namespace ravelCAPI
   /// sets handles and slices from \a hc
   void Ravel::populateFromHypercube(const civita::Hypercube& hc)
   {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     if (!ravel_populateFromHypercube(ravel, hc.json().c_str()))
       throw std::runtime_error(ravel_lastErr());
   }
@@ -574,14 +574,14 @@ namespace ravelCAPI
   void Database::connect(const string& dbType, const string& connect, const string& table)
   {
     close();
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     if (!(db=ravel_connect(dbType.c_str(),connect.c_str(),table.c_str())))
       throw runtime_error(ravel_lastErr());
     m_connection={dbType,connect,table};
   }
 
   void Database::close() {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_close(db);
     m_connection={};
     db=nullptr;
@@ -590,7 +590,7 @@ namespace ravelCAPI
   void Database::createTable(const string& filename, const DataSpec& spec)
   {
     RavelDataSpec s(spec);
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     if (!ravel_createTable(db,filename.c_str(),&s))
        throw std::runtime_error(ravel_lastErr());
   }
@@ -602,21 +602,21 @@ namespace ravelCAPI
     vector<const char*> f;
     for (auto& i: filenames) f.push_back(i.c_str());
     f.push_back(nullptr);
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     if (!ravel_loadDatabase(db,&f[0],&s))
        throw std::runtime_error(ravel_lastErr());
   }
 
   void Database::loadDatabaseCallback(void(*progress)(const char* filename,double fraction))
   {
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_loadDatabaseCallback(db,progress);
   }
   
   void Database::deduplicate(DuplicateKeyAction::Type duplicateKeyAction, const DataSpec& spec)
   {
     RavelDataSpec s(spec);
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_deduplicate(db,toEnum<CAPIRavelDuplicateKey>(duplicateKeyAction),&s);
   }
   
@@ -625,7 +625,7 @@ namespace ravelCAPI
     if (db)
       {
         size_t numTables;
-        shared_lock lock(updateMutex);
+        shared_lock<shared_mutex> lock(updateMutex);
         auto tn=ravel_dbTableNames(db,&numTables);
         return vector<string>(tn,tn+numTables);
       }
@@ -637,7 +637,7 @@ namespace ravelCAPI
     if (db)
       {
         size_t size;
-        shared_lock lock(updateMutex);
+        shared_lock<shared_mutex> lock(updateMutex);
         auto names=ravel_dbNumericalColumnNames(db,&size);
         return vector<string>(names,names+size);
       }
@@ -649,13 +649,13 @@ namespace ravelCAPI
   {
     vector<const char*> aNames;
     for (auto& i: axisNames) aNames.push_back(i.c_str());
-    lock_guard lock(updateMutex);
+    lock_guard<shared_mutex> lock(updateMutex);
     ravel_setAxisNames(db,aNames.data(),aNames.size(),horizontaDimension.c_str());
   }
   
     void Database::fullHypercube(Ravel& ravel)
     {
-      lock_guard lock(updateMutex);
+      lock_guard<shared_mutex> lock(updateMutex);
       if (!ravel_dbFullHypercube(ravel.ravel, db))
         throw std::runtime_error(ravel_lastErr());
     }
@@ -663,7 +663,7 @@ namespace ravelCAPI
     /// Extract the datacube corresponding to the state of the ravel applied to the database
     civita::TensorPtr Database::hyperSlice(const Ravel& ravel)
     {
-      shared_lock lock(updateMutex);
+      shared_lock<shared_mutex> lock(updateMutex);
       if (auto r=ravel_dbHyperSlice(ravel.ravel, db))
         return make_shared<TensorWrap>(*r);
       throw std::runtime_error(ravel_lastErr());
