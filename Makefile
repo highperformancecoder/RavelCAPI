@@ -34,7 +34,12 @@ FLAGS=-fPIC -isystem /usr/local/include -isystem /opt/local/include
 endif   #ifdef MXE
 
 RAVELRELEASE=$(shell git describe)
-MAKEOVERRIDES=FPIC=1 CPLUSPLUS="$(CXX)" GCOV=$(GCOV) CLASSDESC=$(CLASSDESC) EXTRA_FLAGS="$(EXTRA_FLAGS)" DEBUG=$(DEBUG)
+export FPIC=1
+export CPLUSPLUS
+export CLASSDESC
+export EXTRA_FLAGS
+export DEBUG
+#MAKEOVERRIDES=FPIC=1 CPLUSPLUS="$(CXX)" GCOV=$(GCOV) CLASSDESC=$(CLASSDESC) EXTRA_FLAGS="$(EXTRA_FLAGS)" DEBUG=$(DEBUG)
 
 ifneq ($(MAKECMDGOALS),clean)
 $(warning $(MAKE) $(JOBS) $(MAKEOVERRIDES))
