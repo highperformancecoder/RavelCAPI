@@ -8,6 +8,7 @@
 
 #include "ravelState.h"
 #include "hypercube.h"
+#include <shared_mutex>
 struct CAPIRavel;
 struct CAPIRavelDatabase;
 struct CAPIRenderer;
@@ -40,6 +41,8 @@ namespace ravelCAPI
     Ravel(const Ravel&)=delete;
     void operator=(const Ravel&)=delete;
     friend class Database;
+    /// manage thread safety on this object
+    mutable std::shared_mutex updateMutex;
   public:
     Ravel();
     ~Ravel();
@@ -186,6 +189,8 @@ namespace ravelCAPI
     void operator=(const Database&)=delete;
     CLASSDESC_ACCESS(Database);
     DatabaseConnection m_connection;
+    /// manage thread safety on this object
+    mutable std::shared_mutex updateMutex;
   public:
     static std::vector<std::string> backends();
     /// connect to database of type \a dbType, using connection string \a connect and table \a table
